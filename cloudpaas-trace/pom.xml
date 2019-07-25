@@ -69,17 +69,24 @@
 		<dependency>
 			<groupId>org.jboss.xnio</groupId>
 			<artifactId>xnio-api</artifactId>
-			<version>3.3.8.Final</version>
+			<version>3.3.0.Final</version>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging -->
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 
 	</dependencies>
 
