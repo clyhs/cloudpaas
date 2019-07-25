@@ -1,0 +1,48 @@
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  security:
+    enabled: false
+
+
+server:
+  port: 8100
+  
+spring:
+  application:
+    name: cpaas-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lowerCaseServiceId: true
+      routes:
+      - id: cpaas-admin
+        uri: lb:/CPAAS-ADMIN
+        predicates:
+          - Path=/admin/**
+        filters:
+          - StripPrefix=1
+          - RequestTime=true
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8901"
+        password: password
+        username: user
+        instance:
+          prefer-ip: true
+
+

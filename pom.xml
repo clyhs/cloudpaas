@@ -18,19 +18,23 @@
 		<relativePath />
 	</parent>
 
+	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
 	</properties>
-	
-	<modules>
-		<module>cloudpaas-regcenter</module>
-		<module>cloudpaas-common</module>
-		<module>cloudpaas-monitor</module>
-	</modules>
-	
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -42,14 +46,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
 
-	<dependencies>
-	</dependencies>
-	
-	
-	
-	
 	<build>
 		<plugins>
 			<plugin>
@@ -58,4 +55,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<modules>
+		<module>cloudpaas-regcenter</module>
+		<module>cloudpaas-gateway</module>
+		<module>cloudpaas-common</module>
+		<module>cloudpaas-monitor</module>
+		<module>cloudpaas-admin</module>
+	</modules>
 </project>

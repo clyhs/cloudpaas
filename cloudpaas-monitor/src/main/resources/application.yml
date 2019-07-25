@@ -11,8 +11,6 @@ eureka:   #<1>
   instance:
     leaseRenewalIntervalInSeconds: 10
     health-check-url-path: /actuator/health #2.0后actuator的地址发生了变化
-    metadata-map:
-      startup: ${random.int}    #needed to trigger info and endpoint update after restart
   client:
     registryFetchIntervalSeconds: 5
     serviceUrl:
@@ -27,10 +25,10 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-
-# end::configuration-eureka[]
 server:
-  port: 8762
+  port: 8901
+# end::configuration-eureka[]
+
 ---
 spring:
   profiles: insecure
@@ -41,8 +39,8 @@ spring:
   profiles: secure
   security:
     user:
-      name: "admin"
-      password: "123456"
+      name: "user"
+      password: "password"
 
 # 注册给eureka的时候告诉eureka自己的密码
 eureka:
