@@ -30,7 +30,7 @@ spring:
           lowerCaseServiceId: true
       routes:
       - id: cpaas-admin
-        uri: lb:/CPAAS-ADMIN
+        uri: lb://CPAAS-ADMIN
         predicates:
           - Path=/admin/**
         filters:
