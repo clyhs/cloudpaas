@@ -28,6 +28,7 @@
 	<modules>
 		<module>cloudpaas-regcenter</module>
 		<module>cloudpaas-common</module>
+		<module>cloudpaas-monitor</module>
 	</modules>
 	
 	<dependencyManagement>
