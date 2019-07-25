@@ -44,5 +44,7 @@ spring:
         username: user
         instance:
           prefer-ip: true
+  zipkin:
+    base-url: http://localhost:8902
 
 
