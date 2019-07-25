@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @Api
 @RestController
-@RequestMapping("admin/user")
+@RequestMapping("user")
 public class UserController {
 
     @GetMapping("/lists")

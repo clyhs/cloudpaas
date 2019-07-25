@@ -35,7 +35,6 @@ spring:
           - Path=/admin/**
         filters:
           - StripPrefix=1
-          - RequestTime=true
   boot:
     admin:
       client:
