@@ -3,8 +3,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * api首页.
- **/
+ * 
+ * @author 大鱼
+ *
+ * @date 2019年7月26日 上午10:12:47
+ */
 @Controller
 public class HomeController {
     @GetMapping(value = {"/api", "/"})

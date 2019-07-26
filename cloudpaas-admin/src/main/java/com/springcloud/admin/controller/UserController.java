@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 提供用户信息查询API.
- **/
+ * 
+ * @author 大鱼
+ *
+ * @date 2019年7月26日 上午10:12:55
+ */
 @Api
 @RestController
 @RequestMapping("user")

@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cloudpaas.gateway.service.IHelloService;
 
-
-
-
+/**
+ * 
+ * @author 大鱼
+ *
+ * @date 2019年7月26日 上午10:13:35
+ */
 @RestController
 public class HelloController {
 	

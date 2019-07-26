@@ -8,9 +8,11 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 /**
- * 自动生成API文档配置.
+ * 
+ * @author 大鱼
+ *
+ * @date 2019年7月26日 上午10:13:09
  */
 @EnableSwagger2
 @Configuration
