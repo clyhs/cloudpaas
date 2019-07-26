@@ -1,10 +1,13 @@
 package com.cloudpaas.admin.controller;
+import com.cloudpaas.admin.dao.UserDao;
 import com.cloudpaas.admin.entity.User;
 import com.google.common.collect.Lists;
 
 import io.swagger.annotations.Api;
 import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,12 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("user")
 public class UserController {
 
+	@Autowired
+    private UserDao userDao;
+	
     @GetMapping("/lists")
     public List<User> lists() {
-    	List<User> users = Lists.newArrayList(
-    	        new User(4, "abigfish", 150, LocalDate.now()),
-    	        new User(6, "clyhs", 150, LocalDate.now())
-    	);
+    	List<User> users = userDao.selectListAll();
         return users;
     }
     

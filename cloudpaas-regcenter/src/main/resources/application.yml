@@ -1,6 +1,7 @@
 spring:
     application:
         name: cpaas-regcenter
+        title: regcenter
 
 server:
     port: 8761 #启动端口

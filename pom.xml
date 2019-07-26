@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.cpaas</groupId>
@@ -14,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.3.RELEASE</version>
-		<relativePath/>
+		<relativePath />
 	</parent>
 
 
@@ -38,6 +39,11 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.cpaas</groupId>
+				<artifactId>cloudpaas-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cpaas</groupId>
 				<artifactId>cloudpaas-admin</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -46,7 +52,7 @@
 				<artifactId>cloudpaas-service-pas</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -72,6 +78,6 @@
 		<module>cloudpaas-monitor</module>
 		<module>cloudpaas-admin</module>
 		<module>cloudpaas-service-pas</module>
-	    <module>cloudpaas-all</module>
-  </modules>
+		<module>cloudpaas-all</module>
+	</modules>
 </project>
