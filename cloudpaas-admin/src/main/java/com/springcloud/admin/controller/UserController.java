@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -24,5 +25,10 @@ public class UserController {
     	        new User(6, "clyhs", 150, LocalDate.now())
     	);
         return users;
+    }
+    
+    @GetMapping("/sayHello")
+    public String sayHello(@RequestParam String name){
+    	return "hi "+name+" ,nice to meet you !";
     }
 }

@@ -46,5 +46,24 @@ spring:
           prefer-ip: true
   zipkin:
     base-url: http://localhost:8902
+  sleuth:
+    enabled: true
+    http:
+      legacy:
+        enabled: true
+
+#请求和响应GZIP压缩支持
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: true
 
 

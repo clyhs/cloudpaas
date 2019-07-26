@@ -66,20 +66,23 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.jboss.xnio/xnio-api -->
+		<!--  
 		<dependency>
 			<groupId>org.jboss.xnio</groupId>
 			<artifactId>xnio-api</artifactId>
-			<version>3.3.1.Final</version>
+			<version>3.3.6.Final</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.jboss.xnio</groupId>
 			<artifactId>xnio-nio</artifactId>
-			<version>3.3.1.Final</version>
+			<version>3.3.6.Final</version>
 		</dependency>
+		-->
 
 
 		<!-- https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging -->
+		
 		<dependency>
 			<groupId>org.jboss.logging</groupId>
 			<artifactId>jboss-logging</artifactId>

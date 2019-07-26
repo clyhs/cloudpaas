@@ -33,3 +33,10 @@ spring:
         username: user
         instance:
           prefer-ip: true
+  zipkin:
+    base-url: http://localhost:8902
+  sleuth:
+    enabled: true
+    http:
+      legacy:
+        enabled: true

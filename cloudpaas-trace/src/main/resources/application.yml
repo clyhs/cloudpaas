@@ -8,7 +8,7 @@ spring:
     schema[0]: classpath:/zipkin.sql
     url: jdbc:mysql://localhost:3306/zipkin?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: root
-    password: 123456
+    password: root
     driver-class-name: com.mysql.jdbc.Driver
     initialize: true
     continue-on-error: true
