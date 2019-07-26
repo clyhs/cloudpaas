@@ -25,10 +25,7 @@
 			<groupId>com.cpaas</groupId>
 			<artifactId>cloudpaas-service-pas</artifactId>
 			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-security</artifactId>
-				</exclusion>
+				
 				<exclusion>
 					<groupId>org.springframework.cloud</groupId>
 					<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -52,10 +49,7 @@
 			<artifactId>cloudpaas-admin</artifactId>
 
 			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-security</artifactId>
-				</exclusion>
+				
 				<exclusion>
 					<groupId>org.springframework.cloud</groupId>
 					<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
