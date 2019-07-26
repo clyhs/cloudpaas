@@ -60,5 +60,6 @@
 		<module>cloudpaas-common</module>
 		<module>cloudpaas-monitor</module>
 		<module>cloudpaas-admin</module>
+    <module>cloudpaas-service-pas</module>
   </modules>
 </project>

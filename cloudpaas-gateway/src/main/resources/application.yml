@@ -34,8 +34,16 @@ spring:
       routes:
       - id: cpaas-admin
         uri: lb://CPAAS-ADMIN
+        order: 8000
         predicates:
           - Path=/admin/**
+        filters:
+          - StripPrefix=1
+      - id: cpaas-service-pas
+        uri: lb://CPAAS-SERVICE-PAS
+        order: 8001
+        predicates:
+          - Path=/pas/**
         filters:
           - StripPrefix=1
   boot:         #添加到springbootadmin服务治理

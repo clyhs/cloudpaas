@@ -1,0 +1,43 @@
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+
+# 打开健康检查，2.0开始，actuator默认不开放，所以要设置为开发
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+server:
+  port: 8102
+
+spring:
+  application:
+    name: cpaas-service-pas
+  boot:          #添加到springbootadmin服务治理
+    admin:
+      client:
+        url: "http://localhost:8901"
+        password: password
+        username: user
+        instance:
+          prefer-ip: true
+  zipkin:        #添加到链路追踪
+    base-url: http://localhost:8902
+  sleuth:        #打开日志收集
+    enabled: true
+    http:
+      legacy:
+        enabled: true
