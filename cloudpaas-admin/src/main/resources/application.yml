@@ -7,6 +7,7 @@ eureka:
     serviceUrl:
       defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
 
+# 打开健康检查，2.0开始，actuator默认不开放，所以要设置为开发
 management:
   endpoints:
     web:
@@ -25,7 +26,7 @@ server:
 spring:
   application:
     name: cpaas-admin
-  boot:
+  boot:          #添加到springbootadmin服务治理
     admin:
       client:
         url: "http://localhost:8901"
@@ -33,9 +34,9 @@ spring:
         username: user
         instance:
           prefer-ip: true
-  zipkin:
+  zipkin:        #添加到链路追踪
     base-url: http://localhost:8902
-  sleuth:
+  sleuth:        #打开日志收集
     enabled: true
     http:
       legacy:
