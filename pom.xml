@@ -17,7 +17,7 @@
 		<relativePath/>
 	</parent>
 
-	
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,6 +36,17 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.cpaas</groupId>
+				<artifactId>cloudpaas-admin</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cpaas</groupId>
+				<artifactId>cloudpaas-service-pas</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -60,6 +71,7 @@
 		<module>cloudpaas-common</module>
 		<module>cloudpaas-monitor</module>
 		<module>cloudpaas-admin</module>
-    <module>cloudpaas-service-pas</module>
+		<module>cloudpaas-service-pas</module>
+	    <module>cloudpaas-all</module>
   </modules>
 </project>

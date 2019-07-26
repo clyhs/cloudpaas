@@ -1,4 +1,4 @@
-package com.springcloud.admin;
+package com.cloudpaas.admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,15 +23,15 @@ public class AdminApplication {
         SpringApplication.run(AdminApplication.class, args);
     }
 
-    @Configuration
-    public static class SecurityPermitAllConfig extends WebSecurityConfigurerAdapter {
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests().anyRequest().permitAll()
-                .and().csrf().disable();
-        }
-    }
-    
+//    @Configuration
+//    public static class SecurityPermitAllConfig extends WebSecurityConfigurerAdapter {
+//        @Override
+//        protected void configure(HttpSecurity http) throws Exception {
+//            http.authorizeRequests().anyRequest().permitAll()
+//                .and().csrf().disable();
+//        }
+//    }
+//    
     
 
 }

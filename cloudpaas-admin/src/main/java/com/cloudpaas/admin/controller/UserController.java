@@ -1,6 +1,6 @@
-package com.springcloud.admin.controller;
+package com.cloudpaas.admin.controller;
+import com.cloudpaas.admin.entity.User;
 import com.google.common.collect.Lists;
-import com.springcloud.admin.entity.User;
 
 import io.swagger.annotations.Api;
 import java.time.LocalDate;

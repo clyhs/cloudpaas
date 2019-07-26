@@ -1,4 +1,4 @@
-package com.springcloud.admin.entity;
+package com.cloudpaas.admin.entity;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.springcloud.admin.config;
+package com.cloudpaas.admin.config;
 import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

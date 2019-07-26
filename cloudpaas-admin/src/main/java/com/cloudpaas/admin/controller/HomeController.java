@@ -1,4 +1,4 @@
-package com.springcloud.admin.controller;
+package com.cloudpaas.admin.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
