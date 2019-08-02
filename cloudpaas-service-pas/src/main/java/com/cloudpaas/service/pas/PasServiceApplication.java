@@ -23,7 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @date 2019年7月26日 上午10:49:50
  */
 @EnableDiscoveryClient
-@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableAPISwagger2
 public class PasServiceApplication {
 

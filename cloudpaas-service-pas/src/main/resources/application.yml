@@ -78,6 +78,7 @@ spring:
         maxPoolPreparedStatementPerConnectionSize: 20
         filters: stat,wall,log4j2
   jta:
+    log-dir: classpath:tx-logs
     transaction-manager-id: txManager
   zipkin:        #添加到链路追踪
     base-url: http://localhost:8902
