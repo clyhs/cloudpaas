@@ -5,6 +5,8 @@ package com.cloudpaas.service.pas.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,16 +28,32 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("user")
 public class UserController {
+	
+	private static Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserDao userDao;
 	
 	@GetMapping("users.json")
 	@ResponseBody
-	public List<User> getUsers(@RequestParam(value = "db", defaultValue = "dn1", required = true) String db){
+	public List<User> getUsers(@RequestParam(value = "db", defaultValue = "db1", required = true) String db){
 		if("db2".equals(db)){
 			return userDao.selectall2();
 		}
 		return userDao.selectall();
+	}
+	
+	@GetMapping("adddn1Users.json")
+	@ResponseBody
+	public Integer adddn1Users(){
+		
+		return userDao.insert_test();
+	}
+	
+	@GetMapping("adddn2Users.json")
+	@ResponseBody
+	public Integer adddn2Users(){
+		
+		return userDao.insert_test2();
 	}
 }
