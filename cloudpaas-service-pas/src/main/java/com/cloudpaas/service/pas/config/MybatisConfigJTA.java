@@ -34,9 +34,9 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
  *
  * @date 2019年8月2日 下午2:19:32
  */
-@Configuration
-@MapperScan(basePackages = {"com.cloudpaas.service.pas.mapper"}) 
-public class MybatisConfig extends AbstractDataSourceConfig {
+//@Configuration
+//@MapperScan(basePackages = {"com.cloudpaas.service.pas.mapper"}) 
+public class MybatisConfigJTA extends AbstractDataSourceConfig {
 	
 	@Primary
     @Bean(name = "dataSource_dn1")
