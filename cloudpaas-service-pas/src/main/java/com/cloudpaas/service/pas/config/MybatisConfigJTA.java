@@ -34,16 +34,16 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
  *
  * @date 2019年8月2日 下午2:19:32
  */
-//@Configuration
-//@MapperScan(basePackages = {"com.cloudpaas.service.pas.mapper"}) 
+@Configuration
+@MapperScan(basePackages = {"com.cloudpaas.service.pas.mapper"}) 
 public class MybatisConfigJTA extends AbstractDataSourceConfig {
 	
 	@Primary
     @Bean(name = "dataSource_dn1")
 	@ConfigurationProperties(prefix = "spring.datasource.druid.dn1" )
-    public DataSource dataSourceDn1(Environment env) {
+    public DataSource dataSourceDn1(Environment env) throws Exception {
 		String prefix = "spring.datasource.druid.dn1.";
-        return getDataSource(env,prefix,"dn1");
+        return getDataSource(env,prefix,"dnd1");
     }
 	
 
@@ -52,9 +52,9 @@ public class MybatisConfigJTA extends AbstractDataSourceConfig {
 	
 	@Bean(name = "dataSource_dn2")
 	@ConfigurationProperties(prefix = "spring.datasource.druid.dn2" )
-    public DataSource dataSourceDn2(Environment env) {
+    public DataSource dataSourceDn2(Environment env) throws Exception {
 		String prefix = "spring.datasource.druid.dn2.";
-        return getDataSource(env,prefix,"dn2");
+        return getDataSource(env,prefix,"dnd2");
     }
 	
 
@@ -93,11 +93,7 @@ public class MybatisConfigJTA extends AbstractDataSourceConfig {
 		return mapperScannerConfigurer;
 	}
 	
-//	@Bean
-//    public PlatformTransactionManager transactionManager(@Qualifier("dynamicDataSource")DataSource dynamicDataSource) {
-//        // 配置事务管理, 使用事务时在方法头部添加@Transactional注解即可
-//        return new DataSourceTransactionManager(dynamicDataSource);
-//    }
+
 	
 
 

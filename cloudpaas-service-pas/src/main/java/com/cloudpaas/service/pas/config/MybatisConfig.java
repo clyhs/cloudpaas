@@ -35,8 +35,8 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
  *
  * @date 2019年8月2日 下午5:14:44
  */
-@Configuration
-@MapperScan(basePackages = {"com.cloudpaas.service.pas.mapper"}) 
+//@Configuration
+//@MapperScan(basePackages = {"com.cloudpaas.service.pas.mapper"}) 
 public class MybatisConfig extends AbstractDataSourceConfig implements EnvironmentAware{
 	
 	
@@ -48,14 +48,14 @@ public class MybatisConfig extends AbstractDataSourceConfig implements Environme
     public DataSource dataSourceDn1() throws Exception {
 		
 		String prefix = "spring.datasource.druid.dn1.";
-        return getDataSource(env,prefix,"dn1");
+        return getDataSource(env,prefix,"dataSource_dn1");
     }
 
 	@Bean(name = "dataSource_dn2")
 	@ConfigurationProperties(prefix = "spring.datasource.druid.dn2" )
     public DataSource dataSourceDn2() throws Exception {
 		String prefix = "spring.datasource.druid.dn2.";
-        return getDataSource(env,prefix,"dn2");
+        return getDataSource(env,prefix,"dataSource_dn2");
     }
 	
 	

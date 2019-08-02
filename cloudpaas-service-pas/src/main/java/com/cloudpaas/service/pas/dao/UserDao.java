@@ -41,7 +41,7 @@ public class UserDao {
 		u.setName("ccc");
 		
 		Integer res = userMapper.insert_test(u);
-		int i = 5/0;
+		
 		return res;
 	}
 	
@@ -50,7 +50,7 @@ public class UserDao {
 		DataSourceContextHolder.setDataSource("dn2");
 		User u = new User();
 		u.setName("ccc");
-		
+		int i = 5/0;
 		Integer res = userMapper.insert_test(u);
 		return res;
 	}

@@ -19,13 +19,13 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
  */
 public abstract class AbstractDataSourceConfig {
 	
-	protected DataSource getDataSource(Environment env,String prefix,String dataSourceName){
+	protected DataSource getDataSource(Environment env,String prefix,String dataSourceName) {
         Properties prop = build(env,prefix);
         AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
         ds.setXaDataSourceClassName("com.alibaba.druid.pool.xa.DruidXADataSource");
         ds.setUniqueResourceName(dataSourceName);
-        ds.setXaProperties(prop);
         
+        ds.setXaProperties(prop);
         
         return ds;
     }
