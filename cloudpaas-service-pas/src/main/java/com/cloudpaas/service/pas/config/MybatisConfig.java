@@ -35,25 +35,18 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
  */
 @Configuration
 @MapperScan(basePackages = {"com.cloudpaas.service.pas.mapper"}) 
-public class MybatisConfig {
+public class MybatisConfig extends AbstractDataSourceConfig {
 	
 	@Primary
     @Bean(name = "dataSource_dn1")
 	@ConfigurationProperties(prefix = "spring.datasource.druid.dn1" )
-    public DataSource dataSourceDn1() {
+    public DataSource dataSourceDn1(Environment env) throws Exception {
 		
-		DataSource datasource = dn1DataSourceProperties()
-				.initializeDataSourceBuilder()
-				.type(HikariDataSource.class)
-                .build();
-		return datasource;
+		String prefix = "spring.datasource.druid.dn1.";
+        return getDataSource2(env,prefix,"dn1");
     }
 	
-	@Bean
-    @ConfigurationProperties(prefix = "spring.datasource.druid.dn1")
-    public DataSourceProperties dn1DataSourceProperties() {
-        return new DataSourceProperties();
-    }
+	
 	
 
 	
@@ -61,29 +54,23 @@ public class MybatisConfig {
 	
 	@Bean(name = "dataSource_dn2")
 	@ConfigurationProperties(prefix = "spring.datasource.druid.dn2" )
-    public DataSource dataSourceDn2() {
-		DataSource datasource = dn2DataSourceProperties()
-				.initializeDataSourceBuilder()
-				.type(HikariDataSource.class)
-                .build();
-		return datasource;
+    public DataSource dataSourceDn2(Environment env) throws Exception {
+		String prefix = "spring.datasource.druid.dn2.";
+        return getDataSource2(env,prefix,"dn2");
     }
 	
-	@Bean
-    @ConfigurationProperties(prefix = "spring.datasource.druid.dn2")
-    public DataSourceProperties dn2DataSourceProperties() {
-        return new DataSourceProperties();
-    }
+	
 
 	
 	@Bean("dynamicDataSource")
-    public DataSource dynamicDataSource() {
+    public DataSource dynamicDataSource(@Qualifier("dataSource_dn1")DataSource dataSource_dn1,
+    		@Qualifier("dataSource_dn2")DataSource dataSource_dn2) {
 		MultiRoutingDataSource dynamicDataSource = new MultiRoutingDataSource();
         Map<Object, Object> dataSourceMap = new HashMap<>(2);
-        dataSourceMap.put("dn1", dataSourceDn1());
-        dataSourceMap.put("dn2", dataSourceDn2());
+        dataSourceMap.put("dn1", dataSource_dn1);
+        dataSourceMap.put("dn2", dataSource_dn2);
         // 将 master 数据源作为默认指定的数据源
-        dynamicDataSource.setDefaultTargetDataSource(dataSourceDn1());
+        dynamicDataSource.setDefaultTargetDataSource(dataSource_dn1);
         // 将 master 和 slave 数据源作为指定的数据源
         dynamicDataSource.setTargetDataSources(dataSourceMap);
         dynamicDataSource.afterPropertiesSet();
@@ -91,10 +78,10 @@ public class MybatisConfig {
     }
 	
 	@Bean(name="sqlSessionFactory")
-    public SqlSessionFactoryBean sqlSessionFactoryBean() throws Exception {
+    public SqlSessionFactoryBean sqlSessionFactoryBean(@Qualifier("dynamicDataSource")DataSource dynamicDataSource) throws Exception {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         // 配置数据源，此处配置为关键配置，如果没有将 dynamicDataSource作为数据源则不能实现切换
-        sessionFactory.setDataSource(dynamicDataSource());
+        sessionFactory.setDataSource(dynamicDataSource);
         sessionFactory.setTypeAliasesPackage("com.cloudpaas.**.model");    // 扫描Model
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sessionFactory.setMapperLocations(resolver.getResources("classpath*:mybatis/mapper/*.xml"));    // 扫描映射文件

@@ -10,6 +10,8 @@ import javax.sql.DataSource;
 import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.core.env.Environment;
 
+import com.alibaba.druid.pool.DruidDataSourceFactory;
+
 /**
  * @author 大鱼
  *
@@ -23,9 +25,17 @@ public abstract class AbstractDataSourceConfig {
         ds.setXaDataSourceClassName("com.alibaba.druid.pool.xa.DruidXADataSource");
         ds.setUniqueResourceName(dataSourceName);
         ds.setXaProperties(prop);
+        
+        
         return ds;
     }
 
+	protected DataSource getDataSource2(Environment env,String prefix,String dataSourceName) throws Exception{
+		Properties prop = build(env,prefix);
+		DataSource dataSource = DruidDataSourceFactory.createDataSource(prop);
+		
+		return dataSource;
+	}
 	/**
      * 主要针对druid数据库链接池
      * @param env
@@ -38,10 +48,12 @@ public abstract class AbstractDataSourceConfig {
         prop.put("username", env.getProperty(prefix + "username"));
         prop.put("password", env.getProperty(prefix + "password"));
         prop.put("driverClassName", env.getProperty(prefix + "driverClassName", ""));
+        /*
         prop.put("initialSize", env.getProperty(prefix + "initialSize", Integer.class));
         prop.put("maxActive", env.getProperty(prefix + "maxActive", Integer.class));
         prop.put("minIdle", env.getProperty(prefix + "minIdle", Integer.class));
         prop.put("maxWait", env.getProperty(prefix + "maxWait", Integer.class));
+        
         prop.put("poolPreparedStatements", env.getProperty(prefix + "poolPreparedStatements", Boolean.class));
  
         prop.put("maxPoolPreparedStatementPerConnectionSize",
@@ -56,7 +68,7 @@ public abstract class AbstractDataSourceConfig {
         prop.put("testWhileIdle", env.getProperty(prefix + "testWhileIdle", Boolean.class));
         prop.put("timeBetweenEvictionRunsMillis", env.getProperty(prefix + "timeBetweenEvictionRunsMillis", Integer.class));
         prop.put("minEvictableIdleTimeMillis", env.getProperty(prefix + "minEvictableIdleTimeMillis", Integer.class));
-        prop.put("filters", env.getProperty(prefix + "filters"));
+        prop.put("filters", env.getProperty(prefix + "filters"));*/
         return prop;
     }
 }
