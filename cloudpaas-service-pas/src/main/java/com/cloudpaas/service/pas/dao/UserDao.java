@@ -50,8 +50,22 @@ public class UserDao {
 		DataSourceContextHolder.setDataSource("dn2");
 		User u = new User();
 		u.setName("ccc");
-		int i = 5/0;
+		
 		Integer res = userMapper.insert_test(u);
+		int i = 5/0;
+		return res;
+	}
+	
+	@Transactional(rollbackFor=Exception.class)
+	public Integer insert_test3(){
+		
+		User u = new User();
+		u.setName("ccc");
+		DataSourceContextHolder.setDataSource("dn2");
+		Integer res = userMapper.insert_test(u);
+		DataSourceContextHolder.setDataSource("dn1");
+		Integer res2 = userMapper.insert_test(u);
+		int i = 5/0;
 		return res;
 	}
 }

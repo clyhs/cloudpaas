@@ -56,4 +56,11 @@ public class UserController {
 		
 		return userDao.insert_test2();
 	}
+	
+	@GetMapping("add3Users.json")
+	@ResponseBody
+	public Integer add3Users(){
+		
+		return userDao.insert_test3();
+	}
 }
