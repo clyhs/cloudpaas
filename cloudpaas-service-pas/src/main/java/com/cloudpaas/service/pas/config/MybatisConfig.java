@@ -85,7 +85,7 @@ public class MybatisConfig extends AbstractDataSourceConfig {
         return sessionFactory;
     }
 	
-	@Bean(name="msc")
+	@Bean
 	public MapperScannerConfigurer mapperScannerConfigurer(){
 		MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
 		mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
