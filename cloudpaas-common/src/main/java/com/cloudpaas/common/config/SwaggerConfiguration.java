@@ -1,6 +1,7 @@
-package com.cloudpaas.admin.config;
+package com.cloudpaas.common.config;
 import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -16,6 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @EnableSwagger2
 @Configuration
+@ComponentScan({"com.cloudpaas"})
 public class SwaggerConfiguration {
 
     private ApiInfo apiInfo() {

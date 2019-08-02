@@ -6,9 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cloudpaas.common.EnableAPISwagger2;
+
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import org.mybatis.spring.annotation.MapperScan;
 
@@ -25,11 +29,15 @@ import org.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableTransactionManagement
 @MapperScan("com.cloudpaas.admin.mapper")
+@EnableAPISwagger2
+@RestController
 public class AdminApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AdminApplication.class, args);
     }
+    
+    
 
 //    @Configuration
 //    public static class SecurityPermitAllConfig extends WebSecurityConfigurerAdapter {
