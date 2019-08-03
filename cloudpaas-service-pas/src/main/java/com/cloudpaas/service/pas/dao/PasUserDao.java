@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudpaas.common.mybatis.DataSourceContextHolder;
-import com.cloudpaas.service.pas.mapper.UserMapper;
+import com.cloudpaas.service.pas.mapper.PasUserMapper;
 import com.cloudpaas.common.model.User;
 
 /**
@@ -19,10 +19,10 @@ import com.cloudpaas.common.model.User;
  * @date 2019年8月2日 下午2:40:31
  */
 @Repository
-public class UserDao {
+public class PasUserDao {
 
 	@Autowired
-	private UserMapper userMapper;
+	private PasUserMapper userMapper;
 
 	public List<User> selectall() {
 		DataSourceContextHolder.setDataSource("dn1");

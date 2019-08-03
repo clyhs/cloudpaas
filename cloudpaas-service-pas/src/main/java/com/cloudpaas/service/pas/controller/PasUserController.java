@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cloudpaas.service.pas.dao.UserDao;
+import com.cloudpaas.service.pas.dao.PasUserDao;
 import com.cloudpaas.common.model.User;
 
 import io.swagger.annotations.Api;
@@ -27,12 +27,12 @@ import io.swagger.annotations.Api;
 @Api
 @RestController
 @RequestMapping("user")
-public class UserController {
+public class PasUserController {
 	
-	private static Logger log = LoggerFactory.getLogger(UserController.class);
+	private static Logger log = LoggerFactory.getLogger(PasUserController.class);
 
 	@Autowired
-	private UserDao userDao;
+	private PasUserDao userDao;
 	
 	@GetMapping("users.json")
 	@ResponseBody

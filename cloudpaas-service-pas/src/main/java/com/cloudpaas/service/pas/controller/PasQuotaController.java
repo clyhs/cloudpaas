@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
 @Api
 @RestController
 @RequestMapping("quota")
-public class QuotaController {
+public class PasQuotaController {
 	
 	@GetMapping("/getQuota")
 	public String getQuota(){
