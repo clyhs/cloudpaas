@@ -8,6 +8,6 @@ package com.cloudpaas.admin.entity;
  *
  * @date 2019年8月4日 上午12:03:22
  */
-public class permission {
+public class AdminPermission {
 
 }

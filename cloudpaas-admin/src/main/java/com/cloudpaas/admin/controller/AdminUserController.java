@@ -1,11 +1,13 @@
 package com.cloudpaas.admin.controller;
-import com.cloudpaas.admin.dao.UserDao;
+import com.cloudpaas.admin.dao.AdminUserDao;
 import com.cloudpaas.common.model.User;
 import com.google.common.collect.Lists;
 
 import io.swagger.annotations.Api;
 import java.time.LocalDate;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api
 @RestController
-@RequestMapping("aduser")
-public class UserController {
+@RequestMapping("adminuser")
+public class AdminUserController {
 
-	@Autowired
-    private UserDao userDao;
+	@Resource(name="adminUserDao")
+    private AdminUserDao userDao;
 	
     @GetMapping("/lists")
     public List<User> lists() {

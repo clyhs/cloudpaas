@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudpaas.common.model.User;
-import com.cloudpaas.admin.mapper.UserMapper;
+import com.cloudpaas.admin.mapper.AdminUserMapper;
 import com.cloudpaas.common.base.dao.BaseDao;
 
 /**
@@ -17,6 +17,6 @@ import com.cloudpaas.common.base.dao.BaseDao;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class UserDao extends BaseDao<UserMapper, User> {
+public class AdminUserDao extends BaseDao<AdminUserMapper, User> {
 
 }

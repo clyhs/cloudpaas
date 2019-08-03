@@ -8,7 +8,7 @@ public class User {
 	@Id
 	private Integer id;
 
-	private String  username;
+	private String  name;
 
 	private Integer age;
 
@@ -28,18 +28,14 @@ public class User {
 		this.id = id;
 	}
 
-	/**
-	 * @return username
-	 */
-	public String getUsername() {
-		return username;
+	
+
+	public String getName() {
+		return name;
 	}
 
-	/**
-	 * @param username
-	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**

@@ -4,5 +4,5 @@ import com.cloudpaas.common.model.User;
 
 import tk.mybatis.mapper.common.Mapper;
 
-public interface UserMapper extends Mapper<User> {
+public interface AdminUserMapper extends Mapper<User> {
 }
