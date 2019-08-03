@@ -1,6 +1,6 @@
 package com.cloudpaas.admin.controller;
 import com.cloudpaas.admin.dao.UserDao;
-import com.cloudpaas.admin.entity.User;
+import com.cloudpaas.common.model.User;
 import com.google.common.collect.Lists;
 
 import io.swagger.annotations.Api;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api
 @RestController
-@RequestMapping("user")
+@RequestMapping("aduser")
 public class UserController {
 
 	@Autowired

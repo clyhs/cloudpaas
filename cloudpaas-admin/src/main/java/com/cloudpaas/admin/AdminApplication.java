@@ -29,7 +29,7 @@ import org.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableTransactionManagement
 @MapperScan("com.cloudpaas.admin.mapper")
-@EnableAPISwagger2
+//@EnableAPISwagger2
 @RestController
 public class AdminApplication {
 

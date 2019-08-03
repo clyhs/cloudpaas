@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cloudpaas.service.pas.mapper.UserMapper">
-	<resultMap id="BaseResultMap" type="com.cloudpaas.service.pas.model.User">
+	<resultMap id="BaseResultMap" type="com.cloudpaas.common.model.User">
 		<result column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="age" property="age" jdbcType="INTEGER" />
@@ -11,7 +11,7 @@
 		ID, NAME ,AGE,PASSWORD 
 	</sql>
 
-    <insert id="insert_test" parameterType="com.cloudpaas.service.pas.model.User">
+    <insert id="insert_test" parameterType="com.cloudpaas.common.model.User">
         insert into t_user (name)values(#{name,jdbcType=VARCHAR})
     </insert>
 

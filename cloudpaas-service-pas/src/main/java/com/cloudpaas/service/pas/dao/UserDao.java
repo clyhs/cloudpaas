@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudpaas.common.mybatis.DataSourceContextHolder;
 import com.cloudpaas.service.pas.mapper.UserMapper;
-import com.cloudpaas.service.pas.model.User;
+import com.cloudpaas.common.model.User;
 
 /**
  * @author 大鱼

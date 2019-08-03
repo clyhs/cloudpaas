@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.service.pas.config;
+package com.cloudpaas.common.mybatis;
 
 import java.util.Properties;
 

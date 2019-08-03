@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cloudpaas.service.pas.dao.UserDao;
-import com.cloudpaas.service.pas.model.User;
+import com.cloudpaas.common.model.User;
 
 import io.swagger.annotations.Api;
 
@@ -26,7 +26,7 @@ import io.swagger.annotations.Api;
  */
 @Api
 @RestController
-@RequestMapping("user")
+@RequestMapping("pauser")
 public class UserController {
 	
 	private static Logger log = LoggerFactory.getLogger(UserController.class);

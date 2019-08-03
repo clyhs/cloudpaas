@@ -6,7 +6,7 @@ package com.cloudpaas.admin.dao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cloudpaas.admin.entity.User;
+import com.cloudpaas.common.model.User;
 import com.cloudpaas.admin.mapper.UserMapper;
 import com.cloudpaas.common.base.dao.BaseDao;
 

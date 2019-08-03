@@ -6,7 +6,7 @@ package com.cloudpaas.service.pas.mapper;
 import java.util.List;
 import java.util.Map;
 
-import com.cloudpaas.service.pas.model.User;
+import com.cloudpaas.common.model.User;
 
 import tk.mybatis.mapper.common.Mapper;
 
