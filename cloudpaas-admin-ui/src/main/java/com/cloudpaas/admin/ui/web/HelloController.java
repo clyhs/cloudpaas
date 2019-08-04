@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 	
-	@RequestMapping("/hello")
+	@RequestMapping("/hello.json")
     public String index() {
         return "Hello World !";
     }
+	
+	
 
 }
