@@ -21,4 +21,9 @@ public class HtmlController {
         model.addAttribute("name", name);
         return "hello";
     }
+	
+	@RequestMapping("/index.html")
+	public String index(){
+		return "admin/index";
+	}
 }
