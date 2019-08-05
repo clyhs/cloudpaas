@@ -36,7 +36,7 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
  * @date 2019年8月2日 下午2:19:32
  */
 @Configuration
-@MapperScan(basePackages = {"com.cloudpaas.service.pas.mapper"}) 
+@MapperScan(basePackages = {"com.cloudpaas.**.mapper"}) 
 public class MybatisMultiConfig extends AbstractDataSourceConfig {
 	
 	@Primary
@@ -90,7 +90,7 @@ public class MybatisMultiConfig extends AbstractDataSourceConfig {
 	public MapperScannerConfigurer mapperScannerConfigurer(){
 		MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
 		mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
-		mapperScannerConfigurer.setBasePackage("com.cloudpaas.service.pas.mapper.**");
+		mapperScannerConfigurer.setBasePackage("com.cloudpaas.**.mapper");
 		return mapperScannerConfigurer;
 	}
 	
