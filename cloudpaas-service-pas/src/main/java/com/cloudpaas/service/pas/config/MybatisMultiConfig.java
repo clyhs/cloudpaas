@@ -10,17 +10,21 @@ import javax.sql.DataSource;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+
 
 import com.cloudpaas.common.mybatis.AbstractDataSourceConfig;
 import com.cloudpaas.common.mybatis.MultiRoutingDataSource;
@@ -36,14 +40,20 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
  * @date 2019年8月2日 下午2:19:32
  */
 @Configuration
+@Order(1)
 @MapperScan(basePackages = {"com.cloudpaas.**.mapper"}) 
 public class MybatisMultiConfig extends AbstractDataSourceConfig {
 	
+	private static Logger log = LoggerFactory.getLogger(MybatisMultiConfig.class);
+	
+	@Autowired
+	private DataSourceProperties dataSourceProps;
+	
 	@Primary
     @Bean(name = "dataSource_dn1")
-	@ConfigurationProperties(prefix = "spring.datasource.druid.dn1" )
+	@ConfigurationProperties(prefix = "spring.datasource.druid.dn[0]" )
     public DataSource dataSourceDn1(Environment env) throws Exception {
-		String prefix = "spring.datasource.druid.dn1.";
+		String prefix = "spring.datasource.druid.dn[0].";
         return getDataSource(env,prefix,"dnd1");
     }
 	
@@ -52,9 +62,9 @@ public class MybatisMultiConfig extends AbstractDataSourceConfig {
 
 	
 	@Bean(name = "dataSource_dn2")
-	@ConfigurationProperties(prefix = "spring.datasource.druid.dn2" )
+	@ConfigurationProperties(prefix = "spring.datasource.druid.dn[1]" )
     public DataSource dataSourceDn2(Environment env) throws Exception {
-		String prefix = "spring.datasource.druid.dn2.";
+		String prefix = "spring.datasource.druid.dn[1].";
         return getDataSource(env,prefix,"dnd2");
     }
 	
@@ -63,6 +73,10 @@ public class MybatisMultiConfig extends AbstractDataSourceConfig {
 	@Bean("dynamicDataSource")
     public DataSource dynamicDataSource(@Qualifier("dataSource_dn1")DataSource dataSource_dn1,
     		@Qualifier("dataSource_dn2")DataSource dataSource_dn2) {
+		log.info("------------------------");
+		log.info(dataSourceProps.getDn().length+"");
+		log.info("------------------------");
+		
 		MultiRoutingDataSource dynamicDataSource = new MultiRoutingDataSource();
         Map<Object, Object> dataSourceMap = new HashMap<>(2);
         dataSourceMap.put("dn1", dataSource_dn1);

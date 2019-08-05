@@ -37,7 +37,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      dn1:
+      dn[0]: 
         url: jdbc:mysql://localhost:3306/dn1?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
         username: root
         password: root
@@ -57,7 +57,7 @@ spring:
         poolPreparedStatements: true
         maxPoolPreparedStatementPerConnectionSize: 20
         filters: stat,wall,log4j2
-      dn2:
+      dn[1]: 
         url: jdbc:mysql://localhost:3306/dn2?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
         username: root
         password: root
