@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cloudpaas.common.EnableAPISwagger2;
+import com.cloudpaas.common.properties.MultiDataSourceProperties;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import com.cloudpaas.common.datasource.DataSourceProperties;
 
 
 /**

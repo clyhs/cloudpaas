@@ -87,3 +87,8 @@ spring:
     http:
       legacy:
         enabled: true
+        
+mybatis:
+  config-locations: classpath*:mybatis/mybatis-config.xml
+  mapper-locations: classpath*:mybatis/mapper/*.xml
+  basepackage: com.cloudpaas.service.pas.mapper

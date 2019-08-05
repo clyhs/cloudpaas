@@ -24,9 +24,7 @@ public abstract class AbstractDataSourceConfig {
         AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
         ds.setXaDataSourceClassName("com.alibaba.druid.pool.xa.DruidXADataSource");
         ds.setUniqueResourceName(dataSourceName);
-        
         ds.setXaProperties(prop);
-        
         return ds;
     }
 

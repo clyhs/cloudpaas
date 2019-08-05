@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.common.datasource;
+package com.cloudpaas.common.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -18,9 +18,8 @@ import lombok.Data;
  */
 @Component
 @Data
-@Order(-1)
-@ConfigurationProperties(prefix = "spring.datasource.druid")
-public class DataSourceProperties {
+@ConfigurationProperties(prefix="spring.datasource.druid")
+public class MultiDataSourceProperties {
 
 	private DataSourceProperty[] dn = {}; 
 }

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cloudpaas.service.pas.dao.PasUserDao;
-import com.cloudpaas.common.datasource.DataSourceProperties;
 import com.cloudpaas.common.model.User;
+import com.cloudpaas.common.properties.MultiDataSourceProperties;
 
 import io.swagger.annotations.Api;
 
@@ -37,13 +37,13 @@ public class PasUserController {
 	
 
 	@Autowired
-	private DataSourceProperties dataSourceProps;
+	private MultiDataSourceProperties dataSourceProperties;
 	
 	@GetMapping("users.json")
 	@ResponseBody
 	public List<User> getUsers(@RequestParam(value = "db", defaultValue = "db1", required = true) String db){
 		
-		log.info(dataSourceProps.getDn().length+"");
+		log.info(dataSourceProperties.getDn().length+"");
 		if("db2".equals(db)){
 			return userDao.selectall2();
 		}

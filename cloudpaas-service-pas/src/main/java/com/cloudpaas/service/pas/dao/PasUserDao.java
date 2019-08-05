@@ -5,6 +5,8 @@ package com.cloudpaas.service.pas.dao;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +22,16 @@ import com.cloudpaas.common.model.User;
  */
 @Repository
 public class PasUserDao {
+	
+	private static Logger log = LoggerFactory.getLogger(PasUserDao.class);
 
 	@Autowired
 	private PasUserMapper userMapper;
 
 	public List<User> selectall() {
 		DataSourceContextHolder.setDataSource("dn1");
+		List<User> us = userMapper.selectAll();
+		log.info(us.size()+"");
 		return userMapper.select_test(null);
 	}
 

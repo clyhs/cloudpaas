@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.common.datasource;
+package com.cloudpaas.common.properties;
 
 import lombok.Data;
 
