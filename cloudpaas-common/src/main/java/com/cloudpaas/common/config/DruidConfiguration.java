@@ -17,7 +17,7 @@ import com.alibaba.druid.support.http.WebStatFilter;
  * 
  * 配置druid监控页
  */
-//@Configuration
+@Configuration
 public class DruidConfiguration {
 
     @Bean
