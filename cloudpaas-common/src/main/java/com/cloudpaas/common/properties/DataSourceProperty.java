@@ -50,4 +50,8 @@ public class DataSourceProperty {
 	private Integer maxPoolPreparedStatementPerConnectionSize;
 	
 	private String  filters;
+	
+	private Integer minPoolSize;
+	private Integer maxPoolSize;
+	private Integer borrowConnectionTimeout;
 }

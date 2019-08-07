@@ -17,6 +17,7 @@ import org.springframework.boot.context.properties.source.ConfigurationPropertyN
 import org.springframework.boot.context.properties.source.ConfigurationPropertyNameAliases;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySource;
 import org.springframework.boot.context.properties.source.MapConfigurationPropertySource;
+import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,8 +32,10 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
+ * 注册多数据源，可以代替MybatisConfig的dynamicDataSource方法 
  * 
  * @author 大鱼
  *
@@ -73,41 +76,45 @@ public class MultiDataSourceRegister implements EnvironmentAware, ImportBeanDefi
         //获取数据源类型
         Class<? extends DataSource> defaultClazz = getDataSourceType(typeStr); 
         log.info(defaultClazz.toString());
+        DataSource defaultDataSource = null;
         //绑定数据源参数
         List<DataSourceProperty> configs = binder.bind("spring.datasource.druid", Bindable.listOf(DataSourceProperty.class)).get();
         for (int i = 0; i < configs.size(); i++) { //遍历生成其他数据源
         	DataSourceProperty dp = configs.get(i);
         	log.info(JSONUtil.toJson(dp));
-            //DataSource consumerDatasource = bind(defaultClazz, properties); 
+        	
+//        	clazz = getDataSourceType((String) config.get("type"));
+//            if ((boolean) config.getOrDefault("extend", Boolean.TRUE)) { //获取extend字段，未定义或为true则为继承状态
+//                properties = new HashMap(defaultConfig); //继承默认数据源配置
+//                properties.putAll(config); //添加数据源参数
+//            } else {
+//                properties = config; //不继承默认配置
+//            }
+//            consumerDatasource = bind(clazz, properties); //绑定参数
+        	
+        	
+            DataSource consumerDatasource = getDataSource(dp); 
             //获取数据源的key，以便通过该key可以定位到数据源
-            //sourceMap.put(dp.getKey(), consumerDatasource); 
+            sourceMap.put(dp.getKey(), consumerDatasource); 
+            if(dp.getKey().equals("dn1")){
+            	defaultDataSource = consumerDatasource;
+            }
         }
         
         log.info(JSONUtil.toJson(sourceMap));
-        
-        /*
-        Class<? extends DataSource> clazz = getDataSourceType(typeStr); //获取数据源类型
-        DataSource consumerDatasource, defaultDatasource = bind(clazz, properties); //绑定默认数据源参数
-        List<Map> configs = binder.bind("spring.datasource.multi", Bindable.listOf(Map.class)).get(); //获取其他数据源配置
-        for (int i = 0; i < configs.size(); i++) { //遍历生成其他数据源
-            config = configs.get(i);
-            clazz = getDataSourceType((String) config.get("type"));
-            if ((boolean) config.getOrDefault("extend", Boolean.TRUE)) { //获取extend字段，未定义或为true则为继承状态
-                properties = new HashMap(defaultConfig); //继承默认数据源配置
-                properties.putAll(config); //添加数据源参数
-            } else {
-                properties = config; //不继承默认配置
-            }
-            consumerDatasource = bind(clazz, properties); //绑定参数
-            sourceMap.put(config.get("key").toString(), consumerDatasource); //获取数据源的key，以便通过该key可以定位到数据源
-        }
-        GenericBeanDefinition define = new GenericBeanDefinition(); //bean定义类
-        define.setBeanClass(MultiRoutingDataSource.class); //设置bean的类型，此处MultiDataSource是继承AbstractRoutingDataSource的实现类
-        MutablePropertyValues mpv = define.getPropertyValues(); //需要注入的参数，类似spring配置文件中的<property/>
-        mpv.add("defaultTargetDataSource", defaultDatasource); //添加默认数据源，避免key不存在的情况没有数据源可用
-        mpv.add("targetDataSources", sourceMap); //添加其他数据源
-        beanDefinitionRegistry.registerBeanDefinition("dataSource", define); //将该bean注册为datasource，不使用springboot自动生成的datasource
-        */
+        //bean定义类
+        GenericBeanDefinition define = new GenericBeanDefinition(); 
+        //设置bean的类型，此处MultiDataSource是继承AbstractRoutingDataSource的实现类
+        define.setBeanClass(MultiRoutingDataSource.class); 
+        //需要注入的参数，类似spring配置文件中的<property/>
+        MutablePropertyValues mpv = define.getPropertyValues(); 
+        //添加默认数据源，避免key不存在的情况没有数据源可用
+        mpv.add("defaultTargetDataSource", defaultDataSource); 
+        //添加其他数据源
+        mpv.add("targetDataSources", sourceMap); 
+        mpv.add("keySet", sourceMap.keySet());
+        //将该bean注册为datasource，不使用springboot自动生成的datasource
+        beanDefinitionRegistry.registerBeanDefinition("dynamicDataSource", define); 
     }
 
     /**
@@ -174,5 +181,41 @@ public class MultiDataSourceRegister implements EnvironmentAware, ImportBeanDefi
     public void setEnvironment(Environment environment) {
         this.evn = environment;
         binder = Binder.get(evn); //绑定配置器
+    }
+    
+    protected DataSource getDataSource(DataSourceProperty dataDourceProperty){
+		Properties prop = build(dataDourceProperty);
+		AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
+		ds.setXaDataSourceClassName("com.alibaba.druid.pool.xa.DruidXADataSource");
+        ds.setUniqueResourceName(dataDourceProperty.getKey());
+        ds.setXaProperties(prop);
+		return ds;
+	}
+    
+    protected Properties build(DataSourceProperty dataDourceProperty) {
+        Properties prop = new Properties();
+        prop.put("url", dataDourceProperty.getUrl());
+        prop.put("username", dataDourceProperty.getUsername());
+        prop.put("password", dataDourceProperty.getPassword());
+        prop.put("driverClassName", dataDourceProperty.getDriverClassName());
+        prop.put("initialSize", dataDourceProperty.getInitialSize()+"");
+        prop.put("maxActive", dataDourceProperty.getMaxActive()+"");
+        prop.put("minIdle", dataDourceProperty.getMinIdle()+"");
+        prop.put("maxWait", dataDourceProperty.getMaxWait()+"");
+        prop.put("poolPreparedStatements", dataDourceProperty.getPoolPreparedStatements()+"");
+        prop.put("maxPoolPreparedStatementPerConnectionSize",dataDourceProperty.getMaxPoolPreparedStatementPerConnectionSize()+"");
+        prop.put("validationQuery", dataDourceProperty.getValidationQuery());
+        prop.put("validationQueryTimeout", dataDourceProperty.getValidationQueryTimeout()+"");
+        prop.put("testOnBorrow", dataDourceProperty.getTestOnBorrow()+"");
+        prop.put("testOnReturn", dataDourceProperty.getTestOnReturn()+"");
+        prop.put("testWhileIdle", dataDourceProperty.getTestWhileIdle()+"");
+        prop.put("minPoolSize", dataDourceProperty.getMinPoolSize()+"");
+        prop.put("maxPoolSize", dataDourceProperty.getMaxPoolSize()+"");
+        prop.put("borrowConnectionTimeout", dataDourceProperty.getBorrowConnectionTimeout()+"");
+        
+        prop.put("timeBetweenEvictionRunsMillis", dataDourceProperty.getTimeBetweenEvictionRunsMillis()+"");
+        prop.put("minEvictableIdleTimeMillis", dataDourceProperty.getMinEvictableIdleTimeMillis()+"");
+        prop.put("filters", dataDourceProperty.getFilters());
+        return prop;
     }
 }

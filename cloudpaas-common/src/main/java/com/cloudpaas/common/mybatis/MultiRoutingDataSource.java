@@ -61,6 +61,7 @@ public class MultiRoutingDataSource extends AbstractRoutingDataSource {
 	protected Object determineCurrentLookupKey() {
 		// TODO Auto-generated method stub
 		String key = DataSourceContextHolder.getDataSource();
+		log.info(key);
 		if (!keySet.contains(key)) {
 			log.info(String.format("can not found datasource by key: '%s',this session may use default datasource",
 					key));
