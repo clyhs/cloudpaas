@@ -41,13 +41,13 @@ public class PasUserController {
 	
 	@GetMapping("users.json")
 	@ResponseBody
-	public List<User> getUsers(@RequestParam(value = "db", defaultValue = "db1", required = true) String db){
+	public List<User> getUsers(@RequestParam(value = "db", defaultValue = "dn1", required = true) String db){
 		
-		log.info(dataSourceProperties.getDn().length+"");
-		if("db2".equals(db)){
-			return userDao.selectall2();
-		}
-		return userDao.selectall();
+		//log.info(dataSourceProperties.getDn().length+"");
+//		if("db2".equals(db)){
+//			return userDao.selectall2();
+//		}
+		return userDao.selectall3(db);
 	}
 	
 	@GetMapping("adddn1Users.json")

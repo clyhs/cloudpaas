@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.service.pas.config;
+package com.cloudpaas.common.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +31,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.cloudpaas.common.mybatis.AbstractDataSourceConfig;
 import com.cloudpaas.common.mybatis.MultiRoutingDataSource;
+import com.cloudpaas.common.properties.DataSourceProperty;
 import com.cloudpaas.common.properties.MultiDataSourceProperties;
 import com.cloudpaas.common.properties.MybatisProperties;
 import com.github.pagehelper.PageInterceptor;
@@ -46,9 +47,9 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
  */
 @Configuration
 @AutoConfigureAfter(MybatisAutoConfiguration.class)  
-public class MybatisMultiConfig extends AbstractDataSourceConfig {
+public class MybatisConfig extends AbstractDataSourceConfig {
 	
-	private static Logger log = LoggerFactory.getLogger(MybatisMultiConfig.class);
+	private static Logger log = LoggerFactory.getLogger(MybatisConfig.class);
 	
 	@Autowired
 	private MybatisProperties mybatisProperties;
@@ -56,43 +57,66 @@ public class MybatisMultiConfig extends AbstractDataSourceConfig {
 	@Autowired
 	private MultiDataSourceProperties dataSourceProperties;
 
-
-	@Primary
-    @Bean(name = "dataSource_dn1")
-	@ConfigurationProperties(prefix = "spring.datasource.druid.dn[0]" )
-    public DataSource dataSourceDn1(Environment env) throws Exception {
-		String prefix = "spring.datasource.druid.dn[0].";
-        return getDataSource(env,prefix,"dn1");
-    }
-	
-
-//	
-	@Bean(name = "dataSource_dn2")
-	@ConfigurationProperties(prefix = "spring.datasource.druid.dn[1]" )
-    public DataSource dataSourceDn2(Environment env) throws Exception {
-		String prefix = "spring.datasource.druid.dn[1].";
-        return getDataSource(env,prefix,"dn2");
-    }
+    /**
+     * 手动配置数据源dn2
+     * @param env
+     * @return
+     * @throws Exception
+     */
+//	@Primary
+//    @Bean(name = "dataSource_dn1")
+//	@ConfigurationProperties(prefix = "spring.datasource.druid[0]" )
+//    public DataSource dataSourceDn1(Environment env) throws Exception {
+//		String prefix = "spring.datasource.druid[0].";
+//        return getDataSource(env,prefix,"dn1");
+//    }
+	/**
+	 * 手动配置数据源dn2 
+	 * @param env
+	 * @return
+	 * @throws Exception
+	 */
+//	@Bean(name = "dataSource_dn2")
+//	@ConfigurationProperties(prefix = "spring.datasource.druid[1]" )
+//    public DataSource dataSourceDn2(Environment env) throws Exception {
+//		String prefix = "spring.datasource.druid[1].";
+//        return getDataSource(env,prefix,"dn2");
+//    }
 	
 
 	
 	@Bean("dynamicDataSource")
-    public DataSource dynamicDataSource(@Qualifier("dataSource_dn1")DataSource dataSource_dn1,
-    		@Qualifier("dataSource_dn2")DataSource dataSource_dn2) {
+    public DataSource dynamicDataSource(/*@Qualifier("dataSource_dn1")DataSource dataSource_dn1,
+    		@Qualifier("dataSource_dn2")DataSource dataSource_dn2*/) {
 		
-		log.info("------------------------");
-		log.info(dataSourceProperties.getDn().length+"");
-		log.info("------------------------");
+		log.info("-----------开始初始化数据源-------------");
+		log.info(dataSourceProperties.getDruid().size()+"");
+		Map<Object, Object> dataSourceMap = new HashMap<>();
 		
 		MultiRoutingDataSource dynamicDataSource = new MultiRoutingDataSource();
-        Map<Object, Object> dataSourceMap = new HashMap<>(2);
-        dataSourceMap.put("dn1", dataSource_dn1);
-        dataSourceMap.put("dn2", dataSource_dn2);
+		DataSource dataSource = null;
+		DataSource defaultDataSource = null;
+		for(DataSourceProperty dsp:dataSourceProperties.getDruid()){
+			if(null!=dsp){
+				dataSource = getDataSource(dsp);
+				dataSourceMap.put(dsp.getKey(), dataSource);
+				if(dsp.getKey().equals("dn1")){
+					defaultDataSource = dataSource;
+				}
+			}
+			
+		}
+		
+        //dataSourceMap.put("dn1", dataSource_dn1);
+        //dataSourceMap.put("dn2", dataSource_dn2);
         // 将 master 数据源作为默认指定的数据源
-        dynamicDataSource.setDefaultTargetDataSource(dataSource_dn1);
+        dynamicDataSource.setDefaultTargetDataSource(defaultDataSource);
         // 将 master 和 slave 数据源作为指定的数据源
         dynamicDataSource.setTargetDataSources(dataSourceMap);
+        dynamicDataSource.setKeySet(dataSourceMap.keySet());
         dynamicDataSource.afterPropertiesSet();
+        
+        log.info("-----------完成初始化数据源-------------");
         return dynamicDataSource;
     }
 	

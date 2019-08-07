@@ -26,6 +26,9 @@ server:
 spring:
   application:
     name: cpaas-service-pas
+  autoconfigure:
+    exclude:
+    - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
   boot:          #添加到springbootadmin服务治理
     admin:
       client:
@@ -35,10 +38,10 @@ spring:
         instance:
           prefer-ip: true
   datasource:
-    type: com.alibaba.druid.pool.xa.DruidXADataSource
+    type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      #dn[0]:
-      - key: dn1
+      dn[0]:
+      #- key: dn1
         url: jdbc:mysql://localhost:3306/dn1?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
         username: root
         password: root
@@ -58,8 +61,8 @@ spring:
         poolPreparedStatements: true
         maxPoolPreparedStatementPerConnectionSize: 20
         filters: stat,wall,log4j2
-      #dn[1]: 
-      - key: dn2
+      dn[1]: 
+      #- key: dn2
         url: jdbc:mysql://localhost:3306/dn2?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
         username: root
         password: root

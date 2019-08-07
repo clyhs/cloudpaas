@@ -11,6 +11,7 @@ import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.core.env.Environment;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.cloudpaas.common.properties.DataSourceProperty;
 
 /**
  * @author 大鱼
@@ -19,6 +20,8 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
  */
 public abstract class AbstractDataSourceConfig {
 	
+	private String dataSourceClassName = "com.alibaba.druid.pool.xa.DruidXADataSource";
+	
 	protected DataSource getDataSource(Environment env,String prefix,String dataSourceName) {
         Properties prop = build(env,prefix);
         AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
@@ -26,6 +29,38 @@ public abstract class AbstractDataSourceConfig {
         ds.setUniqueResourceName(dataSourceName);
         ds.setXaProperties(prop);
         return ds;
+    }
+	
+	protected DataSource getDataSource(DataSourceProperty dataDourceProperty){
+		Properties prop = build(dataDourceProperty);
+		AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
+		ds.setXaDataSourceClassName(dataSourceClassName);
+        ds.setUniqueResourceName(dataDourceProperty.getKey());
+        ds.setXaProperties(prop);
+		return ds;
+	}
+	
+	protected Properties build(DataSourceProperty dataDourceProperty) {
+        Properties prop = new Properties();
+        prop.put("url", dataDourceProperty.getUrl());
+        prop.put("username", dataDourceProperty.getUsername());
+        prop.put("password", dataDourceProperty.getPassword());
+        prop.put("driverClassName", dataDourceProperty.getDriverClassName());
+        prop.put("initialSize", dataDourceProperty.getInitialSize());
+        prop.put("maxActive", dataDourceProperty.getMaxActive());
+        prop.put("minIdle", dataDourceProperty.getMinIdle());
+        prop.put("maxWait", dataDourceProperty.getMaxWait());
+        prop.put("poolPreparedStatements", dataDourceProperty.getPoolPreparedStatements());
+        prop.put("maxPoolPreparedStatementPerConnectionSize",dataDourceProperty.getMaxPoolPreparedStatementPerConnectionSize());
+        prop.put("validationQuery", dataDourceProperty.getValidationQuery());
+        prop.put("validationQueryTimeout", dataDourceProperty.getValidationQueryTimeout());
+        prop.put("testOnBorrow", dataDourceProperty.getTestOnBorrow());
+        prop.put("testOnReturn", dataDourceProperty.getTestOnReturn());
+        prop.put("testWhileIdle", dataDourceProperty.getTestWhileIdle());
+        prop.put("timeBetweenEvictionRunsMillis", dataDourceProperty.getTimeBetweenEvictionRunsMillis());
+        prop.put("minEvictableIdleTimeMillis", dataDourceProperty.getMinEvictableIdleTimeMillis());
+        prop.put("filters", dataDourceProperty.getFilters());
+        return prop;
     }
 
 	protected DataSource getDataSourceWithDruid(Environment env,String prefix,String dataSourceName) throws Exception{
@@ -62,8 +97,6 @@ public abstract class AbstractDataSourceConfig {
         prop.put("maxPoolPreparedStatementPerConnectionSize",
                 env.getProperty(prefix + "maxPoolPreparedStatementPerConnectionSize", Integer.class));
  
-        prop.put("maxPoolPreparedStatementPerConnectionSize",
-                env.getProperty(prefix + "maxPoolPreparedStatementPerConnectionSize", Integer.class));
         prop.put("validationQuery", env.getProperty(prefix + "validationQuery"));
         prop.put("validationQueryTimeout", env.getProperty(prefix + "validationQueryTimeout", Integer.class));
         prop.put("testOnBorrow", env.getProperty(prefix + "testOnBorrow", Boolean.class));

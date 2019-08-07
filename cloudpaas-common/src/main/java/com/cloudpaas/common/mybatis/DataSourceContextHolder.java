@@ -3,6 +3,8 @@
  */
 package com.cloudpaas.common.mybatis;
 
+import java.util.Set;
+
 /**
  * @author 大鱼
  *
@@ -14,6 +16,8 @@ public class DataSourceContextHolder {
 
 	//线程本地环境
     private static final ThreadLocal<String> dataSources = new ThreadLocal<String>();
+  	
+  	
     //设置数据源
     public static void setDataSource(String customerType) {
         dataSources.set(customerType);

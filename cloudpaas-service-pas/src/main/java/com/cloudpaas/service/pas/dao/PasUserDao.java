@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cloudpaas.common.mybatis.DataSource;
 import com.cloudpaas.common.mybatis.DataSourceContextHolder;
 import com.cloudpaas.service.pas.mapper.PasUserMapper;
 import com.cloudpaas.common.model.User;
@@ -37,6 +38,10 @@ public class PasUserDao {
 
 	public List<User> selectall2() {
 		DataSourceContextHolder.setDataSource("dn2");
+		return userMapper.select_test(null);
+	}
+	
+	public List<User> selectall3(@DataSource String db) {
 		return userMapper.select_test(null);
 	}
 	

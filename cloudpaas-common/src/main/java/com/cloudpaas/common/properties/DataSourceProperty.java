@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 public class DataSourceProperty {
 
-	//private String  dataname;
+	private String  key;
 	
 	private String  url;
 	

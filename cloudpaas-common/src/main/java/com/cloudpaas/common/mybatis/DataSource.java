@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * 
  * 切换数据源注解类，默认选择dn1
  */
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.METHOD, ElementType.TYPE,ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface DataSource {

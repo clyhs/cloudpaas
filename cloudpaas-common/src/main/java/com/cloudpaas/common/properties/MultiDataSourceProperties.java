@@ -3,6 +3,10 @@
  */
 package com.cloudpaas.common.properties;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +22,8 @@ import lombok.Data;
  */
 @Component
 @Data
-@ConfigurationProperties(prefix="spring.datasource.druid")
+@ConfigurationProperties(prefix="spring.datasource")
 public class MultiDataSourceProperties {
 
-	private DataSourceProperty[] dn = {}; 
+	private List<DataSourceProperty> druid = new ArrayList<DataSourceProperty>(); 
 }
