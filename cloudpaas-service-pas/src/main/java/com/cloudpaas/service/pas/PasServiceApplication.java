@@ -34,7 +34,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @date 2019年7月26日 上午10:49:50
  */
 @EnableDiscoveryClient
-@SpringBootApplication(exclude={DataSourceAutoConfiguration.class,XADataSourceAutoConfiguration.class})
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class,
+		XADataSourceAutoConfiguration.class,
+		DataSourceTransactionManagerAutoConfiguration.class})
 @EnableAPISwagger2 
 @ComponentScan(basePackages = {"com.cloudpaas"})
 @EnableAspectJAutoProxy(exposeProxy = true)

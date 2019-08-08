@@ -35,7 +35,7 @@ spring:
         instance:
           prefer-ip: true
   datasource:
-    type: com.alibaba.druid.pool.xa.DruidXADataSource
+    type: com.alibaba.druid.pool.DruidDataSource
     druid:
       #dn[0]:
       - key: dn1

@@ -29,12 +29,11 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.cloudpaas.common.mybatis.AbstractDataSourceConfig;
 import com.cloudpaas.common.mybatis.MultiRoutingDataSource;
 import com.cloudpaas.common.properties.DataSourceProperty;
 import com.cloudpaas.common.properties.MultiDataSourceProperties;
 import com.cloudpaas.common.properties.MybatisProperties;
-import com.cloudpaas.common.utils.DataSourceUtil;
+import com.cloudpaas.common.utils.AtomikosDataSourceUtil;
 import com.cloudpaas.common.utils.JSONUtil;
 import com.github.pagehelper.PageInterceptor;
 
@@ -102,7 +101,7 @@ public class MybatisConfig{
 //			for(DataSourceProperty dsp:dataSourceProperties.getDruid()){
 //				if(null!=dsp){
 //					log.debug("datasource "+" key "+dsp.getKey()+":"+JSONUtil.toJson(dsp));
-//					dataSource = DataSourceUtil.getDataSource(dsp);
+//					dataSource = AtomikosDataSourceUtil.getDataSource(dsp);
 //					dataSourceMap.put(dsp.getKey(), dataSource);
 //					if(dsp.getKey().equals("dn1")){
 //						defaultDataSource = dataSource;

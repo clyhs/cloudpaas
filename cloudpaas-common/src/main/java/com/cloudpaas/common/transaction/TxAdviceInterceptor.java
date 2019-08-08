@@ -1,6 +1,7 @@
 package com.cloudpaas.common.transaction;
 
 
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -28,7 +29,7 @@ import java.util.Map;
 public class TxAdviceInterceptor {
 
     private static final int TX_METHOD_TIMEOUT = 5;
-    private static final String AOP_POINTCUT_EXPRESSION = "execution (* com.cloudpaas.service.pas.dao.*.*(..))";
+    private static final String AOP_POINTCUT_EXPRESSION = "execution (* com.cloudpaas..dao.*.*(..))";
     @Autowired
     private PlatformTransactionManager transactionManager;
 

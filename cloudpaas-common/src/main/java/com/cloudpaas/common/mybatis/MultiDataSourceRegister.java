@@ -1,9 +1,10 @@
 package com.cloudpaas.common.mybatis;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.properties.DataSourceProperty;
 import com.cloudpaas.common.properties.MultiDataSourceProperties;
-import com.cloudpaas.common.utils.DataSourceUtil;
+import com.cloudpaas.common.utils.AtomikosDataSourceUtil;
 import com.cloudpaas.common.utils.JSONUtil;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -26,10 +27,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 
+import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -79,7 +82,7 @@ public class MultiDataSourceRegister implements EnvironmentAware, ImportBeanDefi
         Class<? extends DataSource> defaultClazz = getDataSourceType(typeStr); 
         log.debug("default datasource drive class:"+defaultClazz.toString());
         DataSource defaultDataSource = null;
-        //绑定数据源参数
+        //绑定数据源参数 方法一
         List<DataSourceProperty> configs = binder.bind("spring.datasource.druid", Bindable.listOf(DataSourceProperty.class)).get();
         
         if(null!=configs && configs.size()>0){
@@ -88,7 +91,7 @@ public class MultiDataSourceRegister implements EnvironmentAware, ImportBeanDefi
             	DataSourceProperty dp = configs.get(i);
             	log.info("datasource "+" key "+dp.getKey());
             	
-                DataSource consumerDatasource = DataSourceUtil.getDataSource(dp); 
+                DataSource consumerDatasource = AtomikosDataSourceUtil.getDataSource(dp); 
                 //获取数据源的key，以便通过该key可以定位到数据源
                 sourceMap.put(dp.getKey(), consumerDatasource); 
                 if(dp.getKey().equals(CommonConstants.DEFAULT_DATASOURCE_KEY)){
@@ -99,6 +102,22 @@ public class MultiDataSourceRegister implements EnvironmentAware, ImportBeanDefi
         }else{
         	log.info("spring.datasource.druid can not found - key: dn value");
         }
+        //绑定数据源参数 方法二
+        /*
+        List<Map> configs = binder.bind("spring.datasource.druid", Bindable.listOf(Map.class)).get();
+        if(null!=configs && configs.size()>0){
+        	for (int i = 0; i < configs.size(); i++) {
+                config = configs.get(i);
+                properties = config;
+                DataSource consumerDatasource = bind(defaultClazz, properties);
+                sourceMap.put(config.get("key").toString(), consumerDatasource); 
+                if(config.get("key").toString().equals(CommonConstants.DEFAULT_DATASOURCE_KEY)){
+                	defaultDataSource = consumerDatasource;
+                }
+        	}
+        }*/
+        
+        
         log.info(JSONUtil.beanToJson(sourceMap));
         //bean定义类
         GenericBeanDefinition define = new GenericBeanDefinition(); 
@@ -113,6 +132,7 @@ public class MultiDataSourceRegister implements EnvironmentAware, ImportBeanDefi
         mpv.add("keySet", sourceMap.keySet());
         //将该bean注册为datasource，不使用springboot自动生成的datasource
         beanDefinitionRegistry.registerBeanDefinition("dynamicDataSource", define); 
+      
     }
 
     /**
@@ -180,8 +200,5 @@ public class MultiDataSourceRegister implements EnvironmentAware, ImportBeanDefi
         this.evn = environment;
         binder = Binder.get(evn); //绑定配置器
     }
-    
-   
-    
     
 }

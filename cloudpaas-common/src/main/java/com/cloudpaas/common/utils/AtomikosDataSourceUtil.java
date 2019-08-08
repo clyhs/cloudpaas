@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.core.env.Environment;
 
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.xa.DruidXADataSource;
 import com.cloudpaas.common.properties.DataSourceProperty;
 
 /**
@@ -21,9 +23,9 @@ import com.cloudpaas.common.properties.DataSourceProperty;
  * 
  * datasource构建类
  */
-public class DataSourceUtil {
+public class AtomikosDataSourceUtil {
 	
-	private static Logger log = LoggerFactory.getLogger(DataSourceUtil.class);
+	private static Logger log = LoggerFactory.getLogger(AtomikosDataSourceUtil.class);
 	
     private static String dataSourceClassName = "com.alibaba.druid.pool.xa.DruidXADataSource";
 	
@@ -42,6 +44,7 @@ public class DataSourceUtil {
 		ds.setXaDataSourceClassName(dataSourceClassName);
         ds.setUniqueResourceName(dataDourceProperty.getKey());
         ds.setXaProperties(prop);
+		
 		return ds;
 	}
 

@@ -11,6 +11,7 @@ import java.util.Set;
 
 import javax.sql.XADataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import com.alibaba.druid.pool.xa.DruidXADataSource;
 import com.alibaba.druid.support.json.JSONUtils;
@@ -36,6 +36,8 @@ import com.alibaba.druid.support.json.JSONUtils;
 public class MultiRoutingDataSource extends AbstractRoutingDataSource {
 
 	private static Logger log = LoggerFactory.getLogger(MultiRoutingDataSource.class);
+	
+	
 
 	// 所有数据源的key集合
 	private Set<Object> keySet;
@@ -76,11 +78,11 @@ public class MultiRoutingDataSource extends AbstractRoutingDataSource {
 	public void afterPropertiesSet() {
 		super.afterPropertiesSet();
 		try {
-			//Field sourceMapField = AbstractRoutingDataSource.class.getDeclaredField("resolvedDataSources");
-			//sourceMapField.setAccessible(true);
-			//Map<Object, Object> sourceMap = (Map<Object,Object>) sourceMapField.get(this);
-			
-			log.info(JSONUtils.toJSONString(keySet));
+			Field sourceMapField = AbstractRoutingDataSource.class.getDeclaredField("targetDataSources");
+			sourceMapField.setAccessible(true);
+			Map<Object, Object> sourceMap = (Map<Object,Object>) sourceMapField.get(this);
+			log.info(JSONUtils.toJSONString(sourceMap));
+			//log.info(JSONUtils.toJSONString(keySet));
 			//this.keySet = sourceMap.keySet();
 			//sourceMapField.setAccessible(false);
 		} catch (/*NoSuchFieldException | IllegalAccessException*/ Exception e) {
@@ -88,6 +90,54 @@ public class MultiRoutingDataSource extends AbstractRoutingDataSource {
 		}
 
 	}
+	
+	public void removeDataSource(String datakey) {
+        if (StringUtils.isBlank(datakey))
+            return;
+        try {
+            Field targetDataSources = AbstractRoutingDataSource.class.getDeclaredField("targetDataSources");
+            Field resolvedDataSources = AbstractRoutingDataSource.class.getDeclaredField("resolvedDataSources");
+            targetDataSources.setAccessible(true);
+            resolvedDataSources.setAccessible(true);
+            Map<Object, Object> dataSources = (Map<Object, Object>) targetDataSources.get(this);
+            if (dataSources.get(datakey) != null) {
+                Map<Object, javax.sql.DataSource> dataSources2 = (Map<Object, javax.sql.DataSource>) resolvedDataSources.get(this);
+                dataSources.remove(datakey);
+                dataSources2.remove(datakey);
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	public void addDataSource(String datakey) {
+        if (StringUtils.isBlank(datakey))
+            return;
+        try {
+            Field targetDataSources = AbstractRoutingDataSource.class.getDeclaredField("targetDataSources");
+            Field resolvedDataSources = AbstractRoutingDataSource.class.getDeclaredField("resolvedDataSources");
+            targetDataSources.setAccessible(true);
+            resolvedDataSources.setAccessible(true);
+            Map<Object, Object> dataSources = (Map<Object, Object>) targetDataSources.get(this);
+            if (dataSources.get(datakey) != null)
+                return;
+            Map<Object, DataSource> dataSources2 = (Map<Object, DataSource>) resolvedDataSources.get(this);
+            //
+//            DruidDataSource dds = new DruidDataSource();
+//            dds.setUrl("jdbc:mysql://" + dbInfo.getDbaddr() +
+//                    ":" + dbInfo.getDbport() + "/" + dbInfo.getDbname() + "?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&useSSL=true");
+//            dds.setUsername(dbInfo.getUsername());
+//            dds.setPassword(dbInfo.getPwd());
+//            dataSources.put(userid, dds);
+//            dataSources2.put(userid, dds);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 
 	
 
