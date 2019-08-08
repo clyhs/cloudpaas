@@ -6,6 +6,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.cloudpaas.common.constants.CommonConstants;
+
 /**
  * 
  * @author 大鱼
@@ -18,7 +20,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface DataSource {
-	String name() default DataSource.dn1;
+	String name() default CommonConstants.DEFAULT_DATASOURCE_KEY;
 	
-	public static String dn1 = "dn1";
 }
