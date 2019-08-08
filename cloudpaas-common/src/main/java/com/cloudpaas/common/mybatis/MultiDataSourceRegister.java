@@ -1,7 +1,9 @@
 package com.cloudpaas.common.mybatis;
 
+import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.properties.DataSourceProperty;
 import com.cloudpaas.common.properties.MultiDataSourceProperties;
+import com.cloudpaas.common.utils.DataSourceUtil;
 import com.cloudpaas.common.utils.JSONUtil;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -72,36 +74,32 @@ public class MultiDataSourceRegister implements EnvironmentAware, ImportBeanDefi
         sourceMap = new HashMap<>(); //默认配置
         //默认数据源类型
         String typeStr = evn.getProperty("spring.datasource.type"); 
-        log.info(JSONUtil.toJson(defaultConfig));
+        log.debug("application.yml's spring.datasource value :"+JSONUtil.toJson(defaultConfig));
         //获取数据源类型
         Class<? extends DataSource> defaultClazz = getDataSourceType(typeStr); 
-        log.info(defaultClazz.toString());
+        log.debug("default datasource drive class:"+defaultClazz.toString());
         DataSource defaultDataSource = null;
         //绑定数据源参数
         List<DataSourceProperty> configs = binder.bind("spring.datasource.druid", Bindable.listOf(DataSourceProperty.class)).get();
-        for (int i = 0; i < configs.size(); i++) { //遍历生成其他数据源
-        	DataSourceProperty dp = configs.get(i);
-        	log.info(JSONUtil.toJson(dp));
-        	
-//        	clazz = getDataSourceType((String) config.get("type"));
-//            if ((boolean) config.getOrDefault("extend", Boolean.TRUE)) { //获取extend字段，未定义或为true则为继承状态
-//                properties = new HashMap(defaultConfig); //继承默认数据源配置
-//                properties.putAll(config); //添加数据源参数
-//            } else {
-//                properties = config; //不继承默认配置
-//            }
-//            consumerDatasource = bind(clazz, properties); //绑定参数
-        	
-        	
-            DataSource consumerDatasource = getDataSource(dp); 
-            //获取数据源的key，以便通过该key可以定位到数据源
-            sourceMap.put(dp.getKey(), consumerDatasource); 
-            if(dp.getKey().equals("dn1")){
-            	defaultDataSource = consumerDatasource;
-            }
-        }
         
-        log.info(JSONUtil.toJson(sourceMap));
+        if(null!=configs && configs.size()>0){
+        	log.info("spring.datasource.druid init start ...");
+        	for (int i = 0; i < configs.size(); i++) { //遍历生成其他数据源
+            	DataSourceProperty dp = configs.get(i);
+            	log.info("datasource "+" key "+dp.getKey());
+            	
+                DataSource consumerDatasource = DataSourceUtil.getDataSource(dp); 
+                //获取数据源的key，以便通过该key可以定位到数据源
+                sourceMap.put(dp.getKey(), consumerDatasource); 
+                if(dp.getKey().equals(CommonConstants.DEFAULT_DATASOURCE_KEY)){
+                	defaultDataSource = consumerDatasource;
+                }
+            }
+        	log.info("spring.datasource.druid init end  ...");
+        }else{
+        	log.info("spring.datasource.druid can not found - key: dn value");
+        }
+        log.info(JSONUtil.beanToJson(sourceMap));
         //bean定义类
         GenericBeanDefinition define = new GenericBeanDefinition(); 
         //设置bean的类型，此处MultiDataSource是继承AbstractRoutingDataSource的实现类
@@ -183,39 +181,7 @@ public class MultiDataSourceRegister implements EnvironmentAware, ImportBeanDefi
         binder = Binder.get(evn); //绑定配置器
     }
     
-    protected DataSource getDataSource(DataSourceProperty dataDourceProperty){
-		Properties prop = build(dataDourceProperty);
-		AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
-		ds.setXaDataSourceClassName("com.alibaba.druid.pool.xa.DruidXADataSource");
-        ds.setUniqueResourceName(dataDourceProperty.getKey());
-        ds.setXaProperties(prop);
-		return ds;
-	}
+   
     
-    protected Properties build(DataSourceProperty dataDourceProperty) {
-        Properties prop = new Properties();
-        prop.put("url", dataDourceProperty.getUrl());
-        prop.put("username", dataDourceProperty.getUsername());
-        prop.put("password", dataDourceProperty.getPassword());
-        prop.put("driverClassName", dataDourceProperty.getDriverClassName());
-        prop.put("initialSize", dataDourceProperty.getInitialSize()+"");
-        prop.put("maxActive", dataDourceProperty.getMaxActive()+"");
-        prop.put("minIdle", dataDourceProperty.getMinIdle()+"");
-        prop.put("maxWait", dataDourceProperty.getMaxWait()+"");
-        prop.put("poolPreparedStatements", dataDourceProperty.getPoolPreparedStatements()+"");
-        prop.put("maxPoolPreparedStatementPerConnectionSize",dataDourceProperty.getMaxPoolPreparedStatementPerConnectionSize()+"");
-        prop.put("validationQuery", dataDourceProperty.getValidationQuery());
-        prop.put("validationQueryTimeout", dataDourceProperty.getValidationQueryTimeout()+"");
-        prop.put("testOnBorrow", dataDourceProperty.getTestOnBorrow()+"");
-        prop.put("testOnReturn", dataDourceProperty.getTestOnReturn()+"");
-        prop.put("testWhileIdle", dataDourceProperty.getTestWhileIdle()+"");
-        prop.put("minPoolSize", dataDourceProperty.getMinPoolSize()+"");
-        prop.put("maxPoolSize", dataDourceProperty.getMaxPoolSize()+"");
-        prop.put("borrowConnectionTimeout", dataDourceProperty.getBorrowConnectionTimeout()+"");
-        
-        prop.put("timeBetweenEvictionRunsMillis", dataDourceProperty.getTimeBetweenEvictionRunsMillis()+"");
-        prop.put("minEvictableIdleTimeMillis", dataDourceProperty.getMinEvictableIdleTimeMillis()+"");
-        prop.put("filters", dataDourceProperty.getFilters());
-        return prop;
-    }
+    
 }

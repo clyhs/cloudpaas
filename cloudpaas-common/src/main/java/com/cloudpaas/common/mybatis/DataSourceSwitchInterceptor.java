@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 /**
+ * 切换数据源aop
  * 
  * @author 大鱼
  *
@@ -34,7 +35,7 @@ public class DataSourceSwitchInterceptor {
 	//@Pointcut("@within(com.cloudpaas.common.mybatis.DataSource)")
 	@Pointcut("execution(public * com.cloudpaas..dao.*.*(..))")
 	public void switchDataSource() {
-		log.info("aop");
+		log.info("进入aop切换");
 	}
 
 	/**
@@ -59,7 +60,6 @@ public class DataSourceSwitchInterceptor {
 				break;
 			}
 		}
-		log.info("aop" + isDynamic);
 		if (!isDynamic) { // 不存在参数带有Datasource注解
 			DataSource dataSource = method.getAnnotation(DataSource.class); // 获取方法的@DataSource注解
 			if (null == dataSource || !StringUtils.hasLength(dataSource.name())) { // 方法不含有注解
@@ -68,8 +68,8 @@ public class DataSourceSwitchInterceptor {
 			if (null != dataSource) {
 				source = dataSource.name(); // 设置key值
 			}
-			log.info("aop" + source);
 		}
+		log.debug("切换到datasource:"+source);
 		return persistBySource(source, point); // 继续执行该方法
 	}
 

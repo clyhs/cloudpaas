@@ -31,7 +31,7 @@ import com.alibaba.druid.support.json.JSONUtils;
  *
  * @date 2019年8月2日 上午11:47:36
  * 
- *       配置多数据源类
+ * 配置多数据源类
  */
 public class MultiRoutingDataSource extends AbstractRoutingDataSource {
 

@@ -84,7 +84,7 @@ public class WebControllerAop {
 	@AfterReturning(returning = "ret", pointcut = "webLog()")
 	public void doAfterReturning(Object ret) throws Throwable {
 		// 处理完请求，返回内容
-		System.out.println("方法的返回值 : " + ret);
+		log.info("方法的返回值 : " + ret);
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class WebControllerAop {
 	 */
 	@AfterThrowing("webLog()")
 	public void throwss(JoinPoint jp) {
-		System.out.println("方法异常时执行.....");
+		log.info("方法异常时执行.....");
 	}
 
 	/**

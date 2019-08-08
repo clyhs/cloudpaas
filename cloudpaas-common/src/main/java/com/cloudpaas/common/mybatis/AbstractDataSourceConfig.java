@@ -25,7 +25,7 @@ public abstract class AbstractDataSourceConfig {
 	protected DataSource getDataSource(Environment env,String prefix,String dataSourceName) {
         Properties prop = build(env,prefix);
         AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
-        ds.setXaDataSourceClassName("com.alibaba.druid.pool.xa.DruidXADataSource");
+        ds.setXaDataSourceClassName(dataSourceClassName);
         ds.setUniqueResourceName(dataSourceName);
         ds.setXaProperties(prop);
         return ds;
@@ -63,12 +63,7 @@ public abstract class AbstractDataSourceConfig {
         return prop;
     }
 
-	protected DataSource getDataSourceWithDruid(Environment env,String prefix,String dataSourceName) throws Exception{
-		Properties prop = buildWithDruid(env,prefix);
-		DataSource dataSource = DruidDataSourceFactory.createDataSource(prop);
-		
-		return dataSource;
-	}
+
 	/**
      * 主要针对DruidXADataSource数据库链接池
      * @param env
@@ -76,53 +71,11 @@ public abstract class AbstractDataSourceConfig {
      * @return
      */
     protected Properties build(Environment env, String prefix) {
-        Properties prop = new Properties();
+    	Properties prop = new Properties();
         prop.put("url", env.getProperty(prefix + "url"));
         prop.put("username", env.getProperty(prefix + "username"));
         prop.put("password", env.getProperty(prefix + "password"));
         prop.put("driverClassName", env.getProperty(prefix + "driverClassName", ""));
-        
-        
-        
-        prop.put("initialSize", env.getProperty(prefix + "initialSize", Integer.class));
-        
-        prop.put("maxActive", env.getProperty(prefix + "maxActive", Integer.class));
-        prop.put("minIdle", env.getProperty(prefix + "minIdle", Integer.class));
-        prop.put("maxWait", env.getProperty(prefix + "maxWait", Integer.class));
-        
-        
-        
-        prop.put("poolPreparedStatements", env.getProperty(prefix + "poolPreparedStatements", Boolean.class));
- 
-        prop.put("maxPoolPreparedStatementPerConnectionSize",
-                env.getProperty(prefix + "maxPoolPreparedStatementPerConnectionSize", Integer.class));
- 
-        prop.put("validationQuery", env.getProperty(prefix + "validationQuery"));
-        prop.put("validationQueryTimeout", env.getProperty(prefix + "validationQueryTimeout", Integer.class));
-        prop.put("testOnBorrow", env.getProperty(prefix + "testOnBorrow", Boolean.class));
-        prop.put("testOnReturn", env.getProperty(prefix + "testOnReturn", Boolean.class));
-        prop.put("testWhileIdle", env.getProperty(prefix + "testWhileIdle", Boolean.class));
-        prop.put("timeBetweenEvictionRunsMillis", env.getProperty(prefix + "timeBetweenEvictionRunsMillis", Integer.class));
-        prop.put("minEvictableIdleTimeMillis", env.getProperty(prefix + "minEvictableIdleTimeMillis", Integer.class));
-        prop.put("filters", env.getProperty(prefix + "filters"));
-        return prop;
-    }
-    
-    /**
-     * 主要针对druid数据库链接池
-     * @param env
-     * @param prefix
-     * @return
-     */
-    protected Properties buildWithDruid(Environment env, String prefix) {
-        Properties prop = new Properties();
-        prop.put("url", env.getProperty(prefix + "url"));
-        prop.put("username", env.getProperty(prefix + "username"));
-        prop.put("password", env.getProperty(prefix + "password"));
-        prop.put("driverClassName", env.getProperty(prefix + "driverClassName", ""));
-        
-        
-        
         prop.put("initialSize", env.getProperty(prefix + "initialSize"));
         
         prop.put("maxActive", env.getProperty(prefix + "maxActive"));
@@ -138,9 +91,14 @@ public abstract class AbstractDataSourceConfig {
         prop.put("testOnBorrow", env.getProperty(prefix + "testOnBorrow"));
         prop.put("testOnReturn", env.getProperty(prefix + "testOnReturn"));
         prop.put("testWhileIdle", env.getProperty(prefix + "testWhileIdle"));
+        prop.put("minPoolSize", env.getProperty(prefix + "minPoolSize"));
+        prop.put("maxPoolSize",  env.getProperty(prefix + "maxPoolSize"));
+        prop.put("borrowConnectionTimeout",  env.getProperty(prefix + "borrowConnectionTimeout"));
         prop.put("timeBetweenEvictionRunsMillis", env.getProperty(prefix + "timeBetweenEvictionRunsMillis"));
         prop.put("minEvictableIdleTimeMillis", env.getProperty(prefix + "minEvictableIdleTimeMillis"));
         prop.put("filters", env.getProperty(prefix + "filters"));
         return prop;
     }
+    
+    
 }
