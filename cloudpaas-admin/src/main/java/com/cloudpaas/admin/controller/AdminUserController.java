@@ -31,7 +31,7 @@ public class AdminUserController {
 	
     @GetMapping("/lists")
     public List<User> lists() {
-    	List<User> users = userDao.selectListAll();
+    	List<User> users = userDao.selectListAll("dn1");
         return users;
     }
     

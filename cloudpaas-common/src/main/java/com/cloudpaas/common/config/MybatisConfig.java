@@ -29,6 +29,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.mybatis.MultiRoutingDataSource;
 import com.cloudpaas.common.properties.DataSourceProperty;
 import com.cloudpaas.common.properties.MultiDataSourceProperties;
@@ -86,38 +87,39 @@ public class MybatisConfig{
 	
 
 	
-//	@Bean("dynamicDataSource")
-//    public DataSource dynamicDataSource(/*@Qualifier("dataSource_dn1")DataSource dataSource_dn1,
-//    		@Qualifier("dataSource_dn2")DataSource dataSource_dn2*/) {
-//		
-//		log.info("-----------开始初始化数据源-------------");
-//        //log.info(dataSourceProperties.getDruid().size()+"");
-//		Map<Object, Object> dataSourceMap = new HashMap<>();
-//		
-//		MultiRoutingDataSource dynamicDataSource = new MultiRoutingDataSource();
-//		DataSource dataSource = null;
-//		DataSource defaultDataSource = null;
-//		if(null!=dataSourceProperties.getDruid() && dataSourceProperties.getDruid().size()>0){
-//			for(DataSourceProperty dsp:dataSourceProperties.getDruid()){
-//				if(null!=dsp){
-//					log.debug("datasource "+" key "+dsp.getKey()+":"+JSONUtil.toJson(dsp));
-//					dataSource = AtomikosDataSourceUtil.getDataSource(dsp);
-//					dataSourceMap.put(dsp.getKey(), dataSource);
-//					if(dsp.getKey().equals("dn1")){
-//						defaultDataSource = dataSource;
-//					}
-//				}
-//				
-//			}
-//		}
-//        // 将 master 数据源作为默认指定的数据源
-//        dynamicDataSource.setDefaultTargetDataSource(defaultDataSource);
-//        dynamicDataSource.setTargetDataSources(dataSourceMap);
-//        dynamicDataSource.setKeySet(dataSourceMap.keySet());
-//        dynamicDataSource.afterPropertiesSet();
-//        log.info("-----------完成初始化数据源-------------");
-//        return dynamicDataSource;
-//    }
+	@Bean("dynamicDataSource")
+    public DataSource dynamicDataSource(/*@Qualifier("dataSource_dn1")DataSource dataSource_dn1,
+    		@Qualifier("dataSource_dn2")DataSource dataSource_dn2*/) {
+		
+		log.info("-----------开始初始化数据源-------------");
+        //log.info(dataSourceProperties.getDruid().size()+"");
+		Map<Object, Object> dataSourceMap = new HashMap<>();
+		
+		MultiRoutingDataSource dynamicDataSource = new MultiRoutingDataSource();
+		DataSource dataSource = null;
+		DataSource defaultDataSource = null;
+		if(null!=dataSourceProperties.getDruid() && dataSourceProperties.getDruid().size()>0){
+			for(DataSourceProperty dsp:dataSourceProperties.getDruid()){
+				if(null!=dsp){
+					log.debug("datasource "+" key "+dsp.getKey()+":"+JSONUtil.toJson(dsp));
+					dataSource = AtomikosDataSourceUtil.getDataSource(dsp);
+					dataSourceMap.put(dsp.getKey(), dataSource);
+					if(dsp.getKey().equals(CommonConstants.DEFAULT_DATASOURCE_KEY)){
+						defaultDataSource = dataSource;
+					}
+				}
+			}
+		}else{
+			log.error("spring.datasource.druid[] is null,please set datasource.druid");
+		}
+        // 将 master 数据源作为默认指定的数据源
+        dynamicDataSource.setDefaultTargetDataSource(defaultDataSource);
+        dynamicDataSource.setTargetDataSources(dataSourceMap);
+        dynamicDataSource.setKeySet(dataSourceMap.keySet());
+        dynamicDataSource.afterPropertiesSet();
+        log.info("-----------完成初始化数据源-------------");
+        return dynamicDataSource;
+    }
 	
 	@Bean(name="sqlSessionFactory")
     public SqlSessionFactoryBean sqlSessionFactoryBean(@Qualifier("dynamicDataSource")DataSource dynamicDataSource) throws Exception {

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.cloudpaas.common.model.User;
 
+import tk.mybatis.mapper.common.BaseMapper;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

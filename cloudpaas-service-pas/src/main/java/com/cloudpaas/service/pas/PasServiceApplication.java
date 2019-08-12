@@ -40,7 +40,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAPISwagger2 
 @ComponentScan(basePackages = {"com.cloudpaas"})
 @EnableAspectJAutoProxy(exposeProxy = true)
-@Import(MultiDataSourceRegister.class)
 public class PasServiceApplication {
 
 	public static void main(String[] args) {

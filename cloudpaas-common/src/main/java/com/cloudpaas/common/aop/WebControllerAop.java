@@ -27,8 +27,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  *
  * @date 2019年8月7日 下午6:45:28
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class WebControllerAop {
 
 	private static Logger log = LoggerFactory.getLogger(WebControllerAop.class);

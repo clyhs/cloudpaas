@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.cloudpaas.common.mybatis.DataSource;
 import com.cloudpaas.common.result.TableResultResponse;
 import com.cloudpaas.common.utils.Query;
 import com.github.pagehelper.Page;
@@ -32,70 +33,70 @@ public abstract class BaseDao<M extends Mapper<T>, T> {
         this.mapper = mapper;
     }
 
-    public T selectOne(T entity) {
+    public T selectOne(T entity,@DataSource String db) {
         return mapper.selectOne(entity);
     }
 
 
-    public T selectById(Object id) {
+    public T selectById(Object id,@DataSource String db) {
         return mapper.selectByPrimaryKey(id);
     }
 
 
-    public List<T> selectList(T entity) {
+    public List<T> selectList(T entity,@DataSource String db) {
         return mapper.select(entity);
     }
 
 
-    public List<T> selectListAll() {
+    public List<T> selectListAll(@DataSource String db) {
         return mapper.selectAll();
     }
 
 
-    public Long selectCount(T entity) {
+    public Long selectCount(T entity,@DataSource String db) {
         return new Long(mapper.selectCount(entity));
     }
 
 
-    public void insert(T entity) {
+    public void insert(T entity,@DataSource String db) {
         mapper.insert(entity);
     }
 
 
-    public void insertSelective(T entity) {
+    public void insertSelective(T entity,@DataSource String db) {
         mapper.insertSelective(entity);
     }
 
 
-    public void delete(T entity) {
+    public void delete(T entity,@DataSource String db) {
         mapper.delete(entity);
     }
 
 
-    public void deleteById(Object id) {
+    public void deleteById(Object id,@DataSource String db) {
         mapper.deleteByPrimaryKey(id);
     }
 
 
-    public void updateById(T entity) {
+    public void updateById(T entity,@DataSource String db) {
         mapper.updateByPrimaryKey(entity);
     }
 
 
-    public void updateSelectiveById(T entity) {
+    public void updateSelectiveById(T entity,@DataSource String db) {
         mapper.updateByPrimaryKeySelective(entity);
 
     }
 
-    public List<T> selectByExample(Object example) {
+    public List<T> selectByExample(Object example,@DataSource String db) {
         return mapper.selectByExample(example);
     }
 
-    public int selectCountByExample(Object example) {
+    public int selectCountByExample(Object example,@DataSource String db) {
         return mapper.selectCountByExample(example);
     }
 
-    public TableResultResponse<T> selectByQuery(Query query) {
+    public TableResultResponse<T> selectByQuery(Query query,@DataSource String db) {
         Class<T> clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         Example example = new Example(clazz);
         if(query.entrySet().size()>0) {

@@ -40,7 +40,6 @@ import org.mybatis.spring.annotation.MapperScan;
 @RestController
 @ComponentScan(basePackages = {"com.cloudpaas"})
 @EnableAspectJAutoProxy(exposeProxy = true)
-@Import(MultiDataSourceRegister.class)
 public class AdminApplication {
 
     public static void main(String[] args) {

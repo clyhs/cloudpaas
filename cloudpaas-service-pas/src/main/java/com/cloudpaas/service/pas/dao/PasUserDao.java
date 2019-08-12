@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cloudpaas.common.mybatis.DataSource;
 import com.cloudpaas.common.mybatis.DataSourceContextHolder;
 import com.cloudpaas.service.pas.mapper.PasUserMapper;
+import com.cloudpaas.common.base.dao.BaseDao;
 import com.cloudpaas.common.model.User;
 
 /**
@@ -22,60 +23,76 @@ import com.cloudpaas.common.model.User;
  * @date 2019年8月2日 下午2:40:31
  */
 @Repository
-public class PasUserDao {
+public class PasUserDao extends BaseDao<PasUserMapper,User>{
 	
 	private static Logger log = LoggerFactory.getLogger(PasUserDao.class);
 
-	@Autowired
-	private PasUserMapper userMapper;
+//	@Autowired
+//	private PasUserMapper userMapper;
 
-	public List<User> selectall() {
-		DataSourceContextHolder.setDataSource("dn1");
-		List<User> us = userMapper.selectAll();
-		log.info(us.size()+"");
-		return userMapper.select_test(null);
+	/**
+	 * 通过@DataSource注解参数切换数据源
+	 * @param db
+	 * @return
+	 */
+	public List<User> selecttest(@DataSource String db) {
+		return mapper.select_test(null);
 	}
 
-	public List<User> selectall2() {
-		DataSourceContextHolder.setDataSource("dn2");
-		return userMapper.select_test(null);
+	/**
+	 * 通过DataSourceContextHolder切换数据源
+	 * @param db
+	 * @return
+	 */
+	public List<User> selecttest2(String db) {
+		DataSourceContextHolder.setDataSource(db);
+		return mapper.select_test(null);
 	}
 	
-	public List<User> selectall3(@DataSource String db) {
-		return userMapper.select_test(null);
-	}
-	
+	/**
+	 * 通过@DataSource切换数据源，验证事物
+	 * @param db
+	 * @return
+	 */
 	@Transactional(rollbackFor = Exception.class)
-	public Integer insert_test(){
-		DataSourceContextHolder.setDataSource("dn1");
+	public Integer insert_test(@DataSource String db){
 		User u = new User();
 		u.setName("ccc");
-		
-		Integer res = userMapper.insert_test(u);
-		
+		Integer res = mapper.insert_test(u);
 		return res;
 	}
-	
+	/**
+	 * 通过DataSourceContextHolder切换数据源
+	 * @param db
+	 * @return
+	 */
 	@Transactional(rollbackFor=Exception.class)
-	public Integer insert_test2(){
-		DataSourceContextHolder.setDataSource("dn2");
+	public Integer insert_test2(String db){
+		DataSourceContextHolder.setDataSource(db);
 		User u = new User();
 		u.setName("ccc");
-		
-		Integer res = userMapper.insert_test(u);
+		Integer res = mapper.insert_test(u);
 		int i = 5/0;
 		return res;
 	}
 	
 	@Transactional(rollbackFor=Exception.class)
-	public Integer insert_test3(){
-		
+	public Integer insert_test3(@DataSource String db){
 		User u = new User();
 		u.setName("ccc");
-		DataSourceContextHolder.setDataSource("dn2");
-		Integer res = userMapper.insert_test(u);
-		DataSourceContextHolder.setDataSource("dn1");
-		Integer res2 = userMapper.insert_test(u);
+		Integer res = mapper.insert_test(u);
+		Integer res2 = mapper.insert_test(u);
+		int i = 5/0;
+		return res;
+	}
+	
+	@Transactional(rollbackFor=Exception.class)
+	public Integer insert_test4(String db){
+		DataSourceContextHolder.setDataSource(db);
+		User u = new User();
+		u.setName("ccc");
+		Integer res = mapper.insert_test(u);
+		Integer res2 = mapper.insert_test(u);
 		int i = 5/0;
 		return res;
 	}
