@@ -44,7 +44,23 @@
         <!--</table>-->
         <!--<table tableName="gate_client" domainObjectName="GateClient">-->
         <!--</table>-->
-        <table tableName="admin_user" domainObjectName="User">
+        <!--  
+        <table tableName="t_user" domainObjectName="User"></table>-->
+        <table tableName="t_user" domainObjectName="AdminUser">
+            <generatedKey column="id" identity="true" sqlStatement="myql"/>
         </table>
+        <table tableName="t_role" domainObjectName="AdminRole">
+        <generatedKey column="id" identity="true" sqlStatement="myql"/>
+        </table>
+        <table tableName="t_org" domainObjectName="AdminOrg">
+        <generatedKey column="id" identity="true" sqlStatement="myql"/>
+        </table>
+        <table tableName="t_position" domainObjectName="AdminPosition">
+        <generatedKey column="id" identity="true" sqlStatement="myql"/>
+        </table>
+        <table tableName="t_menu" domainObjectName="AdminMenu">
+        <generatedKey column="id" identity="true" sqlStatement="myql"/>
+        </table>
+        
     </context>
 </generatorConfiguration>

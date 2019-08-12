@@ -16,7 +16,6 @@ import com.cloudpaas.common.base.dao.BaseDao;
  * @date 2019年7月26日 下午3:33:37
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class AdminUserDao extends BaseDao<AdminUserMapper, User> {
 
 }

@@ -3,8 +3,8 @@ package com.cloudpaas.common.model;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "t_role")
-public class Role {
+@Table(name = "t_org")
+public class Org {
     @Id
     private Integer id;
 

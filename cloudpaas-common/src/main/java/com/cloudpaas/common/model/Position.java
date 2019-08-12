@@ -3,8 +3,8 @@ package com.cloudpaas.common.model;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "t_role")
-public class Role {
+@Table(name = "t_position")
+public class Position {
     @Id
     private Integer id;
 
@@ -12,10 +12,10 @@ public class Role {
 
     private String name;
 
+    private String remark;
+
     @Column(name = "create_time")
     private Date createTime;
-
-    private String remark;
 
     /**
      * @return id
@@ -60,20 +60,6 @@ public class Role {
     }
 
     /**
-     * @return create_time
-     */
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    /**
-     * @param createTime
-     */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    /**
      * @return remark
      */
     public String getRemark() {
@@ -85,5 +71,19 @@ public class Role {
      */
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    /**
+     * @return create_time
+     */
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * @param createTime
+     */
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

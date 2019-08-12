@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("adminuser")
 public class AdminUserController {
 
-	@Resource(name="adminUserDao")
+	@Autowired
     private AdminUserDao userDao;
 	
     @GetMapping("/lists")

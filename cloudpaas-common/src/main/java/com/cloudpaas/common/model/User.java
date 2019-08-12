@@ -1,68 +1,137 @@
 package com.cloudpaas.common.model;
 
+import java.util.Date;
 import javax.persistence.*;
-
 
 @Table(name = "t_user")
 public class User {
-	@Id
-	private Integer id;
+    @Id
+    private Integer id;
 
-	private String  name;
+    private String username;
 
-	private Integer age;
+    private String password;
 
-	private String  password;
+    private String name;
 
-	/**
-	 * @return id
-	 */
-	public Integer getId() {
-		return id;
-	}
+    private Integer age;
 
-	/**
-	 * @param id
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private String tel;
 
-	
+    private Integer sex;
 
-	public String getName() {
-		return name;
-	}
+    @Column(name = "create_time")
+    private Date createTime;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @return id
+     */
+    public Integer getId() {
+        return id;
+    }
 
-	/**
-	 * @return age
-	 */
-	public Integer getAge() {
-		return age;
-	}
+    /**
+     * @param id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param age
-	 */
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+    /**
+     * @return username
+     */
+    public String getUsername() {
+        return username;
+    }
 
-	/**
-	 * @return password
-	 */
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * @param username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	/**
-	 * @param password
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * @return password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return age
+     */
+    public Integer getAge() {
+        return age;
+    }
+
+    /**
+     * @param age
+     */
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    /**
+     * @return tel
+     */
+    public String getTel() {
+        return tel;
+    }
+
+    /**
+     * @param tel
+     */
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    /**
+     * @return sex
+     */
+    public Integer getSex() {
+        return sex;
+    }
+
+    /**
+     * @param sex
+     */
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    /**
+     * @return create_time
+     */
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * @param createTime
+     */
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 }
