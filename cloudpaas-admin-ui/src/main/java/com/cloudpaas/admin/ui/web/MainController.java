@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @date 2019年8月4日 下午10:46:03
  */
 @Controller
+@RequestMapping("admin")
 public class MainController {
 
 	@RequestMapping("/demo.html")
@@ -24,11 +25,11 @@ public class MainController {
 	
 	@RequestMapping("/index.html")
 	public String index(){
-		return "admin/index";
+		return "admin/layui/index";
 	}
 	
-	@RequestMapping("/index2.html")
+	@RequestMapping("/main.html")
 	public String index2(){
-		return "admin/index2";
+		return "admin/layui/admin";
 	}
 }
