@@ -30,6 +30,6 @@ public class MainController {
 	
 	@RequestMapping("/main.html")
 	public String index2(){
-		return "admin/layui/admin";
+		return "admin/layui/main";
 	}
 }
