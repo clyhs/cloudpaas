@@ -3,6 +3,7 @@
  */
 package com.cloudpaas.admin.dao;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import com.cloudpaas.common.base.dao.BaseDao;
  *
  * @date 2019年7月26日 下午3:33:37
  */
-@Service
+@Repository
 public class AdminUserDao extends BaseDao<AdminUserMapper, User> {
 
 }

@@ -39,6 +39,7 @@ layui.define(["element", "jquery"], function (exports) {
             layuimini.initBgColor();
             layuimini.initDevice();
             layuimini.initTab();
+            element.init();
             /*
             $.getJSON(url, function (data, status) {
                 if (data == null) {
@@ -386,7 +387,7 @@ layui.define(["element", "jquery"], function (exports) {
             var html = '';
             var bgcolorId = window.sessionStorage.getItem('layuiminiBgcolorId');
             if (bgcolorId == null || bgcolorId == undefined || bgcolorId == '') {
-                bgcolorId = 0;
+                bgcolorId = 1;
             }
             var bgColorConfig = layuimini.bgColorConfig();
             $.each(bgColorConfig, function (key, val) {

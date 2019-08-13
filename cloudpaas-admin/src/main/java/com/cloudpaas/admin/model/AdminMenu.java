@@ -1,12 +1,18 @@
 package com.cloudpaas.admin.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Table(name = "t_menu")
-public class AdminMenu {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AdminMenu  {
+	
+
+	@Id
     private Integer id;
 
     private String title;
@@ -15,15 +21,31 @@ public class AdminMenu {
 
     private String icon;
 
-    private Integer order;
+    private Integer sort;
 
     private String remark;
 
-    private Integer pid;
+    @Column(name = "pid")
+    private Integer pId;
 
     private Integer level;
+    
+    /**
+     * 1：目录，2：链接，3：按钮
+     */
+    private Integer type;
+    
+    
 
-    @Column(name = "create_time")
+    public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	@Column(name = "create_time")
     private Date createTime;
 
     /**
@@ -85,16 +107,7 @@ public class AdminMenu {
     /**
      * @return order
      */
-    public Integer getOrder() {
-        return order;
-    }
-
-    /**
-     * @param order
-     */
-    public void setOrder(Integer order) {
-        this.order = order;
-    }
+    
 
     /**
      * @return remark
@@ -103,7 +116,23 @@ public class AdminMenu {
         return remark;
     }
 
-    /**
+    public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public Integer getpId() {
+		return pId;
+	}
+
+	public void setpId(Integer pId) {
+		this.pId = pId;
+	}
+
+	/**
      * @param remark
      */
     public void setRemark(String remark) {
@@ -113,15 +142,15 @@ public class AdminMenu {
     /**
      * @return pid
      */
-    public Integer getPid() {
-        return pid;
+    public Integer getPId() {
+        return pId;
     }
 
     /**
      * @param pid
      */
-    public void setPid(Integer pid) {
-        this.pid = pid;
+    public void setPid(Integer pId) {
+        this.pId = pId;
     }
 
     /**
@@ -141,6 +170,7 @@ public class AdminMenu {
     /**
      * @return create_time
      */
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     public Date getCreateTime() {
         return createTime;
     }
@@ -148,6 +178,8 @@ public class AdminMenu {
     /**
      * @param createTime
      */
+    
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
