@@ -26,8 +26,9 @@
 /**头部样式（缩放） */
 .layuimini-mini .layui-layout-left.layui-header-menu.layui-hide-xs {left:155px!important;}
 
+
 /**logo演示（通用） */
-.layui-layout-admin .layui-logo {font-weight:bold;color:#ffffff!important;height:60px!important;line-height:60px !important;overflow:hidden;line-height:64px;transition:all .2s!important;}
+.layui-layout-admin  .layui-logo {font-weight:bold;color:#ffffff!important;height:60px!important;line-height:60px !important;overflow:hidden;line-height:64px;transition:all .2s!important;}
 .layui-layout-admin  .layui-logo img {display:inline-block;height:30px;vertical-align:middle;}
 .layui-layout-admin  .layui-logo h1 {display:inline-block;margin:0 0 0 12px;color:#dadde2;font-weight:600;font-size:20px;font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;}
 
@@ -113,6 +114,17 @@
 .clildFrame.layui-tab-content {top:35px;position:absolute;bottom:5px;width:100%;padding:0;}
 * {touch-action:pan-y;}
 
+/*响应式*/
+@media screen and (max-width:1282px){
+    .panel{ width:33.3333%; }
+}
+@media screen and (max-width:1050px){
+    .layui-nav.top_menu .layui-nav-item a{ padding:0 10px; }
+    /*天气信息*/
+    .weather[pc]{ display: none !important; }
+    .sysNotice{ width:100%; }
+    .component{ width:165px; }
+}
 
 /**
  手机自适应样式
@@ -134,4 +146,5 @@
     .layuimini-all .layui-nav.layui-layout-right,.layuimini-mini .layui-layout-admin .layui-logo ,.layuimini-mini .layui-side.layui-bg-black,.layuimini-mini .layui-left-menu,.layui-layout-admin .layui-body #top_tabs,.layui-layout-admin .layui-body .layui-nav.closeBox{
         transition:all .2s;display:none;
     }
+    .layui-body,.layui-layout-admin .layui-footer{ left:0; }
 }
