@@ -1,6 +1,7 @@
 layui.define(["element", "jquery","tool","api"], function (exports) {
     var element = layui.element,
         api = layui.api,
+        tool= layui.tool,
         $ = layui.$,
         layer = layui.layer;
     
@@ -41,7 +42,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
             layuimini.initBgColor();
             layuimini.initDevice();
             
-            api.doGet("http://localhost:8200/adminmenu/tree.json",null,function(res){
+            api.doGet(tool.getContext()+"/adminmenu/tree.json",null,function(res){
         		var data = res;
         		layuimini.initMenu(data);
         	});
@@ -153,7 +154,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
                             	html += '<a href="javascript:;" class="layui-menu-tips" ><i class="' + childMenu.icon + '"></i><span class="layui-left-nav"> ' + childMenu.title + '</span></a>';
                                 html = buildChildHtml(html, childMenu.childrens);
                             } else {
-                                html += '<a href="javascript:;" class="layui-menu-tips" data-type="tabAdd"  data-tab-mpi="m-p-i-' + childMenu.id + '" data-tab="' + childMenu.url + '" target="_self"><i class="' + childMenu.icon + '"></i><span class="layui-left-nav"> ' + childMenu.title + '</span></a>\n';
+                                html += '<a href="javascript:;" class="layui-menu-tips" data-type="tabAdd"  data-tab-mpi="m-p-i-' + childMenu.id + '" data-tab="' +tool.getResUrl()+ childMenu.url + '" target="_self"><i class="' + childMenu.icon + '"></i><span class="layui-left-nav"> ' + childMenu.title + '</span></a>\n';
                             }
                             html += '</dd>\n';
                         });
@@ -162,7 +163,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
                     };
                     leftMenuHtml = buildChildHtml(leftMenuHtml, menu.childrens);
                 } else {
-                    leftMenuHtml += '<a href="javascript:;" class="layui-menu-tips"  data-type="tabAdd" data-tab-mpi="m-p-i-' + menuParameId + '" data-tab="' + menu.href + '" target="' + menu.target + '"><i class="' + menu.icon + '"></i><span class="layui-left-nav"> ' + menu.title + '</span></a>\n';
+                    leftMenuHtml += '<a href="javascript:;" class="layui-menu-tips"  data-type="tabAdd" data-tab-mpi="m-p-i-' + menu.id + '" data-tab="' +tool.getResUrl()+ menu.url + '" target="' + menu.target + '"><i class="' + menu.icon + '"></i><span class="layui-left-nav"> ' + menu.title + '</span></a>\n';
                     //menuParameId++;
                 }
                 leftMenuHtml += '</li>\n';

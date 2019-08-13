@@ -57,7 +57,7 @@ layui.define(['jquery', 'layer'], function (exports) {
      * 获取资源上下文
      * */
     function getResUrl() {
-        return $config.resUrl;
+        return $config.context;
     }
 
     /**

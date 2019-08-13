@@ -1,6 +1,7 @@
 server:
   port: 8888
-  
+  servlet:
+    context-path: /adminui
 spring:
   application:
     name: cpaas-admin-ui

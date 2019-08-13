@@ -1,18 +1,4 @@
-layui.config({
-	base : "/static/layui/js/extends/",
-	version : true
-}).extend({
-	"tool" : "tool",
-	"api" : "api",
-	layuimini : "layuimini"
-}).use([ 'element', 'layer', 'layuimini' ], function() {
-	var $ = layui.jquery, element = layui.element, layer = layui.layer;
-
-	layuimini.init('');
-
-	$('.login-out').on("click", function() {
-		layer.msg('退出登录成功', function() {
-			window.location = '#';
-		});
-	});
-});
+var $config = {
+    apiContext: 'http://localhost:8200' ,  // api请求地址
+    context: '/adminui'                    // 前端资源访问根目录,生产环境请设置为托管前端资源的位置
+};
