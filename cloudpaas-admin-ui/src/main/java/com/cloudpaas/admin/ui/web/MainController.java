@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @date 2019年8月4日 下午10:46:03
  */
 @Controller
-@RequestMapping("admin")
+@RequestMapping("main")
 public class MainController {
 
 	@RequestMapping("/hello.html")
