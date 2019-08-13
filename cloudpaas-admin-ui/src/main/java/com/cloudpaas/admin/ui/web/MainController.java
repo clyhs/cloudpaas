@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("admin")
 public class MainController {
 
-	@RequestMapping("/demo.html")
+	@RequestMapping("/hello.html")
     public String hello(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
         model.addAttribute("name", name);
         return "hello";
@@ -29,7 +29,12 @@ public class MainController {
 	}
 	
 	@RequestMapping("/main.html")
-	public String index2(){
+	public String main(){
 		return "admin/layui/main";
+	}
+	
+	@RequestMapping("/demo.html")
+	public String demo(){
+		return "admin/layui/demo";
 	}
 }

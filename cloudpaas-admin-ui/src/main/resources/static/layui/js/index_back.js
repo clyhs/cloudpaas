@@ -11,7 +11,7 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
 	$ = layui.$;
 	layer = parent.layer === undefined ? layui.layer : top.layer;
 	tab = layui.bodyTab({
-		openTabNum : "50"  //最大可打开窗口数量
+		openTabNum : "30"  //最大可打开窗口数量
 	});
 	
 	//更换皮肤
@@ -130,12 +130,12 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
         })
     })
     
-  //退出
+    //退出
     $(".signOut").click(function () {
         
     });
     
-  //隐藏左侧导航
+    //隐藏左侧导航
     $(".hideMenu").click(function () {
         $(".layui-layout-admin").toggleClass("showMenu");
         //渲染顶部窗口
