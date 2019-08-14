@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.admin.ui.web;
+package com.cloudpaas.admin.ui.system.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,7 @@ public class MenuController {
 	
 	@RequestMapping("/index.html")
 	public String index(){
-		return "admin/layui/menu/index";
+		return "admin/layui/system/menu";
 	}
 
 }

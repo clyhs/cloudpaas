@@ -1,5 +1,6 @@
 package com.cloudpaas.common.result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,61 +10,47 @@ import java.util.List;
  * @date 2019年7月26日 下午2:41:38
  */
 public class TableResultResponse<T> extends BaseResponse {
+	
+	long count;
 
-    TableData<T> data;
+    List<T> data;
 
     public TableResultResponse(long total, List<T> rows) {
-        this.data = new TableData<T>(total, rows);
+        this.data =  rows;
+        this.count = total;
     }
 
     public TableResultResponse() {
-        this.data = new TableData<T>();
+        this.data = new ArrayList<T>();
     }
 
-    TableResultResponse<T> total(int total) {
-        this.data.setTotal(total);
+    TableResultResponse<T> count(int count) {
+        this.setCount(count);
         return this;
     }
 
-    TableResultResponse<T> total(List<T> rows) {
-        this.data.setRows(rows);
+    TableResultResponse<T> data(List<T> data) {
+        this.setData(data);
         return this;
     }
 
-    public TableData<T> getData() {
-        return data;
-    }
+	public long getCount() {
+		return count;
+	}
 
-    public void setData(TableData<T> data) {
-        this.data = data;
-    }
+	public void setCount(long count) {
+		this.count = count;
+	}
 
-    class TableData<T> {
-        long total;
-        List<T> rows;
+	public List<T> getData() {
+		return data;
+	}
 
-        public TableData(long total, List<T> rows) {
-            this.total = total;
-            this.rows = rows;
-        }
+	public void setData(List<T> data) {
+		this.data = data;
+	}
 
-        public TableData() {
-        }
+    
 
-        public long getTotal() {
-            return total;
-        }
-
-        public void setTotal(long total) {
-            this.total = total;
-        }
-
-        public List<T> getRows() {
-            return rows;
-        }
-
-        public void setRows(List<T> rows) {
-            this.rows = rows;
-        }
-    }
+    
 }

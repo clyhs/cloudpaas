@@ -7,24 +7,26 @@ package com.cloudpaas.common.result;
  * @date 2019年7月26日 下午2:38:27
  */
 public class BaseResponse {
-    private int code = 200;
-    private String message;
+    private int code = 0;
+    private String msg;
 
-    public BaseResponse(int code, String message) {
+    public BaseResponse(int code, String msg) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 
     public BaseResponse() {
     }
 
-    public String getMessage() {
-        return message;
-    }
+  
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 
 	public int getCode() {
 		return code;

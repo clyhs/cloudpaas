@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.admin.ui.web;
+package com.cloudpaas.admin.ui.system.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
