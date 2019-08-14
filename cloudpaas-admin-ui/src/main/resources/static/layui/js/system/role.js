@@ -11,17 +11,15 @@ layui.config({
         form = layui.form;
 	
 	table.render({
-        elem: '#currentTableId',
-        url: api.getUserPageUrl,
+        elem: '#roleTable',
+        url: api.getRolePageUrl,
         cols: [[
             {type: "checkbox", width: 50, fixed: "left"},
             {field: 'id', width: 80, title: 'ID', sort: true},
-            {field: 'username', width: 80, title: '用户名'},
-            {field: 'sex', width: 80, title: '性别', sort: true},
-            {field: 'name', title: '真实姓名', width: 150},
-            {field: 'tel', width: 100, title: '手机号', sort: true},
-            {field: 'createTime', minWidth: 50, title: '注册时间' },
-            {title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center"}
+            {field: 'code', width: 80, title: '角色代号'},
+            {field: 'name', title: '角色名称', width: 150},
+            {field: 'remark', minWidth: 50, title: '描述' },
+            {title: '操作', minWidth: 50, templet: '#roleBar', fixed: "right", align: "center"}
         ]],
         limits: [5,10, 15, 20, 25, 50, 100],
         limit: 15,
@@ -36,7 +34,7 @@ layui.config({
         });
 
         //执行搜索重载
-        table.reload('currentTableId', {
+        table.reload('roleTable', {
             page: {
                 curr: 1
             }
@@ -48,24 +46,14 @@ layui.config({
         return false;
     });
 
-    // 监听添加操作
-    $(".data-add-btn").on("click", function () {
-        layer.msg('添加数据');
-    });
-
-    // 监听删除操作
-    $(".data-delete-btn").on("click", function () {
-        var checkStatus = table.checkStatus('currentTableId')
-            , data = checkStatus.data;
-        layer.alert(JSON.stringify(data));
-    });
+    
 
     //监听表格复选框选择
-    table.on('checkbox(currentTableFilter)', function (obj) {
+    table.on('checkbox(roleList)', function (obj) {
         console.log(obj)
     });
 
-    table.on('tool(currentTableFilter)', function (obj) {
+    table.on('tool(roleList)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {
             layer.alert('编辑行：<br>' + JSON.stringify(data))

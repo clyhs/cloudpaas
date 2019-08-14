@@ -51,11 +51,17 @@
 	            <button class="layui-btn data-add-btn">添加</button>
 	            <button class="layui-btn layui-btn-danger data-delete-btn">删除</button>
 	        </div>
-	        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
-	        <script type="text/html" id="currentTableBar">
-            	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            	<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-        	</script>
+	        
+			<div class="layui-form">
+				<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+				<script type="text/html" id="currentTableBar">
+            		<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            		<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+        	    </script>
+			</div>
+			
+	        
+	        
 		
 		</div>
 	</div>

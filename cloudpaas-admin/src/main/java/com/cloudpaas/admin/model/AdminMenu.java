@@ -31,7 +31,7 @@ public class AdminMenu  {
     private Integer level;
     
     /**
-     * 1：目录，2：链接，3：按钮
+     * 1：目录，2：菜单，3：按钮
      */
     private Integer type;
     

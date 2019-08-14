@@ -35,16 +35,19 @@ public abstract class BaseController<Dao extends BaseDao,T> {
     @Autowired
     protected Dao baseDao;
     
-    @RequestMapping(value = "/all",method = RequestMethod.GET)
+    @RequestMapping(value = "/all.json",method = RequestMethod.GET)
     @ResponseBody
-    public List<T> all(@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
-        return baseDao.selectListAll(db);
+    public TableResultResponse<T> all(@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
+        List<T> list = baseDao.selectListAll(db);
+    	TableResultResponse<T> result = new TableResultResponse();
+    	result.setData(list);
+    	return result;
     }
     
     @RequestMapping(value = "/page.json",method = RequestMethod.GET)
     @ResponseBody
     public TableResultResponse<T> list(@RequestParam(name="page" ,required=false,defaultValue="1") Integer page,
-    		@RequestParam(name="size" ,required=false,defaultValue="20") Integer size,
+    		@RequestParam(name="limit" ,required=false,defaultValue="20") Integer size,
     		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
         //查询列表数据
         Query query = new Query(page,size);
