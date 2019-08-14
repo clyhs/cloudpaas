@@ -16,7 +16,7 @@ layui.config({
         cols: [[
             {type: "checkbox", width: 50, fixed: "left"},
             {field: 'id', width: 80, title: 'ID', sort: true},
-            {field: 'code', width: 80, title: '角色代号'},
+            {field: 'code', width: 180, title: '角色代号'},
             {field: 'name', title: '角色名称', width: 150},
             {field: 'remark', minWidth: 50, title: '描述' },
             {title: '操作', minWidth: 50, templet: '#roleBar', fixed: "right", align: "center"}
