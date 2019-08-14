@@ -44,3 +44,6 @@ mybatis:
   config-locations: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
   basepackage: com.cloudpaas.admin.mapper
+
+logging:
+  config: classpath:log4j2.xml
