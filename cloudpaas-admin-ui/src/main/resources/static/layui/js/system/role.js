@@ -4,11 +4,12 @@ layui.config({
 }).extend({
 	"tool" : "tool",
 	"api" : "api"
-}).use([ 'element', 'layer' ,'api',"table","form"], function() {
+}).use([ 'element', 'layer' ,'api',"table","form","tool"], function() {
 	var $ = layui.jquery, element = layui.element, layer = layui.layer,
 	    api = layui.api,
 	    table = layui.table,
-        form = layui.form;
+        form = layui.form,
+        tool = layui.tool;
 	
 	table.render({
         elem: '#roleTable',
@@ -56,13 +57,90 @@ layui.config({
     table.on('tool(roleList)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {
-            layer.alert('编辑行：<br>' + JSON.stringify(data))
+        	var editIndex = layer.open({
+                title : "编辑角色",
+                type : 2,
+                content : "/admin/system/role/edit?id="+data.id,
+                success : function(layero, index){
+                    setTimeout(function(){
+                        layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    },500);
+                }
+            });
+            //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+            $(window).resize(function(){
+                layer.full(editIndex);
+            });
+            layer.full(editIndex);
         } else if (obj.event === 'delete') {
             layer.confirm('真的删除行么', function (index) {
                 obj.del();
                 layer.close(index);
             });
         }
+    });
+    
+    var active={
+            addRole : function(){
+                addIndex = layer.open({
+                    title : "添加角色",
+                    type : 2,
+                    content : $config.context+"/role/add.html",
+                    success : function(layero, addIndex){
+                        setTimeout(function(){
+                            layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {
+                                tips: 3
+                            });
+                        },500);
+                    }
+                });
+                //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+                $(window).resize(function(){
+                    layer.full(addIndex);
+                });
+                layer.full(addIndex);
+            },
+            //批量删除
+            deleteBatch : function(){
+                var checkStatus = table.checkStatus('roleTable'),
+                    data = checkStatus.data;
+                if(data.length > 0){
+                    console.log(JSON.stringify(data));
+                    layer.confirm("你确定要删除这些角色么？",{btn:['是的,我确定','我再想想']},
+                        function(){
+                            var deleteindex = layer.msg('删除中，请稍候',{icon: 16,time:false,shade:0.8});
+                            $.ajax({
+                                type:"POST",
+                                url:$config.context+"role/deleteBatch.json",
+                                dataType:"json",
+                                contentType:"application/json",
+                                data:JSON.stringify(data),
+                                success:function(res){
+                                    layer.close(deleteindex);
+                                    if(res.success){
+                                        layer.msg("删除成功",{time: 1000},function(){
+                                            table.reload('roleTable', t);
+                                        });
+                                    }else{
+                                        layer.msg(res.message);
+                                    }
+                                }
+                            });
+                        }
+                    )
+                }else{
+                    layer.msg("请选择需要删除的角色",{time:1000});
+                }
+            }
+        };
+    
+    
+    $('.layui-inline .layui-btn').on('click', function(){
+    	
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
     });
 
 });

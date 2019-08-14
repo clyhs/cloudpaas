@@ -69,6 +69,9 @@ layui.define(['tool','jquery'], function (exports) {
         getMenuListUrl:tool.getContext()+"/api/menu/all.json",
         getUserPageUrl:tool.getContext()+"/api/user/page.json",
         getRolePageUrl:tool.getContext()+"/api/role/page.json",
+        postRoleAddUrl:tool.getContext()+"/api/role",
+        putRoleEditUrl:tool.getContext()+"/api/role/",
+        deleteRoleDelUrl:tool.getContext()+"/api/role/",
     };
 
 
