@@ -60,7 +60,7 @@ layui.config({
         	var editIndex = layer.open({
                 title : "编辑角色",
                 type : 2,
-                content : "/admin/system/role/edit?id="+data.id,
+                content : $config.context+"/role/edit.html?id="+data.id,
                 success : function(layero, index){
                     setTimeout(function(){
                         layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {

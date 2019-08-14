@@ -2,6 +2,7 @@ package com.cloudpaas.admin.ui.utils;
 
 import java.util.Map;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -816,7 +817,22 @@ public class RestTemplateUtils {
 	 */
 	public static <T> ResponseEntity<T> exchange(String url, HttpMethod method, HttpEntity<?> requestEntity,
 			Class<T> responseType, Map<String, ?> uriVariables) {
+		
 		return restTemplate.exchange(url, method, requestEntity, responseType, uriVariables);
+	}
+	
+	/**
+	 * 
+	 * @param url
+	 * @param method
+	 * @param requestEntity
+	 * @param reference
+	 * @return
+	 */
+	public static <T> ResponseEntity<T>  exchange(String url, HttpMethod method, HttpEntity<?> requestEntity,
+			ParameterizedTypeReference<T> reference) {
+		
+		return  restTemplate.exchange(url, method, requestEntity, reference);
 	}
 
 	/**

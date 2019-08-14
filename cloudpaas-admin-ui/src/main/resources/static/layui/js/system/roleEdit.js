@@ -10,31 +10,36 @@ layui.config({
         api = layui.api,
         $ = layui.jquery;
     
-    form.on('submit(addRole)',function(data){
-        
+    form.on("submit(editRole)",function(data){
+        if(data.field.id == null){
+            layer.msg("角色ID不存在");
+            return false;
+        }
+       
         var loadIndex = layer.load(2, {
             shade: [0.3, '#333']
         });
-        
-        data.field.createTime = new Date();
         //layer.alert('编辑行：<br>' + JSON.stringify(data))
         
         $.ajax({
-            type:"POST",
-            url:api.postRoleAddUrl,
+            type:"PUT",
+            url:api.putRoleEditUrl+data.field.id,
             dataType:"json",
             contentType:"application/json",
-            
             data:JSON.stringify(data.field),
             success:function(res){
                 layer.close(loadIndex);
                 if(res.code==0){
-                    parent.layer.msg("添加成功！",{time:1000},function(){
+                    parent.layer.msg("角色编辑成功！",{time:1000},function(){
                         //刷新父页面
                         parent.location.reload();
                     });
                 }else{
-                    layer.msg(res.message);
+                    layer.msg(res.message,{time:1000},function(){
+                        //刷新本页面
+                        location.reload();
+                    });
+
                 }
             }
         });

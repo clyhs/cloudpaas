@@ -3,9 +3,17 @@
  */
 package com.cloudpaas.admin.ui.system.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.cloudpaas.admin.ui.system.biz.RoleBiz;
+import com.cloudpaas.common.model.Role;
+import com.google.gson.Gson;
 
 /**
  * @author 大鱼
@@ -15,6 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("role")
 public class RoleController {
+	
+	private static Logger log = LoggerFactory.getLogger(RoleController.class);
+	
+	@Autowired
+	private RoleBiz roleBiz;
 
 	@RequestMapping("/index.html")
 	public String index(){
@@ -27,7 +40,11 @@ public class RoleController {
 	}
 	
 	@RequestMapping("/edit.html")
-	public String edit(@RequestParam Integer id){
+	public String edit(@RequestParam Integer id,ModelMap modelMap){
+		Role role = roleBiz.getRoleByID(id);
+		Gson g = new Gson();
+		log.info(g.toJson(role));
+		modelMap.put("role", role);
 		return "admin/layui/system/roleEdit";
 	}
 }

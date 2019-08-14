@@ -44,6 +44,11 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.cpaas</groupId>
+				<artifactId>cloudpaas-beans</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cpaas</groupId>
 				<artifactId>cloudpaas-common</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -78,5 +83,6 @@
 		<module>cloudpaas-service-pas</module>
 		<module>cloudpaas-all</module>
 		<module>cloudpaas-admin-ui</module>
-	</modules>
+    <module>cloudpaas-beans</module>
+  </modules>
 </project>
