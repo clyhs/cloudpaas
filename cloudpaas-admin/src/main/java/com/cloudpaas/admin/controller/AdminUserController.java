@@ -1,5 +1,7 @@
 package com.cloudpaas.admin.controller;
 import com.cloudpaas.admin.dao.AdminUserDao;
+import com.cloudpaas.common.constants.CommonConstants;
+import com.cloudpaas.common.controller.BaseController;
 import com.cloudpaas.common.model.User;
 import com.google.common.collect.Lists;
 
@@ -23,21 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api
 @RestController
-@RequestMapping("adminuser")
-public class AdminUserController {
-
-	@Autowired
-    private AdminUserDao userDao;
-	
-    @GetMapping("/lists")
-    public List<User> lists() {
-    	List<User> users = userDao.selectListAll("dn1");
-
-        return users;
-    }
+@RequestMapping("user")
+public class AdminUserController extends BaseController<AdminUserDao, User>{
     
-    @GetMapping("/sayHello")
-    public String sayHello(@RequestParam String name){
-    	return "hi "+name+" ,nice to meet you !";
-    }
 }

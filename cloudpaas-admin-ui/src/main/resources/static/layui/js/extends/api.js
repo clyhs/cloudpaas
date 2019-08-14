@@ -64,7 +64,9 @@ layui.define(['tool','jquery'], function (exports) {
         },
         doGet: function(url,req,successCallback,errorCallback){
             doGet(url,req,successCallback,errorCallback);
-        }
+        },
+        getIndexMenuTreeUrl:tool.getContext()+"/api/menu/tree.json",
+        getUserPageUrl:tool.getContext()+"/api/user/page.json"
     };
 
 

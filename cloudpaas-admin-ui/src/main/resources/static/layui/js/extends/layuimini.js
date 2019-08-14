@@ -41,27 +41,26 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
             var loading = layer.load(0, {shade: false, time: 2 * 1000});
             layuimini.initBgColor();
             layuimini.initDevice();
-            
+            /*
             api.doGet(tool.getContext()+"/adminmenu/tree.json",null,function(res){
         		var data = res;
         		layuimini.initMenu(data);
-        	});
+        	});*/
             
-            layuimini.initTab();
-            /*
+            
             $.getJSON(url, function (data, status) {
                 if (data == null) {
                     layuimini.msg_error('暂无菜单信息');
                 } else {
-                    layuimini.initHome(data.homeInfo);
-                    layuimini.initLogo(data.logoInfo);
-                    layuimini.initClear(data.clearInfo);
-                    layuimini.initMenu(data.menuInfo);
+                    //layuimini.initHome(data.homeInfo);
+                    //layuimini.initLogo(data.logoInfo);
+                    //layuimini.initClear(data.clearInfo);
+                    layuimini.initMenu(data);
                     layuimini.initTab();
                 }
             }).fail(function () {
                 layuimini.msg_error('菜单接口有误');
-            });*/
+            });
             layer.close(loading);
         };
 
@@ -275,19 +274,19 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
          */
         this.bgColorConfig = function (bgcolorId) {
             var bgColorConfig = [
+            	{
+                    headerRight: '#23262e',
+                    headerRightThis: '#0c0c0c',
+                    headerLogo: '#0c0c0c',
+                    menuLeft: '#23262e',
+                    menuLeftThis: '#1aa094',
+                    menuLeftHover: '#3b3f4b',
+                },
                 {
                     headerRight: '#1aa094',
                     headerRightThis: '#197971',
                     headerLogo: '#243346',
                     menuLeft: '#2f4056',
-                    menuLeftThis: '#1aa094',
-                    menuLeftHover: '#3b3f4b',
-                },
-                {
-                    headerRight: '#23262e',
-                    headerRightThis: '#0c0c0c',
-                    headerLogo: '#0c0c0c',
-                    menuLeft: '#23262e',
                     menuLeftThis: '#1aa094',
                     menuLeftHover: '#3b3f4b',
                 },
@@ -389,7 +388,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
             var html = '';
             var bgcolorId = window.sessionStorage.getItem('layuiminiBgcolorId');
             if (bgcolorId == null || bgcolorId == undefined || bgcolorId == '') {
-                bgcolorId = 1;
+                bgcolorId = 0;
             }
             var bgColorConfig = layuimini.bgColorConfig();
             $.each(bgColorConfig, function (key, val) {

@@ -5,10 +5,11 @@ layui.config({
 	"tool" : "tool",
 	"api" : "api",
 	layuimini : "layuimini"
-}).use([ 'element', 'layer', 'layuimini' ], function() {
-	var $ = layui.jquery, element = layui.element, layer = layui.layer;
+}).use([ 'element', 'layer', 'layuimini' ,'api'], function() {
+	var $ = layui.jquery, element = layui.element, layer = layui.layer,
+	    api = layui.api;
 
-	layuimini.init('');
+	layuimini.init(api.getIndexMenuTreeUrl);
 
 	$('.login-out').on("click", function() {
 		layer.msg('退出登录成功', function() {

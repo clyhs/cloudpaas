@@ -22,6 +22,8 @@ management:
 
 server:
   port: 8102
+  servlet:
+    context-path: /pas/
 
 spring:
   application:

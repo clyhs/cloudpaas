@@ -31,21 +31,16 @@ import io.swagger.annotations.Api;
  */
 @Api
 @RestController
-@RequestMapping("adminmenu")
-public class AdminMenuController extends BaseController {
+@RequestMapping("menu")
+public class AdminMenuController extends BaseController<AdminMenuDao,AdminMenu> {
 
-	@Autowired
-	private AdminMenuDao adminMenuDao;
-	
-	@GetMapping("/list.json")
-	public List<AdminMenu> getAdminMenus(){
-		return adminMenuDao.selectListAll(CommonConstants.DEFAULT_DATASOURCE_KEY);
-	}
+	//@Autowired
+	//private AdminMenuDao adminMenuDao;
 	
 	@GetMapping("/tree.json")
 	public List<AdminMenuTreeVo> getAdminMenuTree(){
 		List<AdminMenu> menus = new ArrayList<AdminMenu>();
-		menus = adminMenuDao.selectListAll(CommonConstants.DEFAULT_DATASOURCE_KEY);
+		menus = baseDao.selectListAll(CommonConstants.DEFAULT_DATASOURCE_KEY);
 		return getMenuTree(menus,CommonConstants.ROOT);
 	}
 	

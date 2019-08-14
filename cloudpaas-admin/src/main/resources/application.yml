@@ -22,6 +22,8 @@ management:
 
 server:
   port: 8101
+  servlet:
+    context-path: /admin/
 
 spring:
   application:
