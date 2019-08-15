@@ -4,6 +4,7 @@
 package com.cloudpaas.admin.ui.system.web;
 
 import java.awt.image.BufferedImage;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -11,12 +12,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
+import com.cloudpaas.admin.ui.base.ResponseBean;
+import com.cloudpaas.admin.ui.utils.CodeUtil;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 
@@ -27,6 +43,8 @@ import com.google.code.kaptcha.Producer;
  */
 @Controller
 public class LoginController {
+	
+	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
 	private RedisTemplate redisTemplate;
@@ -57,13 +75,45 @@ public class LoginController {
     }
 	
 	@RequestMapping("/login.html")
-	public String index(){
+	public String login(){
 		return "admin/layui/login";
 	}
 	
+	@RequestMapping(value="/login.json",method = RequestMethod.POST)
+	@ResponseBody
+    public ResponseBean login(HttpServletRequest request,String username,String password,String captcha){
+		
+		log.info("----------------"+username+","+captcha+"---------------------");
+		if(!CodeUtil.checkVerifyCode(request)){
+			return new ResponseBean(1000001,"验证码错误",null);
+		}
+		try{
+			Subject subject = SecurityUtils.getSubject();
+			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+			subject.login(token);
+		}catch (UnknownAccountException e) {
+			return new ResponseBean(1000001,e.getMessage(),null);
+		}catch (LockedAccountException e) {
+			return new ResponseBean(1000001,"账号已被锁定,请联系管理员",null);
+		}catch (IncorrectCredentialsException e) {
+			return new ResponseBean(1000001,"密码不正确",null);
+		}catch (AuthenticationException e) {
+			return new ResponseBean(1000001,"账户验证失败",null);
+		}
+		return new ResponseBean(0,"登录成功",null);
+
+	}
+	
+	/*
 	@RequestMapping("/403.html")
 	public String for403(){
 		return "admin/layui/403";
+	}*/
+	
+	@RequestMapping(path = "/401")
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public ResponseBean unauthorized() {
+		return new ResponseBean(401, "Unauthorized", null);
 	}
 	
 //	@RequestMapping("/redis.json")

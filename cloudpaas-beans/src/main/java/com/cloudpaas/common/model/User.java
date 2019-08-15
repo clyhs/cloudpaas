@@ -1,11 +1,19 @@
 package com.cloudpaas.common.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
+import org.springframework.core.serializer.Serializer;
+
 @Table(name = "t_user")
-public class User {
-    @Id
+public class User implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     private Integer id;
 
     private String username;

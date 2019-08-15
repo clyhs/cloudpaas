@@ -7,6 +7,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -54,25 +55,44 @@ public class MyShiroRealm extends AuthorizingRealm {
 	 * @see org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
 	 */
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken AuthToken) throws AuthenticationException {
 		// TODO Auto-generated method stub
+		
+		UsernamePasswordToken token = (UsernamePasswordToken) AuthToken;
 
         //获取用户的输入的账号.
-        String username = (String)token.getPrincipal();
-        log.info(token.getCredentials().toString()+"");
+        String username = token.getUsername().trim();
+       
         //通过username从数据库中查找 User对象，如果找到，没找到.
         //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
+        
+        String password = "";
+        if (token.getPassword() != null) {
+            password = new String(token.getPassword());
+        }
+        
+        log.info("-----username:{},password:{}-----", username, password);
+        
         User user = userBiz.getUser(username);
         
-        if(user == null){
-            return null;
+        // 认证信息token里存放账号密码, getName() 是当前Realm的继承方法,通常返回当前类名
+        // String salt = user.getSalt();
+      	// 盐也放进去
+        // 这样通过配置中的 HashedCredentialsMatcher 进行自动校验
+        
+        //从数据库取了user.getPassword()与getName()作对比
+        
+        if(user != null){
+        	SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
+                    user.getUsername(), //用户名
+                    user.getPassword(), //密码
+                    //ByteSource.Util.bytes(salt)
+                    getName()  //realm name
+            );
+        	return authenticationInfo;
         }
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                user, //用户名
-                user.getPassword(), //密码
-                getName()  //realm name
-        );
-        return authenticationInfo;
+        
+        return null;
 	}
 
 }

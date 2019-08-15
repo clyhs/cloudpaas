@@ -15,11 +15,26 @@ import com.cloudpaas.common.model.User;
 @Service
 public class UserBiz {
 
+	public User getUser(String username,String password){
+		if(password.equals("4280d89a5a03f812751f504cc10ee8a5")){
+			User u = new User();
+			u.setName("admin");
+			u.setUsername("admin");
+			u.setPassword("4280d89a5a03f812751f504cc10ee8a5");
+			return u;
+		}
+		
+		return null;
+	}
+	
 	public User getUser(String username){
+		
 		User u = new User();
 		u.setName("admin");
 		u.setUsername("admin");
-		u.setPassword("123456");
+		u.setPassword("4280d89a5a03f812751f504cc10ee8a5");
+		
+		
 		return u;
 	}
 }
