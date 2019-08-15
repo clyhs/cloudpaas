@@ -54,6 +54,7 @@ layui.config({
         console.log(obj)
     });
 
+    //监听表格操作列
     table.on('tool(roleList)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {
@@ -74,11 +75,31 @@ layui.config({
                 layer.full(editIndex);
             });
             layer.full(editIndex);
-        } else if (obj.event === 'delete') {
-            layer.confirm('真的删除行么', function (index) {
-                obj.del();
-                layer.close(index);
-            });
+        } else if (obj.event === 'del') {
+        	layer.confirm("你确定要删除该角色么？",{btn:['是的,我确定','我再想想']},
+                    function(){
+                        $.ajax({
+                            type:"DELETE",
+                            url:api.deleteRoleDelUrl+data.id,
+                            dataType:"json",
+                            contentType:"application/json",
+                            data:JSON.stringify(data.field),
+                            success:function(res){
+                                if(res.code==0){
+                                    parent.layer.msg("角色删除成功！",{time:1000},function(){
+                                        parent.location.reload();
+                                    });
+                                }else{
+                                    layer.msg(res.message,{time:1000},function(){
+                                        //刷新本页面
+                                        location.reload();
+                                    });
+
+                                }
+                            }
+                        });
+                    }
+                )
         }
     });
     
@@ -136,9 +157,8 @@ layui.config({
             }
         };
     
-    
+    //监听工具拦的操作按钮
     $('.layui-inline .layui-btn').on('click', function(){
-    	
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });

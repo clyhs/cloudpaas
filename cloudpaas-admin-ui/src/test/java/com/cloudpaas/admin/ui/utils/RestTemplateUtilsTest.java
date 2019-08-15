@@ -24,7 +24,7 @@ import org.springframework.util.MultiValueMap;
  * 
  *
  */
-public class RestTest {
+public class RestTemplateUtilsTest {
 
     /**
      * 测试HTTPS请求访问博客园

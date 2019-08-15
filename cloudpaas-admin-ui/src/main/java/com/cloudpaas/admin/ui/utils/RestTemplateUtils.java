@@ -831,7 +831,6 @@ public class RestTemplateUtils {
 	 */
 	public static <T> ResponseEntity<T>  exchange(String url, HttpMethod method, HttpEntity<?> requestEntity,
 			ParameterizedTypeReference<T> reference) {
-		
 		return  restTemplate.exchange(url, method, requestEntity, reference);
 	}
 
