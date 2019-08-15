@@ -81,6 +81,19 @@ public abstract class BaseController<Dao extends BaseDao,T> {
         return new ObjectRestResponse<T>();
     }
     
+    @RequestMapping(value = "/deleteBatch.json",method = RequestMethod.DELETE)
+    @ResponseBody
+    public ObjectRestResponse<T> deleteBatch(@RequestBody List<T> lists,
+    		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){    
+        if(lists == null || lists.size()==0){
+            return new ObjectRestResponse<T>();
+        }
+        for (T entity : lists){
+        	baseDao.delete(entity, db);
+        }
+        return new ObjectRestResponse<T>();
+    }
+    
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
     public ObjectRestResponse<T> get(@PathVariable int id,

@@ -21,16 +21,30 @@
 			<groupId>com.cpaas</groupId>
 			<artifactId>cloudpaas-common</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions><!-- 去掉默认配置 -->
-				<exclusion>
+		<dependency>  
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-web</artifactId>  
+            <!-- 使用Jetty，需要在spring-boot-starter-web排除spring-boot-starter-tomcat，因为SpringBoot默认使用tomcat --> 
+            <exclusions>  
+                <exclusion>  
+                    <groupId>org.springframework.boot</groupId>  
+                    <artifactId>spring-boot-starter-tomcat</artifactId>  
+                </exclusion>  
+                <exclusion> 
+          			<groupId>ch.qos.logback</groupId>
+    				<artifactId>logback-classic</artifactId>
+       			</exclusion>
+       			<exclusion> 
+          			<groupId>ch.qos.logback</groupId>
+    				<artifactId>logback-core</artifactId>
+       			</exclusion>
+       			<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-logging</artifactId>
 				</exclusion>
-			</exclusions>
-		</dependency>
+            </exclusions>  
+           
+        </dependency>  
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>

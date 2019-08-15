@@ -77,29 +77,29 @@ layui.config({
             layer.full(editIndex);
         } else if (obj.event === 'del') {
         	layer.confirm("你确定要删除该角色么？",{btn:['是的,我确定','我再想想']},
-                    function(){
-                        $.ajax({
-                            type:"DELETE",
-                            url:api.deleteRoleDelUrl+data.id,
-                            dataType:"json",
-                            contentType:"application/json",
-                            data:JSON.stringify(data.field),
-                            success:function(res){
-                                if(res.code==0){
-                                    parent.layer.msg("角色删除成功！",{time:1000},function(){
-                                        parent.location.reload();
-                                    });
-                                }else{
-                                    layer.msg(res.message,{time:1000},function(){
-                                        //刷新本页面
-                                        location.reload();
-                                    });
-
-                                }
-                            }
-                        });
-                    }
-                )
+                function(){
+	        		$.ajax({
+	                    type:"DELETE",
+	                    url:api.deleteRoleDelUrl+data.id,
+	                    dataType:"json",
+	                    contentType:"application/json",
+	                    data:JSON.stringify(data.field),
+	                    success:function(res){
+	                        if(res.code==0){
+	                            parent.layer.msg("角色删除成功！",{time:1000},function(){
+	                                parent.location.reload();
+	                            });
+	                        }else{
+	                            layer.msg(res.message,{time:1000},function(){
+	                                //刷新本页面
+	                                location.reload();
+	                            });
+	
+	                        }
+	                    }
+	                });
+                }
+            )
         }
     });
     
@@ -129,20 +129,22 @@ layui.config({
                     data = checkStatus.data;
                 if(data.length > 0){
                     console.log(JSON.stringify(data));
+                    //layer.msg(JSON.stringify(data));
+                    
                     layer.confirm("你确定要删除这些角色么？",{btn:['是的,我确定','我再想想']},
                         function(){
                             var deleteindex = layer.msg('删除中，请稍候',{icon: 16,time:false,shade:0.8});
                             $.ajax({
-                                type:"POST",
-                                url:$config.context+"role/deleteBatch.json",
+                                type:"DELETE",
+                                url:api.deleteBatchRoleUrl,
                                 dataType:"json",
                                 contentType:"application/json",
                                 data:JSON.stringify(data),
                                 success:function(res){
                                     layer.close(deleteindex);
-                                    if(res.success){
+                                    if(res.code==0){
                                         layer.msg("删除成功",{time: 1000},function(){
-                                            table.reload('roleTable', t);
+                                        	location.reload();
                                         });
                                     }else{
                                         layer.msg(res.message);
