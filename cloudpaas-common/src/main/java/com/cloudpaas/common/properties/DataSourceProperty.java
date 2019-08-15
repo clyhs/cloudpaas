@@ -54,4 +54,7 @@ public class DataSourceProperty {
 	private Integer minPoolSize;
 	private Integer maxPoolSize;
 	private Integer borrowConnectionTimeout;
+	
+	private Boolean defaultAutoCommit;
+	private Boolean removeAbandoned;
 }

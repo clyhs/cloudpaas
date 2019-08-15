@@ -71,9 +71,13 @@ public class AtomikosDataSourceUtil {
         prop.put("testOnBorrow", dataDourceProperty.getTestOnBorrow()+"");
         prop.put("testOnReturn", dataDourceProperty.getTestOnReturn()+"");
         prop.put("testWhileIdle", dataDourceProperty.getTestWhileIdle()+"");
-        //prop.put("minPoolSize", dataDourceProperty.getMinPoolSize()+"");
-        //prop.put("maxPoolSize", dataDourceProperty.getMaxPoolSize()+"");
-        //prop.put("borrowConnectionTimeout", dataDourceProperty.getBorrowConnectionTimeout()+"");
+        
+        prop.put("defaultAutoCommit", dataDourceProperty.getDefaultAutoCommit()+"");
+        prop.put("removeAbandoned", dataDourceProperty.getRemoveAbandoned()+"");
+        
+//        prop.put("minPoolSize", dataDourceProperty.getMinPoolSize()+"");
+//        prop.put("maxPoolSize", dataDourceProperty.getMaxPoolSize()+"");
+//        prop.put("borrowConnectionTimeout", dataDourceProperty.getBorrowConnectionTimeout()+"");
         
         prop.put("timeBetweenEvictionRunsMillis", dataDourceProperty.getTimeBetweenEvictionRunsMillis()+"");
         prop.put("minEvictableIdleTimeMillis", dataDourceProperty.getMinEvictableIdleTimeMillis()+"");
@@ -111,9 +115,12 @@ public class AtomikosDataSourceUtil {
        prop.put("testOnBorrow", env.getProperty(prefix + "testOnBorrow"));
        prop.put("testOnReturn", env.getProperty(prefix + "testOnReturn"));
        prop.put("testWhileIdle", env.getProperty(prefix + "testWhileIdle"));
-       //prop.put("minPoolSize", env.getProperty(prefix + "minPoolSize"));
-       //prop.put("maxPoolSize",  env.getProperty(prefix + "maxPoolSize"));
-       //prop.put("borrowConnectionTimeout",  env.getProperty(prefix + "borrowConnectionTimeout"));
+       
+       prop.put("defaultAutoCommit", env.getProperty(prefix + "defaultAutoCommit"));
+       prop.put("removeAbandoned", env.getProperty(prefix + "removeAbandoned"));
+//       prop.put("minPoolSize", env.getProperty(prefix + "minPoolSize"));
+//       prop.put("maxPoolSize",  env.getProperty(prefix + "maxPoolSize"));
+//       prop.put("borrowConnectionTimeout",  env.getProperty(prefix + "borrowConnectionTimeout"));
        prop.put("timeBetweenEvictionRunsMillis", env.getProperty(prefix + "timeBetweenEvictionRunsMillis"));
        prop.put("minEvictableIdleTimeMillis", env.getProperty(prefix + "minEvictableIdleTimeMillis"));
        prop.put("filters", env.getProperty(prefix + "filters"));

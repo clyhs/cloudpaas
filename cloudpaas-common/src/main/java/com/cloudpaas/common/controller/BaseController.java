@@ -38,7 +38,7 @@ public abstract class BaseController<Dao extends BaseDao,T> {
     @Autowired
     protected Dao baseDao;
     
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "/add.json",method = RequestMethod.POST)
     @ResponseBody
     public ObjectRestResponse<T> add(@RequestBody T entity,
     		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){

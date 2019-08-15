@@ -36,6 +36,7 @@ spring:
         username: user
         instance:
           prefer-ip: true
+          service-base-url: "http://localhost:8101"
   zipkin:        #添加到链路追踪
     base-url: http://localhost:8902
   sleuth:        #打开日志收集
@@ -54,19 +55,21 @@ spring:
         username: root
         password: root
         driver-class-name: com.mysql.jdbc.Driver
-        minIdle: 1
-        maxActive: 2
-        initialSize: 1
-        minPoolSize: 5
-        maxPoolSize: 20
-        borrowConnectionTimeout: 60
-        timeBetweenEvictionRunsMillis: 3000
-        minEvictableIdleTimeMillis: 300000
+        minIdle: 50
+        maxActive: 500
+        initialSize: 5
+        minPoolSize: 100
+        maxPoolSize: 500
+        borrowConnectionTimeout: 6000
+        timeBetweenEvictionRunsMillis: 3600000
+        minEvictableIdleTimeMillis: 120000
         validationQuery: SELECT 'ZTM' FROM DUAL
         validationQueryTimeout: 10000
         testWhileIdle: true
-        testOnBorrow: false
+        testOnBorrow: true
         testOnReturn: false
+        defaultAutoCommit: true
+        removeAbandoned: true
         maxWait: 60000
         # 打开PSCache，并且指定每个连接上PSCache的大小
         poolPreparedStatements: true
