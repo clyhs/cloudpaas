@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
@@ -25,6 +27,9 @@ import com.google.code.kaptcha.Producer;
  */
 @Controller
 public class LoginController {
+	
+	@Autowired
+	private RedisTemplate redisTemplate;
 	
 	@Autowired
     private Producer captchaProducer = null;
@@ -54,6 +59,13 @@ public class LoginController {
 	@RequestMapping("/login.html")
 	public String index(){
 		return "admin/layui/login";
+	}
+	
+	@RequestMapping("/redis.json")
+	@ResponseBody
+	public String test(){
+		redisTemplate.opsForValue().set("springboot", "hello admin");
+		return (String) redisTemplate.opsForValue().get("springboot");
 	}
 	
 	
