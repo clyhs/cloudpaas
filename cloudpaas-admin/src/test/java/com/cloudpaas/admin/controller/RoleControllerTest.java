@@ -73,6 +73,11 @@ public class RoleControllerTest {
      * max:     36179
      * average: 5406.205
      * median:  4009
+     * 3：
+     * samples: 1000
+     * max:     23423
+     * average: 4512.041
+     * median:  3753
 	 *
      * @throws Exception
      */
