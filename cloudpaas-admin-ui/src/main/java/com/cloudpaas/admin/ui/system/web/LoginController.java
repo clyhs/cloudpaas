@@ -61,12 +61,17 @@ public class LoginController {
 		return "admin/layui/login";
 	}
 	
-	@RequestMapping("/redis.json")
-	@ResponseBody
-	public String test(){
-		redisTemplate.opsForValue().set("springboot", "hello admin");
-		return (String) redisTemplate.opsForValue().get("springboot");
+	@RequestMapping("/403.html")
+	public String for403(){
+		return "admin/layui/403";
 	}
+	
+//	@RequestMapping("/redis.json")
+//	@ResponseBody
+//	public String test(){
+//		redisTemplate.opsForValue().set("springboot", "hello admin");
+//		return (String) redisTemplate.opsForValue().get("springboot");
+//	}
 	
 	
 

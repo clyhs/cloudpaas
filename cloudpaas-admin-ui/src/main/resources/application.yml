@@ -7,12 +7,13 @@ spring:
     name: cpaas-admin-ui
   thymeleaf:
     cache: false
+    mode: LEGACYHTML5
   redis:
     #数据库索引
     database: 0
     host: 127.0.0.1
     port: 6379
-    password:
+    #password:
     jedis:
       pool:
         #最大连接数
@@ -25,3 +26,5 @@ spring:
         min-idle: 0
       #连接超时时间
     timeout: 10000
+logging:
+  config: classpath:log4j2.xml
