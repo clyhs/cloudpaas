@@ -103,5 +103,18 @@ public abstract class BaseController<Dao extends BaseDao,T> {
         entityObjectRestResponse.data((T)o);
         return entityObjectRestResponse;
     }
+    
+    @RequestMapping(value = "/selectOne.json",method = RequestMethod.GET)
+    @ResponseBody
+    public ObjectRestResponse<T> get(@RequestBody T entity,
+    		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
+        
+    	log.info("-------------dn:{}------------",db);
+    	
+    	ObjectRestResponse<T> entityObjectRestResponse = new ObjectRestResponse<>();
+        Object o = baseDao.selectOne(entity, db);
+        entityObjectRestResponse.data((T)o);
+        return entityObjectRestResponse;
+    }
 
 }

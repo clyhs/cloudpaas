@@ -1,12 +1,16 @@
 package com.cloudpaas.admin.ui.utils;
 
+import java.net.URI;
 import java.util.Map;
 
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -62,6 +66,9 @@ public class RestTemplateUtils {
 	 * @return ResponseEntity 响应对象封装类
 	 */
 	public static <T> ResponseEntity<T> get(String url, Class<T> responseType, Map<String, ?> uriVariables) {
+		
+		
+		
 		return restTemplate.getForEntity(url, responseType, uriVariables);
 	}
 
@@ -831,8 +838,28 @@ public class RestTemplateUtils {
 	 */
 	public static <T> ResponseEntity<T>  exchange(String url, HttpMethod method, HttpEntity<?> requestEntity,
 			ParameterizedTypeReference<T> reference) {
-		return  restTemplate.exchange(url, method, requestEntity, reference);
+		return  getRestTemplate().exchange(url, method, requestEntity, reference);
 	}
+	/**
+	 * 
+	 * @param url
+	 * @param method
+	 * @param requestEntity
+	 * @param reference
+	 * @param uriVariables
+	 * @return
+	 */
+	public static <T> ResponseEntity<T>  exchange(String url, HttpMethod method, HttpEntity<?> requestEntity,
+			ParameterizedTypeReference<T> reference,Object... uriVariables) {
+		return  getRestTemplate().exchange(url, method, requestEntity, reference,uriVariables);
+	}
+	
+	public static <T> ResponseEntity<T>  exchange(String url, HttpMethod method, HttpEntity<?> requestEntity,
+			ParameterizedTypeReference<T> reference,Map<String,?> uriVariables) {
+		return  getRestTemplate().exchange(url, method, requestEntity, reference, uriVariables);
+	}
+	
+	
 
 	/**
 	 * 获取RestTemplate实例对象，可自由调用其方法
@@ -840,7 +867,35 @@ public class RestTemplateUtils {
 	 * @return RestTemplate实例对象
 	 */
 	public static RestTemplate getRestTemplate() {
+		restTemplate.setRequestFactory(new HttpComponentsClientRestfulHttpRequestFactory());
 		return restTemplate;
+	}
+	
+	/**
+	 * 解决httpMethod.get 无法requestBody问题
+	 * @author 大鱼
+	 *
+	 * @date 2019年8月16日 下午1:43:54
+	 */
+	private static final class HttpComponentsClientRestfulHttpRequestFactory extends HttpComponentsClientHttpRequestFactory {
+	    @Override
+	    protected HttpUriRequest createHttpUriRequest(HttpMethod httpMethod, URI uri) {
+	        if (httpMethod == HttpMethod.GET) {
+	            return new HttpGetRequestWithEntity(uri);
+	        }
+	        return super.createHttpUriRequest(httpMethod, uri);
+	    }
+	}
+
+	private static final class HttpGetRequestWithEntity extends HttpEntityEnclosingRequestBase {
+	    public HttpGetRequestWithEntity(final URI uri) {
+	        super.setURI(uri);
+	    }
+
+	    @Override
+	    public String getMethod() {
+	        return HttpMethod.GET.name();
+	    }
 	}
 
 }

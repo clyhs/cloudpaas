@@ -3,6 +3,7 @@
  */
 package com.cloudpaas.admin.ui.shiro;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -11,12 +12,14 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.system.biz.UserBiz;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.model.User;
@@ -73,7 +76,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         
         log.info("-----username:{},password:{}-----", username, password);
         
-        User user = userBiz.getUser(username);
+        User user = userBiz.findUser(username);
         
         // 认证信息token里存放账号密码, getName() 是当前Realm的继承方法,通常返回当前类名
         // String salt = user.getSalt();
@@ -84,11 +87,14 @@ public class MyShiroRealm extends AuthorizingRealm {
         
         if(user != null){
         	SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                    user.getUsername(), //用户名
+                    user, //
                     user.getPassword(), //密码
-                    //ByteSource.Util.bytes(salt)
+                    ByteSource.Util.bytes(user.getSalt()),
                     getName()  //realm name
             );
+        	Session session = SecurityUtils.getSubject().getSession();
+        	session.setAttribute(CommonConstants.USER_SESSION_ID, user);
+        	
         	return authenticationInfo;
         }
         

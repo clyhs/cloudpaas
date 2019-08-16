@@ -30,8 +30,32 @@ public class User implements Serializable{
 
     @Column(name = "create_time")
     private Date createTime;
+    
+    /*所在法人ID*/
+    @Column(name = "corp_id")
+    private String  corpId;
+    
+    private String  salt;
+    
+    
 
-    /**
+    public String getCorpId() {
+		return corpId;
+	}
+
+	public void setCorpId(String corpId) {
+		this.corpId = corpId;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	/**
      * @return id
      */
     public Integer getId() {

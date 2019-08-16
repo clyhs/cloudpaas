@@ -3,6 +3,7 @@ import com.cloudpaas.admin.dao.AdminUserDao;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.controller.BaseController;
 import com.cloudpaas.common.model.User;
+import com.cloudpaas.common.result.ObjectRestResponse;
 import com.google.common.collect.Lists;
 
 import io.swagger.annotations.Api;
@@ -13,8 +14,11 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -27,5 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("user")
 public class AdminUserController extends BaseController<AdminUserDao, User>{
+	
+	
     
 }

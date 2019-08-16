@@ -18,6 +18,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
 
 import com.cloudpaas.admin.ui.base.ResponseBean;
+import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.utils.CodeUtil;
+import com.cloudpaas.common.utils.ErrorCode;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 
@@ -85,30 +88,34 @@ public class LoginController {
 		
 		log.info("----------------"+username+","+captcha+"---------------------");
 		if(!CodeUtil.checkVerifyCode(request)){
-			return new ResponseBean(1000001,"验证码错误",null);
+			return new ResponseBean(ErrorCode.LOGINCODEEX.getCode(),"验证码错误",null);
 		}
 		try{
 			Subject subject = SecurityUtils.getSubject();
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			subject.login(token);
 		}catch (UnknownAccountException e) {
-			return new ResponseBean(1000001,e.getMessage(),null);
+			return new ResponseBean(ErrorCode.ACCOUNTEX.getCode(),e.getMessage(),null);
 		}catch (LockedAccountException e) {
-			return new ResponseBean(1000001,"账号已被锁定,请联系管理员",null);
+			return new ResponseBean(ErrorCode.LOGINLOCKEX.getCode(),"账号已被锁定,请联系管理员",null);
 		}catch (IncorrectCredentialsException e) {
-			return new ResponseBean(1000001,"密码不正确",null);
+			return new ResponseBean(ErrorCode.LOGINPASSEX.getCode(),"密码不正确",null);
 		}catch (AuthenticationException e) {
-			return new ResponseBean(1000001,"账户验证失败",null);
+			return new ResponseBean(ErrorCode.AUTHEX.getCode(),"账户验证失败",null);
 		}
+		log.info("登录成功");
 		return new ResponseBean(0,"登录成功",null);
-
 	}
 	
-	/*
-	@RequestMapping("/403.html")
-	public String for403(){
-		return "admin/layui/403";
-	}*/
+
+	@RequestMapping(value="/loginout.html")
+	public String loginOut(){
+		Session session = SecurityUtils.getSubject().getSession();
+		session.removeAttribute(CommonConstants.USER_SESSION_ID);
+		SecurityUtils.getSubject().logout();
+		log.info("退出成功");
+		return "redirect:/login.html";
+	}
 	
 	@RequestMapping(path = "/401")
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)

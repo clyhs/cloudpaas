@@ -13,6 +13,8 @@
     <result column="tel" jdbcType="VARCHAR" property="tel" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="corp_id" jdbcType="Integer" property="corpId" />
+    <result column="salt" jdbcType="String" property="salt" />
   </resultMap>
 
 </mapper>

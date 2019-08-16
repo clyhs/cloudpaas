@@ -1,4 +1,4 @@
-package com.cloudpaas.admin.ui.system.web;
+package com.cloudpaas.admin.ui.common.web;
 
 import javax.servlet.http.HttpServletRequest;
 

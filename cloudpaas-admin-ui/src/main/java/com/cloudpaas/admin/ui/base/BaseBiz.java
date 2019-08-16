@@ -3,11 +3,14 @@
  */
 package com.cloudpaas.admin.ui.base;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
+import com.cloudpaas.admin.ui.system.biz.RoleBiz;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.result.ObjectRestResponse;
@@ -18,6 +21,8 @@ import com.cloudpaas.common.result.ObjectRestResponse;
  * @date 2019年8月14日 下午8:17:46
  */
 public abstract class BaseBiz<T> {
+	
+	private Logger log = LoggerFactory.getLogger(getClass());
 
 	HttpHeaders headers;
 	

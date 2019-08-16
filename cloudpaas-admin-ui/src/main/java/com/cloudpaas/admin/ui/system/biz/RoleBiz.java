@@ -30,7 +30,7 @@ import com.google.gson.Gson;
 @Service
 public class RoleBiz extends BaseBiz<Role>{
 	
-	private static Logger log = LoggerFactory.getLogger(RoleBiz.class);
+	
 	
 	/**
 	 * 根据id获取角色实体

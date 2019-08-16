@@ -11,9 +11,14 @@ layui.config({
 
 	layuimini.init(api.getIndexMenuTreeUrl);
 
+	 
 	$('.login-out').on("click", function() {
+		var loadIndex = layer.load(2, {
+	         shade: [0.3, '#333']
+	     });
 		layer.msg('退出登录成功', function() {
-			window.location = '#';
+			layer.close(loadIndex);
+			window.location = $config.context+'/loginout.html';
 		});
 	});
 });

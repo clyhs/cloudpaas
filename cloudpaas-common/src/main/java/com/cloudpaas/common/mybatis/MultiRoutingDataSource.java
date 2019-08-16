@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.druid.pool.xa.DruidXADataSource;
 import com.alibaba.druid.support.json.JSONUtils;
+import com.cloudpaas.common.exception.MultiDataSourceException;
 
 /**
  * @author 大鱼
@@ -67,6 +68,7 @@ public class MultiRoutingDataSource extends AbstractRoutingDataSource {
 		if (!keySet.contains(key)) {
 			log.info(String.format("can not found datasource by key: '%s',this session may use default datasource",
 					key));
+			throw new MultiDataSourceException("无法找到 "+key+" 节点的数据源！");
 		}
 		return key;
 	}
@@ -90,54 +92,54 @@ public class MultiRoutingDataSource extends AbstractRoutingDataSource {
 		}
 
 	}
-	
-	public void removeDataSource(String datakey) {
-        if (StringUtils.isBlank(datakey))
-            return;
-        try {
-            Field targetDataSources = AbstractRoutingDataSource.class.getDeclaredField("targetDataSources");
-            Field resolvedDataSources = AbstractRoutingDataSource.class.getDeclaredField("resolvedDataSources");
-            targetDataSources.setAccessible(true);
-            resolvedDataSources.setAccessible(true);
-            Map<Object, Object> dataSources = (Map<Object, Object>) targetDataSources.get(this);
-            if (dataSources.get(datakey) != null) {
-                Map<Object, javax.sql.DataSource> dataSources2 = (Map<Object, javax.sql.DataSource>) resolvedDataSources.get(this);
-                dataSources.remove(datakey);
-                dataSources2.remove(datakey);
-            }
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-	
-	public void addDataSource(String datakey) {
-        if (StringUtils.isBlank(datakey))
-            return;
-        try {
-            Field targetDataSources = AbstractRoutingDataSource.class.getDeclaredField("targetDataSources");
-            Field resolvedDataSources = AbstractRoutingDataSource.class.getDeclaredField("resolvedDataSources");
-            targetDataSources.setAccessible(true);
-            resolvedDataSources.setAccessible(true);
-            Map<Object, Object> dataSources = (Map<Object, Object>) targetDataSources.get(this);
-            if (dataSources.get(datakey) != null)
-                return;
-            Map<Object, DataSource> dataSources2 = (Map<Object, DataSource>) resolvedDataSources.get(this);
-            //
-//            DruidDataSource dds = new DruidDataSource();
-//            dds.setUrl("jdbc:mysql://" + dbInfo.getDbaddr() +
-//                    ":" + dbInfo.getDbport() + "/" + dbInfo.getDbname() + "?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&useSSL=true");
-//            dds.setUsername(dbInfo.getUsername());
-//            dds.setPassword(dbInfo.getPwd());
-//            dataSources.put(userid, dds);
-//            dataSources2.put(userid, dds);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
+//	
+//	public void removeDataSource(String datakey) {
+//        if (StringUtils.isBlank(datakey))
+//            return;
+//        try {
+//            Field targetDataSources = AbstractRoutingDataSource.class.getDeclaredField("targetDataSources");
+//            Field resolvedDataSources = AbstractRoutingDataSource.class.getDeclaredField("resolvedDataSources");
+//            targetDataSources.setAccessible(true);
+//            resolvedDataSources.setAccessible(true);
+//            Map<Object, Object> dataSources = (Map<Object, Object>) targetDataSources.get(this);
+//            if (dataSources.get(datakey) != null) {
+//                Map<Object, javax.sql.DataSource> dataSources2 = (Map<Object, javax.sql.DataSource>) resolvedDataSources.get(this);
+//                dataSources.remove(datakey);
+//                dataSources2.remove(datakey);
+//            }
+//        } catch (NoSuchFieldException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//	
+//	public void addDataSource(String datakey) {
+//        if (StringUtils.isBlank(datakey))
+//            return;
+//        try {
+//            Field targetDataSources = AbstractRoutingDataSource.class.getDeclaredField("targetDataSources");
+//            Field resolvedDataSources = AbstractRoutingDataSource.class.getDeclaredField("resolvedDataSources");
+//            targetDataSources.setAccessible(true);
+//            resolvedDataSources.setAccessible(true);
+//            Map<Object, Object> dataSources = (Map<Object, Object>) targetDataSources.get(this);
+//            if (dataSources.get(datakey) != null)
+//                return;
+//            Map<Object, DataSource> dataSources2 = (Map<Object, DataSource>) resolvedDataSources.get(this);
+//            //
+////            DruidDataSource dds = new DruidDataSource();
+////            dds.setUrl("jdbc:mysql://" + dbInfo.getDbaddr() +
+////                    ":" + dbInfo.getDbport() + "/" + dbInfo.getDbname() + "?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&useSSL=true");
+////            dds.setUsername(dbInfo.getUsername());
+////            dds.setPassword(dbInfo.getPwd());
+////            dataSources.put(userid, dds);
+////            dataSources2.put(userid, dds);
+//        } catch (NoSuchFieldException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 	
 

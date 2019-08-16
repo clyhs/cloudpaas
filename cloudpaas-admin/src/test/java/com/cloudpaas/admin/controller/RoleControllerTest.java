@@ -30,36 +30,11 @@ import junit.framework.TestCase;
  *
  * @date 2019年8月15日 上午8:56:06
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = AdminApplication.class)
-@AutoConfigureMockMvc  //测试接口用
 
-public class RoleControllerTest {
-	
-	private MockMvc mockMvc;
-	
-	@Autowired
-    private WebApplicationContext context;
-	
-	@Rule
-    public ContiPerfRule contiPerfRule = new ContiPerfRule();
-	
-	
-	
-	@Before
-    public void testBefore(){
-		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-        System.out.println("测试前");
-       
-        
-    }
 
-    @After
-    public void testAfter(){
-    	
-        System.out.println("测试后");
-        
-    }
+public class RoleControllerTest extends ParentControllerTest{
+	
+	
     
     /**
      * 性能测试：
@@ -90,6 +65,10 @@ public class RoleControllerTest {
         System.out.println(status);
         TestCase.assertEquals(status, 200);
     }
+    /**
+     * 根据ID查询角色
+     * @throws Exception
+     */
     @Test
     public void apiRoleTest()throws Exception{
     	MvcResult mvcResult=mockMvc.perform(MockMvcRequestBuilders.get("/role/1")).
