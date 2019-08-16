@@ -39,7 +39,7 @@ public class AdminAuthBiz {
 	 * @throws Exception
 	 */
 	public String login(JwtRequest jwtRequest) throws Exception{
-		User entity = null;
+		User entity = new User();
 		BeanUtils.copyProperties(jwtRequest, entity);
 		User user = adminUserDao.selectOne(entity, CommonConstants.DEFAULT_DATASOURCE_KEY);
 		if (!StringUtils.isEmpty(user.getId())) {
