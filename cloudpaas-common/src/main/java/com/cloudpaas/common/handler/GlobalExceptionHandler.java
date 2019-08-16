@@ -3,6 +3,7 @@
  */
 package com.cloudpaas.common.handler;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -29,7 +30,14 @@ public class GlobalExceptionHandler {
 	private static Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 	
 	@ExceptionHandler(MultiDataSourceException.class)
-    public BaseResponse userInvalidExceptionHandler(HttpServletResponse response, MultiDataSourceException ex) {
+    public BaseResponse multiExceptionHandler(HttpServletResponse response, MultiDataSourceException ex) {
+        response.setStatus(ErrorCode.DBEX.getCode());
+        log.error(ex.getMessage(),ex);
+        return new BaseResponse(ErrorCode.DBEX.getCode(), ex.getMessage());
+    }
+	
+	@ExceptionHandler(PersistenceException.class)
+    public BaseResponse persistenceExceptionHandler(HttpServletResponse response, MultiDataSourceException ex) {
         response.setStatus(ErrorCode.DBEX.getCode());
         log.error(ex.getMessage(),ex);
         return new BaseResponse(ErrorCode.DBEX.getCode(), ex.getMessage());

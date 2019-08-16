@@ -13,5 +13,8 @@ public class CommonConstants {
 	public final static String DEFAULT_DATASOURCE_KEY = "dn1";
 	
 	public final static Integer ROOT = -1;
+	
+	public static final String JWT_KEY_USER_ID = "userId";
+    public static final String JWT_KEY_NAME = "name";
 
 }
