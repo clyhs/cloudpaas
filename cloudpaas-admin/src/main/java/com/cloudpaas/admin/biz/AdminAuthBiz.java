@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.cloudpaas.admin.dao.AdminUserDao;
 import com.cloudpaas.admin.model.JwtRequest;
+import com.cloudpaas.admin.model.JwtResponse;
 import com.cloudpaas.common.config.JwtConfig;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.exception.UserInvalidException;
@@ -38,13 +39,19 @@ public class AdminAuthBiz {
 	 * @return
 	 * @throws Exception
 	 */
-	public String login(JwtRequest jwtRequest) throws Exception{
+	public JwtResponse login(JwtRequest jwtRequest) throws Exception{
 		User entity = new User();
+		JwtResponse jwtResponse = new JwtResponse();
 		BeanUtils.copyProperties(jwtRequest, entity);
 		User user = adminUserDao.selectOne(entity, CommonConstants.DEFAULT_DATASOURCE_KEY);
 		if (!StringUtils.isEmpty(user.getId())) {
 			JWTInfo jwtInfo = new JWTInfo(user.getUsername(),user.getId()+"",user.getName());
-			return JWTHelper.generateToken(jwtInfo, jwtConfig.getUserPriKey(), expire);
+			
+			String token = JWTHelper.generateToken(jwtInfo, jwtConfig.getUserPriKey(), expire);
+			jwtResponse.setToken(token);
+			jwtResponse.setUser(user);
+			return jwtResponse;
+			
 		}
 		throw new UserInvalidException("用户不存在或账户密码错误!");
 	}

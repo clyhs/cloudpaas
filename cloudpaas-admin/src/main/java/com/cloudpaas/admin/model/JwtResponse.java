@@ -5,6 +5,8 @@ package com.cloudpaas.admin.model;
 
 import java.io.Serializable;
 
+import com.cloudpaas.common.model.User;
+
 /**
  * @author 大鱼
  *
@@ -17,6 +19,17 @@ public class JwtResponse implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String token;
+	
+	private User   user;
+	
+	
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public String getToken() {
 		return token;
 	}

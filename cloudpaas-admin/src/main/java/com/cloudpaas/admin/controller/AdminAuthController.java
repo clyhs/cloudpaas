@@ -30,9 +30,10 @@ public class AdminAuthController {
 	
 	@RequestMapping(value = "/login.json",method = RequestMethod.GET)
 	public JwtResponse login(@RequestBody JwtRequest jwtRequest) throws Exception{
-		String token = adminAuthBiz.login(jwtRequest);
+		
 		JwtResponse jr = new JwtResponse();
-		jr.setToken(token);
+		jr = adminAuthBiz.login(jwtRequest);
+		
 		
 		return jr;
 	}
