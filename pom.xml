@@ -84,5 +84,6 @@
 		<module>cloudpaas-all</module>
 		<module>cloudpaas-admin-ui</module>
     <module>cloudpaas-beans</module>
+    <module>cloudpaas-service-shop</module>
   </modules>
 </project>
