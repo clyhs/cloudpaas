@@ -1,6 +1,8 @@
 package com.cloudpaas.common.utils.jwt;
 
 import com.cloudpaas.common.constants.CommonConstants;
+import com.cloudpaas.common.jwt.IJWTInfo;
+import com.cloudpaas.common.jwt.JWTInfo;
 import com.cloudpaas.common.utils.StringHelper;
 
 

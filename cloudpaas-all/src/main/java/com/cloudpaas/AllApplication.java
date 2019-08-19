@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.XADataSourceAutoConfiguration;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -34,7 +35,7 @@ import com.cloudpaas.common.mybatis.MultiDataSourceRegister;
 @RestController
 @ComponentScan(basePackages = {"com.cloudpaas"})
 @EnableAspectJAutoProxy(exposeProxy = true)
-@Import(MultiDataSourceRegister.class)
+@ServletComponentScan //配置myFilter
 public class AllApplication {
 
 	public static void main(String[] args) {
