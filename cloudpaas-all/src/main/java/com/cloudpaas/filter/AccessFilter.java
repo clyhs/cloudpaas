@@ -52,36 +52,38 @@ public class AccessFilter implements Filter {
         String requestURI = request.getRequestURI();
         log.debug("url:{}" , requestURI);
         
-        PrintWriter writer = null;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json; charset=utf-8");
+//        PrintWriter writer = null;
+//        HttpServletResponse response = (HttpServletResponse) servletResponse;
+//        response.setCharacterEncoding("UTF-8");
+//        response.setContentType("application/json; charset=utf-8");
+//        
+//        IJWTInfo user = null;
+//        try {
+//            user = getJWTUser(request);
+//            filterChain.doFilter(request, servletResponse);
+//        } catch (Exception e) {
+//            log.error("用户Token过期异常", e);
+//            //throw new TokenInvalidException(e.getMessage());
+//            
+//            OutputStreamWriter osw = null;
+//            try {
+//                osw = new OutputStreamWriter(response.getOutputStream(),
+//                        "UTF-8");
+//                writer = new PrintWriter(osw, true);
+//                String jsonStr = JSON.toJSONString(new BaseResponse(ErrorCode.TOKENEX.getCode(),e.getMessage()));
+//                writer.write(jsonStr);
+//                writer.flush();
+//                
+//            } catch (IOException ex) {
+//                log.error("获取OutputStreamm失败" + ex.getMessage());
+//            }finally{
+//            	osw.close();
+//            }
+//        }finally{
+//        	writer.close();
+//        }
         
-        IJWTInfo user = null;
-        try {
-            user = getJWTUser(request);
-            filterChain.doFilter(request, servletResponse);
-        } catch (Exception e) {
-            log.error("用户Token过期异常", e);
-            //throw new TokenInvalidException(e.getMessage());
-            
-            OutputStreamWriter osw = null;
-            try {
-                osw = new OutputStreamWriter(response.getOutputStream(),
-                        "UTF-8");
-                writer = new PrintWriter(osw, true);
-                String jsonStr = JSON.toJSONString(new BaseResponse(ErrorCode.TOKENEX.getCode(),e.getMessage()));
-                writer.write(jsonStr);
-                writer.flush();
-                
-            } catch (IOException ex) {
-                log.error("获取OutputStreamm失败" + ex.getMessage());
-            }finally{
-            	osw.close();
-            }
-        }finally{
-        	writer.close();
-        }
+        filterChain.doFilter(request, servletResponse);
         
         
     }
