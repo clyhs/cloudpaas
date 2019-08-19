@@ -57,11 +57,14 @@ public abstract class BaseController<Dao extends BaseDao,T> {
     
     @RequestMapping(value = "/page.json",method = RequestMethod.GET)
     @ResponseBody
-    public TableResultResponse<T> list(@RequestParam(name="page" ,required=false,defaultValue="1") Integer page,
-    		@RequestParam(name="limit" ,required=false,defaultValue="20") Integer size,
-    		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
+    public TableResultResponse<T> list(
+    		/*
+    		@RequestParam(name="page" ,required=false,defaultValue="1") Integer page,
+    		@RequestParam(name="limit" ,required=false,defaultValue="20") Integer size,*/
+    		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db,
+    		@RequestParam Map<String, Object> params){
         //查询列表数据
-        Query query = new Query(page,size);
+        Query query = new Query(params);
         return baseDao.selectByQuery(query,db);
     }
     

@@ -4,12 +4,13 @@ layui.config({
 }).extend({
 	"api" : "api",
 	"treetable":"treetable"
-}).use([ 'element', 'layer' ,'api',"form","treetable","table"], function() {
+}).use([ 'element', 'layer' ,'api',"form","treetable","table","jquery"], function() {
 	var $ = layui.jquery, element = layui.element, layer = layui.layer,
 	    api = layui.api,
 	    table = layui.table,
 	    treetable = layui.treetable,
-        form = layui.form;
+        form = layui.form,
+        $ = layui.jquery;
 	
 	treetable.render({
         treeColIndex: 1, //树形图标显示在第几列
@@ -68,7 +69,7 @@ layui.config({
             var addIndex = layer.open({
                 title: "添加系统菜单",
                 type: 2,
-                content: "/admin/system/menu/add?parentId=" + data.id,
+                content: $config.context+"/menu/add.html?pId=" + data.id,
                 success: function (layero, addIndex) {
                     setTimeout(function () {
                         layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {

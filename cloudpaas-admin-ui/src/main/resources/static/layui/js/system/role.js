@@ -29,19 +29,13 @@ layui.config({
 	
 	// 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
-        var result = JSON.stringify(data.field);
-        layer.alert(result, {
-            title: '最终的搜索信息'
-        });
 
         //执行搜索重载
         table.reload('roleTable', {
             page: {
                 curr: 1
             }
-            , where: {
-                searchParams: result
-            }
+            , where: data.field
         }, 'data');
 
         return false;

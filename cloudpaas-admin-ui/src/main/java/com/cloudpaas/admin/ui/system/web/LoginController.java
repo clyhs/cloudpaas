@@ -117,6 +117,12 @@ public class LoginController {
 		return "redirect:/login.html";
 	}
 	
+	@RequestMapping(value="/icon.html")
+	public String icon(){
+		
+		return "admin/layui/icon";
+	}
+	
 	@RequestMapping(path = "/401")
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	public ResponseBean unauthorized() {

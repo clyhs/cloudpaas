@@ -73,6 +73,9 @@ layui.define(['tool','jquery'], function (exports) {
         putRoleEditUrl:tool.getContext()+"/api/role/",
         deleteRoleDelUrl:tool.getContext()+"/api/role/",
         deleteBatchRoleUrl:tool.getContext()+"/api/role/deleteBatch.json",
+        
+        postMenuAddUrl:tool.getContext()+"/api/menu/add.json",
+        
     };
 
 

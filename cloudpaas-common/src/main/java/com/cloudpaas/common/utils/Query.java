@@ -29,12 +29,27 @@ public class Query extends LinkedHashMap<String, Object> {
         this.remove("limit");
     }
     
-    public Query(Integer page,Integer limit){
-    	Map<String, Object> params = new LinkedHashMap<String, Object>();
-    	params.put("page", page);
-    	params.put("limit", limit);
+    public Query(Integer page,Integer limit,Map<String, Object> params){
+    	this.putAll(params);
+    	this.put("page", page);
+    	this.put("limit", limit);
     	
-        this.putAll(params);
+        //分页参数
+        if(page!=null) {
+            this.page = page;
+        }
+        if(limit!=null) {
+            this.limit = limit;
+        }
+        this.remove("page");
+        this.remove("limit");
+    }
+    
+    public Query(Integer page,Integer limit){
+    	
+    	this.put("page", page);
+    	this.put("limit", limit);
+    	
         //分页参数
         if(page!=null) {
             this.page = page;
