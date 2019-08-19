@@ -44,4 +44,24 @@ public class AuthControllerTest extends ParentControllerTest {
         TestCase.assertEquals(status, 200);
         //token:eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6IjEiLCJuYW1lIjoiYWRtaW4iLCJleHAiOjE1NjU5NTQ1MzR9.Q4MNbedU4_xy6XMAikkIdrwOZ4NerpnYF3PffyB3F4ZleQ1FdQ4WCu28F7dtYQZ5MfLJZUDqq-22VhDWHfmzduW7AWJFYERjGhegDrBnr5q4xOikK_VarQEYDz1OLJWaFAWC89x_uMVLKYeHK7oUhupJaT1lMc0zOvmOH14nntM
     }
+	
+	@Test
+    public void apiInfoTest()throws Exception{
+    	
+		
+    	
+    	
+    	MvcResult mvcResult=mockMvc.perform(
+    			MockMvcRequestBuilders.get("/auth/info.json")
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.param("token", "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6IjEiLCJuYW1lIjoiYWRtaW4iLCJleHAiOjE1NjYxODY4NzB9.DjtO6ovErgt3OiHbhfIiqub29psOcGskPUO08eVnK6Hpt5cVnRV9SalqUiS0nX2Mni5dww0UHUaor3D8E81ufNDGbBuvPoaAO_fplCL_HQA6AVpZnY9lQhK0zktTU3_UQIQjpjYKVUC2XeqdhUsLkHXP-lJiyvHUzWV5NP1glOc")
+    			)
+    			.andDo(MockMvcResultHandlers.print())
+    			.andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+        int status=mvcResult.getResponse().getStatus();                              
+        System.out.println(status);
+        TestCase.assertEquals(status, 200);
+        //token:eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6IjEiLCJuYW1lIjoiYWRtaW4iLCJleHAiOjE1NjU5NTQ1MzR9.Q4MNbedU4_xy6XMAikkIdrwOZ4NerpnYF3PffyB3F4ZleQ1FdQ4WCu28F7dtYQZ5MfLJZUDqq-22VhDWHfmzduW7AWJFYERjGhegDrBnr5q4xOikK_VarQEYDz1OLJWaFAWC89x_uMVLKYeHK7oUhupJaT1lMc0zOvmOH14nntM
+    }
 }

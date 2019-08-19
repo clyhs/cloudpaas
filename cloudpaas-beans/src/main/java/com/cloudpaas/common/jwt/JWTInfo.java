@@ -1,4 +1,4 @@
-package com.cloudpaas.common.utils.jwt;
+package com.cloudpaas.common.jwt;
 
 import java.io.Serializable;
 
@@ -11,6 +11,8 @@ public class JWTInfo implements Serializable,IJWTInfo {
 	private String username;
     private String userId;
     private String name;
+    
+    public JWTInfo(){}
 
     public JWTInfo(String username, String userId, String name) {
         this.username = username;

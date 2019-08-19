@@ -27,7 +27,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
  * @author jjs
  *
  */
-public class RSADemo {
+public class RSAUtil {
 
     private static String src = "infcn";
 

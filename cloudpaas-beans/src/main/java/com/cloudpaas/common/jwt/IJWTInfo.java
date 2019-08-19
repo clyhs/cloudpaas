@@ -1,4 +1,4 @@
-package com.cloudpaas.common.utils.jwt;
+package com.cloudpaas.common.jwt;
 
 
 public interface IJWTInfo {

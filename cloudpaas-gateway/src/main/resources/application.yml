@@ -21,10 +21,17 @@ management:
 
 server:
   port: 8100
+  tomcat: 
+    uri-encoding: UTF-8
   
 spring:
   application:
     name: cpaas-gateway
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
   cloud:       #设置网关
     gateway:
       discovery:
