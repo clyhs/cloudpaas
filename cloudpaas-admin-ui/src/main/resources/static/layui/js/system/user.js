@@ -77,7 +77,7 @@ layui.config({
                     data:JSON.stringify(data.field),
                     success:function(res){
                         if(res.code==0){
-                            parent.layer.msg("菜单删除成功！",{time:1000},function(){
+                            parent.layer.msg("删除成功！",{time:1000},function(){
                                 parent.location.reload();
                             });
                         }else{
@@ -127,7 +127,7 @@ layui.config({
                             var deleteindex = layer.msg('删除中，请稍候',{icon: 16,time:false,shade:0.8});
                             $.ajax({
                                 type:"DELETE",
-                                url:api.deleteBatchRoleUrl,
+                                url:api.deleteBatchUserUrl,
                                 dataType:"json",
                                 contentType:"application/json",
                                 data:JSON.stringify(data),
@@ -160,18 +160,17 @@ layui.config({
 	// 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
         var result = JSON.stringify(data.field);
+        /*
         layer.alert(result, {
             title: '最终的搜索信息'
-        });
+        });*/
 
         //执行搜索重载
         table.reload('oTable', {
             page: {
                 curr: 1
             }
-            , where: {
-                searchParams: result
-            }
+            , where: data.field
         }, 'data');
 
         return false;

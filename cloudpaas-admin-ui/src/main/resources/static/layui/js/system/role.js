@@ -96,10 +96,7 @@ layui.config({
                     }
                 });
                 //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-                $(window).resize(function(){
-                    layer.full(addIndex);
-                });
-                layer.full(addIndex);
+                layuiresize(addIndex);
             },
             //批量删除
             delBatch : function(){

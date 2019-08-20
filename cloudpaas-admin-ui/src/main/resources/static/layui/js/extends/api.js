@@ -81,6 +81,7 @@ layui.define(['tool','jquery'], function (exports) {
         getUserPageUrl:tool.getContext()+"/api/user/page.json",
         putUserEditUrl:tool.getContext()+"/api/user/",
         deleteUserDelUrl:tool.getContext()+"/api/user/",
+        deleteBatchUserUrl:tool.getContext()+"/api/user/deleteBatch.json",
         
         
     };

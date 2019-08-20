@@ -27,15 +27,20 @@
 	            <div class="layui-field-box">
 			        <form class="layui-form">
 			            <div class="layui-inline">
-	                        <label class="layui-form-label">用户姓名</label>
+	                        <label class="layui-form-label">用户名</label>
 	                        <div class="layui-input-inline">
 	                            <input type="text" name="username" autocomplete="off" class="layui-input">
 	                        </div>
 	                    </div>
 	                    <div class="layui-inline">
-	                            <label class="layui-form-label">用户性别</label>
+	                            <label class="layui-form-label">性别</label>
 	                            <div class="layui-input-inline">
-	                                <input type="text" name="sex" autocomplete="off" class="layui-input">
+	                                <select name="sex" class="layui-input">
+	                                	<option value=""> <span>全部</span></option>
+				                        <option value="0"> <span>保密</span></option>
+				                        <option value="1"> <span>男</span></option>
+				                        <option value="2"> <span>女</span></option>
+				                    </select>
 	                            </div>
 	                    </div>
 	                        
@@ -46,7 +51,7 @@
 				                <a class="layui-btn layui-btn-normal" data-type="add">添加</a>
 				        </div>
 				        <div class="layui-inline">
-				                <a class="layui-btn layui-btn-danger" data-type="delBatch">删除</a>
+				                <a class="layui-btn layui-btn-danger" data-type="delBatch">批量删除</a>
 				        </div>
 	                    
 			            
