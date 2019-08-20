@@ -3,8 +3,9 @@ layui.config({
 	version : true
 }).extend({
 	"api" : "api",
-	"treetable":"treetable"
-}).use([ 'element', 'layer' ,'api',"form","treetable","table","jquery"], function() {
+	"treetable":"treetable",
+	adminui : "adminui"
+}).use([ 'element', 'layer' ,'api',"form","treetable","table","jquery",'adminui'], function() {
 	var $ = layui.jquery, element = layui.element, layer = layui.layer,
 	    api = layui.api,
 	    table = layui.table,

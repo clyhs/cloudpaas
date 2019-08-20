@@ -4,12 +4,12 @@ layui.config({
 }).extend({
 	"tool" : "tool",
 	"api" : "api",
-	layuimini : "layuimini"
-}).use([ 'element', 'layer', 'layuimini' ,'api'], function() {
+	adminui : "adminui"
+}).use([ 'element', 'layer', 'adminui' ,'api'], function() {
 	var $ = layui.jquery, element = layui.element, layer = layui.layer,
 	    api = layui.api;
 
-	layuimini.init($config.context+"/menu/tree.json");
+	adminui.init($config.context+"/menu/tree.json");
 
 	 
 	$('.login-out').on("click", function() {

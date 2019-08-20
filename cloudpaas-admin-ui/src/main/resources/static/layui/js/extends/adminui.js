@@ -11,7 +11,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
         return layer.alert("请先将项目部署至web容器（Apache/Tomcat/Nginx/等），否则部分数据将无法显示");
     }
 
-    layuimini = new function () {
+    adminui = new function () {
 
         /**
          *  系统配置
@@ -39,28 +39,39 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
          */
         this.init = function (url) {
             var loading = layer.load(0, {shade: false, time: 2 * 1000});
-            layuimini.initBgColor();
-            layuimini.initDevice();
-            /*
-            api.doGet("/adminui/menu/tree.json",null,function(res){
-        		var data = res;
-        		layuimini.initMenu(data);
-        		layuimini.initTab();
-        	});*/
-            
+            adminui.initBgColor();
+            adminui.initDevice();
             
             $.getJSON(url, function (data, status) {
                 if (data == null) {
-                    layuimini.msg_error('暂无菜单信息');
+                	adminui.msg_error('暂无菜单信息');
                 } else {
-                    //layuimini.initHome(data.homeInfo);
-                    //layuimini.initLogo(data.logoInfo);
-                    //layuimini.initClear(data.clearInfo);
-                    layuimini.initMenu(data);
-                    layuimini.initTab();
+                    //adminui.initHome(data.homeInfo);
+                    //adminui.initLogo(data.logoInfo);
+                    //adminui.initClear(data.clearInfo);
+                	adminui.initMenu(data);
+                	adminui.initTab();
                 }
             }).fail(function () {
-                layuimini.msg_error('菜单接口有误');
+            	adminui.msg_error('菜单接口有误');
+            });
+            layer.close(loading);
+        };
+        
+        this.reloadTree=function (url){
+        	var loading = layer.load(0, {shade: false, time: 2 * 1000});
+        	adminui.initBgColor();
+        	adminui.initDevice();
+            
+            $.getJSON(url, function (data, status) {
+                if (data == null) {
+                	adminui.msg_error('暂无菜单信息');
+                } else {
+                	adminui.initMenu(data);
+                	adminui.initTab();
+                }
+            }).fail(function () {
+            	adminui.msg_error('菜单接口有误');
             });
             layer.close(loading);
         };
@@ -69,7 +80,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
          * 初始化设备端
          */
         this.initDevice = function () {
-            if (layuimini.checkMobile()) {
+            if (adminui.checkMobile()) {
                 $('.layuimini-tool i').attr('data-side-fold', 0);
                 $('.layuimini-tool i').attr('class', 'fa fa-indent');
                 $('.layui-layout-body').attr('class', 'layui-layout-body layuimini-mini');
@@ -113,9 +124,9 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
         this.initBgColor = function () {
             var bgcolorId = window.sessionStorage.getItem('layuiminiBgcolorId');
             if (bgcolorId == null || bgcolorId == undefined || bgcolorId == '') {
-                bgcolorId = layuimini.config('BgColorDefault');
+                bgcolorId = adminui.config('BgColorDefault');
             }
-            var bgcolorData = layuimini.bgColorConfig(bgcolorId);
+            var bgcolorData = adminui.bgColorConfig(bgcolorId);
             var styleHtml = '.layui-layout-admin .layui-header{background-color:' + bgcolorData.headerRight + '!important;}\n' +
                 '.layui-header>ul>.layui-nav-item.layui-this,.layuimini-tool i:hover{background-color:' + bgcolorData.headerRightThis + '!important;}\n' +
                 '.layui-layout-admin .layui-logo {background-color:' + bgcolorData.headerLogo + '!important;}\n' +
@@ -196,13 +207,13 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
                 var href = urlArr.pop();
 
                 // 判断链接是否有效
-                var checkUrl = layuimini.checkUrl(href);
+                var checkUrl = adminui.checkUrl(href);
                 if (checkUrl != true) {
-                    return layuimini.msg_error(checkUrl);
+                    return adminui.msg_error(checkUrl);
                 }
 
                 // 判断tab是否存在
-                var checkTab = layuimini.checkTab(href);
+                var checkTab = adminui.checkTab(href);
                 if (!checkTab) {
                     var title = href,
                         tabId = href;
@@ -210,7 +221,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
                         var checkHref = $(this).attr("data-tab");
 
                         // 判断是否带参数了
-                        if (layuimini.config('urlSuffixDefault')) {
+                        if (adminui.config('urlSuffixDefault')) {
                             if (href.indexOf("mpi=") > -1) {
                                 var menuParameId = $(this).attr('data-tab-mpi');
                                 if (checkHref.indexOf("?") > -1) {
@@ -269,13 +280,13 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
                     }
 
                     if (layuiminiHomeTab != href && layuiminiHomeHref != href) {
-                        layuimini.addTab(tabId, href, title, true);
-                        layuimini.changeTab(tabId);
+                    	adminui.addTab(tabId, href, title, true);
+                    	adminui.changeTab(tabId);
                     }
                 }
             }
-            if (layuimini.config('urlHashLocation')) {
-                layuimini.hashTab();
+            if (adminui.config('urlHashLocation')) {
+            	adminui.hashTab();
             }
         };
 
@@ -401,7 +412,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
             if (bgcolorId == null || bgcolorId == undefined || bgcolorId == '') {
                 bgcolorId = 0;
             }
-            var bgColorConfig = layuimini.bgColorConfig();
+            var bgColorConfig = adminui.bgColorConfig();
             $.each(bgColorConfig, function (key, val) {
                 if (key == bgcolorId) {
                     html += '<li class="layui-this" data-select-bgcolor="' + key + '">\n';
@@ -670,9 +681,9 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
         $parent = $(this).parent();
         tabId = $parent.attr('lay-id');
         if (tabId != undefined || tabId != null) {
-            layuimini.delTab(tabId);
+        	adminui.delTab(tabId);
         }
-        layuimini.tabRoll();
+        adminui.tabRoll();
         layer.close(loading);
     });
 
@@ -693,7 +704,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
         title = title.replace('style="display: none;"', '');
 
         // 拼接参数
-        if (layuimini.config('urlSuffixDefault')) {
+        if (adminui.config('urlSuffixDefault')) {
             var menuParameId = $(this).attr('data-tab-mpi');
             if (href.indexOf("?") > -1) {
                 href = href + '&mpi=' + menuParameId;
@@ -705,22 +716,22 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
         }
 
         // 判断链接是否有效
-        var checkUrl = layuimini.checkUrl(href);
+        var checkUrl = adminui.checkUrl(href);
         if (checkUrl != true) {
-            return layuimini.msg_error(checkUrl);
+            return adminui.msg_error(checkUrl);
         }
 
         if (tabId == null || tabId == undefined) {
             tabId = new Date().getTime();
         }
         // 判断该窗口是否已经打开过
-        var checkTab = layuimini.checkTab(tabId);
+        var checkTab = adminui.checkTab(tabId);
         if (!checkTab) {
-            layuimini.addTab(tabId, href, title, true);
+        	adminui.addTab(tabId, href, title, true);
         }
         element.tabChange('layuiminiTab', tabId);
-        layuimini.initDevice();
-        layuimini.tabRoll();
+        adminui.initDevice();
+        adminui.tabRoll();
         layer.close(loading);
     });
 
@@ -744,7 +755,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
             tabId = new Date().getTime();
         }
         // 判断该窗口是否已经打开过
-        var checkTab = layuimini.checkTab(tabId, true);
+        var checkTab = adminui.checkTab(tabId, true);
         if (!checkTab) {
             var layuiminiTabInfo = JSON.parse(window.sessionStorage.getItem("layuiminiTabInfo"));
             if (layuiminiTabInfo == null) {
@@ -759,7 +770,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
             });
         }
         parent.layui.element.tabChange('layuiminiTab', tabId);
-        layuimini.tabRoll();
+        adminui.tabRoll();
         parent.layer.close(loading);
     });
 
@@ -794,17 +805,17 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
             $.getJSON(clearUrl, function (data, status) {
                 layer.close(loading);
                 if (data.code != 1) {
-                    return layuimini.msg_error(data.msg);
+                    return adminui.msg_error(data.msg);
                 } else {
-                    return layuimini.msg_success(data.msg);
+                    return adminui.msg_success(data.msg);
                 }
             }).fail(function () {
                 layer.close(loading);
-                return layuimini.msg_error('清理缓存接口有误');
+                return adminui.msg_error('清理缓存接口有误');
             });
         } else {
             layer.close(loading);
-            return layuimini.msg_success('清除缓存成功');
+            return adminui.msg_success('清除缓存成功');
         }
     });
 
@@ -813,7 +824,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
      */
     $('body').on('click', '[data-refresh]', function () {
         $(".layui-tab-item.layui-show").find("iframe")[0].contentWindow.location.reload();
-        layuimini.msg_success('刷新成功');
+        adminui.msg_success('刷新成功');
     });
 
     /**
@@ -828,15 +839,15 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
             if (id != 'layuiminiHomeTabId') {
                 var tabClass = $(this).attr('class');
                 if (closeType == 'all') {
-                    layuimini.delTab(tabId);
+                	adminui.delTab(tabId);
                 } else {
                     if (tabClass != 'layui-this') {
-                        layuimini.delTab(tabId);
+                    	adminui.delTab(tabId);
                     }
                 }
             }
         });
-        layuimini.tabRoll();
+        adminui.tabRoll();
         layer.close(loading);
     });
 
@@ -855,7 +866,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
             $('.layuimini-tool i').attr('class', 'fa fa-outdent');
             $('.layui-layout-body').attr('class', 'layui-layout-body layuimini-all');
         }
-        layuimini.tabRoll();
+        adminui.tabRoll();
         element.init();
         layer.close(loading);
     });
@@ -888,7 +899,7 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
     $('body').on('click', '[data-bgcolor]', function () {
         var loading = layer.load(0, {shade: false, time: 2 * 1000});
         var clientHeight = (document.documentElement.clientHeight) - 95;
-        var bgColorHtml = layuimini.buildBgColorHtml();
+        var bgColorHtml = adminui.buildBgColorHtml();
         var html = '<div class="layuimini-color">\n' +
             '<div class="color-title">\n' +
             '<span>配色方案</span>\n' +
@@ -920,8 +931,8 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
         $('.layuimini-color .color-content ul .layui-this').attr('class', '');
         $(this).attr('class', 'layui-this');
         window.sessionStorage.setItem('layuiminiBgcolorId', bgcolorId);
-        layuimini.initBgColor();
+        adminui.initBgColor();
     });
 
-    exports("layuimini", layuimini);
+    exports("adminui", adminui);
 });
