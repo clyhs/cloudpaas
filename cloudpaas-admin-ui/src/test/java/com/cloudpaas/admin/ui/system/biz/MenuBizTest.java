@@ -3,6 +3,7 @@
  */
 package com.cloudpaas.admin.ui.system.biz;
 
+import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
@@ -28,6 +29,7 @@ import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectRestResponse;
+import com.cloudpaas.common.vo.MenuTreeVo;
 import com.google.common.collect.Maps;
 
 /**
@@ -76,6 +78,14 @@ public class MenuBizTest extends BaseBiz<Menu>{
 
 		Menu entity =  result.getData();
 		System.out.print(JSON.toJSONString(entity));
+		
+	}
+	
+	@Test
+	public void MenuGetTreeTest(){
+		List<MenuTreeVo> menus = menuBiz.getMenuTree();
+		
+		System.out.println(JSON.toJSONString(menus));
 		
 	}
 	

@@ -45,9 +45,22 @@ public class Menu implements Serializable{
      */
     private Integer type;
     
+    /**
+     * 1：显示，2：隐藏
+     */
+    private Integer isShow;
+    
     
 
-    public Integer getType() {
+    public Integer getIsShow() {
+		return isShow;
+	}
+
+	public void setIsShow(Integer isShow) {
+		this.isShow = isShow;
+	}
+
+	public Integer getType() {
 		return type;
 	}
 

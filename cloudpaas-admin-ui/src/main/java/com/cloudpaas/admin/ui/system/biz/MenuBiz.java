@@ -3,6 +3,8 @@
  */
 package com.cloudpaas.admin.ui.system.biz;
 
+import java.util.List;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -14,6 +16,7 @@ import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.result.ObjectRestResponse;
+import com.cloudpaas.common.vo.MenuTreeVo;
 
 /**
  * @author 大鱼
@@ -36,6 +39,16 @@ public class MenuBiz extends BaseBiz<Menu> {
 				.getBody();
 		Menu entity =  result.getData();
 		return entity;
+	}
+	
+	public List<MenuTreeVo> getMenuTree(){
+		ParameterizedTypeReference<List<MenuTreeVo>> responseBodyType = new ParameterizedTypeReference<List<MenuTreeVo>>() {};
+		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
+		List<MenuTreeVo> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_GET_TREES_URL, 
+				HttpMethod.GET, httpEntity, responseBodyType)
+				.getBody();
+		
+		return result;
 	}
 
 }

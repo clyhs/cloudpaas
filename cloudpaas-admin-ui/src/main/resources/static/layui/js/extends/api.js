@@ -65,16 +65,18 @@ layui.define(['tool','jquery'], function (exports) {
         doGet: function(url,req,successCallback,errorCallback){
             doGet(url,req,successCallback,errorCallback);
         },
-        getIndexMenuTreeUrl:tool.getContext()+"/api/menu/tree.json",
-        getMenuListUrl:tool.getContext()+"/api/menu/all.json",
-        getUserPageUrl:tool.getContext()+"/api/user/page.json",
+        
+
         getRolePageUrl:tool.getContext()+"/api/role/page.json",
         postRoleAddUrl:tool.getContext()+"/api/role/add.json",
         putRoleEditUrl:tool.getContext()+"/api/role/",
         deleteRoleDelUrl:tool.getContext()+"/api/role/",
         deleteBatchRoleUrl:tool.getContext()+"/api/role/deleteBatch.json",
         
+        getMenuListUrl:tool.getContext()+"/api/menu/all.json",
         postMenuAddUrl:tool.getContext()+"/api/menu/add.json",
+        
+        getUserPageUrl:tool.getContext()+"/api/user/page.json",
         
     };
 

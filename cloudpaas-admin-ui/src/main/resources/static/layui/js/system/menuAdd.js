@@ -28,7 +28,6 @@ layui.config({
         });
         
         data.field.createTime = new Date();
-        layer.alert('编辑行：<br>' + JSON.stringify(data))
         
         $.ajax({
             type:"POST",

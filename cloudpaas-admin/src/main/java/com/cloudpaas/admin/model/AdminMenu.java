@@ -47,6 +47,22 @@ public class AdminMenu  {
 
 	@Column(name = "create_time")
     private Date createTime;
+	
+	/**
+     * 1：显示，2：隐藏
+     */
+	@Column(name = "is_show")
+    private Integer isShow;
+    
+    
+
+    public Integer getIsShow() {
+		return isShow;
+	}
+
+	public void setIsShow(Integer isShow) {
+		this.isShow = isShow;
+	}
 
     /**
      * @return id

@@ -9,7 +9,7 @@ layui.config({
 	var $ = layui.jquery, element = layui.element, layer = layui.layer,
 	    api = layui.api;
 
-	layuimini.init(api.getIndexMenuTreeUrl);
+	layuimini.init($config.context+"/menu/tree.json");
 
 	 
 	$('.login-out').on("click", function() {

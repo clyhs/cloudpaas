@@ -15,5 +15,6 @@
     <result column="level" property="level" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="is_show" property="isShow" jdbcType="INTEGER" />
   </resultMap>
 </mapper>

@@ -23,7 +23,7 @@ layui.config({
         page: false, //分页，即使设置为true也不进行分页
         treeLinkage: false, //父级展开时是否自动展开所有子级
         cols: [[
-            {type: 'numbers'},
+        	{type:'radio'},
             {field: 'title', minWidth: 100, title: '菜单名称'},
             {field: 'icon', width: '8%',title: '图标',templet: function (d) {
                     if (d.icon == null) {
@@ -120,10 +120,31 @@ layui.config({
             treetable.foldAll('#menuTable');
         },
         addMenu : function(){
+        	var checkStatus = table.checkStatus('menuTable');
+        	var data;
+        	var pId;
+        	
+        	if(checkStatus.data.length > 0 && checkStatus.data.length==1){
+        		data = checkStatus.data[0];
+        		pId = data.id;
+        		
+        		if(data.type == 3){
+        			layer.msg('按钮不能再添加子菜单');
+        			return ;
+        		}
+        	}else{
+        		pId = -1;
+        	}
+        	
+        	
+        	
+        	
+        	//var data = checkStatus.data[0];
+        	
             var addIndex = layer.open({
                 title : "添加系统菜单",
                 type : 2,
-                content : "/admin/system/menu/add",
+                content : $config.context+"/menu/add.html?pId=" + pId,
                 success : function(layero, addIndex){
                     setTimeout(function(){
                         layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {

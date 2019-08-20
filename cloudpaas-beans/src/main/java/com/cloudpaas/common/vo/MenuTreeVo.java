@@ -1,20 +1,18 @@
-/**
- * 
- */
-package com.cloudpaas.admin.vo;
+package com.cloudpaas.common.vo;
 
-import com.cloudpaas.common.vo.TreeVo;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Data;
 
-/**
- * @author 大鱼
- *
- * @date 2019年8月13日 下午2:57:26
- */
 @Data
-public class AdminMenuTreeVo extends TreeVo {
+public class MenuTreeVo extends TreeVo<MenuTreeVo> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String  icon;
 	
     private String  title;
@@ -30,5 +28,9 @@ public class AdminMenuTreeVo extends TreeVo {
     private Integer type;
     
     private Integer isShow;
+    
+    
+    
+    
 
 }

@@ -913,7 +913,7 @@
             var parent$ = window.parent.layui.jquery;
             var iconHtml = '<i class="layui-icon '+selectIcon+'"></i>';
             parent$("#realIcon").show().html(iconHtml);
-            parent$("#iconValue").val(selectIcon);
+            parent$("#iconValue").val('layui-icon '+selectIcon);
             window.parent.layer.close(index);
         });
     });

@@ -50,17 +50,45 @@
 	                <input name="level" type="hidden" th:value="${parentMenu.level+1}">
 	                <input name="type" type="hidden" th:value="${parentMenu.type+1}">
 	            </div>
-	            <div class="layui-form-item">
+	            
+	            <div class="layui-form-item" th:if="${parentMenu} == null">
+	                <label class="layui-form-label">目录名称</label>
+	                <div class="layui-input-block">
+	                    <input type="text" class="layui-input" name="title" lay-verify="required" placeholder="请输入目录名称">
+	                </div>
+	                <input name="level" type="hidden" value="1">
+	                <input name="type" type="hidden" value="1">
+	                <input name="pId" type="hidden" value="-1">
+	            </div>
+	            
+	            <div class="layui-form-item" th:if="${parentMenu != null and parentMenu.type == 1}">
 	                <label class="layui-form-label">菜单名称</label>
 	                <div class="layui-input-block">
 	                    <input type="text" class="layui-input" name="title" lay-verify="required" placeholder="请输入菜单名称">
 	                </div>
 	            </div>
 	            
-	            <div class="layui-form-item">
+	            <div class="layui-form-item" th:if="${parentMenu != null and parentMenu.type == 2}">
+	                <label class="layui-form-label">按钮名称</label>
+	                <div class="layui-input-block">
+	                    <input type="text" class="layui-input" name="title" lay-verify="required" placeholder="请输入按钮名称">
+	                </div>
+	            </div>
+	            <!-- 目录类型默认#路径 -->
+	            <div class="layui-form-item" th:if="${parentMenu} == null">
+	                <input name="url" type="hidden" value="#">
+	            </div>
+	            
+	            <div class="layui-form-item" th:if="${parentMenu != null and parentMenu.type == 1}">
 	                <label class="layui-form-label">菜单地址</label>
 	                <div class="layui-input-block">
-	                    <input type="text" class="layui-input" name="url"  placeholder="请输入菜单地址">
+	                    <input type="text" class="layui-input" name="url"  placeholder="请输入菜单地址url">
+	                </div>
+	            </div>
+	            <div class="layui-form-item" th:if="${parentMenu != null and parentMenu.type == 2}">
+	                <label class="layui-form-label">按钮地址</label>
+	                <div class="layui-input-block">
+	                    <input type="text" class="layui-input" name="url"  placeholder="请输入铵钮代号">
 	                </div>
 	            </div>
 	            

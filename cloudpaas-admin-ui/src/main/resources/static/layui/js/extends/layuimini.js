@@ -42,9 +42,10 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
             layuimini.initBgColor();
             layuimini.initDevice();
             /*
-            api.doGet(tool.getContext()+"/adminmenu/tree.json",null,function(res){
+            api.doGet("/adminui/menu/tree.json",null,function(res){
         		var data = res;
         		layuimini.initMenu(data);
+        		layuimini.initTab();
         	});*/
             
             
@@ -141,31 +142,41 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
             var menuList = data;
             $.each(menuList, function (index, menu) {
                 leftMenuHtml += '<li class="layui-nav-item">\n';
-                if (menu.childrens != undefined && menu.childrens != [] && menu.childrens.length > 0) {
-                	
-                    leftMenuHtml += '<a href="javascript:;" class="layui-menu-tips" ><i class="' + menu.icon + '"></i><span class="layui-left-nav"> ' + menu.title + '</span> </a>';
-                    var buildChildHtml = function (html, child) {
-                        html += '<dl class="layui-nav-child">\n';
-                        $.each(child, function (childIndex, childMenu) {
-                            html += '<dd>\n';
-                            if (childMenu.childrens != undefined && childMenu.childrens != [] && childMenu.childrens.length > 0) {
-                            	
-                            	html += '<a href="javascript:;" class="layui-menu-tips" ><i class="' + childMenu.icon + '"></i><span class="layui-left-nav"> ' + childMenu.title + '</span></a>';
-                                html = buildChildHtml(html, childMenu.childrens);
-                            } else {
-                                html += '<a href="javascript:;" class="layui-menu-tips" data-type="tabAdd"  data-tab-mpi="m-p-i-' + childMenu.id + '" data-tab="' +tool.getResUrl()+ childMenu.url + '" target="_self"><i class="' + childMenu.icon + '"></i><span class="layui-left-nav"> ' + childMenu.title + '</span></a>\n';
-                            }
-                            html += '</dd>\n';
-                        });
-                        html += '</dl>\n';
-                        return html;
-                    };
-                    leftMenuHtml = buildChildHtml(leftMenuHtml, menu.childrens);
-                } else {
-                    leftMenuHtml += '<a href="javascript:;" class="layui-menu-tips"  data-type="tabAdd" data-tab-mpi="m-p-i-' + menu.id + '" data-tab="' +tool.getResUrl()+ menu.url + '" target="' + menu.target + '"><i class="' + menu.icon + '"></i><span class="layui-left-nav"> ' + menu.title + '</span></a>\n';
-                    //menuParameId++;
+                if(menu.isShow){
+                	if (menu.childrens != undefined && menu.childrens != [] && menu.childrens.length > 0) {
+                    	
+                        leftMenuHtml += '<a href="javascript:;" class="layui-menu-tips" ><i class="' + menu.icon + '"></i><span class="layui-left-nav"> ' + menu.title + '</span> </a>';
+                        var buildChildHtml = function (html, child) {
+                            html += '<dl class="layui-nav-child">\n';
+                            $.each(child, function (childIndex, childMenu) {
+                                html += '<dd>\n';
+                                
+                                if (childMenu.childrens != undefined && childMenu.childrens != [] && childMenu.childrens.length > 0 && childMenu.isShow) {
+                                	
+                                	html += '<a href="javascript:;" class="layui-menu-tips" ><i class="' + childMenu.icon + '"></i><span class="layui-left-nav"> ' + childMenu.title + '</span></a>';
+                                    
+                                	html = buildChildHtml(html, childMenu.childrens);
+
+                                	
+                                } else {
+                                    html += '<a href="javascript:;" class="layui-menu-tips" data-type="tabAdd"  data-tab-mpi="m-p-i-' + childMenu.id + '" data-tab="' +tool.getResUrl()+ childMenu.url + '" target="_self"><i class="' + childMenu.icon + '"></i><span class="layui-left-nav"> ' + childMenu.title + '</span></a>\n';
+                                }
+                                html += '</dd>\n';
+                            });
+                            html += '</dl>\n';
+                            return html;
+                        };
+                        
+                        leftMenuHtml = buildChildHtml(leftMenuHtml, menu.childrens);
+                        
+                        
+                    } else {
+                        leftMenuHtml += '<a href="javascript:;" class="layui-menu-tips"  data-type="tabAdd" data-tab-mpi="m-p-i-' + menu.id + '" data-tab="' +tool.getResUrl()+ menu.url + '" target="' + menu.target + '"><i class="' + menu.icon + '"></i><span class="layui-left-nav"> ' + menu.title + '</span></a>\n';
+                        //menuParameId++;
+                    }
+                    leftMenuHtml += '</li>\n';
                 }
-                leftMenuHtml += '</li>\n';
+                
             });
             leftMenuHtml += '</ul>\n';
             headerMenuCheckDefault = '';
