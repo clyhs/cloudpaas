@@ -49,6 +49,15 @@ layui.config({
                     }
                 }, title: '类型'
             },
+            {
+            	field: 'isShow', width: '8%', align: 'center', templet: function (d) {
+            		if(d.isShow == 1) {
+                        return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用" value='+d.id+' lay-filter="isShow" checked> ';
+                    } else{
+                        return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用" value='+d.id+' lay-filter="isShow" > ';
+                    }
+            	},title:'是否显示'
+            },
             {templet: '#menuBar', width: '30%', align: 'center', title: '操作'}
         ]],
         done: function () {
@@ -65,26 +74,12 @@ layui.config({
 
     table.on('tool(menuList)', function(obj){
         var data = obj.data;
-        if(obj.event === 'addChildMenu') {
-            var addIndex = layer.open({
-                title: "添加系统菜单",
-                type: 2,
-                content: $config.context+"/menu/add.html?pId=" + data.id,
-                success: function (layero, addIndex) {
-                    setTimeout(function () {
-                        layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
-                            tips: 3
-                        });
-                    }, 500);
-                }
-            });
-            layuiresize(addIndex);
-        }
+        
         if(obj.event === 'editChildMenu'){
             var editIndex = layer.open({
                 title : "编辑菜单",
                 type : 2,
-                content : "/admin/system/menu/edit?id="+data.id,
+                content : $config.context+"/menu/edit.html?id="+data.id,
                 success : function(layero, editIndex){
                     setTimeout(function(){
                         layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
@@ -98,15 +93,26 @@ layui.config({
         if(obj.event === "delMenu"){
             layer.confirm("你确定要删除该菜单么？这将会使得其下的所有子菜单都删除",{btn:['是的,我确定','我再想想']},
                 function(){
-                    $.post("/admin/system/menu/delete",{"id":data.id},function (res){
-                        if(res.success){
-                            layer.msg("删除成功",{time: 1000},function(){
-                                location.reload();
+            	$.ajax({
+                    type:"DELETE",
+                    url:api.deleteMenuDelUrl+data.id,
+                    dataType:"json",
+                    contentType:"application/json",
+                    data:JSON.stringify(data.field),
+                    success:function(res){
+                        if(res.code==0){
+                            parent.layer.msg("菜单删除成功！",{time:1000},function(){
+                                parent.location.reload();
                             });
                         }else{
-                            layer.msg(res.message);
+                            layer.msg(res.message,{time:1000},function(){
+                                //刷新本页面
+                                location.reload();
+                            });
+
                         }
-                    });
+                    }
+                });
                 }
             )
         }
@@ -136,11 +142,6 @@ layui.config({
         		pId = -1;
         	}
         	
-        	
-        	
-        	
-        	//var data = checkStatus.data[0];
-        	
             var addIndex = layer.open({
                 title : "添加系统菜单",
                 type : 2,
@@ -163,6 +164,39 @@ layui.config({
         active[type] ? active[type].call(this) : '';
     });
 	
+    
+    form.on('switch(isShow)', function(data){
+    	var id = data.value;
+
+    	var isShow = this.checked ? '1' : '0';
+    	
+    	var params = {"id" :id,"isShow":isShow  }
+    	var loadIndex = layer.load(2, {
+            shade: [0.3, '#333']
+        });
+    	$.ajax({
+            type:"PUT",
+            url:api.putMenuEditUrl+id,
+            dataType:"json",
+            contentType:"application/json",
+            data:JSON.stringify(params),
+            success:function(res){
+                layer.close(loadIndex);
+                if(res.code==0){
+                    parent.layer.msg("菜单更新成功！",{time:1000},function(){
+                        //刷新父页面
+                        //parent.location.reload();
+                    });
+                }else{
+                    layer.msg(res.message,{time:1000},function(){
+                        //刷新本页面
+                        location.reload();
+                    });
+
+                }
+            }
+        });
+    });
 	
 
 });

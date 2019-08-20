@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2019-08-15 20:29:04
+Date: 2019-08-20 16:15:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,18 +30,26 @@ CREATE TABLE `t_menu` (
   `level` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `type` int(1) DEFAULT NULL,
+  `is_show` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_menu
 -- ----------------------------
-INSERT INTO `t_menu` VALUES ('1', '权限管理', '#', 'fa fa-home', '200', null, '-1', '1', '2019-08-13 15:31:51', '1');
-INSERT INTO `t_menu` VALUES ('2', '用户管理', '/user/index.html', 'fa fa-tachometer', '100', null, '1', '2', '2019-08-13 15:32:50', '2');
-INSERT INTO `t_menu` VALUES ('3', '菜单管理', '/menu/index.html', 'fa fa-tachometer', '200', null, '1', '2', '2019-08-13 15:33:40', '2');
-INSERT INTO `t_menu` VALUES ('4', '角色管理', '/role/index.html', 'fa fa-tachometer', '300', null, '1', '2', '2019-08-13 15:34:11', '2');
-INSERT INTO `t_menu` VALUES ('5', '系统管理', '#', 'fa fa-snowflake-o', '100', null, '-1', '1', '2019-08-13 15:35:16', '1');
-INSERT INTO `t_menu` VALUES ('6', '系统配置', '/menu/index.html', 'fa fa-tachometer', '100', null, '5', '2', '2019-08-13 15:36:13', '2');
+INSERT INTO `t_menu` VALUES ('1', '权限管理', '#', 'fa fa-home', '200', null, '-1', '1', '2019-08-13 15:31:51', '1', '1');
+INSERT INTO `t_menu` VALUES ('2', '用户管理', '/user/index.html', 'fa fa-tachometer', '100', null, '1', '2', '2019-08-13 15:32:50', '2', '1');
+INSERT INTO `t_menu` VALUES ('3', '菜单管理', '/menu/index.html', 'fa fa-tachometer', '200', null, '1', '2', '2019-08-13 15:33:40', '2', '1');
+INSERT INTO `t_menu` VALUES ('4', '角色管理', '/role/index.html', 'fa fa-tachometer', '300', null, '1', '2', '2019-08-13 15:34:11', '2', '1');
+INSERT INTO `t_menu` VALUES ('5', '系统管理', '#', 'fa fa-snowflake-o', '100', null, '-1', '1', '2019-08-13 15:35:16', '1', '1');
+INSERT INTO `t_menu` VALUES ('6', '系统配置', '/menu/index.html', 'fa fa-tachometer', '100', null, '5', '2', '2019-08-13 15:36:13', '2', '1');
+INSERT INTO `t_menu` VALUES ('13', '测试目录', '#', 'layui-icon layui-icon-note', '300', null, '-1', '1', '2019-08-20 00:00:00', '1', '1');
+INSERT INTO `t_menu` VALUES ('14', '测试菜单', '/icon.html', 'layui-icon layui-icon-auz', '100', null, '13', '2', '2019-08-20 00:00:00', '2', '1');
+INSERT INTO `t_menu` VALUES ('15', '添加', 'add', 'layui-icon layui-icon-add-circle', '100', null, '14', '3', '2019-08-20 00:00:00', '3', '0');
+INSERT INTO `t_menu` VALUES ('16', '修改', 'edit', 'layui-icon layui-icon-login-wechat', '200', null, '14', '3', '2019-08-20 00:00:00', '3', '0');
+INSERT INTO `t_menu` VALUES ('17', '二级目录', '#', 'layui-icon layui-icon-flag', '100', null, '13', '2', '2019-08-20 00:00:00', '1', '1');
+INSERT INTO `t_menu` VALUES ('18', '测试连接', '/icon.html', 'layui-icon layui-icon-auz', '100', null, '17', '3', '2019-08-20 00:00:00', '2', '1');
+INSERT INTO `t_menu` VALUES ('20', '测试链接2', '/icon.html', 'layui-icon layui-icon-face-surprised', '200', null, '17', '3', '2019-08-20 00:00:00', '2', '0');
 
 -- ----------------------------
 -- Table structure for `t_org`
@@ -131,7 +139,7 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1', 'admin', '123456', 'admin', '20', null, '1', '2019-08-13 16:21:21', '1', null);
+INSERT INTO `t_user` VALUES ('1', 'admin', '02371755596ff098ccf339adbd781e52', 'admin', '20', null, '1', '2019-08-13 16:21:21', '1', 'Zzfg7mgx/pC/8Wv8lV7+eQ==');
 INSERT INTO `t_user` VALUES ('2', 'zhangsan', '123456', '张三', '18', '138', '2', '2019-08-14 11:51:45', '2', null);
 INSERT INTO `t_user` VALUES ('3', 'lishi', '123456', '李四', '19', '139', '1', '2019-08-14 11:52:12', '1', null);
 INSERT INTO `t_user` VALUES ('4', 'wangwu', '123456', '王五', '25', null, '0', '2019-08-14 11:52:46', '1', null);

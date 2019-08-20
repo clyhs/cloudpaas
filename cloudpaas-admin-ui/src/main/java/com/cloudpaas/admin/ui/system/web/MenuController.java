@@ -62,6 +62,9 @@ public class MenuController extends BaseController{
 	@RequestMapping("/edit.html")
 	public String edit(@RequestParam Integer id,ModelMap modelMap){
 
+		Menu menu = menuBiz.getMenuByID(Integer.valueOf(id));
+		
+		modelMap.put("menu", menu);
 		return "admin/layui/system/menuEdit";
 	}
 

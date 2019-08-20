@@ -42,8 +42,6 @@ public class RoleController {
 	@RequestMapping("/edit.html")
 	public String edit(@RequestParam Integer id,ModelMap modelMap){
 		Role role = roleBiz.getRoleByID(id);
-		Gson g = new Gson();
-		log.info(g.toJson(role));
 		modelMap.put("role", role);
 		return "admin/layui/system/roleEdit";
 	}

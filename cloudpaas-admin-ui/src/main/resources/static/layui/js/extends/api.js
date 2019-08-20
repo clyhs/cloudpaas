@@ -75,8 +75,11 @@ layui.define(['tool','jquery'], function (exports) {
         
         getMenuListUrl:tool.getContext()+"/api/menu/all.json",
         postMenuAddUrl:tool.getContext()+"/api/menu/add.json",
+        putMenuEditUrl:tool.getContext()+"/api/menu/",
+        deleteMenuDelUrl:tool.getContext()+"/api/menu/",
         
         getUserPageUrl:tool.getContext()+"/api/user/page.json",
+        
         
     };
 

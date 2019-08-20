@@ -47,18 +47,21 @@
 	                        <option th:value="${parentMenu.id}"> <span th:text="${parentMenu.title}"></span></option>
 	                    </select>
 	                </div>
+	                
 	                <input name="level" type="hidden" th:value="${parentMenu.level+1}">
-	                <input name="type" type="hidden" th:value="${parentMenu.type+1}">
+	                
+	                
 	            </div>
 	            
 	            <div class="layui-form-item" th:if="${parentMenu} == null">
 	                <label class="layui-form-label">目录名称</label>
 	                <div class="layui-input-block">
-	                    <input type="text" class="layui-input" name="title" lay-verify="required" placeholder="请输入目录名称">
+	                    <input type="text" class="layui-input" name="title" lay-verify="required" placeholder="请输入一级目录名称">
 	                </div>
 	                <input name="level" type="hidden" value="1">
 	                <input name="type" type="hidden" value="1">
 	                <input name="pId" type="hidden" value="-1">
+	                <input name="url" type="hidden" value="#">
 	            </div>
 	            
 	            <div class="layui-form-item" th:if="${parentMenu != null and parentMenu.type == 1}">
@@ -66,6 +69,17 @@
 	                <div class="layui-input-block">
 	                    <input type="text" class="layui-input" name="title" lay-verify="required" placeholder="请输入菜单名称">
 	                </div>
+	                
+	            </div>
+	            
+	            <div class="layui-form-item" th:if="${parentMenu != null and parentMenu.type == 1}">
+	            	<label class="layui-form-label">选择类型</label>
+	            	<div class="layui-input-block">
+	                    <select name="type" class="layui-input">
+	                        <option value="1"> <span>目录</span></option>
+	                        <option value="2"> <span>菜单</span></option>
+	                    </select>
+                	</div>
 	            </div>
 	            
 	            <div class="layui-form-item" th:if="${parentMenu != null and parentMenu.type == 2}">
@@ -73,11 +87,9 @@
 	                <div class="layui-input-block">
 	                    <input type="text" class="layui-input" name="title" lay-verify="required" placeholder="请输入按钮名称">
 	                </div>
+	                <input name="type" type="hidden" value="3">
 	            </div>
-	            <!-- 目录类型默认#路径 -->
-	            <div class="layui-form-item" th:if="${parentMenu} == null">
-	                <input name="url" type="hidden" value="#">
-	            </div>
+
 	            
 	            <div class="layui-form-item" th:if="${parentMenu != null and parentMenu.type == 1}">
 	                <label class="layui-form-label">菜单地址</label>
@@ -110,13 +122,15 @@
 	                    <input type="text" class="layui-input" name="sort"  placeholder="">
 	                </div>
 	            </div>
-	            <!-- 
+	            
+	            
+	             
 	            <div class="layui-form-item">
 	                <label class="layui-form-label">左侧菜单栏是否显示</label>
 	                <div class="layui-input-block">
 	                    <input type="checkbox" name="isShow" lay-skin="switch"    lay-text="是|否" checked>
 	                </div>
-	            </div>-->
+	            </div>
 	            <div class="layui-form-item">
 	                <div class="layui-input-block">
 	                    <button class="layui-btn" lay-submit="" lay-filter="addMenu">保存</button>
