@@ -22,9 +22,9 @@ layui.config({
         layer.full(iconShow);
     });
     
-    form.on("submit(editMenu)",function(data){
+    form.on("submit(editSubmit)",function(data){
         if(data.field.id == null){
-            layer.msg("菜单ID不存在");
+            layer.msg("ID不存在");
             return false;
         }
        
@@ -48,7 +48,7 @@ layui.config({
             success:function(res){
                 layer.close(loadIndex);
                 if(res.code==0){
-                    parent.layer.msg("菜单编辑成功！",{time:1000},function(){
+                    parent.layer.msg("编辑成功！",{time:1000},function(){
                         //刷新父页面
                         parent.location.reload();
                     });

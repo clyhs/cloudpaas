@@ -19,7 +19,7 @@ layui.config({
         treeIdName: 'id', //id字段的名称
         treePidName: 'pId', //pid字段的名称
         treeDefaultClose: true, //是否默认折叠
-        elem: '#menuTable',
+        elem: '#oTable',
         url: api.getMenuListUrl,
         page: false, //分页，即使设置为true也不进行分页
         treeLinkage: false, //父级展开时是否自动展开所有子级
@@ -59,7 +59,7 @@ layui.config({
                     }
             	},title:'是否显示'
             },
-            {templet: '#menuBar', width: '30%', align: 'center', title: '操作'}
+            {templet: '#oBar', width: '30%', align: 'center', title: '操作'}
         ]],
         done: function () {
             layer.closeAll('loading');
@@ -73,10 +73,10 @@ layui.config({
         layer.full(index);
     };
 
-    table.on('tool(menuList)', function(obj){
+    table.on('tool(oList)', function(obj){
         var data = obj.data;
         
-        if(obj.event === 'editChildMenu'){
+        if(obj.event === 'edit'){
             var editIndex = layer.open({
                 title : "编辑菜单",
                 type : 2,
@@ -91,7 +91,7 @@ layui.config({
             });
             layuiresize(editIndex);
         }
-        if(obj.event === "delMenu"){
+        if(obj.event === "del"){
             layer.confirm("你确定要删除该菜单么？这将会使得其下的所有子菜单都删除",{btn:['是的,我确定','我再想想']},
                 function(){
             	$.ajax({
@@ -121,13 +121,13 @@ layui.config({
 
     var active={
         btnExpand : function() {
-            treetable.expandAll('#menuTable');
+            treetable.expandAll('#oTable');
         },
         btnFold : function () {
-            treetable.foldAll('#menuTable');
+            treetable.foldAll('#oTable');
         },
-        addMenu : function(){
-        	var checkStatus = table.checkStatus('menuTable');
+        add : function(){
+        	var checkStatus = table.checkStatus('oTable');
         	var data;
         	var pId;
         	
@@ -166,6 +166,23 @@ layui.config({
     });
 	
     
+    
+    
+    // 监听搜索操作
+    form.on('submit(data-search-btn)', function (data) {
+
+        //执行搜索重载
+        table.reload('oTable', {
+            page: {
+                curr: 1
+            }
+            , where: data.field
+        }, 'data');
+
+        return false;
+    });
+	
+    
     form.on('switch(isShow)', function(data){
     	var id = data.value;
 
@@ -198,6 +215,5 @@ layui.config({
             }
         });
     });
-	
 
 });

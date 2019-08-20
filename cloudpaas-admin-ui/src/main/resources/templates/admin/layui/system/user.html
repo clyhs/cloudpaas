@@ -14,50 +14,58 @@
 	<link rel="stylesheet"  th:href="@{/static/layui/layui/css/layui.css}" media="all" />
 	<link rel="stylesheet"  th:href="@{/static/font-awesome/css/font-awesome.min.css}" media="all">
 	<link rel="stylesheet"  th:href="@{/static/layui/css/public.css}" media="all" />
-	<style id="layuimini-bg-color">
+    <style>
+    
     </style>
 </head>
 <body>
 	<div class="layuimini-container">
 		<div class="layuimini-main">
-		    <!--搜索栏-->
+			<!--搜索栏-->
 			<fieldset class="layui-elem-field layuimini-search">
 				<legend>搜索信息</legend>
-	            <div style="margin: 10px 10px 10px 10px">
-	                <form class="layui-form layui-form-pane" action="">
-	                    <div class="layui-form-item">
-	                        <div class="layui-inline">
-	                            <label class="layui-form-label">用户姓名</label>
-	                            <div class="layui-input-inline">
-	                                <input type="text" name="username" autocomplete="off" class="layui-input">
-	                            </div>
+	            <div class="layui-field-box">
+			        <form class="layui-form">
+			            <div class="layui-inline">
+	                        <label class="layui-form-label">用户姓名</label>
+	                        <div class="layui-input-inline">
+	                            <input type="text" name="username" autocomplete="off" class="layui-input">
 	                        </div>
-	                        <div class="layui-inline">
+	                    </div>
+	                    <div class="layui-inline">
 	                            <label class="layui-form-label">用户性别</label>
 	                            <div class="layui-input-inline">
 	                                <input type="text" name="sex" autocomplete="off" class="layui-input">
 	                            </div>
-	                        </div>
-	                        
-	                        <div class="layui-inline">
-	                            <a class="layui-btn" lay-submit="" lay-filter="data-search-btn">搜索</a>
-	                        </div>
 	                    </div>
-	                </form>
-	            </div>
+	                        
+	                    <div class="layui-inline">
+	                        <a class="layui-btn" lay-submit="" lay-filter="data-search-btn">搜索</a>
+	                    </div>
+	                    <div class="layui-inline">
+				                <a class="layui-btn layui-btn-normal" data-type="add">添加</a>
+				        </div>
+				        <div class="layui-inline">
+				                <a class="layui-btn layui-btn-danger" data-type="delBatch">删除</a>
+				        </div>
+	                    
+			            
+			        </form>
+			    </div>
+	           
 			</fieldset>
+		    
 			
-			<div class="layui-btn-group">
-	            <button class="layui-btn data-add-btn">添加</button>
-	            <button class="layui-btn layui-btn-danger data-delete-btn">删除</button>
-	        </div>
 	        
 			<div class="layui-form">
-				<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
-				<script type="text/html" id="currentTableBar">
+				<table class="layui-hide" id="oTable" lay-filter="oList"></table>
+				<script type="text/html" id="oBar">
             		<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            		<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-        	    </script>
+            		<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="del">删除</a>
+        	        
+                   
+
+                </script>
 			</div>
 			
 	        

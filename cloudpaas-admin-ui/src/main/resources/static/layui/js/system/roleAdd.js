@@ -10,7 +10,7 @@ layui.config({
         api = layui.api,
         $ = layui.jquery;
     
-    form.on('submit(addRole)',function(data){
+    form.on('submit(addSubmit)',function(data){
         
         var loadIndex = layer.load(2, {
             shade: [0.3, '#333']

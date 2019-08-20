@@ -19,11 +19,11 @@ layui.config({
         var loadIndex = layer.load(2, {
             shade: [0.3, '#333']
         });
-        //layer.alert('编辑行：<br>' + JSON.stringify(data))
+        layer.alert('编辑行：<br>' + JSON.stringify(data))
         
         $.ajax({
             type:"PUT",
-            url:api.putRoleEditUrl+data.field.id,
+            url:api.putUserEditUrl+data.field.id,
             dataType:"json",
             contentType:"application/json",
             data:JSON.stringify(data.field),

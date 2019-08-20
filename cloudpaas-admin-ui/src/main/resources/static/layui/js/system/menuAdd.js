@@ -21,7 +21,7 @@ layui.config({
         layer.full(iconShow);
     });
     
-    form.on('submit(addMenu)',function(data){
+    form.on('submit(addSubmit)',function(data){
         
         var loadIndex = layer.load(2, {
             shade: [0.3, '#333']

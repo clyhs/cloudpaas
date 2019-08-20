@@ -79,6 +79,8 @@ layui.define(['tool','jquery'], function (exports) {
         deleteMenuDelUrl:tool.getContext()+"/api/menu/",
         
         getUserPageUrl:tool.getContext()+"/api/user/page.json",
+        putUserEditUrl:tool.getContext()+"/api/user/",
+        deleteUserDelUrl:tool.getContext()+"/api/user/",
         
         
     };

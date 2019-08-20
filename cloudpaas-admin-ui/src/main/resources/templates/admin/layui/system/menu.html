@@ -21,33 +21,35 @@
 	<div class="layuimini-container">
 		<div class="layuimini-main">
 		    <!--搜索栏-->
-			<blockquote class="layui-elem-quote">
-                <div class="layui-inline">
-                    <a class="layui-btn" data-type="btnExpand"><i class="layui-icon">&#xe625;</i>全部展开</a>
-                </div>
-                <div class="layui-inline">
-                    <a class="layui-btn" data-type="btnFold"><i class="layui-icon">&#xe623;</i>全部折叠</a>
-                </div>
-                    
-                <div class="layui-inline">
-                    <a class="layui-btn layui-btn-normal" data-type="addMenu"><i class="layui-icon">&#xe654;</i>添加菜单</a>
-                </div>
-                    
-            </blockquote>
+		    <fieldset class="layui-elem-field layuimini-search">
+				<legend>搜索信息</legend>
+	            <div class="layui-field-box">
+			        <form class="layui-form">
+			        	<div class="layui-inline">
+		                    <a class="layui-btn" data-type="btnExpand"><i class="layui-icon">&#xe625;</i>全部展开</a>
+		                </div>
+		                <div class="layui-inline">
+		                    <a class="layui-btn" data-type="btnFold"><i class="layui-icon">&#xe623;</i>全部折叠</a>
+		                </div>
+		                <div class="layui-inline">
+		                    <a class="layui-btn layui-btn-normal" data-type="add"><i class="layui-icon">&#xe654;</i>添加</a>
+		                </div>
+		                
+			            
+			            
+			        </form>
+			    </div>
+	           
+			</fieldset>
+			
             
             <div class="layui-form">
-                <table id="menuTable" class="layui-table" lay-filter="menuList"></table>
-                <script type="text/html" id="menuBar">
-                    <!--
-                    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="addChildMenu"><i class="layui-icon">&#xe654;</i> 添加菜单</a>
-                   
-                    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="addChildMenu"><i class="layui-icon">&#xe654;</i> 添加按钮</a>
+                <table class="layui-table" id="oTable" lay-filter="oList"></table>
+                <script type="text/html" id="oBar">
+
                     
-                    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="addChildMenu"><i class="layui-icon">&#xe654;</i> 添加按钮</a>
-                    -->
-                    
-                    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="editChildMenu"><i class="layui-icon">&#xe642;</i> 编辑 </a>
-                    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delMenu"><i class="layui-icon">&#xe640;</i> 删除</a>
+                    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i> 编辑 </a>
+                    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i> 删除</a>
                 </script>
             </div>
 			

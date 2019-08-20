@@ -32,10 +32,10 @@
 			                <a class="layui-btn" lay-submit="" lay-filter="data-search-btn">查询</a>
 			            </div>
 			            <div class="layui-inline">
-			                <a class="layui-btn layui-btn-normal" data-type="addRole">添加角色</a>
+			                <a class="layui-btn layui-btn-normal" data-type="add">添加角色</a>
 			            </div>
 			            <div class="layui-inline">
-			                <a class="layui-btn layui-btn-danger" data-type="deleteBatch">批量删除</a>
+			                <a class="layui-btn layui-btn-danger" data-type="delBatch">批量删除</a>
 			            </div>
 			        </form>
 			    </div>
@@ -43,8 +43,8 @@
 			</fieldset>
 			
 			<div class="layui-form">
-			    <table class="layui-table" id="roleTable" lay-filter="roleList"></table>
-			    <script type="text/html" id="roleBar">
+			    <table class="layui-table" id="oTable" lay-filter="oList"></table>
+			    <script type="text/html" id="oBar">
         			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     			</script>

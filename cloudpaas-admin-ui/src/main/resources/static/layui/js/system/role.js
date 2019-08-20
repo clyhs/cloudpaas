@@ -10,9 +10,9 @@ layui.config({
 	    table = layui.table,
         form = layui.form,
         tool = layui.tool;
-	
+	/*表格*/
 	table.render({
-        elem: '#roleTable',
+        elem: '#oTable',
         url: api.getRolePageUrl,
         cols: [[
             {type: "checkbox", width: 50, fixed: "left"},
@@ -20,36 +20,22 @@ layui.config({
             {field: 'code', width: 180, title: '角色代号'},
             {field: 'name', title: '角色名称', width: 150},
             {field: 'remark', minWidth: 50, title: '描述' },
-            {title: '操作', minWidth: 50, templet: '#roleBar', fixed: "right", align: "center"}
+            {title: '操作', minWidth: 50, templet: '#oBar', fixed: "right", align: "center"}
         ]],
         limits: [5,10, 15, 20, 25, 50, 100],
         limit: 15,
         page: true
     });
 	
-	// 监听搜索操作
-    form.on('submit(data-search-btn)', function (data) {
-
-        //执行搜索重载
-        table.reload('roleTable', {
-            page: {
-                curr: 1
-            }
-            , where: data.field
-        }, 'data');
-
-        return false;
-    });
-
-    
-
-    //监听表格复选框选择
-    table.on('checkbox(roleList)', function (obj) {
-        console.log(obj)
-    });
+	function layuiresize(index) {
+        $(window).resize(function(){
+            layer.full(index);
+        });
+        layer.full(index);
+    };
 
     //监听表格操作列
-    table.on('tool(roleList)', function (obj) {
+    table.on('tool(oList)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {
         	var editIndex = layer.open({
@@ -65,10 +51,7 @@ layui.config({
                 }
             });
             //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-            $(window).resize(function(){
-                layer.full(editIndex);
-            });
-            layer.full(editIndex);
+        	layuiresize(editIndex);
         } else if (obj.event === 'del') {
         	layer.confirm("你确定要删除该角色么？",{btn:['是的,我确定','我再想想']},
                 function(){
@@ -97,8 +80,9 @@ layui.config({
         }
     });
     
+    /*工具栏对象*/
     var active={
-            addRole : function(){
+            add : function(){
                 addIndex = layer.open({
                     title : "添加角色",
                     type : 2,
@@ -118,8 +102,8 @@ layui.config({
                 layer.full(addIndex);
             },
             //批量删除
-            deleteBatch : function(){
-                var checkStatus = table.checkStatus('roleTable'),
+            delBatch : function(){
+                var checkStatus = table.checkStatus('oTable'),
                     data = checkStatus.data;
                 if(data.length > 0){
                     console.log(JSON.stringify(data));
@@ -157,6 +141,25 @@ layui.config({
     $('.layui-inline .layui-btn').on('click', function(){
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
+    });
+    
+    // 监听搜索操作
+    form.on('submit(data-search-btn)', function (data) {
+
+        //执行搜索重载
+        table.reload('oTable', {
+            page: {
+                curr: 1
+            }
+            , where: data.field
+        }, 'data');
+
+        return false;
+    });
+
+    //监听表格复选框选择
+    table.on('checkbox(oList)', function (obj) {
+        console.log(obj)
     });
 
 });
