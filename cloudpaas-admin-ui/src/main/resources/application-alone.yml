@@ -3,7 +3,7 @@ server:
   servlet:
     context-path: /adminui
 spring:
-  profiles: single
+  profiles: alone
   application:
     name: cpaas-admin-ui
   thymeleaf:

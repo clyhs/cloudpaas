@@ -20,6 +20,7 @@ server:
   connection-timeout: 600000
 
 spring:
+  profiles: sentinel
   application:
     name: cpaas-all
   datasource:

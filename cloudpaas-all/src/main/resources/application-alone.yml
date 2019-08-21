@@ -20,6 +20,7 @@ server:
   connection-timeout: 600000
 
 spring:
+  profiles: alone
   application:
     name: cpaas-all
   datasource:

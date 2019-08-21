@@ -20,6 +20,7 @@ server:
   connection-timeout: 600000
 
 spring:
+  profiles: cluster
   application:
     name: cpaas-all
   datasource:
@@ -53,7 +54,7 @@ spring:
         filters: stat,wall,log4j2
   redis:
     #数据库索引
-    database: 0
+    database: 1
     #password: 
     cluster:
       max-redirects: 3
@@ -66,7 +67,7 @@ spring:
       - 127.0.0.1:7005
     lettuce:
       pool:
-        max-active:  100 # 连接池最大连接数（使用负值表示没有限制）
+        max-active:  1000 # 连接池最大连接数（使用负值表示没有限制）
         max-idle: 100 # 连接池中的最大空闲连接
         min-idle: 50 # 连接池中的最小空闲连接
         max-wait: 6000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
