@@ -56,40 +56,17 @@ public class ShiroConfig {
 	
 	@Bean
 	public IRedisManager redisManager(){
-		//redisProperties.getCluster().getNodes()
-		/*single*/
-		//RedisManager redisManager = new RedisManager();
-		//redisManager.setHost(redisProperties.getHost()+":"+redisProperties.getPort());
-		/*cluster*/
-		/*
-		new RedisManager();
-		List<String> nodes = redisProperties.getCluster().getNodes();
-		String host = null;
-		if(null!=nodes && nodes.size()>0){
-			host = listToString(nodes,',');
-		}
-		RedisClusterManager redisManager =new RedisClusterManager();*/
-		/*
-		List<String> nodes = redisProperties.getSentinel().getNodes();
-		String host = null;
-		if(null!=nodes && nodes.size()>0){
-			host = listToString(nodes,',');
-		}
-		RedisSentinelManager redisManager =new RedisSentinelManager();
-		redisManager.setHost(host);
-		redisManager.setTimeout(10000);*/
-		//redisManager.setPassword(redisProperties.getPassword());
 		IRedisManager iManager = null;
 		String host = null;
 		if(active.equals("single")){
-			log.info("--------------single-----------------");
+			log.debug("--------------single-----------------");
 			//单机模式
 			RedisManager redisManager = new RedisManager();
 			redisManager.setHost(redisProperties.getHost()+":"+redisProperties.getPort());
 			redisManager.setTimeout(10000);
 			iManager = redisManager;
 		}else if(active.equals("cluster")){
-			log.info("--------------cluster-----------------");
+			log.debug("--------------cluster-----------------");
 			//集群模式
 			List<String> nodes = redisProperties.getCluster().getNodes();
 			if(null!=nodes && nodes.size()>0){
@@ -100,7 +77,7 @@ public class ShiroConfig {
 			redisManager.setTimeout(10000);
 			iManager = redisManager;
 		}else if(active.equals("sentinel")){
-			log.info("--------------sentinel-----------------");
+			log.debug("--------------sentinel-----------------");
 			RedisSentinelManager redisManager =new RedisSentinelManager();
 			List<String> nodes = redisProperties.getSentinel().getNodes();
 			if(null!=nodes && nodes.size()>0){
@@ -110,8 +87,6 @@ public class ShiroConfig {
 			redisManager.setTimeout(10000);
 			iManager = redisManager;
 		}
-		
-		
 		return iManager;
 	}
 	

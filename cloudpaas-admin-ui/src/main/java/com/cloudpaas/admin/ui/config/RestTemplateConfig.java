@@ -9,6 +9,8 @@ import com.google.common.collect.Lists;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -27,8 +29,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * restTemplate配置类，json转换
+ * 
+ * @author 大鱼
+ *
+ * @date 2019年8月21日 下午6:48:18
+ */
 @Component
 public class RestTemplateConfig {
+	
+	private static Logger log = LoggerFactory.getLogger(RestTemplateConfig.class);
 
     // 启动的时候要注意，由于我们在服务中注入了RestTemplate，所以启动的时候需要实例化该类的一个实例
     @Autowired
@@ -98,7 +109,7 @@ public class RestTemplateConfig {
 
             messageConverters.addAll(leftConverters);
 
-            System.out.println(String.format("【HttpMessageConverter】原有数量：%s，重新构造后数量：%s"
+            log.info(String.format("【HttpMessageConverter】原有数量：%s，重新构造后数量：%s"
                     , orgConverterList.size(), messageConverters.size()));
 
         } catch (Exception e) {
@@ -112,6 +123,12 @@ public class RestTemplateConfig {
         return restTemplate;
     }
     
+    /**
+     * 解决exchange 在使用get请求时，无法使用@RequestBody传参问题
+     * @author 大鱼
+     *
+     * @date 2019年8月21日 下午6:47:14
+     */
     private static final class HttpComponentsClientRestfulHttpRequestFactory extends HttpComponentsClientHttpRequestFactory {
 	    @Override
 	    protected HttpUriRequest createHttpUriRequest(HttpMethod httpMethod, URI uri) {
