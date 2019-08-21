@@ -1,11 +1,21 @@
 package com.cloudpaas.common.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 @Table(name = "t_role")
-public class Role {
-    @Id
+public class Role implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+
+	@Id
     private Integer id;
 
     private String code;

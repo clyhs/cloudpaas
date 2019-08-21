@@ -3,6 +3,7 @@
  */
 package com.cloudpaas.common.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.cloudpaas.common.base.dao.BaseDao;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.result.ObjectRestResponse;
@@ -64,6 +66,7 @@ public abstract class BaseController<Dao extends BaseDao,T> {
     		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db,
     		@RequestParam Map<String, Object> params){
         //查询列表数据
+    	log.info("---------------params:{}--------------",JSON.toJSONString(params));
         Query query = new Query(params);
         return baseDao.selectByQuery(query,db);
     }
@@ -112,8 +115,6 @@ public abstract class BaseController<Dao extends BaseDao,T> {
     public ObjectRestResponse<T> get(@RequestBody T entity,
     		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
         
-    	log.info("-------------dn:{}------------",db);
-    	
     	ObjectRestResponse<T> entityObjectRestResponse = new ObjectRestResponse<>();
         Object o = baseDao.selectOne(entity, db);
         entityObjectRestResponse.data((T)o);

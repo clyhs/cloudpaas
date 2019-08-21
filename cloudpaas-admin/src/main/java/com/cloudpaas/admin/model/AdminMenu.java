@@ -9,8 +9,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Table(name = "t_menu")
-public class AdminMenu  {
+public class AdminMenu implements Serializable  {
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
     private Integer id;

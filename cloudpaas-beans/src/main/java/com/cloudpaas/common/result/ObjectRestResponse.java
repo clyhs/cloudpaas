@@ -1,11 +1,20 @@
 package com.cloudpaas.common.result;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import lombok.NoArgsConstructor;
+
 /**
  * 
  * @author 大鱼
  *
  * @date 2019年7月26日 下午2:41:19
  */
+
 public class ObjectRestResponse<T> extends BaseResponse {
 
     T data;

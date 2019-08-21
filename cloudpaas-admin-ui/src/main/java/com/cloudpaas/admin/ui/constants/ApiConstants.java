@@ -13,7 +13,15 @@ public class ApiConstants {
 
 	public static final String API_HOST = "http://localhost:8200";
 	/*根据id获取单个角色，后面必须+id,如：API_ROLE_GET_URL+id*/
-	public static final String API_ROLE_GET_URL = API_HOST+"/api/role/";
+	public static final String API_ROLE_SINGLE_URL = API_HOST+"/api/role/";
+	//public static final String API_ROLE_GET_URL = API_HOST+"/api/role/";
+	public static final String API_ROLE_SELECTONE_URL = API_HOST+"/api/role/selectOne.json";
+	//public static final String API_ROLE_REMOVE_URL = API_HOST+"/api/role/";
+	//public static final String API_ROLE_UPDATE_URL = API_HOST+"/api/role/";
+	public static final String API_ROLE_DELBATCH_URL =  API_HOST+"/api/role/deleteBatch.json";
+	public static final String API_ROLE_PAGE_URL = API_HOST+"/api/role/page.json";
+	public static final String API_ROLE_ALL_URL = API_HOST+"/api/role/all.json";
+	public static final String API_ROLE_ADD_URL = API_HOST+"/api/role/add.json";
 	
 	public static final String API_USER_SELECT_URL = API_HOST+"/api/user/selectOne.json";
 	public static final String API_USER_ADD_URL = API_HOST+"/api/user/add.json";

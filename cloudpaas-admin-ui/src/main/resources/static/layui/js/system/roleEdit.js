@@ -23,7 +23,7 @@ layui.config({
         
         $.ajax({
             type:"PUT",
-            url:api.putRoleEditUrl+data.field.id,
+            url:api.putRoleEditUrl,
             dataType:"json",
             contentType:"application/json",
             data:JSON.stringify(data.field),

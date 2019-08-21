@@ -40,7 +40,7 @@ public class RoleBiz extends BaseBiz<Role>{
 	public Role getRoleByID(Integer id){
 		ParameterizedTypeReference<ObjectRestResponse<Role>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<Role>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectRestResponse<Role> result = RestTemplateUtils.exchange(ApiConstants.API_ROLE_GET_URL+id, 
+		ObjectRestResponse<Role> result = RestTemplateUtils.exchange(ApiConstants.API_ROLE_SINGLE_URL+id, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		Role entity =  result.getData();

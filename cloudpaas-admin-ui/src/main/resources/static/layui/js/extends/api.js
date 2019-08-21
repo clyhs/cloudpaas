@@ -67,11 +67,11 @@ layui.define(['tool','jquery'], function (exports) {
         },
         
 
-        getRolePageUrl:tool.getContext()+"/api/role/page.json",
-        postRoleAddUrl:tool.getContext()+"/api/role/add.json",
-        putRoleEditUrl:tool.getContext()+"/api/role/",
-        deleteRoleDelUrl:tool.getContext()+"/api/role/",
-        deleteBatchRoleUrl:tool.getContext()+"/api/role/deleteBatch.json",
+        getRolePageUrl:tool.getResUrl()+"/role/page.json",
+        postRoleAddUrl:tool.getResUrl()+"/role/add.json",
+        putRoleEditUrl:tool.getResUrl()+"/role/update.json",
+        deleteRoleDelUrl:tool.getResUrl()+"/role/delete.json",
+        deleteBatchRoleUrl:tool.getResUrl()+"/role/deleteBatch.json",
         
         getMenuListUrl:tool.getContext()+"/api/menu/all.json",
         postMenuAddUrl:tool.getContext()+"/api/menu/add.json",
