@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,6 +45,7 @@ public abstract class UISimpleController<Biz extends BaseBiz<T>,T> extends BaseC
 	
 	@RequestMapping(value="/page.json",method=RequestMethod.GET)
 	@ResponseBody
+	@Cacheable(value = "pageList", keyGenerator = "keyGenerator") 
 	public TableResultResponse<T> page(@RequestParam Map<String, Object> params){
 		TableResultResponse<T> result= baseBiz.list(params, singleUrl()+pageUrl);
 		return result;
