@@ -54,7 +54,7 @@ public abstract class BaseBiz<T> {
 	
 	
 	/**
-	 * 
+	 * 取得T的clazz
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -187,6 +187,7 @@ public abstract class BaseBiz<T> {
 		ObjectRestResponse<T> result = restTemplate.exchange(url, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
+		//这里没法对对象进行自动转换，借助JSONUtil将map转为T
 		T entity = (T) JSONUtil.parseObject(JSONUtil.toJson(result.getData()), getTClass()) ;
 		return entity;
 	}
