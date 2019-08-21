@@ -6,6 +6,7 @@ package com.cloudpaas.admin.ui.system.web;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,7 +52,7 @@ public class LoginController {
 	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
-	private RedisTemplate redisTemplate;
+	private StringRedisTemplate template;
 	
 	@Autowired
     private Producer captchaProducer = null;
@@ -129,12 +131,12 @@ public class LoginController {
 		return new ResponseBean(401, "Unauthorized", null);
 	}
 	
-//	@RequestMapping("/redis.json")
-//	@ResponseBody
-//	public String test(){
-//		redisTemplate.opsForValue().set("springboot", "hello admin");
-//		return (String) redisTemplate.opsForValue().get("springboot");
-//	}
+	@RequestMapping("/redis.json")
+	@ResponseBody
+	public String test(){
+		template.opsForValue().set("springboot", "hello admin");
+		return (String) template.opsForValue().get("springboot");
+	}
 	
 	
 

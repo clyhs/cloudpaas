@@ -5,6 +5,7 @@ package com.cloudpaas.admin.ui.config;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -17,16 +18,23 @@ import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.crazycake.shiro.IRedisManager;
 import org.crazycake.shiro.RedisCacheManager;
+import org.crazycake.shiro.RedisClusterManager;
 import org.crazycake.shiro.RedisManager;
+import org.crazycake.shiro.RedisSentinelManager;
 import org.crazycake.shiro.RedisSessionDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.apache.shiro.mgt.SecurityManager;
 
+import com.cloudpaas.admin.ui.prop.RedisProperties;
 import com.cloudpaas.admin.ui.shiro.MyShiroRealm;
 
 /**
@@ -35,19 +43,87 @@ import com.cloudpaas.admin.ui.shiro.MyShiroRealm;
  * @date 2019年8月15日 下午3:50:55
  */
 @Configuration
+@EnableConfigurationProperties(RedisProperties.class)
 public class ShiroConfig {
+	
+	private static Logger log = LoggerFactory.getLogger(ShiroConfig.class);
+	
+	@Value("${spring.profiles.active}")
+	private String active;
 	
 	@Autowired
 	RedisProperties redisProperties;
 	
 	@Bean
-	public RedisManager redisManager(){
-		RedisManager redisManager = new RedisManager();
-		redisManager.setHost(redisProperties.getHost()+":"+redisProperties.getPort());
-		redisManager.setTimeout(10000);
+	public IRedisManager redisManager(){
+		//redisProperties.getCluster().getNodes()
+		/*single*/
+		//RedisManager redisManager = new RedisManager();
+		//redisManager.setHost(redisProperties.getHost()+":"+redisProperties.getPort());
+		/*cluster*/
+		/*
+		new RedisManager();
+		List<String> nodes = redisProperties.getCluster().getNodes();
+		String host = null;
+		if(null!=nodes && nodes.size()>0){
+			host = listToString(nodes,',');
+		}
+		RedisClusterManager redisManager =new RedisClusterManager();*/
+		/*
+		List<String> nodes = redisProperties.getSentinel().getNodes();
+		String host = null;
+		if(null!=nodes && nodes.size()>0){
+			host = listToString(nodes,',');
+		}
+		RedisSentinelManager redisManager =new RedisSentinelManager();
+		redisManager.setHost(host);
+		redisManager.setTimeout(10000);*/
 		//redisManager.setPassword(redisProperties.getPassword());
-		return redisManager;
+		IRedisManager iManager = null;
+		String host = null;
+		if(active.equals("single")){
+			log.info("--------------single-----------------");
+			//单机模式
+			RedisManager redisManager = new RedisManager();
+			redisManager.setHost(redisProperties.getHost()+":"+redisProperties.getPort());
+			redisManager.setTimeout(10000);
+			iManager = redisManager;
+		}else if(active.equals("cluster")){
+			log.info("--------------cluster-----------------");
+			//集群模式
+			List<String> nodes = redisProperties.getCluster().getNodes();
+			if(null!=nodes && nodes.size()>0){
+				host = listToString(nodes,',');
+			}
+			RedisClusterManager redisManager =new RedisClusterManager();
+			redisManager.setHost(host);
+			redisManager.setTimeout(10000);
+			iManager = redisManager;
+		}else if(active.equals("sentinel")){
+			log.info("--------------sentinel-----------------");
+			RedisSentinelManager redisManager =new RedisSentinelManager();
+			List<String> nodes = redisProperties.getSentinel().getNodes();
+			if(null!=nodes && nodes.size()>0){
+				host = listToString(nodes,',');
+			}
+			redisManager.setHost(host);
+			redisManager.setTimeout(10000);
+			iManager = redisManager;
+		}
+		
+		
+		return iManager;
 	}
+	
+	
+	
+	private String listToString(List<String> list, char separator) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i)).append(separator);
+        }
+        return sb.toString().substring(0, sb.toString().length() - 1);
+    }
 	
 	@Bean
 	public RedisCacheManager redisCacheManager(){
