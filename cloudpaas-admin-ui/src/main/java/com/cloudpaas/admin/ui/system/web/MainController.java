@@ -43,4 +43,6 @@ public class MainController extends BaseController{
 	public String demo(){
 		return "admin/layui/demo";
 	}
+
+	
 }

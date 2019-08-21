@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cloudpaas.admin.ui.base.BaseController;
+import com.cloudpaas.admin.ui.base.UISimpleController;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.system.biz.RoleBiz;
 import com.cloudpaas.common.model.Role;
@@ -32,11 +33,9 @@ import com.google.gson.Gson;
  */
 @Controller
 @RequestMapping("role")
-public class RoleController extends BaseController{
+public class RoleController extends UISimpleController<RoleBiz,Role>{
 	
 	
-	@Autowired
-	private RoleBiz roleBiz;
 
 	@RequestMapping("/index.html")
 	public String index(){
@@ -48,16 +47,16 @@ public class RoleController extends BaseController{
 		return "admin/layui/system/roleAdd";
 	}
 	
-	@RequestMapping(value="/add.json",method=RequestMethod.POST)
-	@ResponseBody
-	public ObjectRestResponse<Role> add(@RequestBody Role entity){
-		ObjectRestResponse<Role> result= roleBiz.add(entity, ApiConstants.API_ROLE_ADD_URL);
-		return result;
-	}
+//	@RequestMapping(value="/add.json",method=RequestMethod.POST)
+//	@ResponseBody
+//	public ObjectRestResponse<Role> add(@RequestBody Role entity){
+//		ObjectRestResponse<Role> result= baseBiz.add(entity, ApiConstants.API_ROLE_ADD_URL);
+//		return result;
+//	}
 	
 	@RequestMapping("/edit.html")
 	public String edit(@RequestParam Integer id,ModelMap modelMap){
-		Role role = roleBiz.get(id, ApiConstants.API_ROLE_SINGLE_URL);
+		Role role = baseBiz.get(id, ApiConstants.API_ROLE_SINGLE_URL);
 		modelMap.put("role", role);
 		return "admin/layui/system/roleEdit";
 	}
@@ -65,31 +64,71 @@ public class RoleController extends BaseController{
 	@RequestMapping(value="/update.json",method=RequestMethod.PUT)
 	@ResponseBody
 	public ObjectRestResponse<Role> update(@RequestBody Role entity){
-		ObjectRestResponse<Role> result= roleBiz.update(entity, entity.getId(), ApiConstants.API_ROLE_SINGLE_URL);
+		ObjectRestResponse<Role> result= baseBiz.update(entity, entity.getId(), ApiConstants.API_ROLE_SINGLE_URL);
 		return result;
 	}
 	
 	
-	@RequestMapping(value="/delete.json",method=RequestMethod.DELETE)
-	@ResponseBody
-	public ObjectRestResponse<Role> remove(@RequestParam Integer id){
-		ObjectRestResponse<Role> result= roleBiz.remove(id, ApiConstants.API_ROLE_SINGLE_URL);
-		return result;
+//	@RequestMapping(value="/delete.json",method=RequestMethod.DELETE)
+//	@ResponseBody
+//	public ObjectRestResponse<Role> remove(@RequestParam Integer id){
+//		ObjectRestResponse<Role> result= baseBiz.remove(id, ApiConstants.API_ROLE_SINGLE_URL);
+//		return result;
+//	}
+	
+//	@RequestMapping(value="/deleteBatch.json",method=RequestMethod.DELETE)
+//	@ResponseBody
+//	public ObjectRestResponse<Role> remove(@RequestBody List<Role> lists){
+//		ObjectRestResponse<Role> result= baseBiz.deleteBatch(lists, ApiConstants.API_ROLE_DELBATCH_URL);
+//		return result;
+//	}
+
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.BaseController#pageUrl()
+	 */
+	@Override
+	public String pageUrl() {
+		// TODO Auto-generated method stub
+		return ApiConstants.API_ROLE_PAGE_URL;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.UISimpleController#sinpleUrl()
+	 */
+	@Override
+	public String singleUrl() {
+		// TODO Auto-generated method stub
+		return ApiConstants.API_ROLE_SINGLE_URL;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.UISimpleController#delBatchUrl()
+	 */
+	@Override
+	public String delBatchUrl() {
+		// TODO Auto-generated method stub
+		return ApiConstants.API_ROLE_DELBATCH_URL;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.UISimpleController#allUrl()
+	 */
+	@Override
+	public String allUrl() {
+		// TODO Auto-generated method stub
+		return ApiConstants.API_ROLE_ALL_URL;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.UISimpleController#addUrl()
+	 */
+	@Override
+	public String addUrl() {
+		// TODO Auto-generated method stub
+		return ApiConstants.API_ROLE_ADD_URL;
 	}
 	
-	@RequestMapping(value="/deleteBatch.json",method=RequestMethod.DELETE)
-	@ResponseBody
-	public ObjectRestResponse<Role> remove(@RequestBody List<Role> lists){
-		ObjectRestResponse<Role> result= roleBiz.deleteBatch(lists, ApiConstants.API_ROLE_DELBATCH_URL);
-		return result;
-	}
 	
-	@RequestMapping(value="/page.json",method=RequestMethod.GET)
-	@ResponseBody
-	public TableResultResponse<Role> page(@RequestParam Map<String, Object> params){
-		TableResultResponse<Role> result= roleBiz.list(params, ApiConstants.API_ROLE_PAGE_URL);
-		return result;
-	}
 	
 	
 	

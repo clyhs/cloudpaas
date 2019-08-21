@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cloudpaas.admin.ui.base.BaseController;
+import com.cloudpaas.admin.ui.base.UISimpleController;
+import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.system.biz.UserBiz;
 import com.cloudpaas.admin.ui.utils.ShiroPassUtil;
+import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.BaseResponse;
+import com.cloudpaas.common.result.ObjectRestResponse;
 
 /**
  * @author 大鱼
@@ -26,9 +30,7 @@ import com.cloudpaas.common.result.BaseResponse;
  */
 @Controller
 @RequestMapping("user")
-public class UserController extends BaseController{
-	@Autowired
-	UserBiz userBiz;
+public class UserController extends UISimpleController<UserBiz,User>{
 	
 	@RequestMapping("/index.html")
 	public String index(){
@@ -41,22 +43,71 @@ public class UserController extends BaseController{
 	}
 	@RequestMapping("/edit.html")
 	public String edit(@RequestParam Integer id,ModelMap modelMap){
-		User user = userBiz.getUserByID(id);
+		User user = baseBiz.get(id, ApiConstants.API_USER_SINGLE_URL);
 		modelMap.put("user", user);
 		return "admin/layui/system/userEdit";
 	}
 	
 	@RequestMapping(value="/add.json",method=RequestMethod.POST)
 	@ResponseBody
-	public BaseResponse add(@RequestBody User user){
-		BaseResponse result = new BaseResponse();
+	public ObjectRestResponse<User> add(@RequestBody User user){
+		ObjectRestResponse result = new ObjectRestResponse();
 		String salt = ShiroPassUtil.genSalt();
 		user.setSalt(salt);
 		String password = ShiroPassUtil.shiroEncryp2timeAndMd5(user.getPassword(), salt);
 		user.setPassword(password);
-		userBiz.addUser(user);
+		baseBiz.add(user, ApiConstants.API_USER_ADD_URL);
 		
 		return result;
+	}
+	
+	@RequestMapping(value="/update.json",method=RequestMethod.PUT)
+	@ResponseBody
+	public ObjectRestResponse<User> update(@RequestBody User entity){
+		ObjectRestResponse<User> result= baseBiz.update(entity, entity.getId(), ApiConstants.API_USER_SINGLE_URL);
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.BaseController#pageUrl()
+	 */
+	@Override
+	public String pageUrl() {
+		// TODO Auto-generated method stub
+		return ApiConstants.API_USER_PAGE_URL;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.UISimpleController#singleUrl()
+	 */
+	@Override
+	public String singleUrl() {
+		// TODO Auto-generated method stub
+		return ApiConstants.API_USER_SINGLE_URL;
+	}
+
+	@Override
+	public String delBatchUrl() {
+		// TODO Auto-generated method stub
+		return ApiConstants.API_USER_DELBATCH_URL;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.UISimpleController#allUrl()
+	 */
+	@Override
+	public String allUrl() {
+		// TODO Auto-generated method stub
+		return ApiConstants.API_USER_ALL_URL;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.UISimpleController#addUrl()
+	 */
+	@Override
+	public String addUrl() {
+		// TODO Auto-generated method stub
+		return ApiConstants.API_USER_ADD_URL;
 	}
 
 }

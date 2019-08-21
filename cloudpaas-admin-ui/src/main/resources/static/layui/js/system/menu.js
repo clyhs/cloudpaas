@@ -96,7 +96,7 @@ layui.config({
                 function(){
             	$.ajax({
                     type:"DELETE",
-                    url:api.deleteMenuDelUrl+data.id,
+                    url:api.deleteMenuDelUrl+"?id="+data.id,
                     dataType:"json",
                     contentType:"application/json",
                     data:JSON.stringify(data.field),
@@ -194,7 +194,7 @@ layui.config({
         });
     	$.ajax({
             type:"PUT",
-            url:api.putMenuEditUrl+id,
+            url:api.putMenuEditUrl,
             dataType:"json",
             contentType:"application/json",
             data:JSON.stringify(params),

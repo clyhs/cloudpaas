@@ -29,7 +29,7 @@ public class UserBiz extends BaseBiz<User>{
 		User user = new User();
 		user.setUsername(username);
 		HttpEntity<User> httpEntity = new HttpEntity<>(user,getHttpHeaders());
-		ObjectRestResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SELECT_URL, 
+		ObjectRestResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SELECTONE_URL, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		User entity =  result.getData();
@@ -53,7 +53,7 @@ public class UserBiz extends BaseBiz<User>{
 	public User getUserByID(Integer id){
 		ParameterizedTypeReference<ObjectRestResponse<User>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<User>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectRestResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_GET_URL+id, 
+		ObjectRestResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SINGLE_URL+id, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		User entity =  result.getData();

@@ -71,7 +71,7 @@ layui.config({
                 function(){
             	$.ajax({
                     type:"DELETE",
-                    url:api.deleteUserDelUrl+data.id,
+                    url:api.deleteUserDelUrl+"?id="+data.id,
                     dataType:"json",
                     contentType:"application/json",
                     data:JSON.stringify(data.field),

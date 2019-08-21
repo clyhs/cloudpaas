@@ -41,7 +41,7 @@ layui.config({
         
         $.ajax({
             type:"PUT",
-            url:api.putMenuEditUrl+data.field.id,
+            url:api.putMenuEditUrl,
             dataType:"json",
             contentType:"application/json",
             data:JSON.stringify(data.field),

@@ -72,7 +72,7 @@ public class MenuBizTest extends BaseBiz<Menu>{
 		params.put("id", "1");
 		HttpEntity<User> httpEntity = new HttpEntity<User>(getHttpHeaders());
 	
-		ObjectRestResponse<Menu> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_GET_URL+"{id}", 
+		ObjectRestResponse<Menu> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_SINGLE_URL+"{id}", 
 				HttpMethod.GET, httpEntity, responseBodyType,params)
 				.getBody();
 

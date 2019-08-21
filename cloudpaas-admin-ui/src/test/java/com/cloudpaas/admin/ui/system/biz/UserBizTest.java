@@ -74,7 +74,7 @@ public class UserBizTest extends BaseBiz<User>{
 		params.put("db", "dn2");
 		HttpEntity<User> httpEntity = new HttpEntity<User>(user,getHttpHeaders());
 	
-		ObjectRestResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SELECT_URL+"?db={db}", 
+		ObjectRestResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SELECTONE_URL+"?db={db}", 
 				HttpMethod.GET, httpEntity, responseBodyType,params)
 				.getBody();
 

@@ -73,15 +73,16 @@ layui.define(['tool','jquery'], function (exports) {
         deleteRoleDelUrl:tool.getResUrl()+"/role/delete.json",
         deleteBatchRoleUrl:tool.getResUrl()+"/role/deleteBatch.json",
         
-        getMenuListUrl:tool.getContext()+"/api/menu/all.json",
-        postMenuAddUrl:tool.getContext()+"/api/menu/add.json",
-        putMenuEditUrl:tool.getContext()+"/api/menu/",
-        deleteMenuDelUrl:tool.getContext()+"/api/menu/",
+        getMenuListUrl:tool.getResUrl()+"/menu/all.json",
+        postMenuAddUrl:tool.getResUrl()+"/menu/add.json",
+        putMenuEditUrl:tool.getResUrl()+"/menu/update.json",
+        deleteMenuDelUrl:tool.getResUrl()+"/menu/delete.json",
         
-        getUserPageUrl:tool.getContext()+"/api/user/page.json",
-        putUserEditUrl:tool.getContext()+"/api/user/",
-        deleteUserDelUrl:tool.getContext()+"/api/user/",
-        deleteBatchUserUrl:tool.getContext()+"/api/user/deleteBatch.json",
+        getUserPageUrl:tool.getResUrl()+"/user/page.json",
+        postUserAddUrl:tool.getResUrl()+"/user/add.json",
+        putUserEditUrl:tool.getResUrl()+"/user/update.json",
+        deleteUserDelUrl:tool.getResUrl()+"/user/delete.json",
+        deleteBatchUserUrl:tool.getResUrl()+"/user/deleteBatch.json",
         
         
     };

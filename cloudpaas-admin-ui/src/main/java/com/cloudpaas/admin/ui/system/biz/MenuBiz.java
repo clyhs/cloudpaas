@@ -34,7 +34,7 @@ public class MenuBiz extends BaseBiz<Menu> {
 	public Menu getMenuByID(Integer id){
 		ParameterizedTypeReference<ObjectRestResponse<Menu>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<Menu>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectRestResponse<Menu> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_GET_URL+id, 
+		ObjectRestResponse<Menu> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_SINGLE_URL+id, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		Menu entity =  result.getData();
@@ -44,7 +44,7 @@ public class MenuBiz extends BaseBiz<Menu> {
 	public List<MenuTreeVo> getMenuTree(){
 		ParameterizedTypeReference<List<MenuTreeVo>> responseBodyType = new ParameterizedTypeReference<List<MenuTreeVo>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		List<MenuTreeVo> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_GET_TREES_URL, 
+		List<MenuTreeVo> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_TREE_URL, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		

@@ -21,7 +21,7 @@ layui.config({
         
         $.ajax({
             type:"POST",
-            url:$config.context+"/user/add.json",
+            url:api.postUserAddUrl,
             dataType:"json",
             contentType:"application/json",
             
