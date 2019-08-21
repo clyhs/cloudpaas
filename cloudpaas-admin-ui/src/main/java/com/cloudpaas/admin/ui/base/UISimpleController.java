@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cloudpaas.admin.ui.anno.CacheRemove;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.result.ObjectRestResponse;
 import com.cloudpaas.common.result.TableResultResponse;
 
 /**
+ * 对每个继续默认实现增删查。
+ * 
  * @author 大鱼
  *
  * @date 2019年8月21日 下午1:59:22
@@ -38,6 +42,7 @@ public abstract class UISimpleController<Biz extends BaseBiz<T>,T> extends BaseC
 	
 	@RequestMapping(value="/add.json",method=RequestMethod.POST)
 	@ResponseBody
+	@CacheRemove(value = "pageList", keyGenerator="evictKeyGenerator")
 	public ObjectRestResponse<T> add(@RequestBody T entity){
 		ObjectRestResponse<T> result= baseBiz.add(entity,singleUrl()+ addUrl);
 		return result;

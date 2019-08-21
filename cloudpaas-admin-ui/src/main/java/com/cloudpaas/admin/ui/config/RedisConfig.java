@@ -61,6 +61,21 @@ public class RedisConfig extends CachingConfigurerSupport {
 			}
 		};
 	}
+	
+	@Bean
+	public KeyGenerator evictKeyGenerator() {
+		return new KeyGenerator() {
+			@Override
+			public Object generate(Object target, Method method, Object... params) {
+				StringBuffer sb = new StringBuffer();
+				sb.append("");
+				sb.append(target.getClass().getName());
+				sb.append(".*");
+				
+				return sb.toString();
+			}
+		};
+	}
 
 	// 缓存管理器
 	@Bean
@@ -71,7 +86,10 @@ public class RedisConfig extends CachingConfigurerSupport {
 	            this.getRedisCacheConfigurationMap() // 指定 key 策略
 	        );
 	}
-	
+	/**
+	 * 配置缓存过期时间，可以根据自己增加
+	 * @return
+	 */
 	private Map<String, RedisCacheConfiguration> getRedisCacheConfigurationMap() {
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
         redisCacheConfigurationMap.put("pageList", this.getRedisCacheConfigurationWithTtl(3000));
