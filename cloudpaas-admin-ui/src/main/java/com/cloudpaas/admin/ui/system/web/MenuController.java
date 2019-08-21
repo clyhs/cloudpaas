@@ -76,14 +76,6 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.cloudpaas.admin.ui.base.BaseController#pageUrl()
-	 */
-	@Override
-	public String pageUrl() {
-		// TODO Auto-generated method stub
-		return ApiConstants.API_MENU_PAGE_URL;
-	}
 
 	/* (non-Javadoc)
 	 * @see com.cloudpaas.admin.ui.base.UISimpleController#singleUrl()
@@ -94,31 +86,6 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 		return ApiConstants.API_MENU_SINGLE_URL;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.cloudpaas.admin.ui.base.UISimpleController#delBatchUrl()
-	 */
-	@Override
-	public String delBatchUrl() {
-		// TODO Auto-generated method stub
-		return ApiConstants.API_MENU_DELBATCH_URL;
-	}
 
-	/* (non-Javadoc)
-	 * @see com.cloudpaas.admin.ui.base.UISimpleController#allUrl()
-	 */
-	@Override
-	public String allUrl() {
-		// TODO Auto-generated method stub
-		return ApiConstants.API_MENU_ALL_URL;
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.cloudpaas.admin.ui.base.UISimpleController#addUrl()
-	 */
-	@Override
-	public String addUrl() {
-		// TODO Auto-generated method stub
-		return ApiConstants.API_MENU_ADD_URL;
-	}
 
 }
