@@ -37,6 +37,8 @@ import org.springframework.http.HttpStatus;
 import com.cloudpaas.admin.ui.base.ResponseBean;
 import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.utils.CodeUtil;
+import com.cloudpaas.cache.service.IRedisService;
+import com.cloudpaas.cache.service.JRedisService;
 import com.cloudpaas.common.utils.ErrorCode;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
@@ -53,6 +55,9 @@ public class LoginController {
 	
 	@Autowired
 	private StringRedisTemplate template;
+	
+	@Autowired
+	private IRedisService redisService;
 	
 	@Autowired
     private Producer captchaProducer = null;
@@ -129,6 +134,15 @@ public class LoginController {
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	public ResponseBean unauthorized() {
 		return new ResponseBean(401, "Unauthorized", null);
+	}
+	
+	@RequestMapping("/redis2.json")
+	@ResponseBody
+	public String test2(){
+		//template.opsForValue().set("springboot", "hello admin");
+		//return (String) template.opsForValue().get("springboot");
+		redisService.set("springboot", "cloudpaas admin ui");
+		return (String) redisService.get("springboot");
 	}
 	
 	@RequestMapping("/redis.json")

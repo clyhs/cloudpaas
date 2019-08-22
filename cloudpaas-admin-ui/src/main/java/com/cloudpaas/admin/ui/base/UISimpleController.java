@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cloudpaas.admin.ui.anno.CacheRemove;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
+import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.result.ObjectRestResponse;
 import com.cloudpaas.common.result.TableResultResponse;
@@ -42,7 +43,7 @@ public abstract class UISimpleController<Biz extends BaseBiz<T>,T> extends BaseC
 	
 	@RequestMapping(value="/add.json",method=RequestMethod.POST)
 	@ResponseBody
-	@CacheRemove(value = "pageList", keyGenerator="evictKeyGenerator")
+	@CacheRemove(value = "pageList", key="")
 	public ObjectRestResponse<T> add(@RequestBody T entity){
 		ObjectRestResponse<T> result= baseBiz.add(entity,singleUrl()+ addUrl);
 		return result;
@@ -50,8 +51,12 @@ public abstract class UISimpleController<Biz extends BaseBiz<T>,T> extends BaseC
 	
 	@RequestMapping(value="/page.json",method=RequestMethod.GET)
 	@ResponseBody
-	@Cacheable(value = "pageList", keyGenerator = "keyGenerator") 
-	public TableResultResponse<T> page(@RequestParam Map<String, Object> params){
+	//@Cacheable(value = "pageList", keyGenerator = "keyGenerator") 
+	@CacheWrite(key="'page_'+#params+'_'+#db+'_'+#id+'_'+#price")
+	public TableResultResponse<T> page(@RequestParam Map<String, Object> params,
+			@RequestParam(value="db",defaultValue="db1",required=false) String db,
+			@RequestParam(value="id",defaultValue="1",required=false) Integer id,
+			@RequestParam(value="price",defaultValue="1.0",required=false) float  price){
 		TableResultResponse<T> result= baseBiz.list(params, singleUrl()+pageUrl);
 		return result;
 	}

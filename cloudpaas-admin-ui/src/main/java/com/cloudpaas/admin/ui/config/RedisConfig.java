@@ -9,8 +9,10 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
@@ -36,6 +38,9 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
+
+import redis.clients.jedis.JedisPoolConfig;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @Configuration
@@ -62,20 +67,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 		};
 	}
 	
-	@Bean
-	public KeyGenerator evictKeyGenerator() {
-		return new KeyGenerator() {
-			@Override
-			public Object generate(Object target, Method method, Object... params) {
-				StringBuffer sb = new StringBuffer();
-				sb.append("");
-				sb.append(target.getClass().getName());
-				sb.append(".*");
-				
-				return sb.toString();
-			}
-		};
-	}
+	
 
 	// 缓存管理器
 	@Bean
@@ -138,5 +130,21 @@ public class RedisConfig extends CachingConfigurerSupport {
 		redisTemplate.afterPropertiesSet();
 		return redisTemplate;
 	}
+	
+	@Bean
+	public JedisPoolConfig jedisPoolConfig(){
+		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+		jedisPoolConfig.setMaxTotal(1000);
+		jedisPoolConfig.setMaxIdle(200);
+		jedisPoolConfig.setMaxWaitMillis(15000);
+		jedisPoolConfig.setMinEvictableIdleTimeMillis(300000);
+		jedisPoolConfig.setNumTestsPerEvictionRun(3);
+		jedisPoolConfig.setTimeBetweenEvictionRunsMillis(60000);
+		jedisPoolConfig.setBlockWhenExhausted(true);
+		
+		return jedisPoolConfig;
+	}
+	
+	
 
 }

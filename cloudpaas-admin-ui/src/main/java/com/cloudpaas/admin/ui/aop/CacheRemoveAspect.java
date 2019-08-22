@@ -19,21 +19,15 @@ import java.util.Set;
  
 /**
  * 功能描述:清除缓存切面类
- *
- * @author fuyuchao
- * DATE 2018/9/14.
  */
-@Component
-@Aspect
+//@Component
+//@Aspect
 public class CacheRemoveAspect {
  
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static Logger logger = LoggerFactory.getLogger(CacheRemoveAspect.class);
  
     @Resource(name = "redisTemplate")
     RedisTemplate<String, String> redis;
-    
-    @Resource(name = "evictKeyGenerator")
-    KeyGenerator evictKeyGenerator;
  
     //截获标有@CacheRemove的方法
     @Pointcut(value = "(execution(* com.cloudpaas.admin.ui..*.*(..)) && @annotation(com.cloudpaas.admin.ui.anno.CacheRemove))")
@@ -45,9 +39,6 @@ public class CacheRemoveAspect {
      *
      * @return void
      * @throws
-     * @author fuyuchao
-     * @date 2018/9/14 16:55
-     * @params [joinPoint]
      */
     @AfterReturning(value = "pointcut()")
     private void process(JoinPoint joinPoint) {
@@ -60,27 +51,29 @@ public class CacheRemoveAspect {
         //获得注解
         CacheRemove cacheRemove = method.getAnnotation(CacheRemove.class);
  
+        logger.info("................................");
         if (cacheRemove != null) {
             //清除当前类的缓存
+        	logger.info("-----------------"+target.getClass().toString());
             cleanRedisCache("*" + target.getClass().toString() + "*");
  
             String value = cacheRemove.value();
             if (!value.equals("")) {
                 //缓存的项目所有redis业务部缓存
                 cleanRedisCache("*" + value + "*");
+                logger.info("-----------------"+value);
             }
             //需要移除的正则key
             String[] keys = cacheRemove.key();
             for (String key : keys) {
                 //指定清除的key的缓存
                 cleanRedisCache("*" + key + "*");
+                logger.info("-----------------"+key);
             }
             //
-            String key = evictKeyGenerator.toString();
-            if(null!=key){
-            	cleanRedisCache("*" + key + "*");
-            }
+            
         }
+        logger.info("................................");
     }
  
     private void cleanRedisCache(String key) {
