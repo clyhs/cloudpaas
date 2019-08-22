@@ -164,7 +164,7 @@ public class LoginController {
 	
 	@RequestMapping("/redis4.json")
 	@ResponseBody
-	@CacheWrite(key="tes4")
+	@CacheWrite(prefix="tes4",pkg="true")
 	public User test4(){
 		User user = new User();
 		user.setName("111");

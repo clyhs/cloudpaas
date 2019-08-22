@@ -46,7 +46,7 @@ public @interface CacheWrite {
 	
 	
 	/**
-	 * 是否包含包名，类名，方法名，默认不包括
+	 * 是否包含包名，类名，方法名，默认启用
 	 * @return
 	 */
 	public String pkg() default "false";

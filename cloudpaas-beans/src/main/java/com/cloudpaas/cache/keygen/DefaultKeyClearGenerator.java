@@ -9,40 +9,29 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.cloudpaas.cache.anno.CacheWrite;
+import com.cloudpaas.cache.anno.CacheClear;
 
 /**
+ * 清除缓存生成key默认类
+ * 
  * @author 大鱼
  *
- * @date 2019年8月22日 下午3:14:56
+ * @date 2019年8月22日 下午8:22:17
+ * 
+ * prefix_key
+ * 
  */
-public class DefaultKeyGenerator extends AbstractKeyGenerator {
-	
-	private static Logger log = LoggerFactory.getLogger(DefaultKeyGenerator.class);
+public class DefaultKeyClearGenerator extends AbstractKeyClearGenerator {
 
 	/* (non-Javadoc)
-	 * @see com.cloudpaas.cache.keygen.AbstractKeyGenerator#buildKey(java.lang.String, java.lang.Class[], java.lang.Object[])
+	 * @see com.cloudpaas.cache.keygen.AbstractKeyClearGenerator#buildKey(com.cloudpaas.cache.anno.CacheClear, java.lang.Class, java.lang.reflect.Method, java.lang.Class[], java.lang.String[], java.lang.Object[])
 	 */
 	@Override
-	public String buildKey(CacheWrite anno,Class<?> target,Method method, Class<?>[] parameterTypes,
-			String[] argNames,
-			Object[] arguments) {
+	public String buildKey(CacheClear anno, Class<?> target, Method method, Class<?>[] parameterTypes,
+			String[] argNames, Object[] arguments) {
 		// TODO Auto-generated method stub
-		StringBuffer key = new StringBuffer();
-		if(anno.pkg().equals("true")){
-			key.append(buildKeyPrefix(anno))
-			   .append(buildPkg(target,method))
-			   .append("(").append(buildAllArgs(arguments))
-			   .append(")");
-		}else{
-			key.append(buildKeyPrefix(anno))
-			   .append(parserKey(anno.key(),parameterTypes,argNames,arguments));
-		}
-		
-		return key.toString();
+		return null;
 	}
 	
 	private String buildAllArgs(Object[] arguments){
@@ -99,36 +88,12 @@ public class DefaultKeyGenerator extends AbstractKeyGenerator {
 		return keyTmp;
 	}
 	
-	private String buildKeyPrefix(CacheWrite anno){
+	private String buildKeyPrefix(CacheClear anno){
 		StringBuffer sb= new StringBuffer();
 		if(null!=anno.prefix() && ""!=anno.prefix() && anno.prefix().length() > 0){
-			sb.append(anno.prefix()).append(AbstractKeyGenerator.LINE);
+			sb.append(anno.prefix()).append(AbstractKeyClearGenerator.LINE);
 		}
-		/*
-		if(null!=anno.key() && ""!=anno.key()){
-			sb.append(anno.key()).append(AbstractKeyGenerator.LINE);
-		}*/
 		return sb.toString();
-	}
-	
-	public static void main(String[] args){
-		String key = "'page_'+#params+'_'+#db+'_'+#id+'_'+#price";
-		Pattern pattern = Pattern.compile("\\#[a-zA-Z0-9]*");
-        Matcher matcher = pattern.matcher(key);
-        key = key.replaceAll("\\'", "");
-        key = key.replaceAll("\\+", "");
-        System.out.println(key);
-        int i = 0;
-        while (matcher.find()) {
-        	String temp = matcher.group();
-        	String arg = temp.replace("#", "");
-        	System.out.println(arg);
-        	String value = i+++"";
-        	key = key.replace(temp, value);
-        	
-        }
-        System.out.println(key);
-        
 	}
 
 }

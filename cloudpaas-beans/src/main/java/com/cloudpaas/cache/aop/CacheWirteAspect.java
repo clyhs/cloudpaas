@@ -23,10 +23,9 @@ import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.cache.keygen.DefaultKeyGenerator;
 import com.cloudpaas.cache.parser.DefaultCacheResultParser;
 
-
-
-
 /**
+ * 加入缓存注解CacheWrite的切面类
+ * 
  * @author 大鱼
  *
  * @date 2019年8月22日 下午2:49:30
@@ -34,6 +33,7 @@ import com.cloudpaas.cache.parser.DefaultCacheResultParser;
 @Component
 @Aspect
 public class CacheWirteAspect {
+	
 	private static Logger logger = LoggerFactory.getLogger(CacheWirteAspect.class);
 	
 	@Autowired
@@ -50,6 +50,7 @@ public class CacheWirteAspect {
 		MethodSignature signature = (MethodSignature) invocation.getSignature();
         Method method = signature.getMethod();
         Class<?> targetClass = invocation.getTarget().getClass();
+
         Object result = null;
         //参数类型
         Class<?>[] parameterTypes = method.getParameterTypes();

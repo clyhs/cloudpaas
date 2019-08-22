@@ -40,4 +40,10 @@ public @interface  CacheClear {
 	 * @return
 	 */
 	String keyGenerator() default "";
+	
+	/**
+	 * 是否包含包名，类名，方法名，默认不启用
+	 * @return
+	 */
+	public String pkg() default "false";
 }
