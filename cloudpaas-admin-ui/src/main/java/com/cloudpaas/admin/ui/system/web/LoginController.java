@@ -37,8 +37,10 @@ import org.springframework.http.HttpStatus;
 import com.cloudpaas.admin.ui.base.ResponseBean;
 import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.utils.CodeUtil;
+import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.cache.service.IRedisService;
 import com.cloudpaas.cache.service.JRedisService;
+import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.utils.ErrorCode;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
@@ -145,13 +147,29 @@ public class LoginController {
 		return (String) redisService.get("springboot");
 	}
 	
-	@RequestMapping("/redis.json")
+	@RequestMapping("/redis1.json")
 	@ResponseBody
+	@CacheWrite(key="test")
 	public String test(){
-		template.opsForValue().set("springboot", "hello admin");
-		return (String) template.opsForValue().get("springboot");
+		return new String("hello world");
 	}
 	
+	@RequestMapping("/redis3.json")
+	@ResponseBody
+	@CacheWrite(key="tes3")
+	public int test3(){
+		return 1;
+	}
+	
+	
+	@RequestMapping("/redis4.json")
+	@ResponseBody
+	@CacheWrite(key="tes4")
+	public User test4(){
+		User user = new User();
+		user.setName("111");
+		return user;
+	}
 	
 
 }
