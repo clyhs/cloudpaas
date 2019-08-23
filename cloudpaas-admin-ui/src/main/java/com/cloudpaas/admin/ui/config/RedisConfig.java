@@ -130,20 +130,20 @@ public class RedisConfig extends CachingConfigurerSupport {
 		redisTemplate.afterPropertiesSet();
 		return redisTemplate;
 	}
-	
-	@Bean
-	public JedisPoolConfig jedisPoolConfig(){
-		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-		jedisPoolConfig.setMaxTotal(1000);
-		jedisPoolConfig.setMaxIdle(200);
-		jedisPoolConfig.setMaxWaitMillis(15000);
-		jedisPoolConfig.setMinEvictableIdleTimeMillis(300000);
-		jedisPoolConfig.setNumTestsPerEvictionRun(3);
-		jedisPoolConfig.setTimeBetweenEvictionRunsMillis(60000);
-		jedisPoolConfig.setBlockWhenExhausted(true);
-		
-		return jedisPoolConfig;
-	}
+//	
+//	@Bean
+//	public JedisPoolConfig jedisPoolConfig(){
+//		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+//		jedisPoolConfig.setMaxTotal(1000);
+//		jedisPoolConfig.setMaxIdle(200);
+//		jedisPoolConfig.setMaxWaitMillis(15000);
+//		jedisPoolConfig.setMinEvictableIdleTimeMillis(300000);
+//		jedisPoolConfig.setNumTestsPerEvictionRun(3);
+//		jedisPoolConfig.setTimeBetweenEvictionRunsMillis(60000);
+//		jedisPoolConfig.setBlockWhenExhausted(true);
+//		
+//		return jedisPoolConfig;
+//	}
 	
 	
 

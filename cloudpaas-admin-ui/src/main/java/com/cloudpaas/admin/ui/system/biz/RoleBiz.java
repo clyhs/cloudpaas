@@ -50,16 +50,16 @@ public class RoleBiz extends BaseBiz<Role>{
 	}
 
 
-	/**
-	 * 
-	 * @param t
-	 * @return
-	 */
-	@CacheWrite(key="'base_'+#t.id")
-	public Role get(Role t) {
-		// TODO Auto-generated method stub
-		return super.get(t, ApiConstants.API_ROLE_SELECTONE_URL);
-	}
+//	/**
+//	 * 
+//	 * @param t
+//	 * @return
+//	 */
+//	@CacheWrite(key="'base_'+#t.id")
+//	public Role get(Role t) {
+//		// TODO Auto-generated method stub
+//		return super.get(t, ApiConstants.API_ROLE_SELECTONE_URL);
+//	}
 
 	
 
