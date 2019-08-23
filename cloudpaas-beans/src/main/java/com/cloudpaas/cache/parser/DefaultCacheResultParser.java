@@ -26,7 +26,7 @@ public class DefaultCacheResultParser implements ICacheResultParser {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object parse(String value, Type returnType ) {
+	public Object parse(String value, Type returnType ,Class<?> targetClass) {
 		// TODO Auto-generated method stub
 		Object result = null;
         if (returnType instanceof ParameterizedType) {
@@ -39,7 +39,13 @@ public class DefaultCacheResultParser implements ICacheResultParser {
             	result = JSON.parseObject(value, returnType);
             }
         } else {
-        	result = JSON.parseObject(value, (Class) returnType);
+        	//处理接口返回泛弄类型，拿不到返回值的类型问题
+        	if("T".equals(returnType.toString())){
+              ParameterizedType pt = (ParameterizedType)targetClass.getGenericSuperclass();
+              returnType =pt.getActualTypeArguments()[0];
+        	}
+        	
+        	result = JSON.parseObject(value, returnType);
          
         } 
         return result;

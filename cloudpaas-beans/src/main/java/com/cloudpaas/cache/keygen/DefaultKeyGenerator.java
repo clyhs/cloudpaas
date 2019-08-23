@@ -12,7 +12,10 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSON;
 import com.cloudpaas.cache.anno.CacheWrite;
+import com.cloudpaas.common.utils.ReflectionUtils;
+import com.fasterxml.jackson.annotation.JsonAlias;
 
 /**
  * @author 大鱼
@@ -31,6 +34,15 @@ public class DefaultKeyGenerator extends AbstractKeyGenerator {
 			String[] argNames,
 			Object[] arguments) {
 		// TODO Auto-generated method stub
+		
+		for(String o :argNames){
+	    	log.info("-------"+o);
+	    }
+		
+	    for(Object o :arguments){
+	    	log.info("-------"+JSON.toJSONString(o));
+	    }
+		
 		StringBuffer key = new StringBuffer();
 		if(anno.pkg().equals("true")){
 			key.append(buildKeyPrefix(anno))
@@ -76,20 +88,38 @@ public class DefaultKeyGenerator extends AbstractKeyGenerator {
 			keyTmp = key;
 			keyTmp = keyTmp.replaceAll("\\'", "");
 			keyTmp = keyTmp.replaceAll("\\+", "");
-			Pattern pattern = Pattern.compile("\\#[a-zA-Z0-9]*");
+			Pattern pattern = Pattern.compile("\\#[a-zA-Z0-9]*(\\.)?[a-zA-Z0-9]*");
 	        Matcher matcher = pattern.matcher(key);
 	        while (matcher.find()) {
 	        	String argName = matcher.group();
-	        	String arg = argName.replace("#", "");
-	        	Integer index = ArrayUtils.indexOf(argNames,arg);
+	        	String express[] = argName.split("\\.");
 	        	String value = null;
-	        	if(null!=index){
-	        		if (parameterTypes[index].isAssignableFrom(List.class)) {
-	        			List result = (List) arguments[index];
-	                    value = result.get(0).toString();
-	        		}else{
-	        			value = arguments[index].toString();
+	        	log.info("--------"+argName);
+	        	
+	        	//参数为对象类型
+	        	if(express.length>1){
+	        		String arg = express[0];
+	        		String field = arg.replace("#", "");
+	        		log.info("--------"+express[1]);
+	        		Integer index = ArrayUtils.indexOf(argNames,field);
+	        		log.info("--------"+index);
+	        		if(null!=index){
+	        			value =JSON.toJSONString(ReflectionUtils.getFieldValue(arguments[index], express[1]));
 	        		}
+	        		
+	        	}else{
+	        		//参数为普通字符串类型
+	        		String arg = argName.replace("#", "");
+	        		Integer index = ArrayUtils.indexOf(argNames,arg);
+	
+		        	if(null!=index){
+		        		if (parameterTypes[index].isAssignableFrom(List.class)) {
+		        			List result = (List) arguments[index];
+		                    value = result.get(0).toString();
+		        		}else{
+		        			value = arguments[index].toString();
+		        		}
+		        	}
 	        	}
 	        	keyTmp = keyTmp.replace(argName, value);
 	        	
@@ -112,8 +142,9 @@ public class DefaultKeyGenerator extends AbstractKeyGenerator {
 	}
 	
 	public static void main(String[] args){
-		String key = "'page_'+#params+'_'+#db+'_'+#id+'_'+#price";
-		Pattern pattern = Pattern.compile("\\#[a-zA-Z0-9]*");
+		//String key = "'page_'+#params+'_'+#db+'_'+#id+'_'+#price";
+		String key = "'page_'+#t.id+'_'+#db+'_'+#id+'_'+#price";
+		Pattern pattern = Pattern.compile("\\#[a-zA-Z0-9]*(\\.)?[a-zA-Z0-9]*");
         Matcher matcher = pattern.matcher(key);
         key = key.replaceAll("\\'", "");
         key = key.replaceAll("\\+", "");
@@ -128,6 +159,9 @@ public class DefaultKeyGenerator extends AbstractKeyGenerator {
         	
         }
         System.out.println(key);
+        
+        
+        String[] v = {"",""}; 
         
 	}
 

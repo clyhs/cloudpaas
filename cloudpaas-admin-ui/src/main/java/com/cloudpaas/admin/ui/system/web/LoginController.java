@@ -38,7 +38,7 @@ import com.cloudpaas.admin.ui.base.ResponseBean;
 import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.utils.CodeUtil;
 import com.cloudpaas.cache.anno.CacheWrite;
-import com.cloudpaas.cache.service.IRedisService;
+import com.cloudpaas.cache.service.IRedisOService;
 import com.cloudpaas.cache.service.JRedisService;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.utils.ErrorCode;
@@ -59,7 +59,7 @@ public class LoginController {
 	private StringRedisTemplate template;
 	
 	@Autowired
-	private IRedisService redisService;
+	private IRedisOService redisService;
 	
 	@Autowired
     private Producer captchaProducer = null;

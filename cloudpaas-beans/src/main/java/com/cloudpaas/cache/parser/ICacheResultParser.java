@@ -12,5 +12,5 @@ import java.lang.reflect.Type;
  */
 public interface ICacheResultParser {
 
-	public Object parse(String value, Type returnType);
+	public Object parse(String value, Type returnType,Class<?> targetClass);
 }

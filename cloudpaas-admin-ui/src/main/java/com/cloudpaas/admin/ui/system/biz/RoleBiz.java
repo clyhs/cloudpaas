@@ -13,9 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.cloudpaas.admin.ui.base.BaseBiz;
+import com.cloudpaas.admin.ui.base.BaseBizService;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.system.web.RoleController;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
+import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.result.ObjectRestResponse;
 import com.google.gson.Gson;
@@ -47,6 +49,22 @@ public class RoleBiz extends BaseBiz<Role>{
 		return entity;
 	}
 
+
+	/**
+	 * 
+	 * @param t
+	 * @return
+	 */
+	@CacheWrite(key="'base_'+#t.id")
+	public Role get(Role t) {
+		// TODO Auto-generated method stub
+		return super.get(t, ApiConstants.API_ROLE_SELECTONE_URL);
+	}
+
+	
+
+	
+	
 	
 
 }

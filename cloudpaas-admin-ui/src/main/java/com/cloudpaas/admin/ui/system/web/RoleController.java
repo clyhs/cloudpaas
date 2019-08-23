@@ -56,7 +56,9 @@ public class RoleController extends UISimpleController<RoleBiz,Role>{
 	
 	@RequestMapping("/edit.html")
 	public String edit(@RequestParam Integer id,ModelMap modelMap){
-		Role role = baseBiz.get(id, ApiConstants.API_ROLE_SINGLE_URL);
+		Role rp = new Role();
+		rp.setId(id);
+		Role role = (Role)baseBiz.get(rp, ApiConstants.API_ROLE_SELECTONE_URL);
 		modelMap.put("role", role);
 		return "admin/layui/system/roleEdit";
 	}

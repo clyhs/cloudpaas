@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.alibaba.fastjson.JSON;
+import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.common.result.ObjectRestResponse;
 import com.cloudpaas.common.result.TableResultResponse;
 import com.cloudpaas.common.utils.JSONUtil;
@@ -34,7 +35,7 @@ import com.cloudpaas.common.utils.JSONUtil;
  *
  * @date 2019年8月14日 下午8:17:46
  */
-public abstract class BaseBiz<T> {
+public class BaseBiz<T> implements BaseBizService<T>{
 	
 	private Logger log = LoggerFactory.getLogger(getClass());
 
@@ -163,6 +164,7 @@ public abstract class BaseBiz<T> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
+	
 	public T get(Integer id,String url){
 		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
@@ -181,6 +183,7 @@ public abstract class BaseBiz<T> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
+	@CacheWrite(key="'base_'+#t.id+'_'+#url")
 	public T get(T t,String url){
 		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
@@ -188,7 +191,8 @@ public abstract class BaseBiz<T> {
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		//这里没法对对象进行自动转换，借助JSONUtil将map转为T
-		T entity = (T) JSONUtil.parseObject(JSONUtil.toJson(result.getData()), getTClass()) ;
+		log.info("baseBiz"+getTClass().toString()+"");
+		T entity = JSON.parseObject( JSON.toJSONString(result.getData()) ,getTClass());
 		return entity;
 	}
 	

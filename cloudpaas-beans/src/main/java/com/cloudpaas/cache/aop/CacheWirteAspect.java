@@ -4,6 +4,7 @@
 package com.cloudpaas.cache.aop;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +23,8 @@ import com.alibaba.fastjson.JSON;
 import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.cache.keygen.DefaultKeyGenerator;
 import com.cloudpaas.cache.parser.DefaultCacheResultParser;
+import com.cloudpaas.cache.service.IRedisOService;
+import com.cloudpaas.cache.service.IRedisSService;
 
 /**
  * 加入缓存注解CacheWrite的切面类
@@ -36,10 +39,12 @@ public class CacheWirteAspect {
 	
 	private static Logger logger = LoggerFactory.getLogger(CacheWirteAspect.class);
 	
+//	@Autowired
+//	RedisTemplate<String ,String> redisTemplate ;
 	@Autowired
-	RedisTemplate<String ,String> redisTemplate ;
+	IRedisSService redisService;
 	
-	@Pointcut("@annotation(com.cloudpaas.cache.anno.CacheWrite)")
+	@Pointcut("execution(* com.cloudpaas.admin.ui..*.*(..)) && @annotation(com.cloudpaas.cache.anno.CacheWrite)")
     public void aspect() {
     }
 	
@@ -50,6 +55,9 @@ public class CacheWirteAspect {
 		MethodSignature signature = (MethodSignature) invocation.getSignature();
         Method method = signature.getMethod();
         Class<?> targetClass = invocation.getTarget().getClass();
+        
+//        ParameterizedType pt = (ParameterizedType)targetClass.getGenericSuperclass();
+//        logger.info(pt.getActualTypeArguments()[0]+"");
 
         Object result = null;
         //参数类型
@@ -65,9 +73,10 @@ public class CacheWirteAspect {
         	logger.info("生成缓存的key为:{}",key);
         	//反回结果类型
         	Type returnType = method.getGenericReturnType();
+        	logger.info(method.getGenericReturnType().getClass()+"");
         	value = getCache(key);
         	//result = invocation.proceed();
-        	result = getResult( anno, result, value, returnType);
+        	result = getResult( anno, result, value, returnType,targetClass);
         }catch (Exception e) {
             logger.error("获取缓存失败：" + key, e);
         } finally {
@@ -96,7 +105,7 @@ public class CacheWirteAspect {
         } else {
             realValue = JSON.toJSONString(value, false);
         }
-		redisTemplate.opsForValue().set(key, realValue, anno.expire());
+		redisService.set(key, realValue, anno.expire());
 	}
 	/**
 	 * 读取缓存
@@ -104,7 +113,7 @@ public class CacheWirteAspect {
 	 * @return
 	 */
 	private String getCache(String key){
-		return redisTemplate.opsForValue().get(key);
+		return redisService.get(key);
 	}
 	
 	/**
@@ -139,12 +148,12 @@ public class CacheWirteAspect {
 	 * @throws IllegalAccessException
 	 */
 	private Object getResult(CacheWrite anno, Object result, String value,
-            Type returnType) throws InstantiationException,IllegalAccessException {
+            Type returnType,Class<?> targetClass) throws InstantiationException,IllegalAccessException {
 		if(value!=null){
 			logger.debug("从缓存获取数据进行解析");
 		}
 		DefaultCacheResultParser parser = new DefaultCacheResultParser();
-		result = parser.parse(value, returnType);
+		result = parser.parse(value, returnType,targetClass);
 		return result;
 	}
 }

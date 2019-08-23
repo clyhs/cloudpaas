@@ -15,7 +15,7 @@ import redis.clients.jedis.BinaryClient.LIST_POSITION;
  *
  * @date 2019年8月22日 上午10:49:43
  */
-public interface IRedisService {
+public interface IRedisOService {
 	/**
      * <p>
      * 通过key获取储存在redis中的value

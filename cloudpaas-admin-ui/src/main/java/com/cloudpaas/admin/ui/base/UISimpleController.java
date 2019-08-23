@@ -29,7 +29,7 @@ import com.cloudpaas.common.result.TableResultResponse;
  *
  * @date 2019年8月21日 下午1:59:22
  */
-public abstract class UISimpleController<Biz extends BaseBiz<T>,T> extends BaseController {
+public abstract class UISimpleController<Biz extends BaseBizService<T>,T> extends BaseController {
 
 	@Autowired
 	protected Biz baseBiz;
@@ -52,7 +52,7 @@ public abstract class UISimpleController<Biz extends BaseBiz<T>,T> extends BaseC
 	@RequestMapping(value="/page.json",method=RequestMethod.GET)
 	@ResponseBody
 	//@Cacheable(value = "pageList", keyGenerator = "keyGenerator") 
-	@CacheWrite(key="'page_'+#params+'_'+#db+'_'+#id+'_'+#price")
+	//@CacheWrite(key="'page_'+#params+'_'+#db+'_'+#id+'_'+#price")
 	public TableResultResponse<T> page(@RequestParam Map<String, Object> params,
 			@RequestParam(value="db",defaultValue="db1",required=false) String db,
 			@RequestParam(value="id",defaultValue="1",required=false) Integer id,
@@ -81,7 +81,6 @@ public abstract class UISimpleController<Biz extends BaseBiz<T>,T> extends BaseC
 		ObjectRestResponse<T> result= baseBiz.deleteBatch(lists, singleUrl()+delBatchUrl);
 		return result;
 	}
-	
 	
 	public abstract String singleUrl();
 

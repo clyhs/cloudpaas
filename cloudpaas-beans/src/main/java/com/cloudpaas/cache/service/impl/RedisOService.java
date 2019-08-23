@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import com.cloudpaas.cache.service.IRedisService;
+import com.cloudpaas.cache.service.IRedisOService;
 
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 
@@ -23,7 +23,7 @@ import redis.clients.jedis.BinaryClient.LIST_POSITION;
  * @date 2019年8月22日 上午10:51:28
  */
 @Service
-public class RedisServiceImpl implements IRedisService {
+public class RedisOService implements IRedisOService {
 	
 	@Autowired
 	RedisTemplate<String,Object> redisTemplate;
