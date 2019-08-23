@@ -184,9 +184,11 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	 * selectOne.json
 	 * @param t
 	 * @return
+	 * 
+	 * model:true
+	 * key:BBIZ:com.cloudpaas.common.model.Role_id_1
 	 */
 	@SuppressWarnings("unchecked")
-	//@CacheWrite(prefix="BBIZ",key="'get_'+#t.id",pkg="true")
 	@CacheWrite(prefix="BBIZ",key="'id_'+#t.id" ,model="true")
 	public T get(T t,String url){
 		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
