@@ -77,7 +77,7 @@ public interface IRedisSService {
      * @param key
      * @return
      */
-    Boolean delPrefix(String key);
+    Long delPrefix(String key);
     /**
      * <p>
      * 删除指定的keys,返回删除个数

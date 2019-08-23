@@ -50,5 +50,7 @@ public @interface CacheWrite {
 	 * @return
 	 */
 	public String pkg() default "false";
+	
+	public String model() default "false";
 
 }

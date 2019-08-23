@@ -33,7 +33,7 @@ public @interface  CacheClear {
 	 * 
 	 * @return
 	 */
-	public String[] keys() default "";
+	public String[] keys() default {};
 	
 	/**
 	 * 
@@ -46,4 +46,6 @@ public @interface  CacheClear {
 	 * @return
 	 */
 	public String pkg() default "false";
+	
+	public String model() default "false";
 }

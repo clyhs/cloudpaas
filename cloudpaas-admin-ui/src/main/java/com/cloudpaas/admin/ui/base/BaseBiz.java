@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.alibaba.fastjson.JSON;
+import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.common.result.ObjectRestResponse;
 import com.cloudpaas.common.result.TableResultResponse;
@@ -134,6 +135,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	 * @param id
 	 * @return
 	 */
+	@CacheClear(prefix="BBIZ",key="'id_'+#t.id" ,model="true")
 	public ObjectRestResponse<T> update(T t,Integer id,String url){
 		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
@@ -148,6 +150,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	 * @param id
 	 * @return
 	 */
+	@CacheClear(prefix="BBIZ",key="'id_'+#id" ,model="true")
 	public ObjectRestResponse<T> remove(Integer id,String url){
 		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
@@ -164,7 +167,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	
+	@CacheWrite(prefix="BBIZ",key="'id_'+#id" ,model="true")
 	public T get(Integer id,String url){
 		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
@@ -172,7 +175,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 	
-		T entity = (T) JSONUtil.parseObject(JSONUtil.toJson(result.getData()), getTClass()) ;
+		T entity = JSON.parseObject( JSON.toJSONString(result.getData()) ,getTClass());
 		return entity;
 	}
 	
@@ -183,7 +186,8 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	@CacheWrite(key="'base_'+#t.id+'_'+#url")
+	//@CacheWrite(prefix="BBIZ",key="'get_'+#t.id",pkg="true")
+	@CacheWrite(prefix="BBIZ",key="'id_'+#t.id" ,model="true")
 	public T get(T t,String url){
 		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
@@ -191,7 +195,6 @@ public class BaseBiz<T> implements BaseBizService<T>{
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		//这里没法对对象进行自动转换，借助JSONUtil将map转为T
-		log.info("baseBiz"+getTClass().toString()+"");
 		T entity = JSON.parseObject( JSON.toJSONString(result.getData()) ,getTClass());
 		return entity;
 	}

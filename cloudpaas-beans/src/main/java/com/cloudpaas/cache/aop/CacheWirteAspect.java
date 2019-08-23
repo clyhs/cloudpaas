@@ -43,8 +43,10 @@ public class CacheWirteAspect {
 //	RedisTemplate<String ,String> redisTemplate ;
 	@Autowired
 	IRedisSService redisService;
-	
-	@Pointcut("execution(* com.cloudpaas.admin.ui..*.*(..)) && @annotation(com.cloudpaas.cache.anno.CacheWrite)")
+	@Autowired
+	DefaultKeyGenerator defaultKeyGenerator;
+	//execution(* com.cloudpaas.admin.ui..*.*(..)) && 
+	@Pointcut("@annotation(com.cloudpaas.cache.anno.CacheWrite)")
     public void aspect() {
     }
 	
@@ -55,10 +57,6 @@ public class CacheWirteAspect {
 		MethodSignature signature = (MethodSignature) invocation.getSignature();
         Method method = signature.getMethod();
         Class<?> targetClass = invocation.getTarget().getClass();
-        
-//        ParameterizedType pt = (ParameterizedType)targetClass.getGenericSuperclass();
-//        logger.info(pt.getActualTypeArguments()[0]+"");
-
         Object result = null;
         //参数类型
         Class<?>[] parameterTypes = method.getParameterTypes();
@@ -70,12 +68,10 @@ public class CacheWirteAspect {
         String value = "";
         try {
         	key = getKey(anno,targetClass,method,parameterTypes, argNames,arguments);
-        	logger.info("生成缓存的key为:{}",key);
+        	logger.info("缓存的key为:{}",key);
         	//反回结果类型
         	Type returnType = method.getGenericReturnType();
-        	logger.info(method.getGenericReturnType().getClass()+"");
         	value = getCache(key);
-        	//result = invocation.proceed();
         	result = getResult( anno, result, value, returnType,targetClass);
         }catch (Exception e) {
             logger.error("获取缓存失败：" + key, e);
@@ -133,8 +129,7 @@ public class CacheWirteAspect {
             Object[] arguments) throws InstantiationException,IllegalAccessException{
 		String key;
         String generatorClsName = anno.keyGenerator();
-		DefaultKeyGenerator kg = new DefaultKeyGenerator();
-		key = kg.getKey(anno,target,method, parameterTypes, argNames,arguments);
+		key = defaultKeyGenerator.getKey(anno,target,method, parameterTypes, argNames,arguments);
 		return key;
 	}
 	/**

@@ -69,9 +69,10 @@ public class RedisSService implements IRedisSService {
 	 * @see com.cloudpaas.cache.service.IRedisService#delPrefix(java.lang.String)
 	 */
 	@Override
-	public Boolean delPrefix(String key) {
+	public Long delPrefix(String key) {
 		// TODO Auto-generated method stub
-		return redisTemplate.delete(key+"*");
+		Set<String> keys = redisTemplate.keys(key);
+		return redisTemplate.delete(keys);
 	}
 
 	/* (non-Javadoc)

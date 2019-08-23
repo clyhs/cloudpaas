@@ -21,6 +21,7 @@ import com.cloudpaas.admin.ui.base.BaseController;
 import com.cloudpaas.admin.ui.base.UISimpleController;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.system.biz.RoleBiz;
+import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.result.ObjectRestResponse;
 import com.cloudpaas.common.result.TableResultResponse;
@@ -58,13 +59,14 @@ public class RoleController extends UISimpleController<RoleBiz,Role>{
 	public String edit(@RequestParam Integer id,ModelMap modelMap){
 		Role rp = new Role();
 		rp.setId(id);
-		Role role = (Role)baseBiz.get(rp, ApiConstants.API_ROLE_SELECTONE_URL);
+		Role role =baseBiz.get(rp, ApiConstants.API_ROLE_SELECTONE_URL);
 		modelMap.put("role", role);
 		return "admin/layui/system/roleEdit";
 	}
 	
 	@RequestMapping(value="/update.json",method=RequestMethod.PUT)
 	@ResponseBody
+	@CacheClear(prefix="UISC",pkg="true")
 	public ObjectRestResponse<Role> update(@RequestBody Role entity){
 		ObjectRestResponse<Role> result= baseBiz.update(entity, entity.getId(), ApiConstants.API_ROLE_SINGLE_URL);
 		return result;

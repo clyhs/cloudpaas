@@ -37,6 +37,7 @@ import org.springframework.http.HttpStatus;
 import com.cloudpaas.admin.ui.base.ResponseBean;
 import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.utils.CodeUtil;
+import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.cache.service.IRedisOService;
 import com.cloudpaas.cache.service.JRedisService;
@@ -171,5 +172,14 @@ public class LoginController {
 		return user;
 	}
 	
+	
+	@RequestMapping("/redis5.json")
+	@ResponseBody
+	@CacheClear(prefix="tes5",keys={"pages*","test*"},pkg="true")
+	public User test5(){
+		User user = new User();
+		user.setName("111");
+		return user;
+	}
 
 }

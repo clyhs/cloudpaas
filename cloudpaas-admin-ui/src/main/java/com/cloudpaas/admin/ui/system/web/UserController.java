@@ -18,6 +18,7 @@ import com.cloudpaas.admin.ui.base.UISimpleController;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.system.biz.UserBiz;
 import com.cloudpaas.admin.ui.utils.ShiroPassUtil;
+import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.BaseResponse;
@@ -50,6 +51,7 @@ public class UserController extends UISimpleController<UserBiz,User>{
 	
 	@RequestMapping(value="/add.json",method=RequestMethod.POST)
 	@ResponseBody
+	@CacheClear(prefix="UISC",pkg="true")
 	public ObjectRestResponse<User> add(@RequestBody User user){
 		ObjectRestResponse result = new ObjectRestResponse();
 		String salt = ShiroPassUtil.genSalt();
@@ -63,6 +65,7 @@ public class UserController extends UISimpleController<UserBiz,User>{
 	
 	@RequestMapping(value="/update.json",method=RequestMethod.PUT)
 	@ResponseBody
+	@CacheClear(prefix="UISC",pkg="true")
 	public ObjectRestResponse<User> update(@RequestBody User entity){
 		ObjectRestResponse<User> result= baseBiz.update(entity, entity.getId(), ApiConstants.API_USER_SINGLE_URL);
 		return result;

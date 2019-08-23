@@ -18,6 +18,8 @@ import org.springframework.stereotype.Component;
 
 import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.cache.anno.CacheWrite;
+import com.cloudpaas.cache.keygen.DefaultKeyClearGenerator;
+import com.cloudpaas.cache.service.IRedisSService;
 
 /**
  * 
@@ -34,6 +36,10 @@ public class CacheClearAspect {
 	
 	@Autowired
 	RedisTemplate<String ,String> redisTemplate ;
+	@Autowired
+	DefaultKeyClearGenerator defaultKeyClearGenerator;
+	@Autowired
+	IRedisSService redisSService;
 	
 	@Pointcut("@annotation(com.cloudpaas.cache.anno.CacheClear)")
     public void aspect() {
@@ -46,15 +52,39 @@ public class CacheClearAspect {
 		MethodSignature signature = (MethodSignature) invocation.getSignature();
         Method method = signature.getMethod();
         Class<?> targetClass = invocation.getTarget().getClass();
-		
+        //参数类型
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        //参数名称
+        String[] argNames = signature.getParameterNames();
+        //参数的值集合
+        Object[] arguments = invocation.getArgs();
+        String key = getKey(anno,targetClass,method,parameterTypes,argNames,arguments);
+        if(null!=key){
+        	logger.info("清除缓存的key为:{}",key);
+        	redisSService.delPrefix(key);
+        }
+        if(null!=anno.keys() && anno.keys().length>0){
+        	if(null!=anno.prefix() && ""!=anno.prefix() && anno.prefix().length() > 0){
+        		for(String k:anno.keys()){
+        			String kv = anno.prefix()+defaultKeyClearGenerator.PRE_LINE+k;
+        			redisSService.delPrefix(kv);
+        		}
+        	}else{
+        		for(String k:anno.keys()){
+        			String kv = k;
+        			redisSService.delPrefix(kv);
+        		}
+        	}
+        }
 		return invocation.proceed();
 	}
 	
-	private String getKey(CacheWrite anno,Class<?> target,Method method,Class<?>[] parameterTypes,
+	
+	private String getKey(CacheClear anno,Class<?> target,Method method,Class<?>[] parameterTypes,
 			String[] argNames, 
             Object[] arguments) throws InstantiationException,IllegalAccessException{
-		
-		return null;
+		String key = defaultKeyClearGenerator.getKey(anno, target, method, parameterTypes, argNames, arguments);
+		return key;
 	}
 
 }

@@ -4,6 +4,8 @@
 package com.cloudpaas.cache.keygen;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,6 +13,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 import com.cloudpaas.cache.anno.CacheWrite;
@@ -22,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
  *
  * @date 2019年8月22日 下午3:14:56
  */
+@Component
 public class DefaultKeyGenerator extends AbstractKeyGenerator {
 	
 	private static Logger log = LoggerFactory.getLogger(DefaultKeyGenerator.class);
@@ -35,20 +39,33 @@ public class DefaultKeyGenerator extends AbstractKeyGenerator {
 			Object[] arguments) {
 		// TODO Auto-generated method stub
 		
-		for(String o :argNames){
-	    	log.info("-------"+o);
-	    }
-		
-	    for(Object o :arguments){
-	    	log.info("-------"+JSON.toJSONString(o));
-	    }
-		
 		StringBuffer key = new StringBuffer();
 		if(anno.pkg().equals("true")){
 			key.append(buildKeyPrefix(anno))
 			   .append(buildPkg(target,method))
 			   .append("(").append(buildAllArgs(arguments))
 			   .append(")");
+			   
+			/*
+			if(null!=anno.key() && ""!=anno.key() && anno.key().length()>0){
+				key.append("(");
+				key.append(")");
+				key.append(AbstractKeyGenerator.LINE).append(parserKey(anno.key(),parameterTypes,argNames,arguments));
+				
+			}else{
+				key.append("(").append(buildAllArgs(arguments))
+				   .append(")");
+			}*/
+			
+			//.append(AbstractKeyGenerator.LINE).append(anno.key())
+		}else if(anno.model().equals("true")){
+			ParameterizedType pt = (ParameterizedType)target.getGenericSuperclass();
+            Type returnType =pt.getActualTypeArguments()[0];
+            String modelClassName = returnType.getTypeName();
+            key.append(buildKeyPrefix(anno))
+               .append(modelClassName).append(AbstractKeyGenerator.LINE)
+               .append(parserKey(anno.key(),parameterTypes,argNames,arguments));
+			
 		}else{
 			key.append(buildKeyPrefix(anno))
 			   .append(parserKey(anno.key(),parameterTypes,argNames,arguments));
@@ -132,7 +149,7 @@ public class DefaultKeyGenerator extends AbstractKeyGenerator {
 	private String buildKeyPrefix(CacheWrite anno){
 		StringBuffer sb= new StringBuffer();
 		if(null!=anno.prefix() && ""!=anno.prefix() && anno.prefix().length() > 0){
-			sb.append(anno.prefix()).append(AbstractKeyGenerator.LINE);
+			sb.append(anno.prefix()).append(AbstractKeyGenerator.PRE_LINE);
 		}
 		/*
 		if(null!=anno.key() && ""!=anno.key()){
@@ -143,7 +160,8 @@ public class DefaultKeyGenerator extends AbstractKeyGenerator {
 	
 	public static void main(String[] args){
 		//String key = "'page_'+#params+'_'+#db+'_'+#id+'_'+#price";
-		String key = "'page_'+#t.id+'_'+#db+'_'+#id+'_'+#price";
+		//String key = "'page_'+#t.id+'_'+#db+'_'+#id+'_'+#price";
+		String key = "'.get()_get_'+#t.id";
 		Pattern pattern = Pattern.compile("\\#[a-zA-Z0-9]*(\\.)?[a-zA-Z0-9]*");
         Matcher matcher = pattern.matcher(key);
         key = key.replaceAll("\\'", "");

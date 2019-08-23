@@ -17,6 +17,8 @@ public abstract class AbstractKeyClearGenerator implements IKeyGenerator {
 	
 	public static final String LINE = "_";
 	
+	public static final String PRE_LINE = ":";
+	
 	/**
 	 * 获得生成的KEY
 	 * @param key
