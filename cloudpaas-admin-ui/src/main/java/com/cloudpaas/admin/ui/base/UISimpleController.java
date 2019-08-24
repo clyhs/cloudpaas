@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cloudpaas.admin.ui.anno.CacheRemove;
+
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.common.model.Role;
-import com.cloudpaas.common.result.ObjectRestResponse;
-import com.cloudpaas.common.result.TableResultResponse;
+import com.cloudpaas.common.result.ObjectResponse;
+import com.cloudpaas.common.result.PageResponse;
 
 /**
  * 对每个继续默认实现增删查。
@@ -52,8 +52,8 @@ public abstract class UISimpleController<Biz extends BaseBizService<T>,T> extend
 	@RequestMapping(value="/add.json",method=RequestMethod.POST)
 	@ResponseBody
 	@CacheClear(prefix="UISC",pkg="true")
-	public ObjectRestResponse<T> add(@RequestBody T entity){
-		ObjectRestResponse<T> result= baseBiz.add(entity,singleUrl()+ addUrl);
+	public ObjectResponse<T> add(@RequestBody T entity){
+		ObjectResponse<T> result= baseBiz.add(entity,singleUrl()+ addUrl);
 		return result;
 	}
 	/**
@@ -69,34 +69,34 @@ public abstract class UISimpleController<Biz extends BaseBizService<T>,T> extend
 	//@Cacheable(value = "pageList", keyGenerator = "keyGenerator") 
 	//@CacheWrite(key="'page_'+#params+'_'+#db+'_'+#id+'_'+#price")
 	@CacheWrite(prefix="UISC",pkg="true")
-	public TableResultResponse<T> page(@RequestParam Map<String, Object> params/*,
+	public PageResponse<T> page(@RequestParam Map<String, Object> params/*,
 			@RequestParam(value="db",defaultValue="db1",required=false) String db,
 			@RequestParam(value="id",defaultValue="1",required=false) Integer id,
 			@RequestParam(value="price",defaultValue="1.0",required=false) float  price*/){
-		TableResultResponse<T> result= baseBiz.list(params, singleUrl()+pageUrl);
+		PageResponse<T> result= baseBiz.list(params, singleUrl()+pageUrl);
 		return result;
 	}
 	
 	@RequestMapping(value="/all.json",method=RequestMethod.GET)
 	@ResponseBody
-	public TableResultResponse<T> page(){
-		TableResultResponse<T> result= baseBiz.all(singleUrl()+allUrl);
+	public PageResponse<T> page(){
+		PageResponse<T> result= baseBiz.all(singleUrl()+allUrl);
 		return result;
 	}
 	
 	@RequestMapping(value="/delete.json",method=RequestMethod.DELETE)
 	@ResponseBody
 	@CacheClear(prefix="UISC",pkg="true")
-	public ObjectRestResponse<T> remove(@RequestParam Integer id){
-		ObjectRestResponse<T> result= baseBiz.remove(id, singleUrl());
+	public ObjectResponse<T> remove(@RequestParam Integer id){
+		ObjectResponse<T> result= baseBiz.remove(id, singleUrl());
 		return result;
 	}
 	
 	@RequestMapping(value="/deleteBatch.json",method=RequestMethod.DELETE)
 	@ResponseBody
 	@CacheClear(prefix="UISC",pkg="true")
-	public ObjectRestResponse<T> remove(@RequestBody List<T> lists){
-		ObjectRestResponse<T> result= baseBiz.deleteBatch(lists, singleUrl()+delBatchUrl);
+	public ObjectResponse<T> remove(@RequestBody List<T> lists){
+		ObjectResponse<T> result= baseBiz.deleteBatch(lists, singleUrl()+delBatchUrl);
 		return result;
 	}
 	

@@ -25,8 +25,8 @@ import com.alibaba.fastjson.JSON;
 import com.cloudpaas.admin.ui.AdminUIApplication;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.common.model.Role;
-import com.cloudpaas.common.result.ObjectRestResponse;
-import com.cloudpaas.common.result.TableResultResponse;
+import com.cloudpaas.common.result.ObjectResponse;
+import com.cloudpaas.common.result.PageResponse;
 
 import junit.framework.TestCase;
 
@@ -77,7 +77,7 @@ public class RoleBizTest {
     @Test
     public void RoleRemoveTest(){
     	
-    	ObjectRestResponse<Role> r1 = roleBiz.remove(4,ApiConstants.API_ROLE_SINGLE_URL);
+    	ObjectResponse<Role> r1 = roleBiz.remove(4,ApiConstants.API_ROLE_SINGLE_URL);
     	System.out.println(JSON.toJSONString(r1));
     	//TestCase.assertEquals(1, r.getId());
     }
@@ -88,7 +88,7 @@ public class RoleBizTest {
     	Role r = new Role();
     	r.setId(5);
     	r.setCode("ROLE_TEST111");
-    	ObjectRestResponse<Role> r1 = roleBiz.update(r, r.getId(),ApiConstants.API_ROLE_SINGLE_URL);
+    	ObjectResponse<Role> r1 = roleBiz.update(r, r.getId(),ApiConstants.API_ROLE_SINGLE_URL);
     	System.out.println(JSON.toJSONString(r1));
     	//TestCase.assertEquals(1, r.getId());
     }
@@ -102,7 +102,7 @@ public class RoleBizTest {
     	List<Role> lists = new ArrayList<>();
     	lists.add(r);
     	lists.add(r2);
-    	ObjectRestResponse<Role> r1 = roleBiz.deleteBatch(lists,ApiConstants.API_ROLE_DELBATCH_URL);
+    	ObjectResponse<Role> r1 = roleBiz.deleteBatch(lists,ApiConstants.API_ROLE_DELBATCH_URL);
     	System.out.println(JSON.toJSONString(r1));
     	//TestCase.assertEquals(1, r.getId());
     }
@@ -112,7 +112,7 @@ public class RoleBizTest {
     public void RolePageTest(){
     	Map<String, Object> params = new HashMap<>();
     	params.put("name", "管理员");
-    	TableResultResponse<Role> r1 = roleBiz.list(params,ApiConstants.API_ROLE_PAGE_URL);
+    	PageResponse<Role> r1 = roleBiz.list(params,ApiConstants.API_ROLE_PAGE_URL);
     	System.out.println(JSON.toJSONString(r1));
     	//TestCase.assertEquals(1, r.getId());
     }
@@ -120,7 +120,7 @@ public class RoleBizTest {
     @Test
     public void RoleALLTest(){
     	
-    	TableResultResponse<Role> r1 = roleBiz.all(ApiConstants.API_ROLE_ALL_URL);
+    	PageResponse<Role> r1 = roleBiz.all(ApiConstants.API_ROLE_ALL_URL);
     	System.out.println(JSON.toJSONString(r1));
     	//TestCase.assertEquals(1, r.getId());
     }
@@ -133,7 +133,7 @@ public class RoleBizTest {
     	r2.setName("222");
     	r2.setCreateTime(new Date());
     	
-    	ObjectRestResponse<Role> r1 = roleBiz.add(r2,ApiConstants.API_ROLE_ADD_URL);
+    	ObjectResponse<Role> r1 = roleBiz.add(r2,ApiConstants.API_ROLE_ADD_URL);
     	System.out.println(JSON.toJSONString(r1));
     	//TestCase.assertEquals(1, r.getId());
     }

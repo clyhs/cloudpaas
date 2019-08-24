@@ -32,7 +32,7 @@ import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.model.User;
-import com.cloudpaas.common.result.ObjectRestResponse;
+import com.cloudpaas.common.result.ObjectResponse;
 import com.google.common.collect.Maps;
 
 
@@ -65,7 +65,7 @@ public class UserBizTest extends BaseBiz<User>{
 
 	@Test
 	public void UserSelectOneTest(){
-		ParameterizedTypeReference<ObjectRestResponse<User>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<User>>() {};
+		ParameterizedTypeReference<ObjectResponse<User>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<User>>() {};
 		
 		User user = new User();
 		user.setUsername("admin");
@@ -74,7 +74,7 @@ public class UserBizTest extends BaseBiz<User>{
 		params.put("db", "dn2");
 		HttpEntity<User> httpEntity = new HttpEntity<User>(user,getHttpHeaders());
 	
-		ObjectRestResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SELECTONE_URL+"?db={db}", 
+		ObjectResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SELECTONE_URL+"?db={db}", 
 				HttpMethod.GET, httpEntity, responseBodyType,params)
 				.getBody();
 

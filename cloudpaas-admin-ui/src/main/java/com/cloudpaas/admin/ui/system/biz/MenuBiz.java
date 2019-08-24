@@ -15,7 +15,7 @@ import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.Role;
-import com.cloudpaas.common.result.ObjectRestResponse;
+import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.vo.MenuTreeVo;
 
 /**
@@ -32,9 +32,9 @@ public class MenuBiz extends BaseBiz<Menu> {
 	 * @return
 	 */
 	public Menu getMenuByID(Integer id){
-		ParameterizedTypeReference<ObjectRestResponse<Menu>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<Menu>>() {};
+		ParameterizedTypeReference<ObjectResponse<Menu>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<Menu>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectRestResponse<Menu> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_SINGLE_URL+id, 
+		ObjectResponse<Menu> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_SINGLE_URL+id, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		Menu entity =  result.getData();

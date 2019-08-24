@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
  * @date 2019年7月26日 下午2:41:19
  */
 
-public class ObjectRestResponse<T> extends BaseResponse {
+public class ObjectResponse<T> extends BaseResponse {
 
     T data;
     boolean rel;
@@ -29,13 +29,13 @@ public class ObjectRestResponse<T> extends BaseResponse {
     }
 
 
-    public ObjectRestResponse rel(boolean rel) {
+    public ObjectResponse rel(boolean rel) {
         this.setRel(rel);
         return this;
     }
 
 
-    public ObjectRestResponse data(T data) {
+    public ObjectResponse data(T data) {
         this.setData(data);
         return this;
     }

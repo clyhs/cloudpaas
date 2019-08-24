@@ -19,7 +19,7 @@ import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.model.User;
-import com.cloudpaas.common.result.TableResultResponse;
+import com.cloudpaas.common.result.PageResponse;
 
 /**
  * @author 大鱼

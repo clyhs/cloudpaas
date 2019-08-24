@@ -21,7 +21,7 @@ import com.cloudpaas.admin.model.AdminMenu;
 import com.cloudpaas.admin.vo.AdminMenuTreeVo;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.controller.BaseController;
-import com.cloudpaas.common.result.TableResultResponse;
+import com.cloudpaas.common.result.PageResponse;
 import com.cloudpaas.common.utils.JSONUtil;
 import com.cloudpaas.common.utils.TreeUtil;
 import com.google.gson.Gson;

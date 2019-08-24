@@ -13,7 +13,7 @@ import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.model.User;
-import com.cloudpaas.common.result.ObjectRestResponse;
+import com.cloudpaas.common.result.ObjectResponse;
 
 /**
  * @author 大鱼
@@ -25,21 +25,21 @@ public class UserBiz extends BaseBiz<User>{
 	
 	
 	public User findUser(String username){
-		ParameterizedTypeReference<ObjectRestResponse<User>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<User>>() {};
+		ParameterizedTypeReference<ObjectResponse<User>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<User>>() {};
 		User user = new User();
 		user.setUsername(username);
 		HttpEntity<User> httpEntity = new HttpEntity<>(user,getHttpHeaders());
-		ObjectRestResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SELECTONE_URL, 
+		ObjectResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SELECTONE_URL, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		User entity =  result.getData();
 		return entity;
 	}
 	
-	public ObjectRestResponse addUser(User user){
-		ParameterizedTypeReference<ObjectRestResponse<User>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<User>>() {};
+	public ObjectResponse addUser(User user){
+		ParameterizedTypeReference<ObjectResponse<User>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<User>>() {};
 		HttpEntity<User> httpEntity = new HttpEntity<>(user,getHttpHeaders());
-		ObjectRestResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_ADD_URL, 
+		ObjectResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_ADD_URL, 
 				HttpMethod.POST, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -51,9 +51,9 @@ public class UserBiz extends BaseBiz<User>{
 	 * @return
 	 */
 	public User getUserByID(Integer id){
-		ParameterizedTypeReference<ObjectRestResponse<User>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<User>>() {};
+		ParameterizedTypeReference<ObjectResponse<User>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<User>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectRestResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SINGLE_URL+id, 
+		ObjectResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SINGLE_URL+id, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		User entity =  result.getData();

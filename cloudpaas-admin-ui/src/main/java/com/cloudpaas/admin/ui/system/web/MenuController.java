@@ -22,7 +22,7 @@ import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.system.biz.MenuBiz;
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.Role;
-import com.cloudpaas.common.result.ObjectRestResponse;
+import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.vo.MenuTreeVo;
 import com.cloudpaas.common.vo.TreeVo;
 import com.google.gson.Gson;
@@ -71,8 +71,8 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 	
 	@RequestMapping(value="/update.json",method=RequestMethod.PUT)
 	@ResponseBody
-	public ObjectRestResponse<Menu> update(@RequestBody Menu entity){
-		ObjectRestResponse<Menu> result= baseBiz.update(entity, entity.getId(), ApiConstants.API_MENU_SINGLE_URL);
+	public ObjectResponse<Menu> update(@RequestBody Menu entity){
+		ObjectResponse<Menu> result= baseBiz.update(entity, entity.getId(), ApiConstants.API_MENU_SINGLE_URL);
 		return result;
 	}
 

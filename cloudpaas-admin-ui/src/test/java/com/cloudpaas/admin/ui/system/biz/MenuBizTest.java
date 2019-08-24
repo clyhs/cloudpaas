@@ -28,7 +28,7 @@ import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.User;
-import com.cloudpaas.common.result.ObjectRestResponse;
+import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.vo.MenuTreeVo;
 import com.google.common.collect.Maps;
 
@@ -66,13 +66,13 @@ public class MenuBizTest extends BaseBiz<Menu>{
 	
 	@Test
 	public void MenuSelectOneTest(){
-		ParameterizedTypeReference<ObjectRestResponse<Menu>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<Menu>>() {};
+		ParameterizedTypeReference<ObjectResponse<Menu>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<Menu>>() {};
 
 		Map<String, Object> params = Maps.newHashMap();
 		params.put("id", "1");
 		HttpEntity<User> httpEntity = new HttpEntity<User>(getHttpHeaders());
 	
-		ObjectRestResponse<Menu> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_SINGLE_URL+"{id}", 
+		ObjectResponse<Menu> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_SINGLE_URL+"{id}", 
 				HttpMethod.GET, httpEntity, responseBodyType,params)
 				.getBody();
 

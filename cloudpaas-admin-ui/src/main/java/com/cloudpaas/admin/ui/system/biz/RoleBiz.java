@@ -19,7 +19,7 @@ import com.cloudpaas.admin.ui.system.web.RoleController;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
 import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.common.model.Role;
-import com.cloudpaas.common.result.ObjectRestResponse;
+import com.cloudpaas.common.result.ObjectResponse;
 import com.google.gson.Gson;
 
 /**
@@ -40,9 +40,9 @@ public class RoleBiz extends BaseBiz<Role>{
 	 * @return
 	 */
 	public Role getRoleByID(Integer id){
-		ParameterizedTypeReference<ObjectRestResponse<Role>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<Role>>() {};
+		ParameterizedTypeReference<ObjectResponse<Role>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<Role>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectRestResponse<Role> result = RestTemplateUtils.exchange(ApiConstants.API_ROLE_SINGLE_URL+id, 
+		ObjectResponse<Role> result = RestTemplateUtils.exchange(ApiConstants.API_ROLE_SINGLE_URL+id, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		Role entity =  result.getData();

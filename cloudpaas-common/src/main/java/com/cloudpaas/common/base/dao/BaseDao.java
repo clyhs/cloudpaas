@@ -10,7 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cloudpaas.common.mybatis.DataSource;
-import com.cloudpaas.common.result.TableResultResponse;
+import com.cloudpaas.common.result.PageResponse;
 import com.cloudpaas.common.utils.Query;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -96,7 +96,7 @@ public abstract class BaseDao<M extends Mapper<T>, T> {
         return mapper.selectCountByExample(example);
     }
 
-    public TableResultResponse<T> selectByQuery(Query query,@DataSource String db) {
+    public PageResponse<T> selectByQuery(Query query,@DataSource String db) {
         Class<T> clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         Example example = new Example(clazz);
         if(query.entrySet().size()>0) {
@@ -107,7 +107,7 @@ public abstract class BaseDao<M extends Mapper<T>, T> {
         }
         Page<Object> result = PageHelper.startPage(query.getPage(), query.getLimit());
         List<T> list = mapper.selectByExample(example);
-        return new TableResultResponse<T>(result.getTotal(), list);
+        return new PageResponse<T>(result.getTotal(), list);
     }
 
 }

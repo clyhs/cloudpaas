@@ -26,8 +26,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.alibaba.fastjson.JSON;
 import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.cache.anno.CacheWrite;
-import com.cloudpaas.common.result.ObjectRestResponse;
-import com.cloudpaas.common.result.TableResultResponse;
+import com.cloudpaas.common.result.ObjectResponse;
+import com.cloudpaas.common.result.PageResponse;
 import com.cloudpaas.common.utils.JSONUtil;
 
 
@@ -65,10 +65,10 @@ public class BaseBiz<T> implements BaseBizService<T>{
     }
 	
 	
-	public ObjectRestResponse<T> add(T t,String url){
-		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
+	public ObjectResponse<T> add(T t,String url){
+		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
-		ObjectRestResponse<T> result = restTemplate.exchange(url, 
+		ObjectResponse<T> result = restTemplate.exchange(url, 
 				HttpMethod.POST, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -78,10 +78,10 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	 * 查询所有数据
 	 * @return
 	 */
-	public TableResultResponse<T> all(String url){
-		ParameterizedTypeReference<TableResultResponse<T>> responseBodyType = new ParameterizedTypeReference<TableResultResponse<T>>() {};
+	public PageResponse<T> all(String url){
+		ParameterizedTypeReference<PageResponse<T>> responseBodyType = new ParameterizedTypeReference<PageResponse<T>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		TableResultResponse<T> result = restTemplate.exchange(url, 
+		PageResponse<T> result = restTemplate.exchange(url, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -92,8 +92,8 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	 * @param params
 	 * @return
 	 */
-	public TableResultResponse<T> list(Map<String, Object> params,String url){
-		ParameterizedTypeReference<TableResultResponse<T>> responseBodyType = new ParameterizedTypeReference<TableResultResponse<T>>() {};
+	public PageResponse<T> list(Map<String, Object> params,String url){
+		ParameterizedTypeReference<PageResponse<T>> responseBodyType = new ParameterizedTypeReference<PageResponse<T>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
 		MultiValueMap<String,String> urlparams = new LinkedMultiValueMap<>();
 
@@ -109,7 +109,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 		//解决中文转码问题
 		UriComponents uriComponents = builder.build().encode();
 		
-		TableResultResponse<T> result = restTemplate.exchange(uriComponents.toUri(), 
+		PageResponse<T> result = restTemplate.exchange(uriComponents.toUri(), 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -120,10 +120,10 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	 * @param lists
 	 * @return
 	 */
-	public ObjectRestResponse<T> deleteBatch(List<T> lists,String url){
-		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
+	public ObjectResponse<T> deleteBatch(List<T> lists,String url){
+		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<List<T>> httpEntity = new HttpEntity<>(lists,getHttpHeaders());
-		ObjectRestResponse<T> result = restTemplate.exchange(url, 
+		ObjectResponse<T> result = restTemplate.exchange(url, 
 				HttpMethod.DELETE, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -136,10 +136,10 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	 * @return
 	 */
 	@CacheClear(prefix="BBIZ",key="'id_'+#t.id" ,model="true")
-	public ObjectRestResponse<T> update(T t,Integer id,String url){
-		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
+	public ObjectResponse<T> update(T t,Integer id,String url){
+		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
-		ObjectRestResponse<T> result = restTemplate.exchange(url+id, 
+		ObjectResponse<T> result = restTemplate.exchange(url+id, 
 				HttpMethod.PUT, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -151,10 +151,10 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	 * @return
 	 */
 	@CacheClear(prefix="BBIZ",key="'id_'+#id" ,model="true")
-	public ObjectRestResponse<T> remove(Integer id,String url){
-		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
+	public ObjectResponse<T> remove(Integer id,String url){
+		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectRestResponse<T> result = restTemplate.exchange(url+id, 
+		ObjectResponse<T> result = restTemplate.exchange(url+id, 
 				HttpMethod.DELETE, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -169,9 +169,9 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	@SuppressWarnings("unchecked")
 	@CacheWrite(prefix="BBIZ",key="'id_'+#id" ,model="true")
 	public T get(Integer id,String url){
-		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
+		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectRestResponse<T> result = restTemplate.exchange(url+id, 
+		ObjectResponse<T> result = restTemplate.exchange(url+id, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 	
@@ -191,9 +191,9 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	@SuppressWarnings("unchecked")
 	@CacheWrite(prefix="BBIZ",key="'id_'+#t.id" ,model="true")
 	public T get(T t,String url){
-		ParameterizedTypeReference<ObjectRestResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectRestResponse<T>>() {};
+		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
-		ObjectRestResponse<T> result = restTemplate.exchange(url, 
+		ObjectResponse<T> result = restTemplate.exchange(url, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		//这里没法对对象进行自动转换，借助JSONUtil将map转为T

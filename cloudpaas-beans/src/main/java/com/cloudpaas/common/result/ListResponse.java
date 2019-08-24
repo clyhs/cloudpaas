@@ -6,7 +6,7 @@ package com.cloudpaas.common.result;
  *
  * @date 2019年7月26日 下午2:38:33
  */
-public class ListRestResponse<T>extends BaseResponse {
+public class ListResponse<T>extends BaseResponse {
     
     T data;
     int count;
@@ -26,12 +26,12 @@ public class ListRestResponse<T>extends BaseResponse {
         this.count = count;
     }
 
-    public ListRestResponse count(int count) {
+    public ListResponse count(int count) {
         this.setCount(count);
         return this;
     }
 
-    public ListRestResponse count(Long count) {
+    public ListResponse count(Long count) {
         this.setCount(count.intValue());
         return this;
     }

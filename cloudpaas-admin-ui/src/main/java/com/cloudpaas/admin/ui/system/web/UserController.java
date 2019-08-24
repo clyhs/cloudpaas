@@ -22,7 +22,7 @@ import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.BaseResponse;
-import com.cloudpaas.common.result.ObjectRestResponse;
+import com.cloudpaas.common.result.ObjectResponse;
 
 /**
  * @author 大鱼
@@ -52,8 +52,8 @@ public class UserController extends UISimpleController<UserBiz,User>{
 	@RequestMapping(value="/add.json",method=RequestMethod.POST)
 	@ResponseBody
 	@CacheClear(prefix="UISC",pkg="true")
-	public ObjectRestResponse<User> add(@RequestBody User user){
-		ObjectRestResponse result = new ObjectRestResponse();
+	public ObjectResponse<User> add(@RequestBody User user){
+		ObjectResponse result = new ObjectResponse();
 		String salt = ShiroPassUtil.genSalt();
 		user.setSalt(salt);
 		String password = ShiroPassUtil.shiroEncryp2timeAndMd5(user.getPassword(), salt);
@@ -66,8 +66,8 @@ public class UserController extends UISimpleController<UserBiz,User>{
 	@RequestMapping(value="/update.json",method=RequestMethod.PUT)
 	@ResponseBody
 	@CacheClear(prefix="UISC",pkg="true")
-	public ObjectRestResponse<User> update(@RequestBody User entity){
-		ObjectRestResponse<User> result= baseBiz.update(entity, entity.getId(), ApiConstants.API_USER_SINGLE_URL);
+	public ObjectResponse<User> update(@RequestBody User entity){
+		ObjectResponse<User> result= baseBiz.update(entity, entity.getId(), ApiConstants.API_USER_SINGLE_URL);
 		return result;
 	}
 
