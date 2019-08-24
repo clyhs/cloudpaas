@@ -12,3 +12,4 @@
 * cloudpaas-admin 基础鉴权模块
 * cloudpaas-service-pas 服务模块
 * cloudpaas-admin-ui 前端-基础管理平台
+* cloudpaas-all 后端服务打成单机包
