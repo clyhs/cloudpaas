@@ -45,6 +45,7 @@ public class MenuBiz extends BaseBiz<Menu> {
 	public List<MenuTreeVo> getMenuTree(){
 		ParameterizedTypeReference<List<MenuTreeVo>> responseBodyType = new ParameterizedTypeReference<List<MenuTreeVo>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
+		log.info("menu api url:"+getBaseUrl()+ApiConstants.API_MENU_TREE_URL);
 		List<MenuTreeVo> result = restTemplate.exchange(getBaseUrl()+ApiConstants.API_MENU_TREE_URL, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();

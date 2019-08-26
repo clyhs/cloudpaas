@@ -39,7 +39,7 @@ import com.cloudpaas.common.utils.JSONUtil;
  */
 public abstract class BaseBiz<T> implements IBaseBiz<T>{
 	
-	private Logger log = LoggerFactory.getLogger(getClass());
+	protected Logger log = LoggerFactory.getLogger(getClass());
 
 	HttpHeaders headers;
 	
