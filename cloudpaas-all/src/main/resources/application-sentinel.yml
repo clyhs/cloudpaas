@@ -82,3 +82,4 @@ logging:
   
 jwt:
   rsa-secret: 123456
+  ignore: /api/auth

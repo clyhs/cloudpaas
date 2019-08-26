@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
 import com.alibaba.fastjson.JSON;
@@ -30,6 +31,7 @@ import com.cloudpaas.common.utils.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 统一对token进行校验
  * 
  * @author 大鱼
  *
@@ -40,6 +42,9 @@ import lombok.extern.slf4j.Slf4j;
 public class AccessFilter implements Filter {
 	@Autowired
 	AdminAuthBiz adminAuthBiz;
+	
+	@Value("${jwt.ignore}")
+    private String startWith;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -50,59 +55,88 @@ public class AccessFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String requestURI = request.getRequestURI();
-        log.debug("url:{}" , requestURI);
+        log.info("************url:{}" , requestURI);
         
-//        PrintWriter writer = null;
-//        HttpServletResponse response = (HttpServletResponse) servletResponse;
-//        response.setCharacterEncoding("UTF-8");
-//        response.setContentType("application/json; charset=utf-8");
-//        
-//        IJWTInfo user = null;
-//        try {
-//            user = getJWTUser(request);
-//            filterChain.doFilter(request, servletResponse);
-//        } catch (Exception e) {
-//            log.error("用户Token过期异常", e);
-//            //throw new TokenInvalidException(e.getMessage());
-//            
-//            OutputStreamWriter osw = null;
-//            try {
-//                osw = new OutputStreamWriter(response.getOutputStream(),
-//                        "UTF-8");
-//                writer = new PrintWriter(osw, true);
-//                String jsonStr = JSON.toJSONString(new BaseResponse(ErrorCode.TOKENEX.getCode(),e.getMessage()));
-//                writer.write(jsonStr);
-//                writer.flush();
-//                
-//            } catch (IOException ex) {
-//                log.error("获取OutputStreamm失败" + ex.getMessage());
-//            }finally{
-//            	osw.close();
-//            }
-//        }finally{
-//        	writer.close();
-//        }
+        PrintWriter writer = null;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json; charset=utf-8");
         
-        filterChain.doFilter(request, servletResponse);
+        if (isStartWith(requestURI)) {
+        	filterChain.doFilter(request, servletResponse);
+        }else{
+        	try {
+            	
+            	IJWTInfo user = getJWTUser(request);
+            	if(null!=user){
+            		log.info("************url:{}通过验证" , requestURI);
+            		filterChain.doFilter(request, servletResponse);
+            	}else{
+            		throw new TokenInvalidException(ErrorCode.TOKENEX.getDesc());
+            	}
+                
+            } catch (Exception e) {
+                log.error("用户Token过期异常", e);
+                //throw new TokenInvalidException(e.getMessage());
+                OutputStreamWriter osw = null;
+                try {
+                    osw = new OutputStreamWriter(response.getOutputStream(),
+                            "UTF-8");
+                    writer = new PrintWriter(osw, true);
+                    String jsonStr = JSON.toJSONString(new BaseResponse(ErrorCode.TOKENEX.getCode(),e.getMessage()));
+                    writer.write(jsonStr);
+                    writer.flush();
+                    
+                } catch (IOException ex) {
+                    log.error("获取OutputStreamm失败" + ex.getMessage());
+                }finally{
+                	if(null!=osw){
+                		osw.close();
+                	}
+                }
+            }finally{
+            	if(null!=writer){
+            		writer.close();
+            	}
+            }
+        }
         
         
     }
     
     private IJWTInfo getJWTUser(HttpServletRequest request) throws Exception {
-    	String token = null;
-        token = request.getHeader(CommonConstants.TOKEN_HEADER_KEY);
+    	String token = request.getHeader(CommonConstants.TOKEN_HEADER_KEY);
        
-        if (StringUtils.isBlank(token)) {
+        if (null==token || StringUtils.isBlank(token)) {
             token = request.getParameter("token");
-            
         }
-        
-        return adminAuthBiz.getInfofromToken(token);
+        if(null!=token){
+        	return adminAuthBiz.getInfofromToken(token);
+        }
+        return null;
         
     }
+    
+    
 
     @Override
     public void destroy() {
     	log.debug("destroy...");
+    }
+    
+    /**
+     * URI是否以什么打头
+     *
+     * @param requestUri
+     * @return
+     */
+    private boolean isStartWith(String requestUri) {
+        boolean flag = false;
+        for (String s : startWith.split(",")) {
+            if (requestUri.startsWith(s)) {
+                return true;
+            }
+        }
+        return flag;
     }
 }

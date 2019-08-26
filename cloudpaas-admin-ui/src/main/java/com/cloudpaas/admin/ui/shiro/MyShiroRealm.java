@@ -19,8 +19,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cloudpaas.admin.ui.constants.CommonConstants;
+import com.cloudpaas.admin.ui.system.biz.AuthBiz;
 import com.cloudpaas.admin.ui.system.biz.UserBiz;
+import com.cloudpaas.common.constants.CommonConstants;
+import com.cloudpaas.common.jwt.JwtResponse;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.model.User;
 
@@ -35,6 +37,8 @@ public class MyShiroRealm extends AuthorizingRealm {
 	
 	@Autowired
 	UserBiz userBiz;
+	@Autowired
+	AuthBiz authBiz;
 
 	/* (non-Javadoc)
 	 * @see org.apache.shiro.realm.AuthorizingRealm#doGetAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)
@@ -76,7 +80,9 @@ public class MyShiroRealm extends AuthorizingRealm {
         
         log.info("-----username:{},password:{}-----", username, password);
         
-        User user = userBiz.findUser(username);
+        //User user = userBiz.findUser(username);
+        JwtResponse jwtResp = authBiz.login(username);
+        User user = jwtResp.getUser();
         
         // 认证信息token里存放账号密码, getName() 是当前Realm的继承方法,通常返回当前类名
         // String salt = user.getSalt();
@@ -94,6 +100,9 @@ public class MyShiroRealm extends AuthorizingRealm {
             );
         	Session session = SecurityUtils.getSubject().getSession();
         	session.setAttribute(CommonConstants.USER_SESSION_ID, user);
+        	if(null!= jwtResp.getToken()){
+        		session.setAttribute(CommonConstants.USER_TOKEN, jwtResp.getToken());
+        	}
         	
         	return authenticationInfo;
         }

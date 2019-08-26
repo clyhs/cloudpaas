@@ -29,8 +29,8 @@ import com.alibaba.fastjson.JSON;
 import com.cloudpaas.admin.ui.AdminUIApplication;
 import com.cloudpaas.admin.ui.base.BaseBiz;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
-import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
+import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectResponse;
@@ -72,10 +72,10 @@ public class UserBizTest extends BaseBiz<User>{
 		user.setUsername("admin");
 		
 		Map<String, Object> params = Maps.newHashMap();
-		params.put("db", "dn2");
+		params.put("db", "dn1");
 		HttpEntity<User> httpEntity = new HttpEntity<User>(user,getHttpHeaders());
 	
-		ObjectResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SELECTONE_URL+"?db={db}", 
+		ObjectResponse<User> result = RestTemplateUtils.exchange(getBaseUrl()+ApiConstants.API_USER_SELECTONE_URL+"?db={db}", 
 				HttpMethod.GET, httpEntity, responseBodyType,params)
 				.getBody();
 

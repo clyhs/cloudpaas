@@ -69,6 +69,12 @@ public class AccessGatewayFilter implements GlobalFilter {
         }
 		log.debug("requestUri:{}",requestUri);
 		ServerHttpRequest.Builder mutate = request.mutate();
+		
+//		// 不进行拦截的地址
+//        if (isStartWith(requestUri)) {
+//            ServerHttpRequest build = mutate.build();
+//            return gatewayFilterChain.filter(serverWebExchange.mutate().request(build).build());
+//        }
 		/*
 		IJWTInfo user = null;
 		ServerHttpRequest.Builder mutate = request.mutate();

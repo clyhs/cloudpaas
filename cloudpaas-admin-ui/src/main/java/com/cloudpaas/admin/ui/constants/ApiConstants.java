@@ -12,6 +12,10 @@ package com.cloudpaas.admin.ui.constants;
 public class ApiConstants {
 
 	//public static final String API_HOST = "http://localhost:8200";
+	
+	public static final String API_AUTH_SINGLE_URL = "/auth/";
+	public static final String API_AUTH_LOGIN_URL = "/auth/login.json";
+	
 	/*根据id获取单个角色，后面必须+id,如：API_ROLE_GET_URL+id*/
 	public static final String API_ROLE_SINGLE_URL = "/role/";
 	public static final String API_ROLE_SELECTONE_URL = "/role/selectOne.json";

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.cloudpaas.admin.ui.base.BaseBiz;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
-import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
+import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.result.ObjectResponse;

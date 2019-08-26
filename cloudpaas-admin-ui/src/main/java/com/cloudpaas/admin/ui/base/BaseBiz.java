@@ -37,44 +37,9 @@ import com.cloudpaas.common.utils.JSONUtil;
  *
  * @date 2019年8月14日 下午8:17:46
  */
-public abstract class BaseBiz<T> implements IBaseBiz<T>{
+public abstract class BaseBiz<T> extends AbstractBaseBiz implements IBaseBiz<T>{
 	
-	protected Logger log = LoggerFactory.getLogger(getClass());
 
-	HttpHeaders headers;
-	
-	@Autowired
-	protected RestTemplate restTemplate;
-	
-	@Autowired
-	protected AdminUIProperites auiProp;
-	
-	
-	
-	
-	
-	protected HttpHeaders getHttpHeaders(){
-		headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json;charset=utf-8");
-        headers.add("Accept", "application/json");
-        headers.add("X-Request-sId", getXRequestSID());
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        return headers;
-	}
-	
-	private String getXRequestSID(){
-		return getSID();
-	}
-	
-	protected String getBaseUrl(){
-		if("header".equals(auiProp.getType())){
-			return auiProp.getApiUrl();
-		}else if("path".equals(auiProp.getType())){
-			return auiProp.getApiUrl()+"/"+getSID();
-		}else{
-			return auiProp.getApiUrl();
-		}
-	}
 	
 	/**
 	 * 取得T的clazz
@@ -222,7 +187,6 @@ public abstract class BaseBiz<T> implements IBaseBiz<T>{
 		return entity;
 	}
 	
-	public abstract String getSID();
 	
 	//public abstract String getEntityByIDUrl();
 }

@@ -18,5 +18,11 @@ public class CommonConstants {
     public static final String JWT_KEY_NAME = "name";
     
     public static final String TOKEN_HEADER_KEY = "Authorization";
+    
+    public static final String USER_SESSION_ID = "currentUser";
+	public static final String USER_TOKEN = "currentToken";
+	
+	public static final String ADMIN_SERVICE_ID="admin";
+	public static final String PAS_SERVICE_ID = "pas";
 
 }

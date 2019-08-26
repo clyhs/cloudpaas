@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cloudpaas.admin.ui.constants.ApiConstants;
-import com.cloudpaas.admin.ui.constants.CommonConstants;
+import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.PageResponse;

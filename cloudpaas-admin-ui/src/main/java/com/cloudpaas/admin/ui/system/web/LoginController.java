@@ -35,12 +35,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
 
 import com.cloudpaas.admin.ui.base.ResponseBean;
-import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.utils.CodeUtil;
 import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.cache.service.IRedisOService;
 import com.cloudpaas.cache.service.JRedisService;
+import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.utils.ErrorCode;
 import com.google.code.kaptcha.Constants;
