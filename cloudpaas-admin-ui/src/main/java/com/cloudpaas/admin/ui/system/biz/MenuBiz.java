@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.cloudpaas.admin.ui.base.BaseBiz;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
+import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.Role;
@@ -34,7 +35,7 @@ public class MenuBiz extends BaseBiz<Menu> {
 	public Menu getMenuByID(Integer id){
 		ParameterizedTypeReference<ObjectResponse<Menu>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<Menu>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectResponse<Menu> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_SINGLE_URL+id, 
+		ObjectResponse<Menu> result = restTemplate.exchange(getBaseUrl()+ApiConstants.API_MENU_SINGLE_URL+id, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		Menu entity =  result.getData();
@@ -44,11 +45,20 @@ public class MenuBiz extends BaseBiz<Menu> {
 	public List<MenuTreeVo> getMenuTree(){
 		ParameterizedTypeReference<List<MenuTreeVo>> responseBodyType = new ParameterizedTypeReference<List<MenuTreeVo>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		List<MenuTreeVo> result = RestTemplateUtils.exchange(ApiConstants.API_MENU_TREE_URL, 
+		List<MenuTreeVo> result = restTemplate.exchange(getBaseUrl()+ApiConstants.API_MENU_TREE_URL, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		
 		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.BaseBiz#getSID()
+	 */
+	@Override
+	public String getSID() {
+		// TODO Auto-generated method stub
+		return CommonConstants.ADMIN_SERVICE_ID;
 	}
 
 }

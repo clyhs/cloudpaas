@@ -1,5 +1,5 @@
 package com.cloudpaas.admin.controller;
-import com.cloudpaas.admin.dao.AdminUserDao;
+import com.cloudpaas.admin.biz.AdminUserBiz;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.controller.BaseController;
 import com.cloudpaas.common.model.User;
@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api
 @RestController
 @RequestMapping("user")
-public class AdminUserController extends BaseController<AdminUserDao, User>{
+public class AdminUserController extends BaseController<AdminUserBiz, User>{
 	
 	
     

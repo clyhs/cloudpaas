@@ -14,7 +14,7 @@ import com.cloudpaas.common.result.PageResponse;
  *
  * @date 2019年8月23日 上午11:27:05
  */
-public interface BaseBizService<T> {
+public interface IBaseBiz<T> {
 
 	public ObjectResponse<T> add(T t,String url);
 	

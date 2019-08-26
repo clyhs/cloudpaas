@@ -30,3 +30,7 @@ spring:
     timeout: 1000
 logging:
   config: classpath:log4j2.xml
+  
+adminui:
+  type: header   #header,path
+  api-url: "http://127.0.0.1:8100/api" #http://127.0.0.1:8200/api(集群网关模式)

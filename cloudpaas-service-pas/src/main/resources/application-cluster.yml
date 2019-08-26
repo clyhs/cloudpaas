@@ -1,0 +1,144 @@
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+
+# 打开健康检查，2.0开始，actuator默认不开放，所以要设置为开发
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+server:
+  port: 8102
+  #servlet:
+  #  context-path: /pas/
+    #jetty配置，主要是acceptors和selectors
+  jetty:
+    acceptors: 2
+    selectors: 4
+  #tomcat的配置可以保留，切换回来可用，反正不会生效
+  tomcat:
+      remote-ip-header: x-forward-for
+      uri-encoding: UTF-8
+      max-threads: 2000
+      #background-processor-delay: 30
+      max-http-header-size: 8096
+      basedir: ${user.home}/tomcat/tmp
+      max-connections: 5000
+      max-http-post-size: 10000000
+  connection-timeout: 600000
+
+spring:
+  profiles: cluster
+  application:
+    name: cpaas-service-pas
+  boot:          #添加到springbootadmin服务治理
+    admin:
+      client:
+        url: "http://localhost:8901"
+        password: password
+        username: user
+        instance:
+          prefer-ip: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      - key: dn1
+        url: jdbc:mysql://localhost:3306/dn1?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+        username: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver
+        minIdle: 1
+        maxActive: 2
+        initialSize: 1
+        minPoolSize: 5
+        maxPoolSize: 20
+        borrowConnectionTimeout: 60
+        timeBetweenEvictionRunsMillis: 3000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 'ZTM' FROM DUAL
+        validationQueryTimeout: 10000
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        maxWait: 60000
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,log4j2
+      - key: dn2
+        url: jdbc:mysql://localhost:3306/dn2?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+        username: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver
+        minIdle: 1
+        maxActive: 2
+        initialSize: 1
+        minPoolSize: 5
+        maxPoolSize: 20
+        borrowConnectionTimeout: 60
+        timeBetweenEvictionRunsMillis: 3000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 'ZTM' FROM DUAL
+        validationQueryTimeout: 10000
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        maxWait: 60000
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,log4j2
+  #jta:
+    #log-dir: classpath:tx-logs
+    #transaction-manager-id: txManager
+  redis:
+    database: 1
+    #password: 
+    cluster:
+      max-redirects: 3
+      nodes:
+      - 127.0.0.1:7000
+      - 127.0.0.1:7001
+      - 127.0.0.1:7002
+      - 127.0.0.1:7003
+      - 127.0.0.1:7004
+      - 127.0.0.1:7005
+    lettuce:
+      pool:
+        max-active:  100 # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 100 # 连接池中的最大空闲连接
+        min-idle: 50 # 连接池中的最小空闲连接
+        max-wait: 6000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+    timeout: 1000
+  zipkin:        #添加到链路追踪
+    base-url: http://localhost:8902
+  sleuth:        #打开日志收集
+    enabled: true
+    http:
+      legacy:
+        enabled: true
+        
+        
+mybatis:
+  config-locations: classpath*:mybatis/mybatis-config.xml
+  mapper-locations: classpath*:mybatis/mapper/*.xml
+  basepackage: com.cloudpaas.service.pas.mapper
+  
+logging:
+  config: classpath:log4j2.xml
+  
+jwt:
+  rsa-secret: 123456

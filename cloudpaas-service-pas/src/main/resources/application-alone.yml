@@ -22,13 +22,28 @@ management:
 
 server:
   port: 8102
+  #servlet:
+  #  context-path: /pas/
+    #jetty配置，主要是acceptors和selectors
+  jetty:
+    acceptors: 2
+    selectors: 4
+  #tomcat的配置可以保留，切换回来可用，反正不会生效
+  tomcat:
+      remote-ip-header: x-forward-for
+      uri-encoding: UTF-8
+      max-threads: 2000
+      #background-processor-delay: 30
+      max-http-header-size: 8096
+      basedir: ${user.home}/tomcat/tmp
+      max-connections: 5000
+      max-http-post-size: 10000000
+  connection-timeout: 600000
 
 spring:
+  profiles: alone
   application:
     name: cpaas-service-pas
-  autoconfigure:
-    exclude:
-    - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
   boot:          #添加到springbootadmin服务治理
     admin:
       client:
@@ -40,8 +55,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      dn[0]:
-      #- key: dn1
+      - key: dn1
         url: jdbc:mysql://localhost:3306/dn1?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
         username: root
         password: root
@@ -49,6 +63,9 @@ spring:
         minIdle: 1
         maxActive: 2
         initialSize: 1
+        minPoolSize: 5
+        maxPoolSize: 20
+        borrowConnectionTimeout: 60
         timeBetweenEvictionRunsMillis: 3000
         minEvictableIdleTimeMillis: 300000
         validationQuery: SELECT 'ZTM' FROM DUAL
@@ -61,8 +78,7 @@ spring:
         poolPreparedStatements: true
         maxPoolPreparedStatementPerConnectionSize: 20
         filters: stat,wall,log4j2
-      dn[1]: 
-      #- key: dn2
+      - key: dn2
         url: jdbc:mysql://localhost:3306/dn2?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
         username: root
         password: root
@@ -70,6 +86,9 @@ spring:
         minIdle: 1
         maxActive: 2
         initialSize: 1
+        minPoolSize: 5
+        maxPoolSize: 20
+        borrowConnectionTimeout: 60
         timeBetweenEvictionRunsMillis: 3000
         minEvictableIdleTimeMillis: 300000
         validationQuery: SELECT 'ZTM' FROM DUAL
@@ -85,6 +104,24 @@ spring:
   #jta:
     #log-dir: classpath:tx-logs
     #transaction-manager-id: txManager
+  redis:
+    #数据库索引
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    #password:
+    jedis:
+      pool:
+        #最大连接数
+        max-active: 8
+        #最大阻塞等待时间(负数表示没限制)
+        max-wait: -1
+        #最大空闲
+        max-idle: 8
+        #最小空闲
+        min-idle: 0
+      #连接超时时间
+    timeout: 10000
   zipkin:        #添加到链路追踪
     base-url: http://localhost:8902
   sleuth:        #打开日志收集
@@ -93,7 +130,14 @@ spring:
       legacy:
         enabled: true
         
+        
 mybatis:
   config-locations: classpath*:mybatis/mybatis-config.xml
   mapper-locations: classpath*:mybatis/mapper/*.xml
   basepackage: com.cloudpaas.service.pas.mapper
+  
+logging:
+  config: classpath:log4j2.xml
+  
+jwt:
+  rsa-secret: 123456

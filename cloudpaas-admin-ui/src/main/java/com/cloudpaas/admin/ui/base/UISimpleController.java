@@ -30,7 +30,7 @@ import com.cloudpaas.common.result.PageResponse;
  *
  * @date 2019年8月21日 下午1:59:22
  */
-public abstract class UISimpleController<Biz extends BaseBizService<T>,T> extends BaseController {
+public abstract class UISimpleController<Biz extends IBaseBiz<T>,T> extends BaseController {
 
 	@Autowired
 	protected Biz baseBiz;

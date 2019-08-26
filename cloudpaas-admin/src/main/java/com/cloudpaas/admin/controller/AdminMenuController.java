@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cloudpaas.admin.dao.AdminMenuDao;
+import com.cloudpaas.admin.biz.AdminMenuBiz;
 import com.cloudpaas.admin.model.AdminMenu;
 import com.cloudpaas.admin.vo.AdminMenuTreeVo;
 import com.cloudpaas.common.constants.CommonConstants;
@@ -36,7 +36,7 @@ import io.swagger.annotations.Api;
 @Api
 @RestController
 @RequestMapping("menu")
-public class AdminMenuController extends BaseController<AdminMenuDao,AdminMenu> {
+public class AdminMenuController extends BaseController<AdminMenuBiz,AdminMenu> {
 
 	//@Autowired
 	//private AdminMenuDao adminMenuDao;

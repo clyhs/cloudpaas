@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.cloudpaas.common.base.dao.BaseDao;
+import com.cloudpaas.common.base.biz.ABaseBiz;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.result.PageResponse;
@@ -31,7 +31,7 @@ import com.cloudpaas.common.utils.Query;
  *
  * @date 2019年8月8日 下午6:40:59
  */
-public abstract class BaseController<Dao extends BaseDao,T> {
+public abstract class BaseController<Dao extends ABaseBiz,T> {
 	
 	protected Logger log = LoggerFactory.getLogger(getClass());
 	

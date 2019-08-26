@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.common.base.dao;
+package com.cloudpaas.common.base.biz;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -24,7 +24,7 @@ import tk.mybatis.mapper.entity.Example;
  *
  * @date 2019年7月26日 下午2:32:29
  */
-public abstract class BaseDao<M extends Mapper<T>, T> {
+public abstract class ABaseBiz<M extends Mapper<T>, T> {
 	
 	@Autowired
     protected M mapper;

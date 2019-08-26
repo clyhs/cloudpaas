@@ -29,7 +29,7 @@ import java.util.Map;
 public class TxAdviceInterceptor {
 
     private static final int TX_METHOD_TIMEOUT = 5;
-    private static final String AOP_POINTCUT_EXPRESSION = "execution (* com.cloudpaas..dao.*.*(..))";
+    private static final String AOP_POINTCUT_EXPRESSION = "execution (* com.cloudpaas..biz.*.*(..))";
     @Autowired
     private PlatformTransactionManager transactionManager;
 

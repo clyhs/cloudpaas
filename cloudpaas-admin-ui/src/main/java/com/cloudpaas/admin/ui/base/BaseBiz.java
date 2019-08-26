@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.alibaba.fastjson.JSON;
+import com.cloudpaas.admin.ui.prop.AdminUIProperites;
 import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.common.result.ObjectResponse;
@@ -36,7 +37,7 @@ import com.cloudpaas.common.utils.JSONUtil;
  *
  * @date 2019年8月14日 下午8:17:46
  */
-public class BaseBiz<T> implements BaseBizService<T>{
+public abstract class BaseBiz<T> implements IBaseBiz<T>{
 	
 	private Logger log = LoggerFactory.getLogger(getClass());
 
@@ -45,15 +46,35 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	@Autowired
 	protected RestTemplate restTemplate;
 	
+	@Autowired
+	protected AdminUIProperites auiProp;
+	
+	
+	
+	
 	
 	protected HttpHeaders getHttpHeaders(){
 		headers = new HttpHeaders();
         headers.add("Content-Type", "application/json;charset=utf-8");
         headers.add("Accept", "application/json");
+        headers.add("X-Request-sId", getXRequestSID());
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         return headers;
 	}
 	
+	private String getXRequestSID(){
+		return getSID();
+	}
+	
+	protected String getBaseUrl(){
+		if("header".equals(auiProp.getType())){
+			return auiProp.getApiUrl();
+		}else if("path".equals(auiProp.getType())){
+			return auiProp.getApiUrl()+"/"+getSID();
+		}else{
+			return auiProp.getApiUrl();
+		}
+	}
 	
 	/**
 	 * 取得T的clazz
@@ -68,7 +89,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	public ObjectResponse<T> add(T t,String url){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
-		ObjectResponse<T> result = restTemplate.exchange(url, 
+		ObjectResponse<T> result = restTemplate.exchange(getBaseUrl()+url, 
 				HttpMethod.POST, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -81,7 +102,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	public PageResponse<T> all(String url){
 		ParameterizedTypeReference<PageResponse<T>> responseBodyType = new ParameterizedTypeReference<PageResponse<T>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		PageResponse<T> result = restTemplate.exchange(url, 
+		PageResponse<T> result = restTemplate.exchange(getBaseUrl()+url, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -105,7 +126,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 				urlparams.add(key, value);
 			}
 		}
-		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url).queryParams(urlparams);
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(getBaseUrl()+url).queryParams(urlparams);
 		//解决中文转码问题
 		UriComponents uriComponents = builder.build().encode();
 		
@@ -123,7 +144,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	public ObjectResponse<T> deleteBatch(List<T> lists,String url){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<List<T>> httpEntity = new HttpEntity<>(lists,getHttpHeaders());
-		ObjectResponse<T> result = restTemplate.exchange(url, 
+		ObjectResponse<T> result = restTemplate.exchange(auiProp.getApiUrl()+url, 
 				HttpMethod.DELETE, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -139,7 +160,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	public ObjectResponse<T> update(T t,Integer id,String url){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
-		ObjectResponse<T> result = restTemplate.exchange(url+id, 
+		ObjectResponse<T> result = restTemplate.exchange(getBaseUrl()+url+id, 
 				HttpMethod.PUT, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -154,7 +175,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	public ObjectResponse<T> remove(Integer id,String url){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectResponse<T> result = restTemplate.exchange(url+id, 
+		ObjectResponse<T> result = restTemplate.exchange(getBaseUrl()+url+id, 
 				HttpMethod.DELETE, httpEntity, responseBodyType)
 				.getBody();
 		return result;
@@ -171,7 +192,7 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	public T get(Integer id,String url){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectResponse<T> result = restTemplate.exchange(url+id, 
+		ObjectResponse<T> result = restTemplate.exchange(getBaseUrl()+url+id, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 	
@@ -193,13 +214,15 @@ public class BaseBiz<T> implements BaseBizService<T>{
 	public T get(T t,String url){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
-		ObjectResponse<T> result = restTemplate.exchange(url, 
+		ObjectResponse<T> result = restTemplate.exchange(getBaseUrl()+url, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		//这里没法对对象进行自动转换，借助JSONUtil将map转为T
 		T entity = JSON.parseObject( JSON.toJSONString(result.getData()) ,getTClass());
 		return entity;
 	}
+	
+	public abstract String getSID();
 	
 	//public abstract String getEntityByIDUrl();
 }

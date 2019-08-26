@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.cloudpaas.admin.ui.base.BaseBiz;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
+import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
-import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectResponse;
 
@@ -29,19 +29,14 @@ public class UserBiz extends BaseBiz<User>{
 		User user = new User();
 		user.setUsername(username);
 		HttpEntity<User> httpEntity = new HttpEntity<>(user,getHttpHeaders());
-		ObjectResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SELECTONE_URL, 
-				HttpMethod.GET, httpEntity, responseBodyType)
-				.getBody();
+		ObjectResponse<User> result =  restTemplate.exchange(getBaseUrl()+ApiConstants.API_USER_SELECTONE_URL, 
+				HttpMethod.GET, httpEntity, responseBodyType).getBody();
 		User entity =  result.getData();
 		return entity;
 	}
 	
 	public ObjectResponse addUser(User user){
-		ParameterizedTypeReference<ObjectResponse<User>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<User>>() {};
-		HttpEntity<User> httpEntity = new HttpEntity<>(user,getHttpHeaders());
-		ObjectResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_ADD_URL, 
-				HttpMethod.POST, httpEntity, responseBodyType)
-				.getBody();
+		ObjectResponse<User> result = super.add(user, ApiConstants.API_USER_ADD_URL);
 		return result;
 	}
 	
@@ -53,11 +48,20 @@ public class UserBiz extends BaseBiz<User>{
 	public User getUserByID(Integer id){
 		ParameterizedTypeReference<ObjectResponse<User>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<User>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
-		ObjectResponse<User> result = RestTemplateUtils.exchange(ApiConstants.API_USER_SINGLE_URL+id, 
+		ObjectResponse<User> result = restTemplate.exchange(getBaseUrl()+ApiConstants.API_USER_SINGLE_URL+id, 
 				HttpMethod.GET, httpEntity, responseBodyType)
 				.getBody();
 		User entity =  result.getData();
 		return entity;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.BaseBiz#getSID()
+	 */
+	@Override
+	public String getSID() {
+		// TODO Auto-generated method stub
+		return CommonConstants.ADMIN_SERVICE_ID;
 	}
 
 

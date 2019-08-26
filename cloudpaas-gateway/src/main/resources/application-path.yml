@@ -1,0 +1,92 @@
+#添加到注册中心eureka server
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+
+# 打开健康检查，2.0开始，actuator默认不开放，所以要设置为开发
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+
+server:
+  port: 8100
+  servlet:
+    context-path: /api/
+  tomcat: 
+    uri-encoding: UTF-8
+  
+spring:
+  profiles: path
+  application:
+    name: cpaas-gateway
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  cloud:       #设置网关
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lowerCaseServiceId: true
+      routes:
+      - id: cpaas-admin
+        uri: lb://CPAAS-ADMIN
+        order: 8000
+        predicates:
+          - Path=/api/admin/**
+        filters:
+          - StripPrefix=2
+      - id: cpaas-service-pas
+        uri: lb://CPAAS-SERVICE-PAS
+        order: 8001
+        predicates:
+          - Path=/api/pas/**
+        filters:
+          - StripPrefix=2
+  boot:         #添加到springbootadmin服务治理
+    admin:
+      client:
+        url: "http://localhost:8901"
+        password: password
+        username: user
+        instance:
+          prefer-ip: true
+  zipkin:       #添加到链路追踪
+    base-url: http://localhost:8902
+  sleuth:       #打开日志收集
+    enabled: true
+    http:
+      legacy:
+        enabled: true
+
+#请求和响应GZIP压缩支持
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: true
+
+

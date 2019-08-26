@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.cloudpaas.admin.dao.AdminUserDao;
 import com.cloudpaas.admin.model.JwtRequest;
 import com.cloudpaas.admin.model.JwtResponse;
 import com.cloudpaas.common.config.JwtConfig;
@@ -32,7 +31,7 @@ public class AdminAuthBiz {
 	private int expire = 2*60*60;
 
 	@Autowired
-	private AdminUserDao adminUserDao;
+	private AdminUserBiz adminUserDao;
 	@Autowired
 	private JwtConfig jwtConfig;
 	/**

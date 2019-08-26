@@ -68,7 +68,8 @@ public class AccessGatewayFilter implements GlobalFilter {
             }
         }
 		log.debug("requestUri:{}",requestUri);
-		
+		ServerHttpRequest.Builder mutate = request.mutate();
+		/*
 		IJWTInfo user = null;
 		ServerHttpRequest.Builder mutate = request.mutate();
 		try {
@@ -77,7 +78,7 @@ public class AccessGatewayFilter implements GlobalFilter {
             log.error("用户Token过期异常", e);
             return getVoidMono(exchange, new BaseResponse(ErrorCode.TOKENEX.getCode(),ErrorCode.TOKENEX.getDesc()));
         }
-		
+		*/
 		
 		ServerHttpRequest build = mutate.build();
 		

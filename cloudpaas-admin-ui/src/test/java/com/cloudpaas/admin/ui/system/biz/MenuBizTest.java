@@ -25,6 +25,7 @@ import com.alibaba.fastjson.JSON;
 import com.cloudpaas.admin.ui.AdminUIApplication;
 import com.cloudpaas.admin.ui.base.BaseBiz;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
+import com.cloudpaas.admin.ui.constants.CommonConstants;
 import com.cloudpaas.admin.ui.utils.RestTemplateUtils;
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.User;
@@ -95,6 +96,15 @@ public class MenuBizTest extends BaseBiz<Menu>{
 		
 		System.out.println(JSON.toJSONString(menu));
 		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloudpaas.admin.ui.base.BaseBiz#getSID()
+	 */
+	@Override
+	public String getSID() {
+		// TODO Auto-generated method stub
+		return CommonConstants.ADMIN_SERVICE_ID;
 	}
 
 }

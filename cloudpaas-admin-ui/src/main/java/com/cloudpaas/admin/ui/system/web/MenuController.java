@@ -36,8 +36,7 @@ import com.sun.tools.javac.util.Log;
 @Controller
 @RequestMapping("menu")
 public class MenuController extends UISimpleController<MenuBiz,Menu>{
-	@Autowired
-	private MenuBiz menuBiz;
+
 	
 	@RequestMapping("/index.html")
 	public String index(){
@@ -48,7 +47,7 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 	@ResponseBody
 	public List<MenuTreeVo> getMenuTrees(){
 		List<MenuTreeVo> trees = new ArrayList<MenuTreeVo>();
-		trees = menuBiz.getMenuTree();
+		trees = baseBiz.getMenuTree();
 		return trees;
 	}
 	
@@ -56,7 +55,7 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 	public String add(@RequestParam(value = "pId",required = false) String pId, ModelMap modelMap){
 	    log.debug("menu pid:{}",pId);
 		if(pId != null){
-            Menu menu = menuBiz.get(Integer.valueOf(pId), ApiConstants.API_MENU_SINGLE_URL);
+            Menu menu = baseBiz.get(Integer.valueOf(pId), ApiConstants.API_MENU_SINGLE_URL);
             modelMap.put("parentMenu",menu);
         }
 		return "admin/layui/system/menuAdd";
@@ -64,7 +63,7 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 	
 	@RequestMapping("/edit.html")
 	public String edit(@RequestParam Integer id,ModelMap modelMap){
-		Menu menu = menuBiz.get(id, ApiConstants.API_MENU_SINGLE_URL);
+		Menu menu = baseBiz.get(id, ApiConstants.API_MENU_SINGLE_URL);
 		modelMap.put("menu", menu);
 		return "admin/layui/system/menuEdit";
 	}

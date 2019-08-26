@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cloudpaas.common.mybatis.DataSource;
 import com.cloudpaas.common.mybatis.DataSourceContextHolder;
 import com.cloudpaas.service.pas.mapper.PasUserMapper;
-import com.cloudpaas.common.base.dao.BaseDao;
+import com.cloudpaas.common.base.biz.ABaseBiz;
 import com.cloudpaas.common.model.User;
 
 /**
@@ -23,7 +23,7 @@ import com.cloudpaas.common.model.User;
  * @date 2019年8月2日 下午2:40:31
  */
 @Repository
-public class PasUserDao extends BaseDao<PasUserMapper,User>{
+public class PasUserDao extends ABaseBiz<PasUserMapper,User>{
 	
 	private static Logger log = LoggerFactory.getLogger(PasUserDao.class);
 

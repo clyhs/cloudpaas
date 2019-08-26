@@ -22,7 +22,7 @@ import com.cloudpaas.gateway.callback.UserServiceFallback;
 @FeignClient(value = "cpaas-admin",fallback = UserServiceFallback.class)
 public interface IUserService {
 	
-	@RequestMapping(value="/admin/auth/info.json",method = RequestMethod.GET)
+	@RequestMapping(value="/auth/info.json",method = RequestMethod.GET)
 	JWTInfo getInfo(@RequestParam String token);
 
 }

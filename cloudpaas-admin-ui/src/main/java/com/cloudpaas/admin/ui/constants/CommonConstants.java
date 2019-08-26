@@ -11,4 +11,7 @@ package com.cloudpaas.admin.ui.constants;
 public class CommonConstants {
 
 	public static final String USER_SESSION_ID = "currentUser";
+	
+	public static final String ADMIN_SERVICE_ID="admin";
+	public static final String PAS_SERVICE_ID = "pas";
 }

@@ -10,7 +10,7 @@
         <!--这个输出控制台的配置-->
         <console name="Console" target="SYSTEM_OUT">
             <!--输出日志的格式-->
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n"/>
         </console>
         <!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试用-->
         <!--<File name="log" fileName="log/test.log" append="false">
@@ -18,14 +18,14 @@
         </File>-->
         <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，
         则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
-        <RollingFile name="RollingFileDebug" fileName="${sys:user.home}/logs/cloudpaas-admin/debug.log"
+        <RollingFile name="RollingFileDebug" fileName="${sys:user.home}/logs/cloudpaas-service-pas/debug.log"
                      filePattern="${sys:user.home}/logs/spring-boot-log4j2/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log">
             <Filters>
                 <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
                 <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
                 <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
@@ -37,27 +37,27 @@
                 因为经过ThresholdFilter的时候，如果有匹配项，则直接打印日志了，所以需要把高等级的日志级别放在前面
                 并且，onMatch属性设置为DENY，过滤掉高等级的日志；onMismatch设置为NEUTRAL，把低等级的日志放行，
                 到我们想要的级别后，onMache设为ACCEPT，获取到日志，并onMismatch设置为DENY，丢弃低等级日志，并执行结束-->
-        <RollingFile name="RollingFileInfo" fileName="${sys:user.home}/logs/cloudpaas-admin/info.log"
+        <RollingFile name="RollingFileInfo" fileName="${sys:user.home}/logs/cloudpaas-service-pas/info.log"
                      filePattern="${sys:user.home}/logs/spring-boot-log4j2/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
             <Filters>
                 <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
                 <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
                 <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
         </RollingFile>
 
-        <RollingFile name="RollingFileWarn" fileName="${sys:user.home}/logs/cloudpaas-admin/warn.log"
+        <RollingFile name="RollingFileWarn" fileName="${sys:user.home}/logs/cloudpaas-service-pas/warn.log"
                      filePattern="${sys:user.home}/logs/spring-boot-log4j2/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
             <Filters>
                 <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
                 <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
@@ -66,10 +66,10 @@
             <DefaultRolloverStrategy max="20"/>
         </RollingFile>
 
-        <RollingFile name="RollingFileError" fileName="${sys:user.home}/logs/cloudpaas-admin/error.log"
+        <RollingFile name="RollingFileError" fileName="${sys:user.home}/logs/cloudpaas-service-pas/error.log"
                      filePattern="${sys:user.home}/logs/spring-boot-log4j2/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
             <ThresholdFilter level="ERROR"/>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
@@ -81,16 +81,59 @@
     <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
     <loggers>
         <!--过滤掉spring和hibernate的一些无用的debug信息-->
-        <logger name="org.springframework" level="INFO">
+        <logger name="org.springframework" level="info">
         </logger>
-        <logger name="org.mybatis" level="INFO">
+        <logger name="org.mybatis" level="info">
         </logger>
-        <Logger name="com.cloudpaas.admin" level="INFO" >
-        </Logger>
-        
-        <Logger name="com.cloudpaas.common" level="DEBUG" >
-        </Logger>
-        <root level="all">
+        <!-- 第三方日志系统 -->
+		<logger name="org.springframework.core" level="info" />
+		<logger name="org.springframework.beans" level="info" />
+		<logger name="org.springframework.context" level="info" />
+		<logger name="org.springframework.web" level="info" />
+		<logger name="org.jboss.netty" level="warn" />
+		<logger name="org.apache.http" level="warn" />
+		<logger name="org.hibernate" level="info" />
+		<logger name="com.alibaba.druid" level="info" />
+		
+		<!-- druid配置 -->
+        <logger name="druid.sql.Statement" level="info" additivity="false">
+            <appender-ref ref="Console" />
+        </logger>
+        <logger name="druid.sql.ResultSet" level="info" additivity="false">
+            <appender-ref ref="Console" />
+        </logger>
+        <logger name="druid.sql.DataSource" level="info" additivity="false">
+            <appender-ref ref="Console" />
+        </logger>
+ 
+        <logger name="druid.sql.Statement" level="info" additivity="false">
+            <appender-ref ref="Console" />
+        </logger>
+        <logger name="druid.sql.Statement" level="info" additivity="false">
+            <appender-ref ref="Console" />
+        </logger>
+        <logger name="java.sql.Connection" level="info" />
+        <logger name="java.sql.Statement" level="info" />
+        <logger name="java.sql.PreparedStatement" level="info" />
+        <logger name="java.sql.ResultSet" level="info" />
+        <logger name="java.sql.PreparedStatement" level="info" />
+ 
+ 		<logger name="log4j.logger.java.sql.Connection" level="info"
+            additivity="true">
+        </logger>
+        <logger name="log4j.logger.java.sql.Statement" level="info"
+            additivity="true">
+        </logger>
+        <logger name="log4j.logger.java.sql.PreparedStatement" level="info"
+            additivity="true">
+        </logger>
+        <logger name="log4j.logger.java.sql.ResultSet" level="info"
+            additivity="true">
+        </logger>
+		
+		
+		
+        <root level="info">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFileDebug"/>
             <appender-ref ref="RollingFileInfo"/>
@@ -99,6 +142,5 @@
         </root>
     </loggers>
 
-    <!-- ps: test3 这种配置的最终表现形式为 在test2的基础上，实现包级别的细化 -->
 
 </configuration>

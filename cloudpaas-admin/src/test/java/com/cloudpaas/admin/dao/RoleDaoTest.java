@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cloudpaas.admin.AdminApplication;
+import com.cloudpaas.admin.biz.AdminRoleBiz;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.Role;
 
@@ -27,7 +28,7 @@ import junit.framework.TestCase;
 public class RoleDaoTest {
 	
 	@Autowired
-	AdminRoleDao ard;
+	AdminRoleBiz ard;
 	
 	@Test
 	public void selectAll(){
