@@ -88,5 +88,6 @@ feign:
       min-request-size: 2048
     response:
       enabled: true
-
+jwt:
+  ignore: /api/auth
 

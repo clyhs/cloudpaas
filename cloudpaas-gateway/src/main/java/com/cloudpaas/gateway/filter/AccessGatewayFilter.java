@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
@@ -46,6 +47,9 @@ public class AccessGatewayFilter implements GlobalFilter {
 	IUserService userService;
 	
 	private static final String GATE_WAY_PREFIX = "/api";
+	
+	@Value("${jwt.ignore}")
+    private String startWith;
 
 	/* (non-Javadoc)
 	 * @see org.springframework.cloud.gateway.filter.GlobalFilter#filter(org.springframework.web.server.ServerWebExchange, org.springframework.cloud.gateway.filter.GatewayFilterChain)
@@ -67,28 +71,28 @@ public class AccessGatewayFilter implements GlobalFilter {
                 }
             }
         }
-		log.debug("requestUri:{}",requestUri);
+		log.info("***************requestUri:{}",requestUri);
 		ServerHttpRequest.Builder mutate = request.mutate();
 		
-//		// 不进行拦截的地址
-//        if (isStartWith(requestUri)) {
-//            ServerHttpRequest build = mutate.build();
-//            return gatewayFilterChain.filter(serverWebExchange.mutate().request(build).build());
-//        }
-		/*
-		IJWTInfo user = null;
-		ServerHttpRequest.Builder mutate = request.mutate();
-		try {
+		// 不进行拦截的地址
+        if (isStartWith(requestUri)) {
+        	log.info("*****************requestUri:{}不需要验证",requestUri);
+            ServerHttpRequest build = mutate.build();
+            return chain.filter(exchange.mutate().request(build).build());
+        }
+        
+        IJWTInfo user = null;
+    	try {
             user = getJWTUser(request, mutate);
         } catch (Exception e) {
             log.error("用户Token过期异常", e);
             return getVoidMono(exchange, new BaseResponse(ErrorCode.TOKENEX.getCode(),ErrorCode.TOKENEX.getDesc()));
         }
-		*/
+    	log.info("requestUri:{}验证通过",requestUri);
+	
+        ServerHttpRequest build = mutate.build();
+    	return chain.filter(exchange.mutate().request(build).build());
 		
-		ServerHttpRequest build = mutate.build();
-		
-		return chain.filter(exchange.mutate().request(build).build());
 	}
 	
 	/**
@@ -125,6 +129,17 @@ public class AccessGatewayFilter implements GlobalFilter {
         byte[] bytes = JSONObject.toJSONString(body).getBytes(StandardCharsets.UTF_8);
         DataBuffer buffer = serverWebExchange.getResponse().bufferFactory().wrap(bytes);
         return serverWebExchange.getResponse().writeWith(Flux.just(buffer));
+    }
+    
+    private boolean isStartWith(String requestUri) {
+        boolean flag = false;
+        for (String s : startWith.split(",")) {
+        	log.info("s:{}",s);
+            if (requestUri.startsWith(s)) {
+                return true;
+            }
+        }
+        return flag;
     }
 
 }
