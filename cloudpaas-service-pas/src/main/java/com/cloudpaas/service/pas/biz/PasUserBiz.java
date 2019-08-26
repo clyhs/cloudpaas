@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.service.pas.dao;
+package com.cloudpaas.service.pas.biz;
 
 import java.util.List;
 
@@ -23,9 +23,9 @@ import com.cloudpaas.common.model.User;
  * @date 2019年8月2日 下午2:40:31
  */
 @Repository
-public class PasUserDao extends ABaseBiz<PasUserMapper,User>{
+public class PasUserBiz extends ABaseBiz<PasUserMapper,User>{
 	
-	private static Logger log = LoggerFactory.getLogger(PasUserDao.class);
+	private static Logger log = LoggerFactory.getLogger(PasUserBiz.class);
 
 //	@Autowired
 //	private PasUserMapper userMapper;

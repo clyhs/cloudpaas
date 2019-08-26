@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cloudpaas.service.pas.dao.PasUserDao;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.properties.MultiDataSourceProperties;
+import com.cloudpaas.service.pas.biz.PasUserBiz;
 
 import io.swagger.annotations.Api;
 
@@ -33,7 +33,7 @@ public class PasUserController {
 	private static Logger log = LoggerFactory.getLogger(PasUserController.class);
 
 	@Autowired
-	private PasUserDao userDao;
+	private PasUserBiz userDao;
 	
 
 	@Autowired
