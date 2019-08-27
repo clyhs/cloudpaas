@@ -12,4 +12,43 @@
 * cloudpaas-admin 基础鉴权模块
 * cloudpaas-service-pas 服务模块
 * cloudpaas-admin-ui 前端-基础管理平台
+
+*端口：8888，打包mvn package -DskipTests docker:build*
+
 * cloudpaas-all 后端服务打成单机包
+
+*端口：8200，打包mvn package docker:build*
+
+### 启动
+
+> 单机模式
+
+启动顺序 cloudpaas-all --> cloudpaas-admin-ui
+
+通过docker打包这两包
+
+下面以docker 启动
+
+```
+#cloudpaas-all启动
+docker run -d --name cpaas-all -p 8200:8200 cloudpaas-all/cloudpaas-all
+#cloudpaas-admin-ui
+docker run -d --name cpaas-admin-ui -p 8888:8080 cloudpaas-admin-ui/cloud-admin-ui
+```
+
+> 分布式集群模式
+
+启动顺序 cloudpaas-regcenter --> cloudpaas-admin --> cloudpaas-service-pas --> cloudpaas-gateway --> cloudpaas-admin-ui
+
+```
+#cloudpaas-regcenter
+docker run -d --name cpaas-regcenter -p 8761:8761 cloudpaas-regcenter/cloudpaas-regcenter
+#cloudpaas-admin
+docker run -d --name cpaas-regcenter -p 8761:8761 cloudpaas-regcenter/cloudpaas-regcenter
+```
+
+
+
+### 访问界面
+
+http://localhost:8888/adminui/login.html
