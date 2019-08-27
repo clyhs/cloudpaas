@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : localhost
 Source Server Version : 50723
 Source Host           : localhost:3306
-Source Database       : cpaas_admin_db
+Source Database       : dn1
 
 Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2019-08-27 10:18:05
+Date: 2019-08-27 10:20:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,33 +24,17 @@ CREATE TABLE `t_menu` (
   `title` varchar(200) NOT NULL,
   `url` varchar(500) NOT NULL,
   `icon` varchar(100) DEFAULT NULL,
-  `sort` int(5) DEFAULT NULL,
+  `order` int(5) DEFAULT NULL,
   `remark` varchar(500) DEFAULT NULL,
   `pid` int(11) DEFAULT NULL,
   `level` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
-  `type` int(1) DEFAULT NULL,
-  `is_show` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_menu
 -- ----------------------------
-INSERT INTO `t_menu` VALUES ('1', '权限管理', '#', 'fa fa-home', '200', null, '-1', '1', '2019-08-13 15:31:51', '1', '1');
-INSERT INTO `t_menu` VALUES ('2', '用户管理', '/user/index.html', 'fa fa-tachometer', '100', null, '1', '2', '2019-08-13 15:32:50', '2', '1');
-INSERT INTO `t_menu` VALUES ('3', '菜单管理', '/menu/index.html', 'fa fa-tachometer', '200', null, '1', '2', '2019-08-13 15:33:40', '2', '1');
-INSERT INTO `t_menu` VALUES ('4', '角色管理', '/role/index.html', 'fa fa-tachometer', '300', null, '1', '2', '2019-08-13 15:34:11', '2', '1');
-INSERT INTO `t_menu` VALUES ('5', '系统管理', '#', 'fa fa-snowflake-o', '100', null, '-1', '1', '2019-08-13 15:35:16', '1', '1');
-INSERT INTO `t_menu` VALUES ('6', '系统配置', '/menu/index.html', 'fa fa-tachometer', '100', null, '5', '2', '2019-08-13 15:36:13', '2', '1');
-INSERT INTO `t_menu` VALUES ('13', '测试目录', '#', 'layui-icon layui-icon-note', '300', null, '-1', '1', '2019-08-20 00:00:00', '1', '1');
-INSERT INTO `t_menu` VALUES ('14', '测试菜单', '/icon.html', 'layui-icon layui-icon-auz', '100', null, '13', '2', '2019-08-20 00:00:00', '2', '1');
-INSERT INTO `t_menu` VALUES ('15', '添加', 'add', 'layui-icon layui-icon-add-circle', '100', null, '14', '3', '2019-08-20 00:00:00', '3', '0');
-INSERT INTO `t_menu` VALUES ('16', '修改', 'edit', 'layui-icon layui-icon-login-wechat', '200', null, '14', '3', '2019-08-20 00:00:00', '3', '0');
-INSERT INTO `t_menu` VALUES ('17', '二级目录', '#', 'layui-icon layui-icon-flag', '100', null, '13', '2', '2019-08-20 00:00:00', '1', '1');
-INSERT INTO `t_menu` VALUES ('18', '测试连接', '/icon.html', 'layui-icon layui-icon-auz', '100', null, '17', '3', '2019-08-20 00:00:00', '2', '1');
-INSERT INTO `t_menu` VALUES ('20', '测试链接2', '/icon.html', 'layui-icon layui-icon-face-surprised', '200', null, '17', '3', '2019-08-20 00:00:00', '2', '1');
-INSERT INTO `t_menu` VALUES ('21', '添加', 'add', 'layui-icon layui-icon-add-1', '100', null, '20', '4', '2019-08-20 00:00:00', '3', '0');
 
 -- ----------------------------
 -- Table structure for `t_org`
@@ -97,16 +81,11 @@ CREATE TABLE `t_role` (
   `create_time` datetime DEFAULT NULL,
   `remark` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_role
 -- ----------------------------
-INSERT INTO `t_role` VALUES ('1', 'ROLE_SUPER_ADMIN', '超级管理员', '2019-08-14 14:17:50', '拥有全部权限');
-INSERT INTO `t_role` VALUES ('2', 'ROLE_USER', '普通用户', '2019-08-14 14:20:11', null);
-INSERT INTO `t_role` VALUES ('3', 'ROLE_ADMIN', '普通管理员', '2019-08-14 14:20:40', '只拥有部分权限');
-INSERT INTO `t_role` VALUES ('47', 'ROLE_TEST', '测试', '2019-08-23 17:08:01', 'test');
-INSERT INTO `t_role` VALUES ('48', 'ROLE_TEST2', '测试2', '2019-08-23 17:08:15', 'test44');
 
 -- ----------------------------
 -- Table structure for `t_role_menu`
@@ -134,21 +113,20 @@ CREATE TABLE `t_user` (
   `tel` varchar(11) DEFAULT NULL,
   `sex` int(1) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
-  `corp_id` int(11) DEFAULT NULL,
-  `salt` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1', 'admin', '02371755596ff098ccf339adbd781e52', 'admin', '20', null, '1', '2019-08-13 16:21:21', '1', 'Zzfg7mgx/pC/8Wv8lV7+eQ==');
-INSERT INTO `t_user` VALUES ('2', 'zhangsan', '123456', '张三', '18', '138', '2', '2019-08-14 11:51:45', '2', null);
-INSERT INTO `t_user` VALUES ('3', 'lishi', '123456', '李四', '19', '139', '1', '2019-08-14 11:52:12', '1', null);
-INSERT INTO `t_user` VALUES ('4', 'wangwu', '123456', '王五', '25', null, '0', '2019-08-14 11:52:46', '1', null);
-INSERT INTO `t_user` VALUES ('5', 'test', '456789', '测试', '0', null, '0', '2019-08-14 11:53:09', '1', null);
-INSERT INTO `t_user` VALUES ('6', 'guest', '123456', '访客', '99', null, '0', '2019-08-14 11:53:39', '1', null);
-INSERT INTO `t_user` VALUES ('12', 'bbb', '88ca2892756100b73a8c02332371a4ac', '测试', '19', '1390', '0', '2019-08-21 14:53:52', null, 'Qk0pvu9o1GCYmfQLOoKcEg==');
+INSERT INTO `t_user` VALUES ('1', null, null, '111', '1', null, null, null);
+INSERT INTO `t_user` VALUES ('2', null, null, '222', '2', null, null, null);
+INSERT INTO `t_user` VALUES ('3', null, null, '333', '3', null, null, null);
+INSERT INTO `t_user` VALUES ('4', null, null, '444', '4', null, null, null);
+INSERT INTO `t_user` VALUES ('5', null, null, '555', '5', null, null, null);
+INSERT INTO `t_user` VALUES ('6', null, null, '666', '6', null, null, null);
+INSERT INTO `t_user` VALUES ('7', null, null, '777', '7', null, null, null);
+INSERT INTO `t_user` VALUES ('8', null, null, 'ccc', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `t_user_org`

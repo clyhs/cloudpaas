@@ -30,9 +30,9 @@ spring:
     druid:
         #监控统计拦截的filters
       - key: dn1
-        url: jdbc:mysql://localhost:3306/cpaas_admin_db?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+        url: jdbc:mysql://192.168.0.7:3306/cpaas_admin_db?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
         username: root
-        password: root
+        password: tiancom
         driver-class-name: com.mysql.jdbc.Driver
         minIdle: 1
         maxActive: 2
@@ -59,7 +59,7 @@ spring:
       #哨兵监听的master名称
       master: mymaster
       #哨兵地址列表，多个以,分割
-      nodes: 127.0.0.1:26001,127.0.0.1:26002,127.0.0.1:26003
+      nodes: 192.168.0.7:26000,192.168.0.7:26001,192.168.0.16:26000
     lettuce:
       pool:
         max-active:  100 # 连接池最大连接数（使用负值表示没有限制）
