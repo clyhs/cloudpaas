@@ -6,7 +6,7 @@ eureka:
   client:
     registryFetchIntervalSeconds: 5
     serviceUrl:
-      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+      defaultZone: ${EUREKA_SERVICE_URL:http://192.168.0.16:8761}/eureka/
 
 # 打开健康检查，2.0开始，actuator默认不开放，所以要设置为开发
 management:
