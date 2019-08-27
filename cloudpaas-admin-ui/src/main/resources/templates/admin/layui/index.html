@@ -10,7 +10,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
-	<link rel="icon" href="/static/favicon.ico">
+	<link rel="icon" th:href="@{/static/favicon.ico}">
 	<link rel="stylesheet"  th:href="@{/static/layui/layui/css/layui.css}" media="all" />
 	<link rel="stylesheet"  th:href="@{/static/font-awesome/css/font-awesome.min.css}" media="all">
 	<link rel="stylesheet"  th:href="@{/static/layui/css/index.css}" media="all" />
@@ -24,7 +24,7 @@
 	    <div class="layui-header header">
 	        <div class="layui-logo">
 	            <a th:href="@{#}">
-	            	<img th:src="@{/static/layui/images/person.jpg}" alt="logo" />
+	            	<img th:src="@{/static/layui/images/logo.png}" alt="logo" />
 	            	<h1>基础后台管理</h1>
 	            </a>
 	        </div>
@@ -78,7 +78,7 @@
 	    <div class="layui-body">
 	        <div class="layui-tab" lay-filter="layuiminiTab" id="top_tabs_box">
 	            <ul class="layui-tab-title" id="top_tabs">
-	                <li class="layui-this" id="layuiminiHomeTabId" lay-id="/main/hello.html?mpi=m-p-i-0">
+	                <li class="layui-this" id="layuiminiHomeTabId" lay-id="">
 	                    <i class="fa fa-home"></i><span>首页</span>
 	                </li>
 	            </ul>

@@ -16,7 +16,7 @@ layui.config({
 		var loadIndex = layer.load(2, {
 	         shade: [0.3, '#333']
 	     });
-		layer.msg('退出登录成功', function() {
+		layer.msg('退出登录成功', {time:1000},function() {
 			layer.close(loadIndex);
 			window.location = $config.context+'/loginout.html';
 		});

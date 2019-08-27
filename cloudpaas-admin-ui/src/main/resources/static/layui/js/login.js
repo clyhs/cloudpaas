@@ -46,12 +46,12 @@ layui.config({
 	    $.post($config.context+"/login.json",params,function(res,status){
 	    	layer.close(loadIndex);
             if(res.code==0){
-            	layer.msg('登录成功', function () {
+            	layer.msg('登录成功', {time:1000},function () {
         	        window.location = $config.context+'/main/index.html';
         	    });
             }else{
             	
-                layer.msg(res.code+','+res.msg);
+                layer.msg(res.code+','+res.msg,{time:3000});
                 $("#captchaPic").click();
                 
             }

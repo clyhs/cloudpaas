@@ -313,6 +313,14 @@ layui.define(["element", "jquery","tool","api"], function (exports) {
                     menuLeftHover: '#3b3f4b',
                 },
                 {
+                    headerRight: '#1aa094',
+                    headerRightThis: '#197971',
+                    headerLogo: '#197971',
+                    menuLeft: '#2f4056',
+                    menuLeftThis: '#1aa094',
+                    menuLeftHover: '#3b3f4b',
+                },
+                {
                     headerRight: '#ffa4d1',
                     headerRightThis: '#bf7b9d',
                     headerLogo: '#e694bd',
