@@ -47,6 +47,8 @@ docker run -d --name cpaas-regcenter -p 8761:8761 cloudpaas-regcenter/cloudpaas-
 docker run -d --name cpaas-admin -p 8101:8101 cloudpaas-admin/cloudpaas-admin
 #cloudpaas-service-pas
 docker run -d --name cpaas-service-pas -p 8102:8102 cloudpaas-service-pas/cloudpaas-service-pas
+#cloudpaas-gateway
+docker run -d --name cpaas-gateway -p 8100:8100 cloudpaas-gateway/cloudpaas-gateway
 ```
 
 
