@@ -1,4 +1,4 @@
-FROM tomcat
+FROM tomcat:8.5
 
 MAINTAINER 大鱼
 
