@@ -21,7 +21,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"  #<2>
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
   endpoint:
     health:
       show-details: ALWAYS
