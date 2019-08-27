@@ -10,6 +10,7 @@ eureka:   #<1>
   instance:
     leaseRenewalIntervalInSeconds: 10
     health-check-url-path: /actuator/health #2.0后actuator的地址发生了变化
+    prefer-ip-address: true  
   client:
     registryFetchIntervalSeconds: 5
     serviceUrl:
