@@ -48,7 +48,7 @@ spring:
   boot:          #添加到springbootadmin服务治理
     admin:
       client:
-        url: "http://localhost:8901"
+        url: ${MONITOR_URL:http://localhost:8901}
         password: password
         username: user
         instance:
@@ -125,7 +125,7 @@ spring:
         max-wait: 6000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
     timeout: 1000
   zipkin:        #添加到链路追踪
-    base-url: http://localhost:8902
+    base-url: ${TRACE_URL:http://localhost:8902}
   sleuth:        #打开日志收集
     enabled: true
     http:

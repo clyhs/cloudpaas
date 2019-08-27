@@ -6,7 +6,7 @@ eureka:
   client:
     registryFetchIntervalSeconds: 5
     serviceUrl:
-      defaultZone: ${EUREKA_SERVICE_URL:http://192.168.0.16:8761}/eureka/
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
 
 # 打开健康检查，2.0开始，actuator默认不开放，所以要设置为开发
 management:
@@ -48,14 +48,14 @@ spring:
   boot:          #添加到springbootadmin服务治理
     admin:
       client:
-        url: "http://192.168.0.16:8901"
+        url: ${MONITOR_URL:http://localhost:8901}
         password: password
         username: user
         instance:
           prefer-ip: true
-          service-base-url: "http://192.168.0.16:8101"
+          #service-base-url: "http://192.168.0.16:8101"
   zipkin:        #添加到链路追踪
-    base-url: http://192.168.0.16:8902
+    base-url: ${TRACE_URL:http://localhost:8902}
   sleuth:        #打开日志收集
     enabled: true
     http:
