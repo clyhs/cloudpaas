@@ -63,13 +63,13 @@ spring:
   boot:         #添加到springbootadmin服务治理
     admin:
       client:
-        url: "http://localhost:8901"
+        url: "http://192.168.0.16:8901"
         password: password
         username: user
         instance:
           prefer-ip: true
   zipkin:       #添加到链路追踪
-    base-url: http://localhost:8902
+    base-url: http://192.168.0.16:8902
   sleuth:       #打开日志收集
     enabled: true
     http:
@@ -91,5 +91,5 @@ feign:
       enabled: true
 
 jwt:
-  ignore: /admin/auth
+  ignore: /admin/auth,/actuator
 
