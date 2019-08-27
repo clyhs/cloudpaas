@@ -33,8 +33,12 @@
 #cloudpaas-all启动
 docker run -d --name cpaas-all -p 8200:8200 cloudpaas-all/cloudpaas-all
 #cloudpaas-admin-ui
-docker run -d --name cpaas-admin-ui -p 8888:8080 cloudpaas-admin-ui/cloud-admin-ui
+docker run -d --name cpaas-admin-ui -e GATETYPE=header -e GATEPORT=8200 -p 8888:8080 cloudpaas-admin-ui/cloudpaas-admin-ui
 ```
+
+*GATETYPE=header或path，GATEIP=127.0.0.1，GATEPORT=8200。参数可以调整接入的后端服务地址*
+
+
 
 > 分布式集群模式
 
@@ -49,8 +53,10 @@ docker run -d --name cpaas-admin -p 8101:8101 cloudpaas-admin/cloudpaas-admin
 docker run -d --name cpaas-service-pas -p 8102:8102 cloudpaas-service-pas/cloudpaas-service-pas
 #cloudpaas-gateway
 docker run -d --name cpaas-gateway -p 8100:8100 cloudpaas-gateway/cloudpaas-gateway
-#cloudpaas-monitor
+#cloudpaas-monitor(可以不启动)
 docker run -d --name cpaas-monitor -p 8901:8901 cloudpaas-monitor/cloudpaas-monitor
+#cloudpaas-admin-ui
+docker run -d --name cpaas-admin-ui -p 8888:8080 cloudpaas-admin-ui/cloudpaas-admin-ui
 ```
 
 
