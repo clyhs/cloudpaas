@@ -79,19 +79,22 @@ public class AccessGatewayFilter implements GlobalFilter {
         	log.info("*****************requestUri:{}不需要验证",requestUri);
             ServerHttpRequest build = mutate.build();
             return chain.filter(exchange.mutate().request(build).build());
+        }else{
+        	
+        	IJWTInfo user = null;
+        	try {
+                user = getJWTUser(request, mutate);
+            } catch (Exception e) {
+                log.error("用户Token过期异常", e);
+                return getVoidMono(exchange, new BaseResponse(ErrorCode.TOKENEX.getCode(),ErrorCode.TOKENEX.getDesc()));
+            }
+        	log.info("requestUri:{}验证通过",requestUri);
+    	
+            ServerHttpRequest build = mutate.build();
+        	return chain.filter(exchange.mutate().request(build).build());
         }
         
-        IJWTInfo user = null;
-    	try {
-            user = getJWTUser(request, mutate);
-        } catch (Exception e) {
-            log.error("用户Token过期异常", e);
-            return getVoidMono(exchange, new BaseResponse(ErrorCode.TOKENEX.getCode(),ErrorCode.TOKENEX.getDesc()));
-        }
-    	log.info("requestUri:{}验证通过",requestUri);
-	
-        ServerHttpRequest build = mutate.build();
-    	return chain.filter(exchange.mutate().request(build).build());
+        
 		
 	}
 	

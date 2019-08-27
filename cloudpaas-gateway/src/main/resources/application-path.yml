@@ -90,5 +90,5 @@ feign:
       enabled: true
 
 jwt:
-  ignore: /admin/auth,/api/admin/auth
+  ignore: /admin/auth
 

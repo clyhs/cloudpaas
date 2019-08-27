@@ -89,5 +89,5 @@ feign:
     response:
       enabled: true
 jwt:
-  ignore: /api/auth
+  ignore: /auth
 
