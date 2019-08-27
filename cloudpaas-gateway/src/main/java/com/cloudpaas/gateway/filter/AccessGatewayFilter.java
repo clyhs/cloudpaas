@@ -58,7 +58,7 @@ public class AccessGatewayFilter implements GlobalFilter {
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 		// TODO Auto-generated method stub
 		log.info("check token");
-		LinkedHashSet requiredAttribute = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
+		LinkedHashSet<URI> requiredAttribute = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
 		ServerHttpRequest request = exchange.getRequest();
 		String requestUri = request.getPath().pathWithinApplication().value();
 		if (requiredAttribute != null) {
