@@ -38,8 +38,7 @@ import com.cloudpaas.admin.ui.base.ResponseBean;
 import com.cloudpaas.admin.ui.utils.CodeUtil;
 import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.cache.anno.CacheWrite;
-import com.cloudpaas.cache.service.IRedisOService;
-import com.cloudpaas.cache.service.JRedisService;
+import com.cloudpaas.cache.service.IRedisService;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.utils.ErrorCode;
@@ -60,7 +59,7 @@ public class LoginController {
 	private StringRedisTemplate template;
 	
 	@Autowired
-	private IRedisOService redisService;
+	private IRedisService redisService;
 	
 	@Autowired
     private Producer captchaProducer = null;
@@ -142,10 +141,10 @@ public class LoginController {
 	@RequestMapping("/redis2.json")
 	@ResponseBody
 	public String test2(){
-		//template.opsForValue().set("springboot", "hello admin");
-		//return (String) template.opsForValue().get("springboot");
-		redisService.set("springboot", "cloudpaas admin ui");
-		return (String) redisService.get("springboot");
+		template.opsForValue().set("springboot", "hello admin");
+		return (String) template.opsForValue().get("springboot");
+		//redisService.set("springboot", "cloudpaas admin ui");
+		//return (String) redisService.get("springboot");
 	}
 	
 	@RequestMapping("/redis1.json")

@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import com.cloudpaas.cache.service.IRedisOService;
+import com.cloudpaas.cache.service.IRedisService;
 
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 
@@ -23,16 +23,16 @@ import redis.clients.jedis.BinaryClient.LIST_POSITION;
  * @date 2019年8月22日 上午10:51:28
  */
 @Service
-public class RedisOService implements IRedisOService {
+public class RedisService implements IRedisService {
 	
 	@Autowired
-	RedisTemplate<String,Object> redisTemplate;
+	RedisTemplate<String,String> redisTemplate;
 
 	/* (non-Javadoc)
 	 * @see com.cloudpaas.cache.service.IRedisService#get(java.lang.String)
 	 */
 	@Override
-	public Object get(String key) {
+	public String get(String key) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForValue().get(key);
 	}
@@ -50,7 +50,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#set(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void set(String key, Object value) {
+	public void set(String key, String value) {
 		// TODO Auto-generated method stub
 		redisTemplate.opsForValue().set(key, value);
 	}
@@ -59,7 +59,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#set(java.lang.String, java.lang.String, int)
 	 */
 	@Override
-	public void set(String key, Object value, long expire) {
+	public void set(String key, String value, long expire) {
 		// TODO Auto-generated method stub
 		redisTemplate.opsForValue().set(key, value,expire , TimeUnit.SECONDS);
 	}
@@ -68,9 +68,10 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#delPrefix(java.lang.String)
 	 */
 	@Override
-	public Boolean delPrefix(String key) {
+	public Long delPrefix(String key) {
 		// TODO Auto-generated method stub
-		return redisTemplate.delete(key+"*");
+		Set<String> keys = redisTemplate.keys(key);
+		return redisTemplate.delete(keys);
 	}
 
 	/* (non-Javadoc)
@@ -112,7 +113,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#setnx(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Long setnx(String key, Object value) {
+	public Long setnx(String key, String value) {
 		// TODO Auto-generated method stub
 		Long success = 1l;
 		if(exists(key)){
@@ -127,7 +128,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#setex(java.lang.String, java.lang.String, int)
 	 */
 	@Override
-	public void setex(String key, Object value, int seconds) {
+	public void setex(String key, String value, int seconds) {
 		// TODO Auto-generated method stub
 		redisTemplate.opsForValue().set(key, value,seconds , TimeUnit.SECONDS);
 	}
@@ -136,7 +137,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#setrange(java.lang.String, java.lang.String, int)
 	 */
 	@Override
-	public void setrange(String key, Object value, int offset) {
+	public void setrange(String key, String value, int offset) {
 		// TODO Auto-generated method stub
 		redisTemplate.opsForValue().set(key, value, offset);
 		
@@ -147,7 +148,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#mget(java.lang.String[])
 	 */
 	@Override
-	public List<Object> lget(String key) {
+	public List<String> lget(String key) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForList().range(key, 0, -1);
 	}
@@ -156,7 +157,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#mset(java.lang.String[])
 	 */
 	@Override
-	public Long lset(String key,List<Object> values) {
+	public Long lset(String key,List<String> values) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForList().rightPushAll(key, values);
 
@@ -175,7 +176,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#getset(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Object getset(String key, String value) {
+	public String getset(String key, String value) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForValue().getAndSet(key, value);
 	}
@@ -238,7 +239,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#hset(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void hset(String key, Object field, Object value) {
+	public void hset(String key, String field, String value) {
 		// TODO Auto-generated method stub
 		redisTemplate.opsForHash().put(key, field, value);
 	}
@@ -256,7 +257,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#hmset(java.lang.String, java.util.Map)
 	 */
 	@Override
-	public void hmset(String key, Map<Object, Object> hash) {
+	public void hmset(String key, Map<String, String> hash) {
 		// TODO Auto-generated method stub
 		redisTemplate.opsForHash().putAll(key,hash);;
 	}
@@ -265,9 +266,9 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#hget(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Object hget(String key, Object field) {
+	public String hget(String key, String field) {
 		// TODO Auto-generated method stub
-		return redisTemplate.opsForHash().get(key, field);
+		return (String) redisTemplate.opsForHash().get(key, field);
 	}
 
 	/* (non-Javadoc)
@@ -284,7 +285,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#hincrby(java.lang.String, java.lang.String, java.lang.Long)
 	 */
 	@Override
-	public Long hincrby(String key, Object field, Long value) {
+	public Long hincrby(String key, String field, Long value) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForHash().increment(key, field, value);
 	}
@@ -293,7 +294,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#hexists(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Boolean hexists(String key, Object field) {
+	public Boolean hexists(String key, String field) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForHash().hasKey(key, field);
 	}
@@ -311,7 +312,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#hdel(java.lang.String, java.lang.String[])
 	 */
 	@Override
-	public Long hdel(String key, Object... fields) {
+	public Long hdel(String key, String... fields) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForHash().delete(key, fields);
 	}
@@ -347,7 +348,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#lpush(java.lang.String, java.lang.String[])
 	 */
 	@Override
-	public Long lpush(String key, Object... strs) {
+	public Long lpush(String key, String... strs) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForList().leftPushAll(key, strs);
 	}
@@ -356,7 +357,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#rpush(java.lang.String, java.lang.String[])
 	 */
 	@Override
-	public Long rpush(String key, Object... strs) {
+	public Long rpush(String key, String... strs) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForList().rightPushAll(key, strs);
 	}
@@ -374,7 +375,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#lset(java.lang.String, java.lang.Long, java.lang.String)
 	 */
 	@Override
-	public void lset(String key, Long index, Object value) {
+	public void lset(String key, Long index, String value) {
 		// TODO Auto-generated method stub
 		redisTemplate.opsForList().set(key, index, value);;
 	}
@@ -383,7 +384,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#lrem(java.lang.String, long, java.lang.String)
 	 */
 	@Override
-	public Long lrem(String key, long count, Object value) {
+	public Long lrem(String key, long count, String value) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForList().remove(key, count, value);
 	}
@@ -401,7 +402,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#lpop(java.lang.String)
 	 */
 	@Override
-	public Object lpop(String key) {
+	public String lpop(String key) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForList().leftPop(key);
 	}
@@ -410,7 +411,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#rpop(java.lang.String)
 	 */
 	@Override
-	public Object rpop(String key) {
+	public String rpop(String key) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForList().rightPop(key);
 	}
@@ -419,7 +420,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#rpoplpush(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Object rpoplpush(String srckey, String dstkey) {
+	public String rpoplpush(String srckey, String dstkey) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForList().rightPopAndLeftPush(srckey, dstkey);
 	}
@@ -428,7 +429,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#lindex(java.lang.String, long)
 	 */
 	@Override
-	public Object lindex(String key, long index) {
+	public String lindex(String key, long index) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForList().index(key, index);
 	}
@@ -446,7 +447,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#lrange(java.lang.String, long, long)
 	 */
 	@Override
-	public List<Object> lrange(String key, long start, long end) {
+	public List<String> lrange(String key, long start, long end) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForList().range(key, start, end);
 	}
@@ -455,7 +456,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#sadd(java.lang.String, java.lang.String[])
 	 */
 	@Override
-	public Long sadd(String key, Object... members) {
+	public Long sadd(String key, String... members) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForSet().add(key, members);
 	}
@@ -464,7 +465,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#srem(java.lang.String, java.lang.String[])
 	 */
 	@Override
-	public Long srem(String key, Object... members) {
+	public Long srem(String key, String... members) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForSet().remove(key, members);
 	}
@@ -473,7 +474,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#spop(java.lang.String)
 	 */
 	@Override
-	public Object spop(String key) {
+	public String spop(String key) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForSet().pop(key);
 	}
@@ -482,7 +483,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#sdiff(java.lang.String[])
 	 */
 	@Override
-	public Set<Object> sdiff(String key, String otherKey) {
+	public Set<String> sdiff(String key, String otherKey) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForSet().difference(key, otherKey);
 	}
@@ -500,7 +501,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#sinter(java.lang.String[])
 	 */
 	@Override
-	public Set<Object> sinter(String key,String otherKey) {
+	public Set<String> sinter(String key,String otherKey) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForSet().intersect(key, otherKey);
 	}
@@ -518,7 +519,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#sunion(java.lang.String[])
 	 */
 	@Override
-	public Set<Object> sunion(String key,String otherKey) {
+	public Set<String> sunion(String key,String otherKey) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForSet().union(key, otherKey);
 	}
@@ -536,7 +537,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#smove(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Boolean smove(String srckey, String dstkey, Object value) {
+	public Boolean smove(String srckey, String dstkey, String value) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForSet().move(srckey, value, dstkey);
 	}
@@ -554,7 +555,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#sismember(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Boolean sismember(String key, Object value) {
+	public Boolean sismember(String key, String value) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForSet().isMember(key, value);
 	}
@@ -563,7 +564,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#srandmember(java.lang.String)
 	 */
 	@Override
-	public Object srandmember(String key) {
+	public String srandmember(String key) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForSet().randomMember(key);
 	}
@@ -572,7 +573,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#smembers(java.lang.String)
 	 */
 	@Override
-	public Set<Object> smembers(String key) {
+	public Set<String> smembers(String key) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForSet().members(key);
 	}
@@ -581,7 +582,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#zadd(java.lang.String, double, java.lang.String)
 	 */
 	@Override
-	public Long zadd(String key, double score, Object value) {
+	public Long zadd(String key, double score, String value) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -590,7 +591,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#zrem(java.lang.String, java.lang.String[])
 	 */
 	@Override
-	public Long zrem(String key, Object... members) {
+	public Long zrem(String key, String... members) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForZSet().remove(key, members);
 	}
@@ -599,7 +600,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#zincrby(java.lang.String, double, java.lang.String)
 	 */
 	@Override
-	public Double zincrby(String key, double score, Object value) {
+	public Double zincrby(String key, double score, String value) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForZSet().incrementScore(key, value, score);
 	}
@@ -608,7 +609,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#zrank(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Long zrank(String key, Object value) {
+	public Long zrank(String key, String value) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForZSet().rank(key, value);
 	}
@@ -617,7 +618,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#zrevrank(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Long zrevrank(String key, Object value) {
+	public Long zrevrank(String key, String value) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForZSet().reverseRank(key, value);
 	}
@@ -626,7 +627,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#zrevrange(java.lang.String, long, long)
 	 */
 	@Override
-	public Set<Object> zrevrange(String key, long start, long end) {
+	public Set<String> zrevrange(String key, long start, long end) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForZSet().reverseRange(key, start, end);
 	}
@@ -635,7 +636,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#zrangebyscore(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Set<Object> zrangebyscore(String key, double max, double min) {
+	public Set<String> zrangebyscore(String key, double max, double min) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForZSet().reverseRangeByScore(key, min, max);
 	}
@@ -664,7 +665,7 @@ public class RedisOService implements IRedisOService {
 	 * @see com.cloudpaas.cache.service.IRedisService#zscore(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Double zscore(String key, Object member) {
+	public Double zscore(String key, String member) {
 		// TODO Auto-generated method stub
 		return redisTemplate.opsForZSet().score(key, member);
 	}

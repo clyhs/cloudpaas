@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.cache.keygen.DefaultKeyClearGenerator;
-import com.cloudpaas.cache.service.IRedisSService;
+import com.cloudpaas.cache.service.IRedisService;
 
 /**
  * 
@@ -39,7 +39,7 @@ public class CacheClearAspect {
 	@Autowired
 	DefaultKeyClearGenerator defaultKeyClearGenerator;
 	@Autowired
-	IRedisSService redisSService;
+	IRedisService redisSService;
 	
 	@Pointcut("@annotation(com.cloudpaas.cache.anno.CacheClear)")
     public void aspect() {

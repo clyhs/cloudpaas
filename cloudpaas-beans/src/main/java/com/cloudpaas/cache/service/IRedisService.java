@@ -15,7 +15,7 @@ import redis.clients.jedis.BinaryClient.LIST_POSITION;
  *
  * @date 2019年8月22日 上午10:49:43
  */
-public interface IRedisOService {
+public interface IRedisService {
 	/**
      * <p>
      * 通过key获取储存在redis中的value
@@ -27,7 +27,7 @@ public interface IRedisOService {
      * @param key
      * @return 成功返回value 失败返回null
      */
-    Object get(String key);
+    String get(String key);
     
     /**
      * <p>
@@ -53,7 +53,7 @@ public interface IRedisOService {
      * @param key
      * @param value
      */
-    void set(String key, Object value);
+    void set(String key, String value);
     
     
     /**
@@ -67,7 +67,7 @@ public interface IRedisOService {
      * @param key
      * @param value
      */
-    void set(String key, Object value, long expire);
+    void set(String key, String value, long expire);
     
     /**
      * <p>
@@ -77,7 +77,7 @@ public interface IRedisOService {
      * @param key
      * @return
      */
-    Boolean delPrefix(String key);
+    Long delPrefix(String key);
     /**
      * <p>
      * 删除指定的keys,返回删除个数
@@ -117,7 +117,7 @@ public interface IRedisOService {
      * @param value
      * @return 成功返回1 如果存在 和 发生异常 返回 0
      */
-    Long setnx(String key, Object value);
+    Long setnx(String key, String value);
 
     /**
      * <p>
@@ -128,7 +128,7 @@ public interface IRedisOService {
      * @param value
      * @param seconds 单位:秒
      */
-    void setex(String key, Object value, int seconds);
+    void setex(String key, String value, int seconds);
 
     /**
      * <p>
@@ -160,7 +160,7 @@ public interface IRedisOService {
      * @param str
      * @param offset 下标位置
      */
-    void setrange(String key, Object str, int offset);
+    void setrange(String key, String str, int offset);
 
     /**
      * <p>
@@ -170,7 +170,7 @@ public interface IRedisOService {
      * @param keys string数组 也可以是一个key
      * @return 成功返回value的集合, 失败返回null的集合 ,异常返回空
      */
-    List<Object> lget(String key);
+    List<String> lget(String key);
 
     /**
      * <p>
@@ -184,7 +184,7 @@ public interface IRedisOService {
      * </p>
      *
      */
-    Long lset(String key, List<Object> values);
+    Long lset(String key, List<String> values);
 
     /**
      * <p>
@@ -211,7 +211,7 @@ public interface IRedisOService {
      * @param value
      * @return 旧值 如果key不存在 则返回null
      */
-    Object getset(String key, String value);
+    String getset(String key, String value);
 
     /**
      * <p>
@@ -286,7 +286,7 @@ public interface IRedisOService {
      * @param field 字段
      * @param value
      */
-    void hset(String key, Object field, Object value);
+    void hset(String key, String field, String value);
 
     /**
      * <p>
@@ -309,7 +309,7 @@ public interface IRedisOService {
      * @param hash
      * @return 返回OK 异常返回null
      */
-    void hmset(String key, Map<Object, Object> hash) ;
+    void hmset(String key, Map<String, String> hash) ;
 
     /**
      * <p>
@@ -320,7 +320,7 @@ public interface IRedisOService {
      * @param field
      * @return 没有返回null
      */
-     Object hget(String key, Object field);
+     String hget(String key, String field);
 
     /**
      * <p>
@@ -343,7 +343,7 @@ public interface IRedisOService {
      * @param value
      * @return
      */
-    Long  hincrby(String key, Object field, Long value);
+    Long  hincrby(String key, String field, Long value);
 
     /**
      * <p>
@@ -354,7 +354,7 @@ public interface IRedisOService {
      * @param field
      * @return
      */
-    Boolean hexists(String key, Object field) ;
+    Boolean hexists(String key, String field) ;
 
     /**
      * <p>
@@ -375,7 +375,7 @@ public interface IRedisOService {
      * @param fields 可以是 一个 field 也可以是 一个数组
      * @return
      */
-    Long hdel(String key, Object... fields);
+    Long hdel(String key, String... fields);
 
     /**
      * <p>
@@ -416,7 +416,7 @@ public interface IRedisOService {
      * @param strs 可以使一个string 也可以使string数组
      * @return 返回list的value个数
      */
-    Long lpush(String key, Object... strs);
+    Long lpush(String key, String... strs);
 
     /**
      * <p>
@@ -427,7 +427,7 @@ public interface IRedisOService {
      * @param strs 可以使一个string 也可以使string数组
      * @return 返回list的value个数
      */
-    Long rpush(String key, Object... strs);
+    Long rpush(String key, String... strs);
 
     /**
      * <p>
@@ -455,7 +455,7 @@ public interface IRedisOService {
      * @param value
      * @return 成功返回OK
      */
-    void lset(String key, Long index, Object value);
+    void lset(String key, Long index, String value);
 
     /**
      * <p>
@@ -467,7 +467,7 @@ public interface IRedisOService {
      * @param value
      * @return 返回被删除的个数
      */
-    Long lrem(String key, long count, Object value);
+    Long lrem(String key, long count, String value);
 
     /**
      * <p>
@@ -488,7 +488,7 @@ public interface IRedisOService {
      * @param key
      * @return
      */
-    Object lpop(String key);
+    String lpop(String key);
 
     /**
      * <p>
@@ -498,7 +498,7 @@ public interface IRedisOService {
      * @param key
      * @return
      */
-    Object rpop(String key);
+    String rpop(String key);
 
     /**
      * <p>
@@ -512,7 +512,7 @@ public interface IRedisOService {
      * @param dstkey
      * @return
      */
-    Object rpoplpush(String srckey, String dstkey);
+    String rpoplpush(String srckey, String dstkey);
 
     /**
      * <p>
@@ -523,7 +523,7 @@ public interface IRedisOService {
      * @param index
      * @return 如果没有返回null
      */
-    Object lindex(String key, long index);
+    String lindex(String key, long index);
 
     /**
      * <p>
@@ -548,7 +548,7 @@ public interface IRedisOService {
      * @param end
      * @return
      */
-    List<Object> lrange(String key, long start, long end);
+    List<String> lrange(String key, long start, long end);
 
     /**
      * <p>
@@ -559,7 +559,7 @@ public interface IRedisOService {
      * @param members 可以是一个String 也可以是一个String数组
      * @return 添加成功的个数
      */
-    Long sadd(String key, Object... members);
+    Long sadd(String key, String... members);
 
     /**
      * <p>
@@ -570,7 +570,7 @@ public interface IRedisOService {
      * @param members 可以是一个String 也可以是一个String数组
      * @return 删除的个数
      */
-    Long srem(String key, Object... members);
+    Long srem(String key, String... members);
 
     /**
      * <p>
@@ -580,7 +580,7 @@ public interface IRedisOService {
      * @param key
      * @return
      */
-    Object spop(String key);
+    String spop(String key);
 
     /**
      * <p>
@@ -593,7 +593,7 @@ public interface IRedisOService {
      * 
      * @return
      */
-    Set<Object> sdiff(String key, String otherKey);
+    Set<String> sdiff(String key, String otherKey);
 
     /**
      * <p>
@@ -616,7 +616,7 @@ public interface IRedisOService {
      * @param keys 可以使一个string 也可以是一个string数组
      * @return
      */
-    Set<Object> sinter(String key,String otherKey) ;
+    Set<String> sinter(String key,String otherKey) ;
 
     /**
      * <p>
@@ -636,7 +636,7 @@ public interface IRedisOService {
      *
      * @return
      */
-    Set<Object> sunion(String key,String otherKey);
+    Set<String> sunion(String key,String otherKey);
 
     /**
      * <p>
@@ -659,7 +659,7 @@ public interface IRedisOService {
      * @param value set中的value
      * @return
      */
-    Boolean smove(String srckey, String dstkey, Object value);
+    Boolean smove(String srckey, String dstkey, String value);
 
     /**
      * <p>
@@ -680,7 +680,7 @@ public interface IRedisOService {
      * @param member
      * @return
      */
-    Boolean sismember(String key, Object value);
+    Boolean sismember(String key, String value);
 
     /**
      * <p>
@@ -690,7 +690,7 @@ public interface IRedisOService {
      * @param key
      * @return
      */
-    Object srandmember(String key);
+    String srandmember(String key);
 
     /**
      * <p>
@@ -700,7 +700,7 @@ public interface IRedisOService {
      * @param key
      * @return
      */
-    Set<Object> smembers(String key);
+    Set<String> smembers(String key);
 
     /**
      * <p>
@@ -715,7 +715,7 @@ public interface IRedisOService {
      * @param member
      * @return
      */
-    Long zadd(String key, double score, Object value);
+    Long zadd(String key, double score, String value);
 
     /**
      * <p>
@@ -726,7 +726,7 @@ public interface IRedisOService {
      * @param members 可以使一个string 也可以是一个string数组
      * @return
      */
-    Long zrem(String key, Object... members);
+    Long zrem(String key, String... members);
 
     /**
      * <p>
@@ -738,7 +738,7 @@ public interface IRedisOService {
      * @param value
      * @return
      */
-    Double zincrby(String key, double score, Object value);
+    Double zincrby(String key, double score, String value);
 
     /**
      * <p>
@@ -752,7 +752,7 @@ public interface IRedisOService {
      * @param member
      * @return
      */
-    Long zrank(String key, Object value);
+    Long zrank(String key, String value);
 
     /**
      * <p>
@@ -766,7 +766,7 @@ public interface IRedisOService {
      * @param value
      * @return
      */
-    Long zrevrank(String key, Object value);
+    Long zrevrank(String key, String value);
 
     /**
      * <p>
@@ -784,7 +784,7 @@ public interface IRedisOService {
      * @param end
      * @return
      */
-    Set<Object> zrevrange(String key, long start, long end);
+    Set<String> zrevrange(String key, long start, long end);
 
     /**
      * <p>
@@ -796,7 +796,7 @@ public interface IRedisOService {
      * @param min
      * @return
      */
-    Set<Object> zrangebyscore(String key, double max, double min);
+    Set<String> zrangebyscore(String key, double max, double min);
 
     
 
@@ -831,7 +831,7 @@ public interface IRedisOService {
      * @param member
      * @return
      */
-    Double zscore(String key, Object member);
+    Double zscore(String key, String member);
 
     /**
      * <p>

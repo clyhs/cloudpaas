@@ -45,6 +45,9 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @Configuration
 @EnableCaching // 开启缓存支持
+@AutoConfigureAfter({RedisAutoConfiguration.class})
+@ConditionalOnClass(RedisOperations.class)
+@EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfig extends CachingConfigurerSupport {
 
 	@Resource

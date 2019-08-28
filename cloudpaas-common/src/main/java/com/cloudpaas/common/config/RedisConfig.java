@@ -6,8 +6,10 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
@@ -31,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
 
 @Configuration
 @EnableCaching // 开启缓存支持
+@AutoConfigureAfter({RedisAutoConfiguration.class})
 public class RedisConfig extends CachingConfigurerSupport {
 
 	@Resource

@@ -23,8 +23,7 @@ import com.alibaba.fastjson.JSON;
 import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.cache.keygen.DefaultKeyGenerator;
 import com.cloudpaas.cache.parser.DefaultCacheResultParser;
-import com.cloudpaas.cache.service.IRedisOService;
-import com.cloudpaas.cache.service.IRedisSService;
+import com.cloudpaas.cache.service.IRedisService;
 
 /**
  * 加入缓存注解CacheWrite的切面类
@@ -42,7 +41,7 @@ public class CacheWirteAspect {
 //	@Autowired
 //	RedisTemplate<String ,String> redisTemplate ;
 	@Autowired
-	IRedisSService redisService;
+	IRedisService redisService;
 	@Autowired
 	DefaultKeyGenerator defaultKeyGenerator;
 	//execution(* com.cloudpaas.admin.ui..*.*(..)) && 

@@ -28,13 +28,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.apache.shiro.mgt.SecurityManager;
 
-import com.cloudpaas.admin.ui.prop.RedisProperties;
+
 import com.cloudpaas.admin.ui.shiro.MyShiroRealm;
 
 /**
@@ -43,7 +44,7 @@ import com.cloudpaas.admin.ui.shiro.MyShiroRealm;
  * @date 2019年8月15日 下午3:50:55
  */
 @Configuration
-@EnableConfigurationProperties(RedisProperties.class)
+//@EnableConfigurationProperties(RedisProperties.class)
 public class ShiroConfig {
 	
 	private static Logger log = LoggerFactory.getLogger(ShiroConfig.class);
