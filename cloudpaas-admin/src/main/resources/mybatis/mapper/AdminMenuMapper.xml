@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cloudpaas.admin.mapper.AdminMenuMapper" >
-  <resultMap id="BaseResultMap" type="com.cloudpaas.admin.model.AdminMenu" >
+  <resultMap id="BaseResultMap" type="com.cloudpaas.common.model.Menu" >
     <!--
       WARNING - @mbg.generated
     -->

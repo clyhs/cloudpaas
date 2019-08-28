@@ -15,6 +15,11 @@ import lombok.Data;
 @Data
 public class AdminMenuTreeVo extends TreeVo {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String  icon;
 	
     private String  title;

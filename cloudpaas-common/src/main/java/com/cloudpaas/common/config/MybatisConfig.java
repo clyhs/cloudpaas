@@ -129,6 +129,7 @@ public class MybatisConfig{
         sessionFactory.setTypeAliasesPackage("com.cloudpaas.**.model");    // 扫描Model
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sessionFactory.setMapperLocations(resolver.getResources(mybatisProperties.getMapperLocations()));    // 扫描映射文件
+        sessionFactory.setConfigLocation(resolver.getResource("classpath:mybatis/mybatis-config.xml"));
         return sessionFactory;
     }
 	
@@ -137,6 +138,7 @@ public class MybatisConfig{
 		MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
 		mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
 		mapperScannerConfigurer.setBasePackage("com.cloudpaas.**.mapper");
+		
 		return mapperScannerConfigurer;
 	}
 	

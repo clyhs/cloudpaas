@@ -70,7 +70,7 @@ public class MenuBizTest extends BaseBiz<Menu>{
 		ParameterizedTypeReference<ObjectResponse<Menu>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<Menu>>() {};
 
 		Map<String, Object> params = Maps.newHashMap();
-		params.put("id", "1");
+		params.put("id", "14");
 		HttpEntity<User> httpEntity = new HttpEntity<User>(getHttpHeaders());
 	
 		ObjectResponse<Menu> result = RestTemplateUtils.exchange(getBaseUrl()+ApiConstants.API_MENU_SINGLE_URL+"{id}", 

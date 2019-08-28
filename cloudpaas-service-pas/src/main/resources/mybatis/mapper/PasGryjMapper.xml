@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cloudpaas.service.pas.mapper.PasGryjMapper" >
+  <resultMap id="BaseResultMap" type="com.cloudpaas.service.pas.model.PasGryj" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="jgdh" property="jgdh" jdbcType="VARCHAR" />
+    <result column="jgmc" property="jgmc" jdbcType="VARCHAR" />
+    <result column="hydh" property="hydh" jdbcType="VARCHAR" />
+    <result column="hymc" property="hymc" jdbcType="VARCHAR" />
+    <result column="zbmc" property="zbmc" jdbcType="VARCHAR" />
+    <result column="bz" property="bz" jdbcType="VARCHAR" />
+    <result column="sdbs" property="sdbs" jdbcType="VARCHAR" />
+    <result column="zbz" property="zbz" jdbcType="DOUBLE" />
+    <result column="zbdw" property="zbdw" jdbcType="VARCHAR" />
+    <result column="khjs" property="khjs" jdbcType="DOUBLE" />
+  </resultMap>
+</mapper>

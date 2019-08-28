@@ -84,6 +84,12 @@ layui.define(['tool','jquery'], function (exports) {
         deleteUserDelUrl:tool.getResUrl()+"/user/delete.json",
         deleteBatchUserUrl:tool.getResUrl()+"/user/deleteBatch.json",
         
+        getGryjPageUrl:tool.getResUrl()+"/gryj/page.json",
+        postGryjAddUrl:tool.getResUrl()+"/gryj/add.json",
+        putGryjEditUrl:tool.getResUrl()+"/gryj/update.json",
+        deleteGryjDelUrl:tool.getResUrl()+"/gryj/delete.json",
+        deleteBatchGryjUrl:tool.getResUrl()+"/gryj/deleteBatch.json",
+        
         
     };
 

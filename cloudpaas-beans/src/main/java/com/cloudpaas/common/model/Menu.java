@@ -8,14 +8,18 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author 大鱼
  *
  * @date 2019年8月19日 下午2:41:20
  */
+@Table(name = "t_menu")
 public class Menu implements Serializable{
 	
 	/**
@@ -23,6 +27,7 @@ public class Menu implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
     private Integer id;
 
     private String title;
@@ -45,9 +50,23 @@ public class Menu implements Serializable{
      */
     private Integer type;
     
-    /**
+    
+
+    public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	@Column(name = "create_time")
+    private Date createTime;
+	
+	/**
      * 1：显示，2：隐藏
      */
+	@Column(name = "is_show")
     private Integer isShow;
     
     
@@ -59,17 +78,6 @@ public class Menu implements Serializable{
 	public void setIsShow(Integer isShow) {
 		this.isShow = isShow;
 	}
-
-	public Integer getType() {
-		return type;
-	}
-
-	public void setType(Integer type) {
-		this.type = type;
-	}
-
-	@Column(name = "create_time")
-    private Date createTime;
 
     /**
      * @return id
@@ -193,6 +201,7 @@ public class Menu implements Serializable{
     /**
      * @return create_time
      */
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     public Date getCreateTime() {
         return createTime;
     }
@@ -205,5 +214,4 @@ public class Menu implements Serializable{
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
 }

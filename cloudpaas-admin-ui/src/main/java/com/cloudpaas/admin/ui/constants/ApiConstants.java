@@ -40,9 +40,13 @@ public class ApiConstants {
 	public static final String API_USER_PAGE_URL = "/user/page.json";
 	public static final String API_USER_ALL_URL = "/user/all.json";
 	public static final String API_USER_ADD_URL = "/user/add.json";
-	public static final String API_USER_TREE_URL = "/user/tree.json";
-	
-	
+	/*个人业绩*/
+	public static final String API_GRYJ_SINGLE_URL = "/gryj/";
+	public static final String API_GRYJ_SELECTONE_URL = "/gryj/selectOne.json";
+	public static final String API_GRYJ_DELBATCH_URL =  "/gryj/deleteBatch.json";
+	public static final String API_GRYJ_PAGE_URL = "/gryj/page.json";
+	public static final String API_GRYJ_ALL_URL = "/gryj/all.json";
+	public static final String API_GRYJ_ADD_URL = "/gryj/add.json";
 	
 	
 

@@ -102,7 +102,7 @@ public abstract class BaseController<Dao extends ABaseBiz,T> {
     
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public ObjectResponse<T> get(@PathVariable int id,
+    public ObjectResponse<T> get(@PathVariable Integer id,
     		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
         ObjectResponse<T> entityObjectRestResponse = new ObjectResponse<>();
         Object o = baseDao.selectById(id,db);

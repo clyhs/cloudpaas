@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cloudpaas.admin.biz.AdminMenuBiz;
-import com.cloudpaas.admin.model.AdminMenu;
 import com.cloudpaas.admin.vo.AdminMenuTreeVo;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.controller.BaseController;
+import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.result.PageResponse;
 import com.cloudpaas.common.utils.JSONUtil;
 import com.cloudpaas.common.utils.TreeUtil;
@@ -36,7 +36,7 @@ import io.swagger.annotations.Api;
 @Api
 @RestController
 @RequestMapping("menu")
-public class AdminMenuController extends BaseController<AdminMenuBiz,AdminMenu> {
+public class AdminMenuController extends BaseController<AdminMenuBiz,Menu> {
 
 	//@Autowired
 	//private AdminMenuDao adminMenuDao;
@@ -47,18 +47,18 @@ public class AdminMenuController extends BaseController<AdminMenuBiz,AdminMenu> 
 	public List<AdminMenuTreeVo> getAdminMenuTree(
 			@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db,
     		@RequestParam(value = "isShow" ,defaultValue = "1",required=false) Integer isShow){
-		List<AdminMenu> menus = new ArrayList<AdminMenu>();
-		AdminMenu adminMenu = new AdminMenu();
+		List<Menu> menus = new ArrayList<Menu>();
+		Menu adminMenu = new Menu();
 		adminMenu.setIsShow(isShow);
 		menus = baseDao.selectList(adminMenu,db);
 		return getMenuTree(menus,CommonConstants.ROOT);
 	}
 	
-	private List<AdminMenuTreeVo> getMenuTree(List<AdminMenu> menus,int root) {
+	private List<AdminMenuTreeVo> getMenuTree(List<Menu> menus,int root) {
         List<AdminMenuTreeVo> trees = new ArrayList<AdminMenuTreeVo>();
         AdminMenuTreeVo node = null;
         Gson json = new Gson();
-        for (AdminMenu menu : menus) {
+        for (Menu menu : menus) {
             node = new AdminMenuTreeVo();
             BeanUtils.copyProperties(menu, node);
             trees.add(node);
