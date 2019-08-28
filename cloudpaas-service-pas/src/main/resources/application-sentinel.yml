@@ -131,7 +131,7 @@ spring:
         
         
 mybatis:
-  config-locations: classpath*:mybatis/mybatis-config.xml
+  config-locations: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath*:mybatis/mapper/*.xml
   basepackage: com.cloudpaas.service.pas.mapper
   

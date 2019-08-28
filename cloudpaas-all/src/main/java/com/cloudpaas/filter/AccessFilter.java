@@ -62,7 +62,7 @@ public class AccessFilter implements Filter {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         
-        if (true/*isStartWith(requestURI)*/) {
+        if (isStartWith(requestURI)) {
         	filterChain.doFilter(request, servletResponse);
         }else{
         	try {
