@@ -103,12 +103,13 @@ layui.config({
                     success:function(res){
                         if(res.code==0){
                             parent.layer.msg("菜单删除成功！",{time:1000},function(){
-                                parent.location.reload();
+                                location.reload();
+                            	table.reload('oTable');
                             });
                         }else{
                             layer.msg(res.message,{time:1000},function(){
                                 //刷新本页面
-                                location.reload();
+                            	table.reload('oTable');
                             });
 
                         }
@@ -203,7 +204,7 @@ layui.config({
                 if(res.code==0){
                     parent.layer.msg("菜单更新成功！",{time:1000},function(){
                         //刷新父页面
-                        //parent.location.reload();
+                        table.reload('oTable');
                     });
                 }else{
                     layer.msg(res.message,{time:1000},function(){

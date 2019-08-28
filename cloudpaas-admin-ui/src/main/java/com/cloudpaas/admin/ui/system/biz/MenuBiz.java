@@ -42,7 +42,7 @@ public class MenuBiz extends BaseBiz<Menu> {
 		Menu entity =  result.getData();
 		return entity;
 	}
-	@CacheWrite(prefix="MENU",key="tree")
+	//@CacheWrite(prefix="MENU",key="tree")
 	public List<MenuTreeVo> getMenuTree(){
 		ParameterizedTypeReference<List<MenuTreeVo>> responseBodyType = new ParameterizedTypeReference<List<MenuTreeVo>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
