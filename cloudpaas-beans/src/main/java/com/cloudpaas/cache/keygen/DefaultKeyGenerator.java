@@ -4,6 +4,7 @@
 package com.cloudpaas.cache.keygen;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 import com.cloudpaas.cache.anno.CacheWrite;
+import com.cloudpaas.cache.anno.IgnoreField;
 import com.cloudpaas.common.utils.ReflectionUtils;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
@@ -40,10 +42,10 @@ public class DefaultKeyGenerator extends AbstractKeyGenerator {
 		// TODO Auto-generated method stub
 		
 		StringBuffer key = new StringBuffer();
-		if(anno.pkg().equals("true")){
+		if(anno.pkg().equals("true") && "".equals(anno.key())){
 			key.append(buildKeyPrefix(anno))
 			   .append(buildPkg(target,method))
-			   .append("(").append(buildAllArgs(arguments))
+			   .append("(").append(buildAllArgs(arguments,method))
 			   .append(")");
 			   
 			/*
@@ -66,7 +68,12 @@ public class DefaultKeyGenerator extends AbstractKeyGenerator {
                .append(modelClassName).append(AbstractKeyGenerator.LINE)
                .append(parserKey(anno.key(),parameterTypes,argNames,arguments));
 			
-		}else{
+		}/*else if(anno.pkg().equals("true") && "".equals(anno.key())){
+			key.append(buildKeyPrefix(anno))
+			   .append(buildPkg(target,method))
+			   .append("(").append(parserKey(anno.key(),parameterTypes,argNames,arguments))
+			   .append(")");
+		}*/else{
 			key.append(buildKeyPrefix(anno))
 			   .append(parserKey(anno.key(),parameterTypes,argNames,arguments));
 		}
@@ -74,12 +81,19 @@ public class DefaultKeyGenerator extends AbstractKeyGenerator {
 		return key.toString();
 	}
 	
-	private String buildAllArgs(Object[] arguments){
+	private String buildAllArgs(Object[] arguments,Method method){
 		String str = "";
 		StringBuffer sb =new StringBuffer();
 		if(null!=arguments && arguments.length>0){
+			int i = 0;
 			for(Object arg : arguments){
-				sb.append(arg.toString()).append(AbstractKeyGenerator.LINE);
+				Parameter parameter = method.getParameters()[i];
+				if(parameter.isAnnotationPresent(IgnoreField.class)){
+				}else{
+					sb.append(arg.toString()).append(AbstractKeyGenerator.LINE);
+				}
+				
+				i++;
 			}
 			str = sb.substring(0, sb.toString().length()-1);
 		}

@@ -27,9 +27,12 @@ import com.alibaba.fastjson.JSON;
 import com.cloudpaas.admin.ui.prop.AdminUIProperites;
 import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.cache.anno.CacheWrite;
+import com.cloudpaas.cache.anno.IgnoreField;
+import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.result.PageResponse;
 import com.cloudpaas.common.utils.JSONUtil;
+import com.google.common.collect.Maps;
 
 
 /**
@@ -50,12 +53,15 @@ public abstract class BaseBiz<T> extends AbstractBaseBiz implements IBaseBiz<T>{
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 	
-	
-	public ObjectResponse<T> add(T t,String url){
+	@CacheClear(prefix="BASEBIZ",pkg="true")
+	public ObjectResponse<T> add(T t,String url,Map<String, Object> params){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
+		
+		log.info("params:{}",JSON.toJSONString(params));
+		
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
 		ObjectResponse<T> result = restTemplate.exchange(getBaseUrl()+url, 
-				HttpMethod.POST, httpEntity, responseBodyType)
+				HttpMethod.POST, httpEntity, responseBodyType,params)
 				.getBody();
 		return result;
 	}
@@ -64,11 +70,14 @@ public abstract class BaseBiz<T> extends AbstractBaseBiz implements IBaseBiz<T>{
 	 * 查询所有数据
 	 * @return
 	 */
-	public PageResponse<T> all(String url){
+	public PageResponse<T> all(String url,Map<String, Object> params){
 		ParameterizedTypeReference<PageResponse<T>> responseBodyType = new ParameterizedTypeReference<PageResponse<T>>() {};
+	
+		log.info("params:{}",JSON.toJSONString(params));
+		
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
 		PageResponse<T> result = restTemplate.exchange(getBaseUrl()+url, 
-				HttpMethod.GET, httpEntity, responseBodyType)
+				HttpMethod.GET, httpEntity, responseBodyType,params)
 				.getBody();
 		return result;
 	}
@@ -78,11 +87,12 @@ public abstract class BaseBiz<T> extends AbstractBaseBiz implements IBaseBiz<T>{
 	 * @param params
 	 * @return
 	 */
-	public PageResponse<T> list(Map<String, Object> params,String url){
+	@CacheWrite(prefix="BASEBIZ",pkg="true")
+	public PageResponse<T> list(Map<String, Object> params,@IgnoreField String url){
 		ParameterizedTypeReference<PageResponse<T>> responseBodyType = new ParameterizedTypeReference<PageResponse<T>>() {};
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
+		
 		MultiValueMap<String,String> urlparams = new LinkedMultiValueMap<>();
-
 		if(null!=params){
 			Iterator it=params.keySet().iterator();
 			while(it.hasNext()){
@@ -90,7 +100,10 @@ public abstract class BaseBiz<T> extends AbstractBaseBiz implements IBaseBiz<T>{
 				String value=(String) params.get(key);
 				urlparams.add(key, value);
 			}
+			
 		}
+
+		log.info("params:{}",JSON.toJSONString(urlparams));
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(getBaseUrl()+url).queryParams(urlparams);
 		//解决中文转码问题
 		UriComponents uriComponents = builder.build().encode();
@@ -106,11 +119,15 @@ public abstract class BaseBiz<T> extends AbstractBaseBiz implements IBaseBiz<T>{
 	 * @param lists
 	 * @return
 	 */
-	public ObjectResponse<T> deleteBatch(List<T> lists,String url){
+	@CacheClear(prefix="BASEBIZ",pkg="true")
+	public ObjectResponse<T> deleteBatch(List<T> lists,String url,Map<String, Object> params){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
+
+		log.info("params:{}",JSON.toJSONString(params));
+		
 		HttpEntity<List<T>> httpEntity = new HttpEntity<>(lists,getHttpHeaders());
 		ObjectResponse<T> result = restTemplate.exchange(auiProp.getApiUrl()+url, 
-				HttpMethod.DELETE, httpEntity, responseBodyType)
+				HttpMethod.DELETE, httpEntity, responseBodyType,params)
 				.getBody();
 		return result;
 	}
@@ -121,12 +138,16 @@ public abstract class BaseBiz<T> extends AbstractBaseBiz implements IBaseBiz<T>{
 	 * @param id
 	 * @return
 	 */
-	@CacheClear(prefix="BBIZ",key="'id_'+#t.id" ,model="true")
-	public ObjectResponse<T> update(T t,Integer id,String url){
+	//@CacheClear(prefix="BBIZ",key="'id_'+#t.id" ,model="true")
+	@CacheClear(prefix="BASEBIZ",pkg="true")
+	public ObjectResponse<T> update(T t,Integer id,String url,Map<String, Object> params){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
+
+		log.info("params:{}",JSON.toJSONString(params));
+		
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
 		ObjectResponse<T> result = restTemplate.exchange(getBaseUrl()+url+id, 
-				HttpMethod.PUT, httpEntity, responseBodyType)
+				HttpMethod.PUT, httpEntity, responseBodyType,params)
 				.getBody();
 		return result;
 	}
@@ -136,12 +157,15 @@ public abstract class BaseBiz<T> extends AbstractBaseBiz implements IBaseBiz<T>{
 	 * @param id
 	 * @return
 	 */
-	@CacheClear(prefix="BBIZ",key="'id_'+#id" ,model="true")
-	public ObjectResponse<T> remove(Integer id,String url){
+	//@CacheClear(prefix="BBIZ",key="'id_'+#id" ,model="true")
+	@CacheClear(prefix="BASEBIZ",pkg="true")
+	public ObjectResponse<T> remove(Integer id,String url,Map<String, Object> params){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
+
+		log.info("params:{}",JSON.toJSONString(params));
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
 		ObjectResponse<T> result = restTemplate.exchange(getBaseUrl()+url+id, 
-				HttpMethod.DELETE, httpEntity, responseBodyType)
+				HttpMethod.DELETE, httpEntity, responseBodyType,params)
 				.getBody();
 		return result;
 	}
@@ -153,12 +177,15 @@ public abstract class BaseBiz<T> extends AbstractBaseBiz implements IBaseBiz<T>{
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	@CacheWrite(prefix="BBIZ",key="'id_'+#id" ,model="true")
-	public T get(Integer id,String url){
+	//@CacheWrite(prefix="BBIZ",key="'id_'+#id" ,model="true")
+	public T get(Integer id,String url,Map<String, Object> params){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
+
+		log.info("params:{}",JSON.toJSONString(params));
+		
 		HttpEntity<String> httpEntity = new HttpEntity<>(getHttpHeaders());
 		ObjectResponse<T> result = restTemplate.exchange(getBaseUrl()+url+id, 
-				HttpMethod.GET, httpEntity, responseBodyType)
+				HttpMethod.GET, httpEntity, responseBodyType,params)
 				.getBody();
 	
 		T entity = JSON.parseObject( JSON.toJSONString(result.getData()) ,getTClass());
@@ -175,12 +202,14 @@ public abstract class BaseBiz<T> extends AbstractBaseBiz implements IBaseBiz<T>{
 	 * key:BBIZ:com.cloudpaas.common.model.Role_id_1
 	 */
 	@SuppressWarnings("unchecked")
-	@CacheWrite(prefix="BBIZ",key="'id_'+#t.id" ,model="true")
-	public T get(T t,String url){
+	//@CacheWrite(prefix="BBIZ",key="'id_'+#t.id" ,model="true")
+	public T get(T t,String url,Map<String, Object> params){
 		ParameterizedTypeReference<ObjectResponse<T>> responseBodyType = new ParameterizedTypeReference<ObjectResponse<T>>() {};
 		HttpEntity<T> httpEntity = new HttpEntity<>(t,getHttpHeaders());
+		
+		log.info("params:{}",JSON.toJSONString(params));
 		ObjectResponse<T> result = restTemplate.exchange(getBaseUrl()+url, 
-				HttpMethod.GET, httpEntity, responseBodyType)
+				HttpMethod.GET, httpEntity, responseBodyType,params)
 				.getBody();
 		//这里没法对对象进行自动转换，借助JSONUtil将map转为T
 		T entity = JSON.parseObject( JSON.toJSONString(result.getData()) ,getTClass());

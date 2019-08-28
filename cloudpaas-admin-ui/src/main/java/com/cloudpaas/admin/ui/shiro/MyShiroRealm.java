@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.fastjson.JSON;
 import com.cloudpaas.admin.ui.system.biz.AuthBiz;
 import com.cloudpaas.admin.ui.system.biz.UserBiz;
 import com.cloudpaas.common.constants.CommonConstants;
@@ -83,6 +84,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         //User user = userBiz.findUser(username);
         JwtResponse jwtResp = authBiz.login(username);
         User user = jwtResp.getUser();
+        log.info("-----user.json:{}-----",JSON.toJSONString(user));
         
         // 认证信息token里存放账号密码, getName() 是当前Realm的继承方法,通常返回当前类名
         // String salt = user.getSalt();

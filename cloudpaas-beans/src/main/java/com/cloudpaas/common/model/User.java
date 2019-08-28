@@ -37,9 +37,22 @@ public class User implements Serializable{
     
     private String  salt;
     
+    /*法人关联*/
+    @Transient
+    private Corp    corp;
+    
     
 
-    public String getCorpId() {
+
+	public Corp getCorp() {
+		return corp;
+	}
+
+	public void setCorp(Corp corp) {
+		this.corp = corp;
+	}
+
+	public String getCorpId() {
 		return corpId;
 	}
 

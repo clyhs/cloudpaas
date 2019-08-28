@@ -75,6 +75,29 @@ spring:
         poolPreparedStatements: true
         maxPoolPreparedStatementPerConnectionSize: 20
         filters: stat,wall,log4j2
+      - key: dn2
+        url: jdbc:mysql://192.168.0.7:3306/dn2?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+        username: root
+        password: tiancom
+        driver-class-name: com.mysql.jdbc.Driver
+        minIdle: 1
+        maxActive: 2
+        initialSize: 1
+        minPoolSize: 5
+        maxPoolSize: 20
+        borrowConnectionTimeout: 60
+        timeBetweenEvictionRunsMillis: 3000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 'ZTM' FROM DUAL
+        validationQueryTimeout: 10000
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        maxWait: 60000
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,log4j2
   redis:
     #数据库索引
     database: 0
@@ -96,7 +119,7 @@ spring:
 
 mybatis:
   config-locations: classpath:mybatis/mybatis-config.xml
-  mapper-locations: classpath:mybatis/mapper/*.xml
+  mapper-locations: classpath*:mybatis/mapper/*.xml
   basepackage: com.cloudpaas.admin.mapper
 
 logging:

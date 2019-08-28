@@ -8,6 +8,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.cloudpaas.admin.ui.base.AbstractBaseBiz;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.common.constants.CommonConstants;
@@ -31,7 +32,7 @@ public class AuthBiz extends AbstractBaseBiz {
 		HttpEntity<JwtRequest> httpEntity = new HttpEntity<>(user,getHttpHeaders());
 		JwtResponse result =  restTemplate.exchange(getBaseUrl()+ApiConstants.API_AUTH_LOGIN_URL, 
 				HttpMethod.GET, httpEntity, responseBodyType).getBody();
-		
+		log.info("---------jwtresponse:"+JSON.toJSONString(result));
 		return result;
 	}
 

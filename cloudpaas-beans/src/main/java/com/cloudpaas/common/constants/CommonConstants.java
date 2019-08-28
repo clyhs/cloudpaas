@@ -11,6 +11,7 @@ package com.cloudpaas.common.constants;
 public class CommonConstants {
 	
 	public final static String DEFAULT_DATASOURCE_KEY = "dn0";
+	public final static String DEFAULT_CORPDB_KEY = "dn1";
 	
 	public final static Integer ROOT = -1;
 	

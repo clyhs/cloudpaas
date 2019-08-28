@@ -16,19 +16,19 @@ import com.cloudpaas.common.result.PageResponse;
  */
 public interface IBaseBiz<T> {
 
-	public ObjectResponse<T> add(T t,String url);
+	public ObjectResponse<T> add(T t,String url,Map<String, Object> params);
 	
-	public PageResponse<T> all(String url);
+	public PageResponse<T>   all(String url,Map<String, Object> params);
 	
-	public PageResponse<T> list(Map<String, Object> params,String url);
+	public PageResponse<T>   list(Map<String, Object> params,String url);
 	
-	public ObjectResponse<T> deleteBatch(List<T> lists,String url);
+	public ObjectResponse<T> deleteBatch(List<T> lists,String url,Map<String, Object> params);
 	
-	public ObjectResponse<T> update(T t,Integer id,String url);
+	public ObjectResponse<T> update(T t,Integer id,String url,Map<String, Object> params);
 	
-	public ObjectResponse<T> remove(Integer id,String url);
+	public ObjectResponse<T> remove(Integer id,String url,Map<String, Object> params);
 	
-	public T get(Integer id,String url);
+	public T get(Integer id,String url,Map<String, Object> params);
 	
-	public T get(T t,String url);
+	public T get(T t,String url,Map<String, Object> params);
 }

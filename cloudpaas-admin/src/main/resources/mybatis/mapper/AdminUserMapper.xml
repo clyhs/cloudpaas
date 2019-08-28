@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloudpaas.admin.mapper.AdminUserMapper">
-  <resultMap id="BaseResultMap" type="com.cloudpaas.common.model.User">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="age" jdbcType="INTEGER" property="age" />
-    <result column="tel" jdbcType="VARCHAR" property="tel" />
-    <result column="sex" jdbcType="INTEGER" property="sex" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="corp_id" jdbcType="INTEGER" property="corpId" />
-    <result column="salt" jdbcType="VARCHAR" property="salt" />
-  </resultMap>
+	<resultMap id="BaseResultMap" type="com.cloudpaas.common.model.User">
+		<!-- WARNING - @mbg.generated -->
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="age" jdbcType="INTEGER" property="age" />
+		<result column="tel" jdbcType="VARCHAR" property="tel" />
+		<result column="sex" jdbcType="INTEGER" property="sex" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="corp_id" jdbcType="INTEGER" property="corpId" />
+		<result column="salt" jdbcType="VARCHAR" property="salt" />
+		<association property="corp" javaType="com.cloudpaas.common.model.Corp">
+			<!-- id :关联查询用户的唯一标示 column:指定表示用户信息的列 property：对应user.java中的哪个属性 -->
+			<id column="id" property="id" />
+			<result column="corpname" property="corpname" />
+			<result column="corpcode" property="corpcode" />
+			<result column="corpdbcode" property="corpdbcode" />
+		</association>
+	</resultMap>
+
+
+	<select id="login" parameterType="com.cloudpaas.common.model.User"
+		resultMap="BaseResultMap">
+		select a.*,p.* from t_user as a
+		left join t_corp as p on p.id=a.corp_id
+		where a.username=#{username}
+	</select>
 
 </mapper>

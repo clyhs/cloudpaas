@@ -35,10 +35,7 @@ public class UserBiz extends BaseBiz<User>{
 		return entity;
 	}
 	
-	public ObjectResponse addUser(User user){
-		ObjectResponse<User> result = super.add(user, ApiConstants.API_USER_ADD_URL);
-		return result;
-	}
+
 	
 	/**
 	 * 根据id获取用户实体

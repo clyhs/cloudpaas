@@ -22,9 +22,12 @@ import com.cloudpaas.admin.ui.base.UISimpleController;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.system.biz.RoleBiz;
 import com.cloudpaas.cache.anno.CacheClear;
+import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.Role;
+import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.result.PageResponse;
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 
 /**
@@ -57,9 +60,11 @@ public class RoleController extends UISimpleController<RoleBiz,Role>{
 	
 	@RequestMapping("/edit.html")
 	public String edit(@RequestParam Integer id,ModelMap modelMap){
+		Map<String, Object> params = Maps.newHashMap();
+		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
 		Role rp = new Role();
 		rp.setId(id);
-		Role role =baseBiz.get(rp, ApiConstants.API_ROLE_SELECTONE_URL);
+		Role role =baseBiz.get(rp, ApiConstants.API_ROLE_SELECTONE_URL,params);
 		modelMap.put("role", role);
 		return "admin/layui/system/roleEdit";
 	}
@@ -68,7 +73,10 @@ public class RoleController extends UISimpleController<RoleBiz,Role>{
 	@ResponseBody
 	@CacheClear(prefix="UISC",pkg="true")
 	public ObjectResponse<Role> update(@RequestBody Role entity){
-		ObjectResponse<Role> result= baseBiz.update(entity, entity.getId(), ApiConstants.API_ROLE_SINGLE_URL);
+		Map<String, Object> params = Maps.newHashMap();
+		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
+		ObjectResponse<Role> result= baseBiz.update(entity, entity.getId(), 
+				ApiConstants.API_ROLE_SINGLE_URL,params);
 		return result;
 	}
 	

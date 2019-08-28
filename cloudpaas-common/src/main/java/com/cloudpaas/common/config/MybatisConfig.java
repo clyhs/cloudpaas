@@ -128,8 +128,9 @@ public class MybatisConfig{
         sessionFactory.setDataSource(dynamicDataSource);
         sessionFactory.setTypeAliasesPackage("com.cloudpaas.**.model");    // 扫描Model
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        log.info(mybatisProperties.getMapperLocations());
         sessionFactory.setMapperLocations(resolver.getResources(mybatisProperties.getMapperLocations()));    // 扫描映射文件
-        sessionFactory.setConfigLocation(resolver.getResource("classpath:mybatis/mybatis-config.xml"));
+        sessionFactory.setConfigLocation(resolver.getResource(mybatisProperties.getConfigLocations()));
         return sessionFactory;
     }
 	

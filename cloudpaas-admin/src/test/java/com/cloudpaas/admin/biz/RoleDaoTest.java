@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.admin.dao;
+package com.cloudpaas.admin.biz;
 
 import java.util.List;
 

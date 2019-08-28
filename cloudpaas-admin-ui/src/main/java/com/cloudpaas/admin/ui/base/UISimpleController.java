@@ -20,8 +20,10 @@ import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.cache.anno.CacheWrite;
 import com.cloudpaas.common.model.Role;
+import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.result.PageResponse;
+import com.google.common.collect.Maps;
 
 /**
  * 对每个继续默认实现增删查。
@@ -51,9 +53,14 @@ public abstract class UISimpleController<Biz extends IBaseBiz<T>,T> extends Base
 	 */
 	@RequestMapping(value="/add.json",method=RequestMethod.POST)
 	@ResponseBody
-	@CacheClear(prefix="UISC",pkg="true")
+	//@CacheClear(prefix="UISC",pkg="true")
 	public ObjectResponse<T> add(@RequestBody T entity){
-		ObjectResponse<T> result= baseBiz.add(entity,singleUrl()+ addUrl);
+		User user = getLogin();
+		Map<String, Object> params = Maps.newHashMap();
+		if(null!=user){
+			params.put("db", user.getCorp().getCorpdbcode());
+		}
+		ObjectResponse<T> result= baseBiz.add(entity,singleUrl()+ addUrl,params);
 		return result;
 	}
 	/**
@@ -68,11 +75,15 @@ public abstract class UISimpleController<Biz extends IBaseBiz<T>,T> extends Base
 	@ResponseBody
 	//@Cacheable(value = "pageList", keyGenerator = "keyGenerator") 
 	//@CacheWrite(key="'page_'+#params+'_'+#db+'_'+#id+'_'+#price")
-	@CacheWrite(prefix="UISC",pkg="true")
+	//@CacheWrite(prefix="UISC",pkg="true")
 	public PageResponse<T> page(@RequestParam Map<String, Object> params/*,
 			@RequestParam(value="db",defaultValue="db1",required=false) String db,
 			@RequestParam(value="id",defaultValue="1",required=false) Integer id,
 			@RequestParam(value="price",defaultValue="1.0",required=false) float  price*/){
+		User user = getLogin();
+		if(null!=user){
+			params.put("db", user.getCorp().getCorpdbcode());
+		}
 		PageResponse<T> result= baseBiz.list(params, singleUrl()+pageUrl);
 		return result;
 	}
@@ -80,23 +91,38 @@ public abstract class UISimpleController<Biz extends IBaseBiz<T>,T> extends Base
 	@RequestMapping(value="/all.json",method=RequestMethod.GET)
 	@ResponseBody
 	public PageResponse<T> page(){
-		PageResponse<T> result= baseBiz.all(singleUrl()+allUrl);
+		User user = getLogin();
+		Map<String, Object> params = Maps.newHashMap();
+		if(null!=user){
+			params.put("db", user.getCorp().getCorpdbcode());
+		}
+		PageResponse<T> result= baseBiz.all(singleUrl()+allUrl,params);
 		return result;
 	}
 	
 	@RequestMapping(value="/delete.json",method=RequestMethod.DELETE)
 	@ResponseBody
-	@CacheClear(prefix="UISC",pkg="true")
+	//@CacheClear(prefix="UISC",pkg="true")
 	public ObjectResponse<T> remove(@RequestParam Integer id){
-		ObjectResponse<T> result= baseBiz.remove(id, singleUrl());
+		User user = getLogin();
+		Map<String, Object> params = Maps.newHashMap();
+		if(null!=user){
+			params.put("db", user.getCorp().getCorpdbcode());
+		}
+		ObjectResponse<T> result= baseBiz.remove(id, singleUrl(),params);
 		return result;
 	}
 	
 	@RequestMapping(value="/deleteBatch.json",method=RequestMethod.DELETE)
 	@ResponseBody
-	@CacheClear(prefix="UISC",pkg="true")
+	//@CacheClear(prefix="UISC",pkg="true")
 	public ObjectResponse<T> remove(@RequestBody List<T> lists){
-		ObjectResponse<T> result= baseBiz.deleteBatch(lists, singleUrl()+delBatchUrl);
+		User user = getLogin();
+		Map<String, Object> params = Maps.newHashMap();
+		if(null!=user){
+			params.put("db", user.getCorp().getCorpdbcode());
+		}
+		ObjectResponse<T> result= baseBiz.deleteBatch(lists, singleUrl()+delBatchUrl,params);
 		return result;
 	}
 	

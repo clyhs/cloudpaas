@@ -31,7 +31,7 @@ public class AdminAuthBiz {
 	private int expire = 2*60*60;
 
 	@Autowired
-	private AdminUserBiz adminUserDao;
+	private AdminUserBiz adminUserBiz;
 	@Autowired
 	private JwtConfig jwtConfig;
 	/**
@@ -44,7 +44,7 @@ public class AdminAuthBiz {
 		User entity = new User();
 		JwtResponse jwtResponse = new JwtResponse();
 		BeanUtils.copyProperties(jwtRequest, entity);
-		User user = adminUserDao.selectOne(entity, CommonConstants.DEFAULT_DATASOURCE_KEY);
+		User user = adminUserBiz.login(entity, CommonConstants.DEFAULT_DATASOURCE_KEY);
 		if (!StringUtils.isEmpty(user.getId())) {
 			JWTInfo jwtInfo = new JWTInfo(user.getUsername(),user.getId()+"",user.getName());
 			

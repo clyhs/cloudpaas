@@ -33,15 +33,5 @@ import io.swagger.annotations.Api;
 @RequestMapping("gryj")
 public class PasGryjController extends BaseController<PasGryjBiz,PasGryj> {
 	
-	@RequestMapping(value = "/page.json",method = RequestMethod.GET)
-    @ResponseBody
-    public PageResponse<PasGryj> list(
-    		@RequestParam(value = "db", defaultValue = "dn1", required = false) String db,
-    		@RequestParam Map<String, Object> params){
-        //查询列表数据
-    	log.info("params:{}",JSON.toJSONString(params));
-        Query query = new Query(params);
-        return baseDao.selectByQuery(query,db);
-    }
 
 }

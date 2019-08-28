@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.cloudpaas.admin.ui.prop.AdminUIProperites;
 import com.cloudpaas.common.constants.CommonConstants;
+import com.cloudpaas.common.model.User;
 
 /**
  * @author 大鱼
@@ -60,6 +61,12 @@ public abstract class AbstractBaseBiz {
 		Session session = SecurityUtils.getSubject().getSession();
 		String token = (String) session.getAttribute(CommonConstants.USER_TOKEN);
 		return token;
+	}
+	
+	protected User getUser(){
+		Session session = SecurityUtils.getSubject().getSession();
+		User user = (User) session.getAttribute(CommonConstants.USER_SESSION_ID);
+		return user;
 	}
 	
 	public abstract String getSID();
