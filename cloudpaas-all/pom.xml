@@ -16,6 +16,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cloudpaas-all</name>
 	<url>http://maven.apache.org</url>
+	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<docker.image.prefix>cloudpaas-all</docker.image.prefix>
@@ -104,6 +105,7 @@
         <dependency>  
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-jetty</artifactId>  
+            <scope>provided</scope>
         </dependency> 
 		
 		
@@ -112,10 +114,19 @@
 	
 	<build>
 		<plugins>
+		    <!--  
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+			</plugin>-->
+			<plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-compiler-plugin</artifactId>
+               <configuration>
+                   <source>1.8</source>
+                   <target>1.8</target>
+               </configuration>
+           	</plugin>
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
