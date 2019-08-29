@@ -5,6 +5,12 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/docker"/>
+        <dependent-module archiveName="cloudpaas-service-pas-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cloudpaas-service-pas/cloudpaas-service-pas">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cloudpaas-common-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cloudpaas-common/cloudpaas-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="cloudpaas-beans-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cloudpaas-beans/cloudpaas-beans">
             <dependency-type>uses</dependency-type>
         </dependent-module>
