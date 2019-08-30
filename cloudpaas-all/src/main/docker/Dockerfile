@@ -3,7 +3,7 @@ FROM tomcat:8.5
 MAINTAINER 大鱼
 
 VOLUME /tmp
-ADD target/cloudpaas-all-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/api.war
+ADD cloudpaas-all-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/api.war
 
 EXPOSE 8080
 
