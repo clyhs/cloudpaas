@@ -31,9 +31,9 @@
 
 ```
 #cloudpaas-all启动
-docker run -d --name cpaas-all -p 8200:8200 cloudpaas-all/cloudpaas-all
+docker run -d --name cpaas-all -p 8200:8080 cloudpaas-all/cloudpaas-all
 #cloudpaas-admin-ui
-docker run -d --name cpaas-admin-ui -e GATETYPE=header -e GATEPORT=8200 -p 8888:8080 cloudpaas-admin-ui/cloudpaas-admin-ui
+docker run -d --name cpaas-admin-ui -e GATETYPE=header -e GATEIP=192.168.0.16 -e GATEPORT=8200 -p 8888:8080 cloudpaas-admin-ui/cloudpaas-admin-ui
 ```
 
 *GATETYPE=header或path，GATEIP=127.0.0.1，GATEPORT=8200。参数可以调整接入的后端服务地址*

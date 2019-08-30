@@ -223,14 +223,14 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!--   
+              
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            -->
-            <!-- 在maven编译时出现程序包不存在问题 -->
             
+            <!-- 在maven编译时出现程序包不存在问题 -->
+            <!-- 
             <plugin>
                <groupId>org.apache.maven.plugins</groupId>
                <artifactId>maven-compiler-plugin</artifactId>
@@ -238,7 +238,7 @@
                    <source>1.8</source>
                    <target>1.8</target>
                </configuration>
-           	</plugin>
+           	</plugin>-->
             <plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
