@@ -28,7 +28,7 @@ import io.swagger.annotations.Api;
  *
  * @date 2019年8月28日 上午11:07:12
  */
-@Api
+@Api(tags="gryj api",value = "/gryj", description = "个人业绩操作接口")
 @RestController
 @RequestMapping("gryj")
 public class PasGryjController extends BaseController<PasGryjBiz,PasGryj> {

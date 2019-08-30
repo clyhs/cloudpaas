@@ -20,6 +20,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<docker.image.prefix>cloudpaas-all</docker.image.prefix>
+        
 	</properties>
 	<dependencies>
         
@@ -107,9 +108,8 @@
             <artifactId>spring-boot-starter-jetty</artifactId>  
             <scope>provided</scope>
         </dependency> 
-		
-		
-
+        
+      
 	</dependencies>
 	
 	<build>
@@ -143,6 +143,8 @@
 					</resources>
 				</configuration>
 			</plugin>
+			
+			 
 		</plugins>
 	</build>
 

@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
  *
  * @date 2019年8月14日 下午2:41:52
  */
-@Api
+@Api(tags="role api",value = "/role", description = "角色操作接口")
 @RestController
 @RequestMapping("role")
 public class AdminRoleController extends BaseController<AdminRoleBiz, Role> {

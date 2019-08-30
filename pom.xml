@@ -101,6 +101,6 @@
 		<module>cloudpaas-service-pas</module>
 		<module>cloudpaas-all</module>
 		<module>cloudpaas-admin-ui</module>
-    <module>cloudpaas-beans</module>
+    	<module>cloudpaas-beans</module>
   </modules>
 </project>

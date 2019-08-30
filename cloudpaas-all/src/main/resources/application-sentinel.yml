@@ -128,4 +128,4 @@ logging:
   
 jwt:
   rsa-secret: 123456
-  ignore: /api/auth,/auth
+  ignore: /api/auth,/auth,/api/v2,/api/swagger,/api/webjars

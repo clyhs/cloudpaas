@@ -27,13 +27,17 @@ import com.cloudpaas.common.utils.TreeUtil;
 import com.google.gson.Gson;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * @author 大鱼
  *
  * @date 2019年8月13日 下午2:34:34
  */
-@Api
+@Api(tags="menu api",value = "/menu", description = "菜单操作接口")
 @RestController
 @RequestMapping("menu")
 public class AdminMenuController extends BaseController<AdminMenuBiz,Menu> {
@@ -42,11 +46,11 @@ public class AdminMenuController extends BaseController<AdminMenuBiz,Menu> {
 	//private AdminMenuDao adminMenuDao;
 	
 	
-	
+	@ApiOperation(value="获取菜单树接口",notes="默认获取要显示的菜单")
 	@GetMapping("/tree.json")
 	public List<AdminMenuTreeVo> getAdminMenuTree(
-			@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db,
-    		@RequestParam(value = "isShow" ,defaultValue = "1",required=false) Integer isShow){
+			@ApiParam(value = "节点代号", required = false) @RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db,
+			@ApiParam(value = "是否显示", required = false) @RequestParam(value = "isShow" ,defaultValue = "1",required=false) Integer isShow){
 		List<Menu> menus = new ArrayList<Menu>();
 		Menu adminMenu = new Menu();
 		adminMenu.setIsShow(isShow);

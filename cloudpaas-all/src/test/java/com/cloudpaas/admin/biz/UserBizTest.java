@@ -19,19 +19,19 @@ import com.cloudpaas.common.model.User;
  *
  * @date 2019年8月28日 下午2:26:58
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = AllApplication.class)
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = AllApplication.class)
 public class UserBizTest {
-	@Autowired
-	AdminUserBiz userBiz;
+	//@Autowired
+	//AdminUserBiz userBiz;
 	
-	@Test
-	public void loginTest(){
-		User t =new User();
-		t.setUsername("admin");
-		User user = userBiz.login(t, "dn0");
-		System.out.println(JSON.toJSONString(user));
-		
-	}
+//	@Test
+//	public void loginTest(){
+//		User t =new User();
+//		t.setUsername("admin");
+//		User user = userBiz.login(t, "dn0");
+//		System.out.println(JSON.toJSONString(user));
+//		
+//	}
 
 }

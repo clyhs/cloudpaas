@@ -26,6 +26,11 @@ import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.result.PageResponse;
 import com.cloudpaas.common.utils.Query;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 /**
  * @author 大鱼
  *
@@ -40,57 +45,68 @@ public abstract class BaseController<Dao extends ABaseBiz,T> {
     @Autowired
     protected Dao baseDao;
     
-    @RequestMapping(value = "/add.json",method = RequestMethod.POST)
+    @ApiOperation(value="添加接口",notes="")
+	@RequestMapping(value = "/add.json",method = RequestMethod.POST)
     @ResponseBody
-    public ObjectResponse<T> add(@RequestBody T entity,
-    		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
+    public ObjectResponse<T> add(
+    		@ApiParam(value = "实体", required = true) @RequestBody T entity,
+    		@ApiParam(value = "节点代号", required = false) @RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
         baseDao.insertSelective(entity,db);
         return new ObjectResponse<T>();
     }
     
+    @ApiOperation(value="获取全部数据接口",notes="")
     @RequestMapping(value = "/all.json",method = RequestMethod.GET)
     @ResponseBody
-    public PageResponse<T> all(@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
+    public PageResponse<T> all(
+    		@ApiParam(value = "节点代号", required = false) @RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
         List<T> list = baseDao.selectListAll(db);
     	PageResponse<T> result = new PageResponse();
     	result.setData(list);
     	return result;
     }
     
+    @ApiOperation(value="分页接口",notes="参数全部自动放到map里面,默认10条数据")
     @RequestMapping(value = "/page.json",method = RequestMethod.GET)
     @ResponseBody
     public PageResponse<T> list(
     		/*
     		@RequestParam(name="page" ,required=false,defaultValue="1") Integer page,
     		@RequestParam(name="limit" ,required=false,defaultValue="20") Integer size,*/
-    		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db,
-    		@RequestParam Map<String, Object> params){
+    		@ApiParam(value = "节点代号", required = false) @RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db,
+    		@ApiParam(value = "动态参数", required = false) @RequestParam Map<String, Object> params){
         //查询列表数据
     	log.info("---------------params:{}--------------",JSON.toJSONString(params));
         Query query = new Query(params);
         return baseDao.selectByQuery(query,db);
     }
     
-    
+    @ApiOperation(value="更新接口",notes="")
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
     @ResponseBody
-    public ObjectResponse<T> update(@RequestBody T entity,
-    		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
+    public ObjectResponse<T> update(
+    		@ApiParam(value = "实体数据", required = true) @RequestBody T entity,
+    		@ApiParam(value = "节点代号", required = false) @RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
         baseDao.updateSelectiveById(entity,db);
         return new ObjectResponse<T>();
     }
+    
+    @ApiOperation(value="删除接口",notes="")
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     @ResponseBody
-    public ObjectResponse<T> remove(@PathVariable int id,
-    		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
+    public ObjectResponse<T> remove(
+    		@ApiParam(value = "ID", required = true) @PathVariable int id,
+    		@ApiParam(value = "节点代号", required = false) @RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
         baseDao.deleteById(id,db);
         return new ObjectResponse<T>();
     }
     
+    @ApiOperation(value="批量删除接口",notes="实体包含ID主健")
     @RequestMapping(value = "/deleteBatch.json",method = RequestMethod.DELETE)
     @ResponseBody
-    public ObjectResponse<T> deleteBatch(@RequestBody List<T> lists,
-    		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){    
+    public ObjectResponse<T> deleteBatch(
+    		@ApiParam(value = "lists", required = true) @RequestBody List<T> lists,
+    		@ApiParam(value = "节点代号", required = false) @RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){    
         if(lists == null || lists.size()==0){
             return new ObjectResponse<T>();
         }
@@ -100,20 +116,24 @@ public abstract class BaseController<Dao extends ABaseBiz,T> {
         return new ObjectResponse<T>();
     }
     
+    @ApiOperation(value="获取单实体接口",notes="实体包含ID主健")
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public ObjectResponse<T> get(@PathVariable Integer id,
-    		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
+    public ObjectResponse<T> get(
+    		@ApiParam(value = "id", required = true) @PathVariable Integer id,
+    		@ApiParam(value = "节点代号", required = false) @RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
         ObjectResponse<T> entityObjectRestResponse = new ObjectResponse<>();
         Object o = baseDao.selectById(id,db);
         entityObjectRestResponse.data((T)o);
         return entityObjectRestResponse;
     }
     
+    @ApiOperation(value="获取单实体接口",notes="实体包含ID主健")
     @RequestMapping(value = "/selectOne.json",method = RequestMethod.GET)
     @ResponseBody
-    public ObjectResponse<T> get(@RequestBody T entity,
-    		@RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
+    public ObjectResponse<T> get(
+    		@ApiParam(value = "entity", required = true) @RequestBody T entity,
+    		@ApiParam(value = "节点代号", required = false) @RequestParam(value = "db", defaultValue = CommonConstants.DEFAULT_DATASOURCE_KEY, required = false) String db){
         
     	ObjectResponse<T> entityObjectRestResponse = new ObjectResponse<>();
         Object o = baseDao.selectOne(entity, db);

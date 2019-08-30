@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @date 2019年7月26日 上午10:12:55
  */
-@Api
+@Api(tags="user api",value = "/user", description = "用户操作接口")
 @RestController
 @RequestMapping("user")
 public class AdminUserController extends BaseController<AdminUserBiz, User>{
