@@ -48,9 +48,9 @@ docker run -d --name cpaas-admin-ui -e GATETYPE=header -e GATEIP=192.168.0.16 -e
 #cloudpaas-regcenter
 docker run -d --name cpaas-regcenter -p 8761:8761 cloudpaas-regcenter/cloudpaas-regcenter
 #cloudpaas-admin
-docker run -d --name cpaas-admin -p 8101:8101 cloudpaas-admin/cloudpaas-admin
+docker run -d --name cpaas-admin -e EUREKA_SERVICE_URL=http://192.168.0.16:8761 -e MONITOR_URL=http://192.168.0.16:8901 -p 8101:8101 cloudpaas-admin/cloudpaas-admin
 #cloudpaas-service-pas
-docker run -d --name cpaas-service-pas -p 8102:8102 cloudpaas-service-pas/cloudpaas-service-pas
+docker run -d --name cpaas-service-pas -e EUREKA_SERVICE_URL=http://192.168.0.16:8761 -e MONITOR_URL=http://192.168.0.16:8901 -p 8102:8102 cloudpaas-service-pas/cloudpaas-service-pas
 #cloudpaas-gateway
 docker run -d --name cpaas-gateway -p 8100:8100 cloudpaas-gateway/cloudpaas-gateway
 #cloudpaas-monitor(可以不启动)
