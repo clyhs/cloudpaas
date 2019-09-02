@@ -25,13 +25,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.alibaba.fastjson.JSON;
 import com.cloudpaas.admin.ui.prop.AdminUIProperites;
-import com.cloudpaas.cache.anno.CacheClear;
-import com.cloudpaas.cache.anno.CacheWrite;
-import com.cloudpaas.cache.anno.IgnoreField;
+
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.result.PageResponse;
 import com.cloudpaas.common.utils.JSONUtil;
+import com.cloudpaas.plugin.redis.anno.CacheClear;
+import com.cloudpaas.plugin.redis.anno.CacheWrite;
+import com.cloudpaas.plugin.redis.anno.IgnoreField;
 import com.google.common.collect.Maps;
 
 

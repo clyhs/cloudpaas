@@ -63,17 +63,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>5.0.4.RELEASE</version>
 		</dependency>
-
-
-
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.9.5</version>
-		</dependency>
-		
 
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -115,11 +105,6 @@
 			</exclusions>
 		</dependency>
 
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>1.1.9</version>
-		</dependency>
 
 
         <!-- 
@@ -148,23 +133,10 @@
 			<artifactId>javax.transaction-api</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			
-			
-		</dependency>
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.14</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
-			<version>2.7.9</version>
 		</dependency>
 
 
@@ -179,26 +151,8 @@
             <version>0.7.0</version>
         </dependency>
         
-        
-        <!--spring2.0集成redis所需common-pool2 -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-pool2</artifactId>
-			<version>2.4.2</version>
-		</dependency>
+       
 		
-		<!--redis数据库 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-		
-		<!--fastjson -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.31</version>
-		</dependency>
 
 
 

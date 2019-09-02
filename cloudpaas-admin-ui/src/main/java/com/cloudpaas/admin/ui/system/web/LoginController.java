@@ -36,12 +36,13 @@ import org.springframework.http.HttpStatus;
 
 import com.cloudpaas.admin.ui.base.ResponseBean;
 import com.cloudpaas.admin.ui.utils.CodeUtil;
-import com.cloudpaas.cache.anno.CacheClear;
-import com.cloudpaas.cache.anno.CacheWrite;
-import com.cloudpaas.cache.service.IRedisService;
+
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.utils.ErrorCode;
+import com.cloudpaas.plugin.redis.anno.CacheClear;
+import com.cloudpaas.plugin.redis.anno.CacheWrite;
+import com.cloudpaas.plugin.redis.service.IRedisService;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 

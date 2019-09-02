@@ -21,12 +21,12 @@ import com.cloudpaas.admin.ui.base.BaseController;
 import com.cloudpaas.admin.ui.base.UISimpleController;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.system.biz.RoleBiz;
-import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.result.PageResponse;
+import com.cloudpaas.plugin.redis.anno.CacheClear;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 

@@ -13,6 +13,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import com.cloudpaas.common.config.JwtConfig;
 import com.cloudpaas.common.utils.jwt.RsaKeyHelper;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 
  * 启动时根据 jwtConfig的密码生成用户公钥，用户密钥
@@ -23,6 +25,7 @@ import com.cloudpaas.common.utils.jwt.RsaKeyHelper;
  * 
  * 可参考 com.cloudpaas.common.utils.jwt.RasDemo
  */
+@Slf4j
 @Configuration
 public class AuthRunner implements CommandLineRunner {
 	
@@ -41,7 +44,10 @@ public class AuthRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		
+		
 		if (redisTemplate.hasKey(REDIS_USER_PRI_KEY)&&redisTemplate.hasKey(REDIS_USER_PUB_KEY)) {
+			
 			jwtConfig.setUserPriKey(RsaKeyHelper.toBytes(redisTemplate.opsForValue().get(REDIS_USER_PRI_KEY).toString()));
 			jwtConfig.setUserPubKey(RsaKeyHelper.toBytes(redisTemplate.opsForValue().get(REDIS_USER_PUB_KEY).toString()));
                

@@ -28,7 +28,6 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
 		</dependency>
 
 		<dependency>
@@ -42,18 +41,7 @@
 			<artifactId>lombok</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.9.5</version>
-		</dependency>
-
-		<!--fastjson -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.31</version>
-		</dependency>
+		
         <!--  -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -71,32 +59,5 @@
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-redis</artifactId>
-		</dependency>
-		
-		
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-pool2</artifactId>
-			<version>2.4.2</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-		</dependency>
-	
-
 	</dependencies>
 </project>

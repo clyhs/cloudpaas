@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import com.cloudpaas.admin.ui.constants.ApiConstants;
-import com.cloudpaas.cache.anno.CacheClear;
-import com.cloudpaas.cache.anno.CacheWrite;
+
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectResponse;

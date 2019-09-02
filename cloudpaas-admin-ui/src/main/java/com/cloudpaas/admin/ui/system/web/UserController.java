@@ -20,7 +20,6 @@ import com.cloudpaas.admin.ui.base.UISimpleController;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.system.biz.UserBiz;
 import com.cloudpaas.admin.ui.utils.ShiroPassUtil;
-import com.cloudpaas.cache.anno.CacheClear;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.model.User;
