@@ -19,11 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cloudpaas.admin.biz.AdminMenuBiz;
 import com.cloudpaas.admin.vo.AdminMenuTreeVo;
 import com.cloudpaas.common.constants.CommonConstants;
-import com.cloudpaas.common.controller.BaseController;
+
 import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.result.PageResponse;
 import com.cloudpaas.common.utils.JSONUtil;
 import com.cloudpaas.common.utils.TreeUtil;
+import com.cloudpaas.plugin.mybatis.controller.BaseController;
 import com.google.gson.Gson;
 
 import io.swagger.annotations.Api;

@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cloudpaas.common.base.biz.ABaseBiz;
+
 import com.cloudpaas.common.model.User;
-import com.cloudpaas.common.mybatis.DataSource;
+import com.cloudpaas.plugin.mybatis.base.ABaseBiz;
+import com.cloudpaas.plugin.mybatis.datasource.DataSource;
 import com.cloudpaas.admin.mapper.AdminUserMapper;
 
 /**

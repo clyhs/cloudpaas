@@ -6,8 +6,9 @@ package com.cloudpaas.admin.biz;
 import org.springframework.stereotype.Repository;
 
 import com.cloudpaas.admin.mapper.AdminRoleMapper;
-import com.cloudpaas.common.base.biz.ABaseBiz;
+
 import com.cloudpaas.common.model.Role;
+import com.cloudpaas.plugin.mybatis.base.ABaseBiz;
 
 /**
  * @author 大鱼

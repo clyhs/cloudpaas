@@ -1,11 +1,11 @@
-package com.cloudpaas.common.mybatis;
+package com.cloudpaas.plugin.mybatis.datasource;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.cloudpaas.common.constants.CommonConstants;
-import com.cloudpaas.common.properties.DataSourceProperty;
-import com.cloudpaas.common.properties.MultiDataSourceProperties;
-import com.cloudpaas.common.utils.AtomikosDataSourceUtil;
+
 import com.cloudpaas.common.utils.JSONUtil;
+import com.cloudpaas.plugin.mybatis.prop.DataSourceProperty;
+import com.cloudpaas.plugin.mybatis.utils.AtomikosDataSourceUtil;
 import com.zaxxer.hikari.HikariDataSource;
 
 import org.slf4j.Logger;

@@ -3,6 +3,7 @@
  */
 package com.cloudpaas.common.exception;
 
+import com.cloudpaas.common.exception.BaseException;
 import com.cloudpaas.common.utils.ErrorCode;
 
 /**

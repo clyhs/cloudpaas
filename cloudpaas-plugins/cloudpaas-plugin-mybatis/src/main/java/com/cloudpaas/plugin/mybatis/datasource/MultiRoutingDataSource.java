@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.common.mybatis;
+package com.cloudpaas.plugin.mybatis.datasource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cloudpaas.admin.biz.AdminRoleBiz;
-import com.cloudpaas.common.controller.BaseController;
 import com.cloudpaas.common.model.Role;
+import com.cloudpaas.plugin.mybatis.controller.BaseController;
 
 import io.swagger.annotations.Api;
 

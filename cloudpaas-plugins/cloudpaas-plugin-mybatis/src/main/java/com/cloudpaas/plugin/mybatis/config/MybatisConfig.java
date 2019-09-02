@@ -1,42 +1,31 @@
 /**
  * 
  */
-package com.cloudpaas.common.config;
+package com.cloudpaas.plugin.mybatis.config;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.core.annotation.Order;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import com.cloudpaas.common.constants.CommonConstants;
-import com.cloudpaas.common.mybatis.MultiRoutingDataSource;
-import com.cloudpaas.common.properties.DataSourceProperty;
-import com.cloudpaas.common.properties.MultiDataSourceProperties;
-import com.cloudpaas.common.properties.MybatisProperties;
-import com.cloudpaas.common.utils.AtomikosDataSourceUtil;
 import com.cloudpaas.common.utils.JSONUtil;
-import com.github.pagehelper.PageInterceptor;
+import com.cloudpaas.plugin.mybatis.datasource.MultiRoutingDataSource;
+import com.cloudpaas.plugin.mybatis.prop.DataSourceProperty;
+import com.cloudpaas.plugin.mybatis.prop.MultiDataSourceProperties;
+import com.cloudpaas.plugin.mybatis.prop.MybatisProperties;
+import com.cloudpaas.plugin.mybatis.utils.AtomikosDataSourceUtil;
 
 import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 

@@ -17,6 +17,9 @@
         <dependent-module archiveName="cloudpaas-plugin-redis-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cloudpaas-plugin-redis/cloudpaas-plugin-redis">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="cloudpaas-plugin-mybatis-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cloudpaas-plugin-mybatis/cloudpaas-plugin-mybatis">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="cloudpaas-admin-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cloudpaas-admin/cloudpaas-admin">
             <dependency-type>uses</dependency-type>
         </dependent-module>

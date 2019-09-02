@@ -1,4 +1,4 @@
-package com.cloudpaas.common.transaction;
+package com.cloudpaas.plugin.mybatis.transaction;
 
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.icatch.jta.UserTransactionManager;

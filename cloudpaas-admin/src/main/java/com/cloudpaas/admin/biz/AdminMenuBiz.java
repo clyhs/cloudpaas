@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.cloudpaas.admin.mapper.AdminMenuMapper;
 
-import com.cloudpaas.common.base.biz.ABaseBiz;
 import com.cloudpaas.common.model.Menu;
+import com.cloudpaas.plugin.mybatis.base.ABaseBiz;
 
 /**
  * @author 大鱼

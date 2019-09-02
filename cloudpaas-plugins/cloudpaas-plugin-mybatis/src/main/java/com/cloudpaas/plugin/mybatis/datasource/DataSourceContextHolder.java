@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.common.mybatis;
+package com.cloudpaas.plugin.mybatis.datasource;
 
 import java.util.Set;
 

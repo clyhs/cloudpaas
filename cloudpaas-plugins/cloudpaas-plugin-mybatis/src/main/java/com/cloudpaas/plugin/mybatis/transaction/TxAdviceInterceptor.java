@@ -1,4 +1,4 @@
-package com.cloudpaas.common.transaction;
+package com.cloudpaas.plugin.mybatis.transaction;
 
 
 import org.aspectj.lang.annotation.Aspect;

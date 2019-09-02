@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.common.properties;
+package com.cloudpaas.plugin.mybatis.prop;
 
 import java.util.ArrayList;
 import java.util.List;

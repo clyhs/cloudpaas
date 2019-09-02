@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.common.base.biz;
+package com.cloudpaas.plugin.mybatis.base;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cloudpaas.common.mybatis.DataSource;
 import com.cloudpaas.common.result.PageResponse;
-import com.cloudpaas.common.utils.Query;
+import com.cloudpaas.plugin.mybatis.datasource.DataSource;
+import com.cloudpaas.plugin.mybatis.utils.Query;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 

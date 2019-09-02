@@ -1,4 +1,4 @@
-package com.cloudpaas.common.mybatis;
+package com.cloudpaas.plugin.mybatis.datasource;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

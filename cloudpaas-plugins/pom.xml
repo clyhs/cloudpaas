@@ -27,14 +27,10 @@
 	</properties>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>com.cpaas</groupId>
 			<artifactId>cloudpaas-beans</artifactId>
 		</dependency>
-		
-		
-		
 	</dependencies>
 
 	<dependencyManagement>
@@ -54,5 +50,6 @@
 	
   <modules>
     <module>cloudpaas-plugin-redis</module>
+    <module>cloudpaas-plugin-mybatis</module>
   </modules>
 </project>

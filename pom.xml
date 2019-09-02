@@ -107,6 +107,12 @@
 				<artifactId>cloudpaas-plugin-redis</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>com.cpaas</groupId>
+				<artifactId>cloudpaas-plugin-mybatis</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>

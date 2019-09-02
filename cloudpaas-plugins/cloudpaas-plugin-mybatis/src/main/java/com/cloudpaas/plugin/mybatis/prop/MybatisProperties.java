@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.common.properties;
+package com.cloudpaas.plugin.mybatis.prop;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

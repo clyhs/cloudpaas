@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.common.utils;
+package com.cloudpaas.plugin.mybatis.utils;
 
 import java.util.Properties;
 
@@ -14,7 +14,7 @@ import org.springframework.core.env.Environment;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.xa.DruidXADataSource;
-import com.cloudpaas.common.properties.DataSourceProperty;
+import com.cloudpaas.plugin.mybatis.prop.DataSourceProperty;
 
 /**
  * @author 大鱼

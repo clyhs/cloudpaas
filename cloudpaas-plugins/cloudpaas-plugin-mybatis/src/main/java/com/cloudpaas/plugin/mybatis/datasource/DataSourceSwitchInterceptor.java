@@ -1,4 +1,4 @@
-package com.cloudpaas.common.mybatis;
+package com.cloudpaas.plugin.mybatis.datasource;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
