@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cloudpaas.common.EnableAPISwagger2;
-import com.cloudpaas.common.mybatis.MultiDataSourceRegister;
 
 
 
