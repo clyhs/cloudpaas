@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cloudpaas.service.pas.mapper.PasGryjMapper" >
-  <resultMap id="BaseResultMap" type="com.cloudpaas.service.pas.model.PasGryj" >
+  <resultMap id="BaseResultMap" type="com.cloudpaas.pas.model.PasGryj" >
     <!--
       WARNING - @mbg.generated
     -->

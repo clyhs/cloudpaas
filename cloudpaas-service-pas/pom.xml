@@ -109,6 +109,11 @@
 			<groupId>com.cpaas</groupId>
 			<artifactId>cloudpaas-plugin-mybatis</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.cpaas</groupId>
+			<artifactId>cloudpaas-plugin-mongodb</artifactId>
+		</dependency>
 	</dependencies>
 
 

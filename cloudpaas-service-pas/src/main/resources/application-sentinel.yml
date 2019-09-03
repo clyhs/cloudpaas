@@ -54,6 +54,7 @@ spring:
         username: user
         instance:
           prefer-ip: true
+          service-base-url: "http://localhost:8102"
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -128,6 +129,11 @@ spring:
     http:
       legacy:
         enabled: true
+  data:
+    mongodb:
+      database: test
+      port: 27017
+      host: 127.0.0.1
         
         
 mybatis:

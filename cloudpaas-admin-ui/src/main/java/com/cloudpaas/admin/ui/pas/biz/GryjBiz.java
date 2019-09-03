@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cloudpaas.admin.ui.base.BaseBiz;
 import com.cloudpaas.common.constants.CommonConstants;
-import com.cloudpaas.service.pas.model.PasGryj;
+import com.cloudpaas.pas.model.PasGryj;
 
 /**
  * @author 大鱼

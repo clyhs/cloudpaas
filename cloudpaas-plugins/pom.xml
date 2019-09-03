@@ -51,6 +51,6 @@
   <modules>
     <module>cloudpaas-plugin-redis</module>
     <module>cloudpaas-plugin-mybatis</module>
-    <module>cloudpaas-plugin-mongdb</module>
+    <module>cloudpaas-plugin-mongodb</module>
   </modules>
 </project>

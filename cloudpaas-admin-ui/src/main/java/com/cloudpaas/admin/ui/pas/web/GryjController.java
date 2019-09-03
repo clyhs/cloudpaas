@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cloudpaas.admin.ui.base.UISimpleController;
 import com.cloudpaas.admin.ui.constants.ApiConstants;
 import com.cloudpaas.admin.ui.pas.biz.GryjBiz;
-import com.cloudpaas.service.pas.model.PasGryj;
+import com.cloudpaas.pas.model.PasGryj;
 
 
 /**

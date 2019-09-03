@@ -9,9 +9,9 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.cpaas</groupId>
-	<artifactId>cloudpaas-plugin-mongdb</artifactId>
+	<artifactId>cloudpaas-plugin-mongodb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cloudpaas-plugin-mongdb</name>
+	<name>cloudpaas-plugin-mongodb</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

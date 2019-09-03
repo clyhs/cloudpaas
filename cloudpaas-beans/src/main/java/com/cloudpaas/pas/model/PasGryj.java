@@ -1,4 +1,4 @@
-package com.cloudpaas.service.pas.model;
+package com.cloudpaas.pas.model;
 
 import javax.persistence.*;
 

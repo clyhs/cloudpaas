@@ -110,6 +110,12 @@
 			
 			<dependency>
 				<groupId>com.cpaas</groupId>
+				<artifactId>cloudpaas-plugin-mongodb</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.cpaas</groupId>
 				<artifactId>cloudpaas-plugin-mybatis</artifactId>
 				<version>${project.version}</version>
 			</dependency>
