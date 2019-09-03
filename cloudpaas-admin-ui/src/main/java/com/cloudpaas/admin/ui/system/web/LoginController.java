@@ -89,7 +89,7 @@ public class LoginController {
 	
 	@RequestMapping("/login.html")
 	public String login(){
-		return "admin/layui/login";
+		return "admin/login";
 	}
 	
 	@RequestMapping(value="/login.json",method = RequestMethod.POST)
@@ -130,7 +130,7 @@ public class LoginController {
 	@RequestMapping(value="/icon.html")
 	public String icon(){
 		
-		return "admin/layui/icon";
+		return "admin/icon";
 	}
 	
 	@RequestMapping(path = "/401")

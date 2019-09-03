@@ -38,12 +38,12 @@ public class UserController extends UISimpleController<UserBiz,User>{
 	
 	@RequestMapping("/index.html")
 	public String index(){
-		return "admin/layui/system/user";
+		return "admin/system/user";
 	}
 	
 	@RequestMapping("/add.html")
 	public String add(){
-		return "admin/layui/system/userAdd";
+		return "admin/system/userAdd";
 	}
 	@RequestMapping("/edit.html")
 	public String edit(@RequestParam Integer id,ModelMap modelMap){
@@ -51,7 +51,7 @@ public class UserController extends UISimpleController<UserBiz,User>{
 		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
 		User entity = baseBiz.get(id, ApiConstants.API_USER_SINGLE_URL,params);
 		modelMap.put("user", entity);
-		return "admin/layui/system/userEdit";
+		return "admin/system/userEdit";
 	}
 	
 	@RequestMapping(value="/add.json",method=RequestMethod.POST)

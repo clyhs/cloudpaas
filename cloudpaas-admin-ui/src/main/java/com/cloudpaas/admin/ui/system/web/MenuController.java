@@ -44,7 +44,7 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 	
 	@RequestMapping("/index.html")
 	public String index(){
-		return "admin/layui/system/menu";
+		return "admin/system/menu";
 	}
 	
 	@RequestMapping("/tree.json")
@@ -63,7 +63,7 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
             Menu menu = baseBiz.get(Integer.valueOf(pId), ApiConstants.API_MENU_SINGLE_URL,params);
             modelMap.put("parentMenu",menu);
         }
-		return "admin/layui/system/menuAdd";
+		return "admin/system/menuAdd";
 	}
 	
 	@RequestMapping("/edit.html")
@@ -72,7 +72,7 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
 		Menu menu = baseBiz.get(id, ApiConstants.API_MENU_SINGLE_URL,params);
 		modelMap.put("menu", menu);
-		return "admin/layui/system/menuEdit";
+		return "admin/system/menuEdit";
 	}
 	
 	@RequestMapping(value="/update.json",method=RequestMethod.PUT)

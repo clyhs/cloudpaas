@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.cloudpaas.common.model.User;
-import com.cloudpaas.plugin.mybatis.base.ABaseBiz;
+import com.cloudpaas.plugin.mybatis.biz.ABaseBiz;
 import com.cloudpaas.plugin.mybatis.datasource.DataSource;
 import com.cloudpaas.admin.mapper.AdminUserMapper;
 

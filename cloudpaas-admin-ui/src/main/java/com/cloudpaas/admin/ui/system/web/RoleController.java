@@ -43,12 +43,12 @@ public class RoleController extends UISimpleController<RoleBiz,Role>{
 
 	@RequestMapping("/index.html")
 	public String index(){
-		return "admin/layui/system/role";
+		return "admin/system/role";
 	}
 	
 	@RequestMapping("/add.html")
 	public String add(){
-		return "admin/layui/system/roleAdd";
+		return "admin/system/roleAdd";
 	}
 	
 //	@RequestMapping(value="/add.json",method=RequestMethod.POST)
@@ -66,7 +66,7 @@ public class RoleController extends UISimpleController<RoleBiz,Role>{
 		rp.setId(id);
 		Role role =baseBiz.get(rp, ApiConstants.API_ROLE_SELECTONE_URL,params);
 		modelMap.put("role", role);
-		return "admin/layui/system/roleEdit";
+		return "admin/system/roleEdit";
 	}
 	
 	@RequestMapping(value="/update.json",method=RequestMethod.PUT)

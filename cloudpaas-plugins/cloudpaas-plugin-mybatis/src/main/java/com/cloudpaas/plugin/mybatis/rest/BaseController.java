@@ -24,7 +24,7 @@ import com.alibaba.fastjson.JSON;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.result.PageResponse;
-import com.cloudpaas.plugin.mybatis.base.ABaseBiz;
+import com.cloudpaas.plugin.mybatis.biz.ABaseBiz;
 import com.cloudpaas.plugin.mybatis.utils.Query;
 
 import io.swagger.annotations.ApiImplicitParam;

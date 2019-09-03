@@ -25,7 +25,7 @@ public class GryjController extends UISimpleController<GryjBiz,PasGryj>{
 	
 	@RequestMapping("/index.html")
 	public String index(){
-		return "admin/layui/pas/gryj";
+		return "admin/pas/gryj";
 	}
 
 	/* (non-Javadoc)

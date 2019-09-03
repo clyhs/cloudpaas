@@ -5,7 +5,7 @@ package com.cloudpaas.service.pas.biz;
 
 import org.springframework.stereotype.Repository;
 
-import com.cloudpaas.plugin.mybatis.base.ABaseBiz;
+import com.cloudpaas.plugin.mybatis.biz.ABaseBiz;
 import com.cloudpaas.service.pas.mapper.PasGryjMapper;
 import com.cloudpaas.service.pas.model.PasGryj;
 

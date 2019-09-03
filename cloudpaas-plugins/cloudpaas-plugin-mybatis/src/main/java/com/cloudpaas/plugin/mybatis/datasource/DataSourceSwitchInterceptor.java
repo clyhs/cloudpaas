@@ -33,7 +33,7 @@ public class DataSourceSwitchInterceptor {
 	 * 扫描所有含有@MultiDataSource$DataSource注解的类
 	 */
 	//@Pointcut("@within(com.cloudpaas.common.mybatis.DataSource)")
-	@Pointcut("execution(public * com.cloudpaas..biz.*.*(..))")
+	@Pointcut("execution(public * com.cloudpaas..biz.*.*(..)) ")
 	public void switchDataSource() {
 		log.info("进入aop切换");
 	}

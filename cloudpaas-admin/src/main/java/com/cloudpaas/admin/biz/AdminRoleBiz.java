@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.cloudpaas.admin.mapper.AdminRoleMapper;
 
 import com.cloudpaas.common.model.Role;
-import com.cloudpaas.plugin.mybatis.base.ABaseBiz;
+import com.cloudpaas.plugin.mybatis.biz.ABaseBiz;
 
 /**
  * @author 大鱼

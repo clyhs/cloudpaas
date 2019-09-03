@@ -31,17 +31,17 @@ public class MainController extends BaseController{
 	public String index(ModelMap modelMap){
 		User user = getLogin();
 		modelMap.addAttribute("username", user.getUsername());
-		return "admin/layui/index";
+		return "admin/index";
 	}
 	
 	@RequestMapping("/main.html")
 	public String main(){
-		return "admin/layui/main";
+		return "admin/main";
 	}
 	
 	@RequestMapping("/demo.html")
 	public String demo(){
-		return "admin/layui/demo";
+		return "admin/demo";
 	}
 
 	
