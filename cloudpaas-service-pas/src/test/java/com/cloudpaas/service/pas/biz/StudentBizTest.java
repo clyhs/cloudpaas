@@ -47,4 +47,11 @@ public class StudentBizTest {
 		//[{"age":12,"gradeId":1,"gradeName":"11111","id":1,"name":"test"}]
 		System.out.println(JSON.toJSONString(stus));
 	}
+	
+	@Test
+	public void findByIdTest(){
+		Student stu = stuBiz.findById(1l);
+		System.out.println(JSON.toJSONString(stu));
+		
+	}
 }
