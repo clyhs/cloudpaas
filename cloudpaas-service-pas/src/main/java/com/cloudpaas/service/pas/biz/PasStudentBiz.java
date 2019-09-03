@@ -73,10 +73,13 @@ public class PasStudentBiz {
                 Aggregation.sort(Sort.Direction.ASC, "id"),//排序
                 Aggregation.skip((page - 1) * pageSize),//过滤条数，跳过一定数量的数据
                 Aggregation.limit(pageSize));//限制传递给下一步的文档数量
+        
+        
 
         log.info(aggregation.toString());
         //查询
         List<Student> students = mongoTemplate.aggregate(aggregation, "student", Student.class).getMappedResults();
+        log.info(mongoTemplate.count(new Query(), Student.class)+"");
         return students;
     }
 
