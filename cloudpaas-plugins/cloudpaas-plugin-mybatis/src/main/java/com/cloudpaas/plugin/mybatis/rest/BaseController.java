@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.plugin.mybatis.controller;
+package com.cloudpaas.plugin.mybatis.rest;
 
 import java.io.Serializable;
 import java.util.List;

@@ -29,17 +29,17 @@ import org.slf4j.LoggerFactory;
 public class PropertiesUtil {
 	private static final Logger logger = LoggerFactory.getLogger(PropertiesUtil.class);
 	private LinkedHashMap fields;// 该文件字段
-	private PasCloudProperties properties = new PasCloudProperties();
+	private PropertiesZUtils properties = new PropertiesZUtils();
 	private InputStream is = null;
 	private File file = null;
 	private Boolean isAllReaded = Boolean.FALSE;// 是否已经读取读取全部
 	private FileOutputStream fos = null;
 
 	public PropertiesUtil() {
-		this.properties = new PasCloudProperties();
+		this.properties = new PropertiesZUtils();
 	}
 
-	public PropertiesUtil(PasCloudProperties properties) {
+	public PropertiesUtil(PropertiesZUtils properties) {
 		this.properties = properties;
 	}
 

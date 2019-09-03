@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * @date 2019年8月7日 上午9:23:41
  */
-public class JSONUtil<T> {
+public class JSONUtil {
 
 	private static Logger logger = LoggerFactory.getLogger(JSONUtil.class);
 
@@ -45,26 +45,7 @@ public class JSONUtil<T> {
 		return null;
 	}
 
-	public String encode(T oT) {
-		String sJson = "";
-		try {
-			sJson = m_oMapper.writeValueAsString(oT);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e.getCause());
-		}
-		return sJson;
-	}
-
-	public T decode(String sJson) {
-		T oT = null;
-		try {
-			oT = (T) m_oMapper.readValue(sJson, new TypeReference<T>() {
-			});
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e.getCause());
-		}
-		return oT;
-	}
+	
 
 	public static String stringToJson(String s) {
 		if (s == null) {

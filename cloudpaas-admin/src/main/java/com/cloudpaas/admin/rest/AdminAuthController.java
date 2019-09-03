@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.admin.controller;
+package com.cloudpaas.admin.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

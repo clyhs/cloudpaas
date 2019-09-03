@@ -22,7 +22,7 @@ import java.util.Set;
  * @author chenly
  *
  */
-public class PasCloudProperties extends Properties {
+public class PropertiesZUtils extends Properties {
 
 	/**
 	 * 

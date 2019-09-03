@@ -29,13 +29,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 //@Aspect
 //@Component
-public class WebControllerAop {
+public class RestAop {
 
-	private static Logger log = LoggerFactory.getLogger(WebControllerAop.class);
+	private static Logger log = LoggerFactory.getLogger(RestAop.class);
 	/**
 	 * 指定切点 匹配 com.example.demo.controller包及其子包下的所有类的所有方法
 	 */
-	@Pointcut("execution(public * com.cloudpaas..controller.*.*(..))")
+	@Pointcut("execution(public * com.cloudpaas..rest.*.*(..))")
 	public void webLog() {
 	}
 

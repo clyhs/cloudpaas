@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.admin.controller;
+package com.cloudpaas.admin.rest;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,7 +24,7 @@ import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.result.PageResponse;
 import com.cloudpaas.common.utils.JSONUtil;
 import com.cloudpaas.common.utils.TreeUtil;
-import com.cloudpaas.plugin.mybatis.controller.BaseController;
+import com.cloudpaas.plugin.mybatis.rest.BaseController;
 import com.google.gson.Gson;
 
 import io.swagger.annotations.Api;

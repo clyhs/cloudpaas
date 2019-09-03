@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloudpaas.service.pas.controller;
+package com.cloudpaas.service.pas.rest;
 
 import java.util.Map;
 
@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.cloudpaas.plugin.mybatis.controller.BaseController;
+import com.cloudpaas.plugin.mybatis.rest.BaseController;
 import com.cloudpaas.service.pas.biz.PasGryjBiz;
 import com.cloudpaas.service.pas.model.PasGryj;
 

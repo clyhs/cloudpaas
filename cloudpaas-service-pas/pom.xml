@@ -94,12 +94,6 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
-		
-		
-
-        
-        
-      
         
         <dependency> <!-- 引入log4j2依赖 -->
 			<groupId>org.springframework.boot</groupId>

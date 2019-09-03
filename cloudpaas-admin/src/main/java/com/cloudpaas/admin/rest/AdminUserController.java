@@ -1,9 +1,9 @@
-package com.cloudpaas.admin.controller;
+package com.cloudpaas.admin.rest;
 import com.cloudpaas.admin.biz.AdminUserBiz;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectResponse;
-import com.cloudpaas.plugin.mybatis.controller.BaseController;
+import com.cloudpaas.plugin.mybatis.rest.BaseController;
 import com.google.common.collect.Lists;
 
 import io.swagger.annotations.Api;
