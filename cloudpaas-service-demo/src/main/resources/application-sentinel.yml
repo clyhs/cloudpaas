@@ -1,0 +1,148 @@
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    #解决gateway转发微服务时UnknownHostException的问题
+    prefer-ip-address: true  
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+
+# 打开健康检查，2.0开始，actuator默认不开放，所以要设置为开发
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+server:
+  port: 8103
+  #servlet:
+  #  context-path: /pas/
+    #jetty配置，主要是acceptors和selectors
+  jetty:
+    acceptors: 2
+    selectors: 4
+  #tomcat的配置可以保留，切换回来可用，反正不会生效
+  tomcat:
+      remote-ip-header: x-forward-for
+      uri-encoding: UTF-8
+      max-threads: 2000
+      #background-processor-delay: 30
+      max-http-header-size: 8096
+      basedir: ${user.home}/tomcat/tmp
+      max-connections: 5000
+      max-http-post-size: 10000000
+  connection-timeout: 600000
+
+spring:
+  profiles: sentinel
+  application:
+    name: cpaas-service-demo
+  boot:          #添加到springbootadmin服务治理
+    admin:
+      client:
+        url: ${MONITOR_URL:http://localhost:8901}
+        password: password
+        username: user
+        instance:
+          prefer-ip: true
+          service-base-url: "http://localhost:8103"
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      - key: dn1
+        url: jdbc:mysql://192.168.0.7:3306/dn1?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+        username: root
+        password: tiancom
+        driver-class-name: com.mysql.jdbc.Driver
+        minIdle: 1
+        maxActive: 2
+        initialSize: 1
+        minPoolSize: 5
+        maxPoolSize: 20
+        borrowConnectionTimeout: 60
+        timeBetweenEvictionRunsMillis: 3000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 'ZTM' FROM DUAL
+        validationQueryTimeout: 10000
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        maxWait: 60000
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,log4j2
+      - key: dn2
+        url: jdbc:mysql://192.168.0.7:3306/dn2?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+        username: root
+        password: tiancom
+        driver-class-name: com.mysql.jdbc.Driver
+        minIdle: 1
+        maxActive: 2
+        initialSize: 1
+        minPoolSize: 5
+        maxPoolSize: 20
+        borrowConnectionTimeout: 60
+        timeBetweenEvictionRunsMillis: 3000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 'ZTM' FROM DUAL
+        validationQueryTimeout: 10000
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        maxWait: 60000
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,log4j2
+  #jta:
+    #log-dir: classpath:tx-logs
+    #transaction-manager-id: txManager
+  redis:
+    database: 0
+    #password: 
+    sentinel:
+      #哨兵监听的master名称
+      master: mymaster
+      #哨兵地址列表，多个以,分割
+      nodes: 192.168.0.7:26000,192.168.0.7:26001,192.168.0.16:26000
+    lettuce:
+      pool:
+        max-active:  100 # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 100 # 连接池中的最大空闲连接
+        min-idle: 50 # 连接池中的最小空闲连接
+        max-wait: 6000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+    timeout: 1000
+  zipkin:        #添加到链路追踪
+    base-url: ${TRACE_URL:http://localhost:8902}
+  sleuth:        #打开日志收集
+    enabled: true
+    http:
+      legacy:
+        enabled: true
+  data:
+    mongodb:
+      database: test
+      port: 27017
+      host: 127.0.0.1
+        
+        
+mybatis:
+  config-locations: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath*:mybatis/mapper/*.xml
+  basepackage: com.cloudpaas.service.demo.mapper
+  
+logging:
+  config: classpath:log4j2.xml
+  
+jwt:
+  rsa-secret: 123456

@@ -142,5 +142,6 @@
 		<module>cloudpaas-admin-ui</module>
     	<module>cloudpaas-beans</module>
     	<module>cloudpaas-plugins</module>
+    <module>cloudpaas-service-demo</module>
   </modules>
 </project>
