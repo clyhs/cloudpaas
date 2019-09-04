@@ -14,6 +14,7 @@ layui.config({
         elem: '#oTable',
         url: api.getUserPageUrl,
         cellMinWidth: 60,
+        toolbar: '#oToolbar',
         cols: [[
             {type: "checkbox", width: 60, fixed: "left"},
             {field: 'id', width: 80, title: 'ID', sort: true},
@@ -183,6 +184,24 @@ layui.config({
     //监听表格复选框选择
     table.on('checkbox(oList)', function (obj) {
         console.log(obj)
+    });
+    
+  //头工具栏事件
+    table.on('toolbar(oList)', function(obj){
+      var checkStatus = table.checkStatus(obj.config.id);
+      switch(obj.event){
+        case 'getCheckData':
+          var data = checkStatus.data;
+          layer.alert(JSON.stringify(data));
+        break;
+        case 'getCheckLength':
+          var data = checkStatus.data;
+          layer.msg('选中了：'+ data.length + ' 个');
+        break;
+        case 'isAll':
+          layer.msg(checkStatus.isAll ? '全选': '未全选');
+        break;
+      };
     });
 
     

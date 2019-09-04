@@ -64,12 +64,16 @@
 	        
 			<div class="layui-form">
 				<table class="layui-hide" id="oTable" lay-filter="oList"></table>
+				
+				<script type="text/html" id="oToolbar">
+   					<div class="layui-btn-container">
+						<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获得选中行</button>
+					</div>
+				</script>
+				
 				<script type="text/html" id="oBar">
             		<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
             		<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="del">删除</a>
-        	        
-                   
-
                 </script>
 			</div>
 			
