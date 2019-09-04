@@ -81,6 +81,8 @@ layui.config({
                 title : "编辑菜单",
                 type : 2,
                 content : $config.context+"/menu/edit.html?id="+data.id,
+                area: ['80%', '80%'],
+                maxmin: true,
                 success : function(layero, editIndex){
                     setTimeout(function(){
                         layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
@@ -89,7 +91,7 @@ layui.config({
                     },500);
                 }
             });
-            layuiresize(editIndex);
+            //layuiresize(editIndex);
         }
         if(obj.event === "del"){
             layer.confirm("你确定要删除该菜单么？这将会使得其下的所有子菜单都删除",{btn:['是的,我确定','我再想想']},
@@ -148,6 +150,8 @@ layui.config({
                 title : "添加系统菜单",
                 type : 2,
                 content : $config.context+"/menu/add.html?pId=" + pId,
+                area: ['80%', '80%'],
+                maxmin: true,
                 success : function(layero, addIndex){
                     setTimeout(function(){
                         layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {
@@ -156,7 +160,7 @@ layui.config({
                     },500);
                 }
             });
-            layuiresize(addIndex);
+            //layuiresize(addIndex);
         }
 
     };

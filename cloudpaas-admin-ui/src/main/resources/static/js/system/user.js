@@ -13,8 +13,9 @@ layui.config({
 	table.render({
         elem: '#oTable',
         url: api.getUserPageUrl,
+        cellMinWidth: 60,
         cols: [[
-            {type: "checkbox", width: 50, fixed: "left"},
+            {type: "checkbox", width: 60, fixed: "left"},
             {field: 'id', width: 80, title: 'ID', sort: true},
             {field: 'username', width: 80, title: '用户名'},
             
@@ -33,8 +34,8 @@ layui.config({
         		}
             },
             
-            {field: 'createTime', minWidth: 50, title: '注册时间' },
-            {title: '操作', minWidth: 50, templet: '#oBar', fixed: "right", align: "center"}
+            {field: 'createTime', minWidth: 60, title: '注册时间'},
+            {title: '操作', minWidth: 60, templet: '#oBar', fixed: "right", align: "center"}
         ]],
         limits: [5,10, 15, 20, 25, 50, 100],
         limit: 15,
@@ -56,6 +57,8 @@ layui.config({
                 title : "编辑用户",
                 type : 2,
                 content : $config.context+"/user/edit.html?id="+data.id,
+                area: ['80%', '80%'],
+                maxmin: true,
                 success : function(layero, editIndex){
                     setTimeout(function(){
                         layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
@@ -64,7 +67,7 @@ layui.config({
                     },500);
                 }
             });
-            layuiresize(editIndex);
+            //layuiresize(editIndex);
         }
         if(obj.event === "del"){
             layer.confirm("你确定要删除该用户么？",{btn:['是的,我确定','我再想想']},
@@ -100,6 +103,8 @@ layui.config({
                     title : "添加用户",
                     type : 2,
                     content : $config.context+"/user/add.html",
+                    area: ['80%', '80%'],
+                    maxmin: true,
                     success : function(layero, addIndex){
                         setTimeout(function(){
                             layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
@@ -109,10 +114,7 @@ layui.config({
                     }
                 });
                 //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-                $(window).resize(function(){
-                    layer.full(addIndex);
-                });
-                layer.full(addIndex);
+                //layuiresize(addIndex);
             },
             //批量删除
             delBatch : function(){

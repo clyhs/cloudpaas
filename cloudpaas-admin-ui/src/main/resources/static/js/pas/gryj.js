@@ -13,21 +13,22 @@ layui.config({
 	table.render({
         elem: '#oTable',
         url: api.getGryjPageUrl,
+        cellMinWidth: 80,
         cols: [[
-            {type: "checkbox", width: 40, fixed: "left"},
-            {field: 'id', width: 40, title: 'ID', sort: true},
-            {field: 'jgdh', width: 60, title: '机构代号'},
-            {field: 'jgmc', title: '机构名称', width: 110},
-            {field: 'hydh', width: 60, title: '行员代号', sort: true},
-            {field: 'hymc', title: '行员名称', width: 100},
-            {field: 'zbmc', title: '指标名称', width: 120},
+            {type: "checkbox", width: 60, fixed: "left"},
+            {field: 'id', width: 60, title: 'ID', sort: true},
+            {field: 'jgdh', width: 80, title: '机构代号'},
+            {field: 'jgmc', title: '机构名称', width: 130},
+            {field: 'hydh', width: 80, title: '行员代号', sort: true},
+            {field: 'hymc', title: '行员名称', width: 120},
+            {field: 'zbmc', title: '指标名称', width: 150},
             {field: 'bz', title: '币种', width: 80},
             {field: 'sdbs', title: '时段标识', width: 120},
             {field: 'zbz', title: '指标值', width: 100},
-            {field: 'zbdw', title: '指标单位', width: 60},
-            {field: 'khjs', title: '考核基数', width: 60},
+            {field: 'zbdw', title: '指标单位', width: 80},
+            {field: 'khjs', title: '考核基数', width: 80},
             
-            {title: '操作', minWidth: 40, templet: '#oBar', fixed: "right", align: "center"}
+            {title: '操作', minWidth: 120, templet: '#oBar', fixed: "right", align: "center"}
         ]],
         limits: [5,10, 15, 20, 25, 50, 100],
         limit: 15,

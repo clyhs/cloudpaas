@@ -42,6 +42,8 @@ layui.config({
                 title : "编辑角色",
                 type : 2,
                 content : $config.context+"/role/edit.html?id="+data.id,
+                area: ['80%', '80%'],
+                maxmin: true,
                 success : function(layero, index){
                     setTimeout(function(){
                         layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {
@@ -51,7 +53,7 @@ layui.config({
                 }
             });
             //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-        	layuiresize(editIndex);
+        	//layuiresize(editIndex);
         } else if (obj.event === 'del') {
         	layer.confirm("你确定要删除该角色么？",{btn:['是的,我确定','我再想想']},
                 function(){
@@ -87,6 +89,8 @@ layui.config({
                     title : "添加角色",
                     type : 2,
                     content : $config.context+"/role/add.html",
+                    area: ['80%', '80%'],
+                    maxmin: true,
                     success : function(layero, addIndex){
                         setTimeout(function(){
                             layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {
@@ -96,7 +100,7 @@ layui.config({
                     }
                 });
                 //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-                layuiresize(addIndex);
+                //layuiresize(addIndex);
             },
             //批量删除
             delBatch : function(){
