@@ -1,7 +1,7 @@
-        <div class="layui-header header" th:fragment="topnav">
+        <div class="layui-header header" >
 	        <div class="layui-logo">
-	            <a th:href="@{#}">
-	            	<img th:src="@{/static/images/logo.png}" alt="logo" />
+	            <a href="#">
+	            	<img src="${request.contextPath}/static/images/logo.png" alt="logo" />
 	            	<h1>基础后台管理</h1>
 	            </a>
 	        </div>
@@ -27,7 +27,7 @@
 	                <a href="javascript:;" data-clear="清理" class="layuimini-clear"><i class="fa fa-trash-o"></i></a>
 	            </li>
 	            <li class="layui-nav-item layuimini-setting">
-	                <a href="javascript:;" th:text="${username}"></a>
+	                <a href="javascript:;" >${username}</a>
 	                <dl class="layui-nav-child">
 	                    <dd>
 	                        <a href="javascript:;" data-iframe-tab="" data-title="基本资料" data-icon="fa fa-gears">基本资料</a>

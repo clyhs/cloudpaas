@@ -6,9 +6,19 @@ spring:
   profiles: sentinel
   application:
     name: cpaas-admin-ui
-  thymeleaf:
+  #thymeleaf:
+  #  cache: false
+  #  mode: LEGACYHTML5
+  freemarker:
+    template-loader-path: classpath:/templates/
     cache: false
-    mode: LEGACYHTML5
+    charset: utf-8
+    check-template-location: true
+    content-type: text/html
+    expose-request-attributes: true
+    expose-session-attributes: true
+    request-context-attribute: request
+    suffix: .html
   redis:
     database: 0
     #password: 

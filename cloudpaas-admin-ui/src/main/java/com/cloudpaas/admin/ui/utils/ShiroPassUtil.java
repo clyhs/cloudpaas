@@ -6,7 +6,9 @@ package com.cloudpaas.admin.ui.utils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
-import groovy.util.logging.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+
+
 
 /**
  * @author 大鱼

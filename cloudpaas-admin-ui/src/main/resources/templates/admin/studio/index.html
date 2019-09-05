@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html>
 <head>
 	<#include "../layout/header.html">
     <style>
-    
     </style>
 </head>
 <body>
@@ -20,6 +19,7 @@
 	                            <input type="text" name="username" autocomplete="off" class="layui-input">
 	                        </div>
 	                    </div>
+	                    <!--  
 	                    <div class="layui-inline">
 	                            <label class="layui-form-label">性别</label>
 	                            <div class="layui-input-inline">
@@ -31,6 +31,7 @@
 				                    </select>
 	                            </div>
 	                    </div>
+	                    -->
 	                        
 	                    <div class="layui-inline">
 	                        <a class="layui-btn" lay-submit="" lay-filter="data-search-btn">搜索</a>
@@ -51,7 +52,21 @@
 			
 	        
 			<div class="layui-form">
-				<table class="layui-hide" id="oTable" lay-filter="oList"></table>
+				<!--  
+				<table class="layui-hide" id="oTable" lay-filter="oList">
+				</table>
+				-->
+				<table class="layui-hide" lay-data="" lay-filter="oList">
+					<thead>
+				    <tr>
+				      <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+				      <th lay-data="{field:'id', width:80, sort: true, fixed: true}">ID</th>
+				      <th lay-data="{field:'username', width:80}">用户名</th>
+				      
+				      <th lay-data="{fixed: 'right', minWidth:60, align:'center', toolbar: '#oBar'}">操作</th>
+				    </tr>
+				  	</thead>
+				</table>
 				
 				<script type="text/html" id="oToolbar">
    					<div class="layui-btn-container">
@@ -70,15 +85,63 @@
 		
 		</div>
 	</div>
-	<!--  
-	<script type="text/javascript" th:src="@{/static/layui/js/lib/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
-	<script type="text/javascript" th:src="@{/static/layui/js/lib/jquery-validation-1.19.1/jquery.validate.min.js}"></script>
-	<script type="text/javascript" th:src="@{/static/layui/js/lib/jquery-validation-1.19.1/additional-methods.min.js}"></script>
-	<script type="text/javascript" th:src="@{/static/layui/js/lib/jquery-validation-1.19.1/localization/messages_zh.min.js}"></script>
-	-->
+
 	<script type="text/javascript" src="${request.contextPath}/static/js/lib/layui/layui.js"></script>
 	<script type="text/javascript" src="${request.contextPath}/static/js/config.js"></script>
-	<script type="text/javascript" src="${request.contextPath}/static/js/system/user.js"></script>
+
+	<!--  
+	<script type="text/javascript" th:src="@{/static/js/system/user.js}"></script>-->
+	<script type="text/javascript">
+	layui.config({
+		base : $config.context+"/static/js/extends/",
+		version : true
+	}).extend({
+		"tool" : "tool",
+		"api" : "api"
+	}).use([ 'element', 'layer' ,'api',"table","form"], function() {
+		var $ = layui.jquery, element = layui.element, layer = layui.layer,
+	    api = layui.api,
+	    table = layui.table,
+        form = layui.form;
+		
+		/*表格*/
+		/*
+		table.render({
+	        elem: '#oTable',
+	        url: [[${table.url.url}]],
+	        cellMinWidth: [[${table.cellMinWidth}]],
+	        toolbar: '#oToolbar',
+	        cols: [
+	        	[
+	            {type: "checkbox", width: 60, fixed: "left"},
+	            {field: 'id', width: 80, title: 'ID', sort: true},
+	            {field: 'username', width: 80, title: '用户名'},
+	            
+	            
+	            {field: 'name', title: '真实姓名', width: 150},
+	            {field: 'tel', width: 100, title: '手机号', sort: true},
+	            
+	            {field: 'sex', width: 80, title: '性别', sort: true,templet: function (d) {
+		            	if(d.sex == 1) {
+		                    return '<span class="layui-badge layui-bg-blue">男</span>';
+		                } else if(d.sex == 2){
+		                    return '<span class="layui-badge layui-bg-gray">女</span>';
+		                }else if(d.sex == 0){
+		                	return '<span class="layui-badge layui-bg-red">保密</span>';
+		                }
+	        		}
+	            },
+	            
+	            {field: 'createTime', minWidth: 60, title: '注册时间'},
+	            {title: '操作', minWidth: 60, templet: '#oBar', fixed: "right", align: "center"}
+	        	]
+	        ],
+	        limits: [5,10, 15, 20, 25, 50, 100],
+	        limit: 15,
+	        page: true
+	    });*/
+	});
+	</script>
 	
 
 </body>

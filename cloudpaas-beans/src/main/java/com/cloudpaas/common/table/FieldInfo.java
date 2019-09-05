@@ -92,5 +92,7 @@ public class FieldInfo implements Serializable {
 	private String  templet;
 	
 	private String  toolbar;
+	
+	private Integer fieldsort;
 
 }

@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html>
 <head>
-	<meta th:replace="admin/layout/header :: header"/>
+	<#include "layout/header.html">
 	<style id="layuimini-bg-color">
     </style>
 </head>
 <body class="layui-layout-body layuimini-all">
 	<div class="layui-layout layui-layout-admin">
 
-	    <div class="layui-header header" th:replace="admin/layout/topnav :: topnav">
-	        
-	    </div>
+		<#include "layout/topnav.html">
+	    
 
 	    <div class="layui-side layui-bg-black">
 	        <div class="layui-side-scroll layui-left-menu">
@@ -18,9 +17,7 @@
 	        </div>
 	    </div>
 
-	    <div class="layui-body" th:replace="admin/layout/center :: center">
-	        
-	    </div>
+	    <#include "layout/center.html">
 	    
 
 		
@@ -29,8 +26,8 @@
 	
 	
 	<!-- javascript -->
-	<script type="text/javascript" th:src="@{/static/js/lib/layui/layui.js}"></script>
-	<script type="text/javascript" th:src="@{/static/js/config.js}"></script>
-	<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+	<script type="text/javascript" src="${request.contextPath}/static/js/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="${request.contextPath}/static/js/config.js"></script>
+	<script type="text/javascript" src="${request.contextPath}/static/js/index.js"></script>
 </body>
 </html>

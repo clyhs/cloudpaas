@@ -1,4 +1,4 @@
-		<div class="layui-body" th:fragment="center">
+		<div class="layui-body">
 	        <div class="layui-tab" lay-filter="layuiminiTab" id="top_tabs_box">
 	            <ul class="layui-tab-title" id="top_tabs">
 	                <li class="layui-this" id="layuiminiHomeTabId" lay-id="">
@@ -16,7 +16,7 @@
 	            </ul>
 	            <div class="layui-tab-content clildFrame">
 	                <div id="layuiminiHomeTabIframe" class="layui-tab-item layui-show">
-	                	<iframe width="100%" height="100%" frameborder="0"  th:src="@{/main/main.html}"></iframe>
+	                	<iframe width="100%" height="100%" frameborder="0"  src="${request.contextPath}/main/main.html"></iframe>
 	                </div>
 	            </div>
 	        </div>
