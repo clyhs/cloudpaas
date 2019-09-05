@@ -181,5 +181,10 @@ public class LoginController {
 		user.setName("111");
 		return user;
 	}
+	
+	@RequestMapping("/redis6.json")
+	public void test6() throws Exception{
+		throw new Exception("Basic Error...............");
+	}
 
 }
