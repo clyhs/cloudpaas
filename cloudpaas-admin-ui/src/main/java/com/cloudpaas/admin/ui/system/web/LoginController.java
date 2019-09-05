@@ -133,11 +133,6 @@ public class LoginController {
 		return "admin/icon";
 	}
 	
-	@RequestMapping(path = "/401")
-	@ResponseStatus(HttpStatus.UNAUTHORIZED)
-	public ResponseBean unauthorized() {
-		return new ResponseBean(401, "Unauthorized", null);
-	}
 	
 	@RequestMapping("/redis2.json")
 	@ResponseBody
