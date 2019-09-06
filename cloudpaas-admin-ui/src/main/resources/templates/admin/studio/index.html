@@ -19,29 +19,20 @@
 	                            <input type="text" name="username" autocomplete="off" class="layui-input">
 	                        </div>
 	                    </div>
-	                    <!--  
-	                    <div class="layui-inline">
-	                            <label class="layui-form-label">性别</label>
-	                            <div class="layui-input-inline">
-	                                <select name="sex" class="layui-input">
-	                                	<option value=""> <span>全部</span></option>
-				                        <option value="0"> <span>保密</span></option>
-				                        <option value="1"> <span>男</span></option>
-				                        <option value="2"> <span>女</span></option>
-				                    </select>
-	                            </div>
-	                    </div>
-	                    -->
+	                    
 	                        
 	                    <div class="layui-inline">
 	                        <a class="layui-btn" lay-submit="" lay-filter="data-search-btn">搜索</a>
 	                    </div>
+	                    <#list buttons?sort_by("sort") as item>
+	                    <#if item.area == 1>
 	                    <div class="layui-inline">
-				                <a class="layui-btn layui-btn-normal" data-type="add">添加</a>
+				                <a class="layui-btn ${item.css}" data-type="${item.event}">${item.name}</a>
 				        </div>
-				        <div class="layui-inline">
-				                <a class="layui-btn layui-btn-danger" data-type="delBatch">批量删除</a>
-				        </div>
+	                    </#if>
+	                    </#list>
+	                    
+				        
 	                    
 			            
 			        </form>
@@ -56,27 +47,70 @@
 				<table class="layui-hide" id="oTable" lay-filter="oList">
 				</table>
 				-->
-				<table class="layui-hide" lay-data="" lay-filter="oList">
+				<table class="layui-table" lay-data="{cellMinWidth:${table.cellMinWidth},url:'${table.url.url}',page:true,id:'oTable',limit:15,toolbar:'#oToolbar'}" lay-filter="oList">
 					<thead>
 				    <tr>
-				      <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-				      <th lay-data="{field:'id', width:80, sort: true, fixed: true}">ID</th>
-				      <th lay-data="{field:'username', width:80}">用户名</th>
-				      
-				      <th lay-data="{fixed: 'right', minWidth:60, align:'center', toolbar: '#oBar'}">操作</th>
+				    	<#list table.cols?sort_by("fieldsort") as item>
+				    		<#if item_index == 0>
+				    			<th lay-data="{type:'${item.type}', fixed: '${item.fixed}'}"></th>
+				    		</#if>
+				    		
+				    		<#if item_index gt 0 && item_index+1 lt table.cols?size >
+				    			<#if item.width??>
+				    			    <#if item.templet??>
+				    			    	<th lay-data="{field: '${item.field}', width:${item.width},sort:true,templet:'${item.templet}'}">${item.title}</th>
+				    			    <#else>
+				    			    	<th lay-data="{field: '${item.field}', width:${item.width},sort:true}">${item.title}</th>
+				    			    </#if>
+				    				
+				    			<#else>
+				    				<#if item.templet??>
+				    			    	<th lay-data="{field: '${item.field}',sort:true,templet:'${item.templet}'}">${item.title}</th>
+				    			    <#else>
+				    			    	<th lay-data="{field: '${item.field}',sort:true}">${item.title}</th>
+				    			    </#if>
+				    				
+				    			</#if>
+
+				    		</#if>
+				    		
+				    		<#if item_index+1=table.cols?size>
+				    			<th lay-data="{fixed: 'right', minWidth:${item.minWidth}, align:'center', toolbar: '#oBar'}">操作</th>
+				    		</#if>
+				    	</#list>
 				    </tr>
 				  	</thead>
 				</table>
 				
+				<script type="text/html" id="sexType">
+        			{{#  if(d.sex==1){ }}
+        				<span class="layui-badge layui-bg-green">男</span>
+       				{{#  } else if(d.sex==2){ }}
+        				<span class="layui-badge layui-bg-red">女</span>
+					{{#  } else { }}
+						<span class="layui-badge layui-bg-gray">保密</span>
+        			{{#  } }}
+    			</script>
+				
 				<script type="text/html" id="oToolbar">
    					<div class="layui-btn-container">
-						<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获得选中行</button>
+						<#list buttons?sort_by("sort") as item>
+	                    <#if item.area == 2>
+	                  
+							<button class="layui-btn ${item.css}" lay-event="${item.event}">${item.name}</button>
+
+	                    </#if>
+	                    </#list>
+						
 					</div>
 				</script>
 				
 				<script type="text/html" id="oBar">
-            		<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            		<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="del">删除</a>
+					<#list buttons?sort_by("sort") as item>
+					<#if item.area == 3>
+						<a class="layui-btn layui-btn-xs ${item.css}" lay-event="${item.event}">${item.name}</a>
+					</#if>
+					</#list>
                 </script>
 			</div>
 			
@@ -104,42 +138,58 @@
 	    table = layui.table,
         form = layui.form;
 		
-		/*表格*/
-		/*
-		table.render({
-	        elem: '#oTable',
-	        url: [[${table.url.url}]],
-	        cellMinWidth: [[${table.cellMinWidth}]],
-	        toolbar: '#oToolbar',
-	        cols: [
-	        	[
-	            {type: "checkbox", width: 60, fixed: "left"},
-	            {field: 'id', width: 80, title: 'ID', sort: true},
-	            {field: 'username', width: 80, title: '用户名'},
-	            
-	            
-	            {field: 'name', title: '真实姓名', width: 150},
-	            {field: 'tel', width: 100, title: '手机号', sort: true},
-	            
-	            {field: 'sex', width: 80, title: '性别', sort: true,templet: function (d) {
-		            	if(d.sex == 1) {
-		                    return '<span class="layui-badge layui-bg-blue">男</span>';
-		                } else if(d.sex == 2){
-		                    return '<span class="layui-badge layui-bg-gray">女</span>';
-		                }else if(d.sex == 0){
-		                	return '<span class="layui-badge layui-bg-red">保密</span>';
-		                }
-	        		}
+		var active={
+	            add : function(){
+	            	layer.alert('add');
 	            },
-	            
-	            {field: 'createTime', minWidth: 60, title: '注册时间'},
-	            {title: '操作', minWidth: 60, templet: '#oBar', fixed: "right", align: "center"}
-	        	]
-	        ],
-	        limits: [5,10, 15, 20, 25, 50, 100],
-	        limit: 15,
-	        page: true
-	    });*/
+	            delBatch : function(){
+	            	layer.alert('delbatch');
+	            }
+	        };
+		
+		$('.layui-inline .layui-btn').on('click', function(){
+	        var type = $(this).data('type');
+	        active[type] ? active[type].call(this) : '';
+	    });
+		
+		form.on('submit(data-search-btn)', function (data) {
+			var result = JSON.stringify(data.field);
+
+	        //执行搜索重载
+	        table.reload('oTable', {
+	            page: {
+	                curr: 1
+	            }
+	            , where: data.field
+	        }, 'data');
+
+	        return false;
+		});
+		
+		table.on('toolbar(oList)', function(obj){
+		     var checkStatus = table.checkStatus(obj.config.id);
+		     switch(obj.event){
+		        case 'checks':
+		          var data = checkStatus.data;
+		          layer.alert(JSON.stringify(data));
+		        break;
+		     };
+		});
+		
+		table.on('tool(oList)', function(obj){
+	        var data = obj.data;
+	        
+	        if(obj.event === 'edit'){
+	        	layer.alert('edit');
+	        }
+	        if(obj.event === "delete"){
+	        	layer.alert('delete');
+	        }
+	    });
+		
+		
+		
+		
 	});
 	</script>
 	

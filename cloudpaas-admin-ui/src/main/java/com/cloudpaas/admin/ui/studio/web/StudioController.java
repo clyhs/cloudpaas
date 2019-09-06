@@ -33,63 +33,11 @@ public class StudioController {
 	@RequestMapping("/index.html")
 	public String index(ModelMap modelMap){
 		modelMap.addAttribute("table", studioBiz.getTable());
-		
-		modelMap.addAttribute("cols", cols());
+		modelMap.addAttribute("buttons", studioBiz.getButtons());
 		//cols();
 		return "admin/studio/index";
 	}
 	
-	private String cols(){
-		
-		List<FieldInfo> fields = new ArrayList<FieldInfo>();
-		fields = studioBiz.getTable().getCols();
-		StringBuffer sb = new StringBuffer();
-		int i = 1;
-		for(FieldInfo f : fields){
-			if(f.getFieldsort() == i){
-				sb.append("{");
-				if(f.getType()!=null && i == 1){
-					sb.append("type:").append("'").append(f.getType()).append("',")
-					  .append("fixed:").append("'").append(f.getFixed()).append("'");
-				}
-				
-				if(f.getType()==null && i!=1){
-					sb.append("field:").append("'").append(f.getField()).append("',")
-					  .append("title:").append("'").append(f.getTitle()).append("',");
-					
-					if(null!=f.getWidth()){
-						sb.append("width:").append("").append(f.getWidth()).append(",");
-					}
-					
-					if(null!=f.getMinWidth()){
-						sb.append("minWidth:").append("").append(f.getMinWidth()).append(",");
-					}
-					
-					if(null!=f.getSort() && f.getSort()){
-						sb.append("sort:").append("").append("true").append(",");
-					}
-					
-					if(null!=f.getAlign()){
-						sb.append("align:").append("").append(f.getAlign()).append(",");
-					}
-					if(null!=f.getTemplet()){
-						sb.append("templet:").append("").append(f.getTemplet()).append(",");
-					}
-				}
-				
-				if(i == fields.size()){
-					sb.append("}\\r\\n");
-				}else{
-					sb.append("},\\r\\n");
-				}
-				
-				
-			}
-			i++;
-		}
-		log.info(sb.toString());
-		return sb.toString();
-	}
 	
 	
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.cloudpaas.common.table.ButtonInfo;
 import com.cloudpaas.common.table.FieldInfo;
 import com.cloudpaas.common.table.SimpleTable;
 import com.cloudpaas.common.table.UrlInfo;
@@ -49,6 +50,7 @@ public class StudioBiz {
 		FieldInfo f2 = new FieldInfo();
 		f2.setField("id");
 		f2.setTitle("ID");
+		f2.setWidth("50");
 		f2.setSort(true);
 		f2.setFieldsort(2);
 		cols.add(f2);
@@ -79,6 +81,7 @@ public class StudioBiz {
 		f6.setField("sex");
 		f6.setTitle("性别");
 		f6.setSort(true);
+		f6.setTemplet("#sexType");
 		f6.setFieldsort(6);
 		cols.add(f6);
 		
@@ -99,6 +102,60 @@ public class StudioBiz {
 		cols.add(f8);
 		
 		return cols;
+	}
+	
+	public List<ButtonInfo> getButtons(){
+		List<ButtonInfo> buttons = new ArrayList<ButtonInfo>();
+		/*
+		ButtonInfo b0 = new ButtonInfo();
+		b0.setName("搜索");
+		b0.setEvent("data-search-btn");
+		b0.setCss("");
+		b0.setArea(1);
+		b0.setSort(0);
+		buttons.add(b0);*/
+		
+		ButtonInfo b1 = new ButtonInfo();
+		b1.setName("添加");
+		b1.setEvent("add");
+		b1.setCss("layui-btn-normal");
+		b1.setArea(1);
+		b1.setSort(1);
+		buttons.add(b1);
+		
+		ButtonInfo b2 = new ButtonInfo();
+		b2.setName("批量删除");
+		b2.setEvent("delBatch");
+		b2.setCss("layui-btn-danger");
+		b2.setArea(1);
+		b2.setSort(1);
+		buttons.add(b2);
+		
+		ButtonInfo b4 = new ButtonInfo();
+		b4.setName("编辑");
+		b4.setEvent("edit");
+		b4.setCss("data-count-edit");
+		b4.setArea(3);
+		b4.setSort(1);
+		buttons.add(b4);
+		
+		ButtonInfo b5 = new ButtonInfo();
+		b5.setName("删除");
+		b5.setEvent("delete");
+		b5.setCss("layui-btn-danger data-count-delete");
+		b5.setArea(3);
+		b5.setSort(2);
+		buttons.add(b5);
+		
+		ButtonInfo b6 = new ButtonInfo();
+		b6.setName("获取选中行");
+		b6.setEvent("checks");
+		b6.setCss("layui-btn-sm");
+		b6.setArea(2);
+		b6.setSort(1);
+		buttons.add(b6);
+		
+		return buttons;
 	}
 	
 
