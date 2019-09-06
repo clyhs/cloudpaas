@@ -81,16 +81,17 @@
 				    </tr>
 				  	</thead>
 				</table>
-				
-				<script type="text/html" id="sexType">
-        			{{#  if(d.sex==1){ }}
-        				<span class="layui-badge layui-bg-green">男</span>
-       				{{#  } else if(d.sex==2){ }}
-        				<span class="layui-badge layui-bg-red">女</span>
-					{{#  } else { }}
-						<span class="layui-badge layui-bg-gray">保密</span>
-        			{{#  } }}
+				<#list templets as item>
+				<script type="text/html" id="${item.id}">
+					<#list item.values?keys as key>
+					{{#  if(d["${item.field}"]==${key}){ }}
+						<span class="layui-badge layui-bg-gray">${item.values["${key}"]}</span>
+					{{#  } }}
+					</#list>
+        			
     			</script>
+				</#list>
+				
 				
 				<script type="text/html" id="oToolbar">
    					<div class="layui-btn-container">
@@ -140,10 +141,53 @@
 		
 		var active={
 	            add : function(){
-	            	layer.alert('add');
+	            	addIndex = layer.open({
+	                    title : "添加",
+	                    type : 2,
+	                    content : '${request.contextPath}/studio/add.html',
+	                    area: ['80%', '80%'],
+	                    maxmin: true,
+	                    success : function(layero, addIndex){
+	                        setTimeout(function(){
+	                            layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
+	                                tips: 3
+	                            });
+	                        },500);
+	                    }
+	                });
 	            },
 	            delBatch : function(){
-	            	layer.alert('delbatch');
+	            	var checkStatus = table.checkStatus('oTable'),
+                    data = checkStatus.data;
+	                if(data.length > 0){
+	                    console.log(JSON.stringify(data));
+	                    //layer.msg(JSON.stringify(data));
+	                    
+	                    layer.confirm("你确定要删除这些数据么？",{btn:['是的,我确定','我再想想']},
+	                        function(){
+	                            var deleteindex = layer.msg('删除中，请稍候',{icon: 16,time:false,shade:0.8});
+	                            $.ajax({
+	                                type:"DELETE",
+	                                url:api.deleteBatchUserUrl,
+	                                dataType:"json",
+	                                contentType:"application/json",
+	                                data:JSON.stringify(data),
+	                                success:function(res){
+	                                    layer.close(deleteindex);
+	                                    if(res.code==0){
+	                                        layer.msg("删除成功",{time: 1000},function(){
+	                                        	location.reload();
+	                                        });
+	                                    }else{
+	                                        layer.msg(res.message);
+	                                    }
+	                                }
+	                            });
+	                        }
+	                    )
+	                }else{
+	                    layer.msg("请选择需要删除的行",{time:1000});
+	                }
 	            }
 	        };
 		

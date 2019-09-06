@@ -8,6 +8,8 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
+ * layui 表格中的列类
+ * 
  * @author 大鱼
  *
  * @date 2019年9月5日 上午9:05:10

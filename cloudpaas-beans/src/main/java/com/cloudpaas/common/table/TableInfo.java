@@ -3,17 +3,20 @@
  */
 package com.cloudpaas.common.table;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.Data;
 
 /**
+ * layui 表格类
+ * 
  * @author 大鱼
  *
  * @date 2019年9月5日 上午9:20:58
  */
 @Data
-public class SimpleTable implements ITable {
+public class TableInfo implements Serializable {
 
 	/**
 	 * 

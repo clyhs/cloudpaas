@@ -8,6 +8,8 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
+ * layui表格中按钮类
+ * 
  * @author 大鱼
  *
  * @date 2019年9月6日 上午11:05:41
@@ -35,6 +37,8 @@ public class ButtonInfo implements Serializable {
 	private String  css;
 	
 	private Integer sort;
+	
+	private UrlInfo url;
 	
 	
 }

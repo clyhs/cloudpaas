@@ -4,13 +4,18 @@
 package com.cloudpaas.admin.ui.studio.biz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.cloudpaas.common.table.ButtonInfo;
 import com.cloudpaas.common.table.FieldInfo;
-import com.cloudpaas.common.table.SimpleTable;
+import com.cloudpaas.common.table.FormFieldInfo;
+import com.cloudpaas.common.table.FormInfo;
+import com.cloudpaas.common.table.TableInfo;
+import com.cloudpaas.common.table.TempletInfo;
 import com.cloudpaas.common.table.UrlInfo;
 
 /**
@@ -21,8 +26,8 @@ import com.cloudpaas.common.table.UrlInfo;
 @Service
 public class StudioBiz {
 	
-	public SimpleTable getTable(){
-		SimpleTable table = new SimpleTable();
+	public TableInfo getTable(){
+		TableInfo table = new TableInfo();
 		table.setId("oTable");
 		table.setCellMinWidth(80);
 		table.setUrl(getUrlInfo());
@@ -30,6 +35,14 @@ public class StudioBiz {
 		table.setLimit(15);
 		table.setCols(getCols());
 		return table;
+	}
+	
+	public FormInfo getForm(){
+		FormInfo form = new FormInfo();
+		form.setId("addForm");
+		form.setType("add");
+		form.setFields(getformFields());
+		return form;
 	}
 	
 	private UrlInfo getUrlInfo(){
@@ -58,7 +71,7 @@ public class StudioBiz {
 		FieldInfo f3 = new FieldInfo();
 		f3.setField("username");
 		f3.setTitle("用户名");
-		f3.setWidth("80");
+		f3.setWidth("150");
 		f3.setSort(true);
 		f3.setFieldsort(3);
 		cols.add(f3);
@@ -66,7 +79,7 @@ public class StudioBiz {
 		FieldInfo f4 = new FieldInfo();
 		f4.setField("name");
 		f4.setTitle("真实姓名");
-		f4.setWidth("150");
+		f4.setWidth("160");
 		f4.setFieldsort(4);
 		cols.add(f4);
 		
@@ -95,7 +108,7 @@ public class StudioBiz {
 		FieldInfo f8 = new FieldInfo();
 		f8.setTitle("操作");
 		f8.setFixed("right");
-		f8.setMinWidth("60");
+		f8.setMinWidth("70");
 		f8.setAlign("center");
 		f8.setTemplet("#oBar");
 		f8.setFieldsort(8);
@@ -121,6 +134,11 @@ public class StudioBiz {
 		b1.setCss("layui-btn-normal");
 		b1.setArea(1);
 		b1.setSort(1);
+
+		UrlInfo u1 = new UrlInfo();
+		u1.setUrl("/adminui/user/add.html");
+		u1.setMethod("get");
+		b1.setUrl(u1);
 		buttons.add(b1);
 		
 		ButtonInfo b2 = new ButtonInfo();
@@ -158,5 +176,75 @@ public class StudioBiz {
 		return buttons;
 	}
 	
+	public List<TempletInfo> getTempletInfos(){
+		List<TempletInfo> temps = new ArrayList<TempletInfo>();
+		TempletInfo t1 = new TempletInfo();
+		t1.setId("sexType");
+		t1.setField("sex");
+		Map<String,String> values = new HashMap<>();
+		values.put("1", "男");
+		values.put("2", "女");
+		values.put("0", "保密");
+		t1.setValues(values);
+		temps.add(t1);
+		
+		return temps;
+	}
+	
+	public List<FormFieldInfo> getformFields(){
+		List<FormFieldInfo> ffields = new ArrayList<FormFieldInfo>();
+		
+		FormFieldInfo ff1 = new FormFieldInfo();
+		ff1.setLabel("用户名");
+		ff1.setName("username");
+		ff1.setVerify("username");
+		ff1.setType("input");
+		ff1.setRequired(true);
+		ff1.setSort(1);
+		ffields.add(ff1);
+		
+		FormFieldInfo ff2 = new FormFieldInfo();
+		ff2.setLabel("真实姓名");
+		ff2.setName("name");
+		ff2.setType("input");
+		ff2.setRequired(false);
+		ff2.setSort(2);
+		ffields.add(ff2);
+		
+		FormFieldInfo ff3 = new FormFieldInfo();
+		ff3.setLabel("年龄");
+		ff3.setName("age");
+		ff3.setType("input");
+		ff3.setRequired(false);
+		ff3.setSort(3);
+		ffields.add(ff3);
+		
+		FormFieldInfo ff4 = new FormFieldInfo();
+		ff4.setLabel("手机号");
+		ff4.setName("tel");
+		ff4.setType("input");
+		ff4.setRequired(true);
+		ff4.setVerify("tel");
+		ff4.setSort(4);
+		ffields.add(ff4);
+		
+		FormFieldInfo ff5 = new FormFieldInfo();
+		ff5.setLabel("性别");
+		ff5.setName("sex");
+		ff5.setType("select");
+		ff5.setRequired(false);
+		ff5.setTemplet("sexType");
+		ff5.setSort(5);
+		
+		Map<String,String> values = new HashMap<>();
+		values.put("1", "男");
+		values.put("2", "女");
+		values.put("0", "保密");
+		ff5.setValues(values);
+		
+		ffields.add(ff5);
+		
+		return ffields;
+	}
 
 }

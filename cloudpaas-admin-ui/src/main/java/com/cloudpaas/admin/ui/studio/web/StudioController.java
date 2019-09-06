@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cloudpaas.admin.ui.studio.biz.StudioBiz;
 import com.cloudpaas.common.table.FieldInfo;
-import com.cloudpaas.common.table.SimpleTable;
+import com.cloudpaas.common.table.TableInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,8 +34,14 @@ public class StudioController {
 	public String index(ModelMap modelMap){
 		modelMap.addAttribute("table", studioBiz.getTable());
 		modelMap.addAttribute("buttons", studioBiz.getButtons());
+		modelMap.addAttribute("templets", studioBiz.getTempletInfos());
 		//cols();
 		return "admin/studio/index";
+	}
+	@RequestMapping("/add.html")
+	public String add(ModelMap modelMap){
+		modelMap.addAttribute("form", studioBiz.getForm());
+		return "admin/studio/add";
 	}
 	
 	
