@@ -94,6 +94,7 @@ layui.define(['tool','jquery'], function (exports) {
         postRouterAddUrl:tool.getResUrl()+"/router/add.json",
         putRouterEditUrl:tool.getResUrl()+"/router/update.json",
         deleteRouterDelUrl:tool.getResUrl()+"/router/delete.json",
+        deleteGateRouterDelUrl:tool.getResUrl()+"/router/delete2.json",
         deleteBatchRouterUrl:tool.getResUrl()+"/router/deleteBatch.json",
     };
 

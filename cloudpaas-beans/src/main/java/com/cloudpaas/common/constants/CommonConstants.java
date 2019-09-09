@@ -25,6 +25,7 @@ public class CommonConstants {
 	
 	public static final String ADMIN_SERVICE_ID="admin";
 	public static final String PAS_SERVICE_ID = "pas";
+	public static final String GATEWAY_SERVICE_ID = "gateway"; 
 	
 	public static final String ROUTER_KEY = "geteway_routes";
 

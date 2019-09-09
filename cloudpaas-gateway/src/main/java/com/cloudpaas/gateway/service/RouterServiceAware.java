@@ -24,12 +24,12 @@ import reactor.core.publisher.Mono;
  * @date 2019年9月9日 上午10:35:24
  */
 @Service
-public class RouterService implements ApplicationEventPublisherAware {
+public class RouterServiceAware implements ApplicationEventPublisherAware {
 	
 	@Autowired
     private RouteDefinitionWriter     routeDefinitionWriter;
 	@Autowired
-	private RouteDefinitionService redisRouterWriter;
+	private RedisRouteDefinitionRepository redisRouterWriter;
 	
     private ApplicationEventPublisher publisher;
 
@@ -65,7 +65,9 @@ public class RouterService implements ApplicationEventPublisherAware {
     }
     //删除路由
     public Mono<ResponseEntity<Object>> delete(String id) {
-        return this.redisRouterWriter.delete(Mono.just(id)).then(Mono.defer(() -> {
+    	redisRouterWriter.delete(Mono.just(id)).subscribe();
+        return redisRouterWriter.delete(Mono.just(id)).then(Mono.defer(() -> {
+        	//redisRouterWriter.delete(Mono.just(id)).subscribe();
             return Mono.just(ResponseEntity.ok().build());
         })).onErrorResume((t) -> {
             return t instanceof NotFoundException;

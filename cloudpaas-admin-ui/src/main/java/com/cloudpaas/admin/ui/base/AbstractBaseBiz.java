@@ -38,7 +38,7 @@ public abstract class AbstractBaseBiz {
         headers.add("Content-Type", "application/json;charset=utf-8");
         headers.add("Accept", "application/json");
         headers.add("X-Request-sId", getXRequestSID());
-        headers.add(com.cloudpaas.common.constants.CommonConstants.TOKEN_HEADER_KEY, getToken());
+        //headers.add(com.cloudpaas.common.constants.CommonConstants.TOKEN_HEADER_KEY, getToken());
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         return headers;
 	}

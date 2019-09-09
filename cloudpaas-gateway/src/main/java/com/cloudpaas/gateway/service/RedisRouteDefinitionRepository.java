@@ -26,7 +26,7 @@ import reactor.core.publisher.Mono;
  * @date 2019年9月9日 上午10:41:37
  */
 @Service
-public class RouteDefinitionService implements RouteDefinitionRepository {
+public class RedisRouteDefinitionRepository implements RouteDefinitionRepository {
 	
 	//public static final String  GATEWAY_ROUTES = "geteway_routes";
     @Autowired

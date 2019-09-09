@@ -45,21 +45,21 @@ spring:
         locator:
           enabled: false
           lowerCaseServiceId: true
-      routes:
-      - id: cpaas-admin
-        uri: lb://CPAAS-ADMIN
-        order: 8000
-        predicates:
-          - Path=/api/admin/**
-        filters:
-          - StripPrefix=2
-      - id: cpaas-service-pas
-        uri: lb://CPAAS-SERVICE-PAS
-        order: 8001
-        predicates:
-          - Path=/api/pas/**
-        filters:
-          - StripPrefix=2
+#      routes:
+#      - id: cpaas-admin
+#        uri: lb://CPAAS-ADMIN
+#        order: 8000
+#        predicates:
+#          - Path=/api/admin/**
+#        filters:
+#          - StripPrefix=2
+#      - id: cpaas-service-pas
+#        uri: lb://CPAAS-SERVICE-PAS
+#        order: 8001
+#        predicates:
+#          - Path=/api/pas/**
+#        filters:
+#          - StripPrefix=2
   boot:         #添加到springbootadmin服务治理
     admin:
       client:

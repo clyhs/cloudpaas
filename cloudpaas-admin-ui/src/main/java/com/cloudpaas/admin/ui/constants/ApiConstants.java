@@ -57,5 +57,8 @@ public class ApiConstants {
 	public static final String API_ROUTER_ALL_URL = "/router/all.json";
 	public static final String API_ROUTER_ADD_URL = "/router/add.json";
 	
+	//public static final String API_GATEWAY_ROUTER_URL = "http://";
+	
+	
 	
 }

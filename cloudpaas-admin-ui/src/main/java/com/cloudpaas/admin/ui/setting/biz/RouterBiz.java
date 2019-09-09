@@ -25,5 +25,5 @@ public class RouterBiz extends BaseBiz<Router> {
 		// TODO Auto-generated method stub
 		return CommonConstants.ADMIN_SERVICE_ID;
 	}
-
+	
 }

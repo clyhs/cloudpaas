@@ -70,14 +70,14 @@ layui.config({
                 function(){
 	        		$.ajax({
 	                    type:"DELETE",
-	                    url:api.deleteRouterDelUrl+"?id="+data.id,
+	                    url:api.deleteGateRouterDelUrl+"?id="+data.id+"&routerId="+data.routerId,
 	                    dataType:"json",
 	                    contentType:"application/json",
 	                    data:JSON.stringify(data.field),
 	                    success:function(res){
 	                        if(res.code==0){
 	                            parent.layer.msg("删除成功！",{time:1000},function(){
-	                                parent.location.reload();
+	                                location.reload();
 	                            });
 	                        }else{
 	                            layer.msg(res.message,{time:1000},function(){
