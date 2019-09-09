@@ -42,6 +42,7 @@ public class RouterRunner implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		/*
 		PageResponse<Router> routers = routerService.getAll();
 		if(null!=routers && routers.getData().size()>0){
 			for(Router r:routers.getData()){
@@ -54,7 +55,7 @@ public class RouterRunner implements CommandLineRunner{
 				}
 				
 			}
-		}
+		}*/
 	}
 
 	
