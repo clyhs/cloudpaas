@@ -24,7 +24,7 @@
 			    	</#if>
 			    	</label>
 			        <div class="layui-input-block" style="width: 80%">
-			        	<#if item.type eq 'input'>
+			        	<#if item.type=="input">
 			        		<#if item.required??>
 			        			<#if item.verify??>
 			        			<input type="text" class="layui-input" name="${item.name}" style="margin-top: 30px;" lay-verify="required|${item.verify}" placeholder="请输入${item.label}">
@@ -38,7 +38,7 @@
 			        			<input type="text" class="layui-input" name="${item.name}" style="margin-top: 30px;" placeholder="请输入${item.label}">
 			        			</#if>
 			        		</#if>
-			        	<#elseif item.type eq 'select'>
+			        	<#elseif item.type=="select">
 			        		<select name="${item.name}" class="layui-input">
 			        			<#list item.values?keys as key>
 			        			<option value="${key}"> <span>${item.values["${key}"]}</span></option>

@@ -50,6 +50,12 @@ public class ApiConstants {
 	
 	
 
+	public static final String API_ROUTER_SINGLE_URL = "/router/";
+	public static final String API_ROUTER_SELECTONE_URL = "/router/selectOne.json";
+	public static final String API_ROUTER_DELBATCH_URL =  "/router/deleteBatch.json";
+	public static final String API_ROUTER_PAGE_URL = "/router/page.json";
+	public static final String API_ROUTER_ALL_URL = "/router/all.json";
+	public static final String API_ROUTER_ADD_URL = "/router/add.json";
 	
 	
 }

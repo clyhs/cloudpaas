@@ -31,8 +31,9 @@ public enum ErrorCode {
 	LOGINPASSEX(40007,"密码错误"),
 	
 	LOGINLOCKEX(40008,"用户被锁定"),
-	TOKENEX(40009,"用户被锁定");;
+	TOKENEX(40009,"用户被锁定"),
 	
+	GATEWAYEX(40010,"网关更新异常");
 	
 	
 	private Integer code;

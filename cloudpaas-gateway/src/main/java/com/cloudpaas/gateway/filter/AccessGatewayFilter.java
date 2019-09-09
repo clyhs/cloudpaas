@@ -75,7 +75,7 @@ public class AccessGatewayFilter implements GlobalFilter {
 		ServerHttpRequest.Builder mutate = request.mutate();
 		
 		// 不进行拦截的地址
-        if (isStartWith(requestUri)) {
+        if (true/*isStartWith(requestUri)*/) {
         	log.info("*****************requestUri:{}不需要验证",requestUri);
             ServerHttpRequest build = mutate.build();
             return chain.filter(exchange.mutate().request(build).build());

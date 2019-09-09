@@ -15,9 +15,9 @@
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/cpaas_admin_db?useUnicode=true&amp;characterEncoding=UTF8"
+                        connectionURL="jdbc:mysql://192.168.0.7:3306/cpaas_admin_db?useUnicode=true&amp;characterEncoding=UTF8"
                         userId="root"
-                        password="root">
+                        password="tiancom">
         </jdbcConnection>
 
         <javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}"/>
@@ -46,6 +46,7 @@
         <!--</table>-->
         <!--  
         <table tableName="t_user" domainObjectName="User"></table>-->
+        <!--  
         <table tableName="t_user" domainObjectName="AdminUser">
             <generatedKey column="id" identity="true" sqlStatement="myql"/>
         </table>
@@ -60,6 +61,11 @@
         </table>
         <table tableName="t_menu" domainObjectName="AdminMenu">
         <generatedKey column="id" identity="true" sqlStatement="myql"/>
+        </table>
+        -->
+        
+        <table tableName="t_router" domainObjectName="AdminRouter">
+            <generatedKey column="id" identity="true" sqlStatement="myql"/>
         </table>
         
     </context>
