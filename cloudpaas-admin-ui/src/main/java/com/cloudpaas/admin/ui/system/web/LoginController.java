@@ -52,6 +52,7 @@ import com.google.code.kaptcha.Producer;
  * @date 2019年8月15日 下午2:53:55
  */
 @Controller
+@RequestMapping("/")
 public class LoginController {
 	
 	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
@@ -64,28 +65,12 @@ public class LoginController {
 	
 	@Autowired
     private Producer captchaProducer = null;
-	
-    @RequestMapping("/kaptcha")
-    public void getKaptchaImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession();
-        response.setDateHeader("Expires", 0);
-        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
-        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
-        response.setHeader("Pragma", "no-cache");
-        response.setContentType("image/jpeg");
-        //生成验证码
-        String capText = captchaProducer.createText();
-        session.setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
-        //向客户端写出
-        BufferedImage bi = captchaProducer.createImage(capText);
-        ServletOutputStream out = response.getOutputStream();
-        ImageIO.write(bi, "jpg", out);
-        try {
-            out.flush();
-        } finally {
-            out.close();
-        }
-    }
+
+    @RequestMapping("/")
+	public String index(){
+    	log.info("index");
+		return "forward:/home/index.html";
+	}
 	
 	@RequestMapping("/login.html")
 	public String login(){
@@ -126,6 +111,28 @@ public class LoginController {
 		log.info("退出成功");
 		return "redirect:/login.html";
 	}
+	
+	@RequestMapping("/kaptcha")
+    public void getKaptchaImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        response.setDateHeader("Expires", 0);
+        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+        response.setHeader("Pragma", "no-cache");
+        response.setContentType("image/jpeg");
+        //生成验证码
+        String capText = captchaProducer.createText();
+        session.setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
+        //向客户端写出
+        BufferedImage bi = captchaProducer.createImage(capText);
+        ServletOutputStream out = response.getOutputStream();
+        ImageIO.write(bi, "jpg", out);
+        try {
+            out.flush();
+        } finally {
+            out.close();
+        }
+    }
 	
 	@RequestMapping(value="/icon.html")
 	public String icon(){

@@ -21,12 +21,7 @@ import com.cloudpaas.common.model.User;
 @RequestMapping("main")
 public class MainController extends BaseController{
 
-	@RequestMapping("/hello.html")
-    public String hello(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
-        model.addAttribute("name", name);
-        return "hello";
-    }
-	
+
 	@RequestMapping("/index.html")
 	public String index(ModelMap modelMap){
 		User user = getLogin();
@@ -38,11 +33,5 @@ public class MainController extends BaseController{
 	public String main(){
 		return "admin/main";
 	}
-	
-	@RequestMapping("/demo.html")
-	public String demo(){
-		return "admin/demo";
-	}
-
 	
 }
