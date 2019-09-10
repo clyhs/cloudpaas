@@ -91,12 +91,20 @@ public class MultiDataSourceRegister implements EnvironmentAware, ImportBeanDefi
             	DataSourceProperty dp = configs.get(i);
             	log.info("datasource "+" key "+dp.getKey());
             	
-                DataSource consumerDatasource = AtomikosDataSourceUtil.getDataSource(dp); 
-                //获取数据源的key，以便通过该key可以定位到数据源
-                sourceMap.put(dp.getKey(), consumerDatasource); 
-                if(dp.getKey().equals(CommonConstants.DEFAULT_DATASOURCE_KEY)){
-                	defaultDataSource = consumerDatasource;
-                }
+                DataSource consumerDatasource;
+				try {
+					consumerDatasource = AtomikosDataSourceUtil.getDataSource(dp);
+					//获取数据源的key，以便通过该key可以定位到数据源
+	                sourceMap.put(dp.getKey(), consumerDatasource); 
+	                if(dp.getKey().equals(CommonConstants.DEFAULT_DATASOURCE_KEY)){
+	                	defaultDataSource = consumerDatasource;
+	                }
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					log.error(e.getMessage());
+				} 
+                
             }
         	log.info("spring.datasource.druid init end  ...");
         }else{

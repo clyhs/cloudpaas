@@ -25,7 +25,8 @@ spring:
     name: cpaas-all
   datasource:
     name: cpaas-admin-db
-    type: com.alibaba.druid.pool.DruidDataSource
+    #type: com.alibaba.druid.pool.DruidDataSource
+    type: com.alibaba.druid.pool.xa.DruidXADataSource
     #druid相关配置
     druid:
         #监控统计拦截的filters
@@ -76,10 +77,11 @@ spring:
         maxPoolPreparedStatementPerConnectionSize: 20
         filters: stat,wall,log4j2
       - key: dn2
-        url: jdbc:mysql://192.168.0.7:3306/dn2?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
-        username: root
-        password: tiancom
-        driver-class-name: com.mysql.jdbc.Driver
+        #url: jdbc:mysql://192.168.0.7:3306/dn2?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+        url: jdbc:oracle:thin:@192.168.0.17:1521:cpas01
+        username: pas
+        password: pas
+        driver-class-name: oracle.jdbc.driver.OracleDriver
         minIdle: 1
         maxActive: 2
         initialSize: 1
@@ -89,6 +91,30 @@ spring:
         timeBetweenEvictionRunsMillis: 3000
         minEvictableIdleTimeMillis: 300000
         validationQuery: SELECT 'ZTM' FROM DUAL
+        validationQueryTimeout: 10000
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        maxWait: 60000
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,log4j2
+      - key: dn3
+        #url: jdbc:mysql://192.168.0.7:3306/dn2?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+        url: jdbc:db2://192.168.0.17:50000/cpas03
+        username: pas
+        password: pas
+        driver-class-name: com.ibm.db2.jcc.DB2Driver
+        minIdle: 5
+        maxActive: 100
+        initialSize: 5
+        minPoolSize: 5
+        maxPoolSize: 200
+        borrowConnectionTimeout: 60
+        timeBetweenEvictionRunsMillis: 3000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 1 from sysibm.sysdummy1
         validationQueryTimeout: 10000
         testWhileIdle: true
         testOnBorrow: false
@@ -113,6 +139,11 @@ spring:
         min-idle: 50 # 连接池中的最小空闲连接
         max-wait: 6000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
     timeout: 1000
+  data:
+    mongodb:
+      database: test
+      port: 27017
+      host: 127.0.0.1
         
         
 #-----------------------
@@ -121,6 +152,17 @@ mybatis:
   config-locations: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath*:mybatis/mapper/*.xml
   basepackage: com.cloudpaas.**.mapper
+
+pagehelper:
+#  helperDialect: mysql
+  reasonable: false
+  supportMethodsArguments: true
+  params: count=countSql
+# 默认false,当为true时，自动检验适合的数据库
+  auto-dialect: true
+   # 这个一定要加上，不然mysql和oracle分页两个只能用一个，另一个会报错，加上后，两中数据库分页都可以用了
+  auto-runtime-dialect: true
+
 
 logging:
   config: classpath:log4j2.xml

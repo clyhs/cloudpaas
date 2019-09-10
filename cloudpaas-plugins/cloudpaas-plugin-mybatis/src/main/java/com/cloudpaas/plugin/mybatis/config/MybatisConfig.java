@@ -78,7 +78,7 @@ public class MybatisConfig{
 	
 	@Bean("dynamicDataSource")
     public DataSource dynamicDataSource(/*@Qualifier("dataSource_dn1")DataSource dataSource_dn1,
-    		@Qualifier("dataSource_dn2")DataSource dataSource_dn2*/) {
+    		@Qualifier("dataSource_dn2")DataSource dataSource_dn2*/) throws Exception {
 		
 		log.info("-----------开始初始化数据源-------------");
         //log.info(dataSourceProperties.getDruid().size()+"");
@@ -91,7 +91,13 @@ public class MybatisConfig{
 			for(DataSourceProperty dsp:dataSourceProperties.getDruid()){
 				if(null!=dsp){
 					log.debug("datasource "+" key "+dsp.getKey()+":"+JSONUtil.toJson(dsp));
-					dataSource = AtomikosDataSourceUtil.getDataSource(dsp);
+					if(dataSourceProperties.getType().equals("com.alibaba.druid.pool.xa.DruidXADataSource")){
+						log.debug("");
+						dataSource = AtomikosDataSourceUtil.getAtomikosDataSource(dsp);
+					}else{
+						dataSource = AtomikosDataSourceUtil.getDataSource(dsp);
+					}
+					
 					dataSourceMap.put(dsp.getKey(), dataSource);
 					if(dsp.getKey().equals(CommonConstants.DEFAULT_DATASOURCE_KEY)){
 						defaultDataSource = dataSource;

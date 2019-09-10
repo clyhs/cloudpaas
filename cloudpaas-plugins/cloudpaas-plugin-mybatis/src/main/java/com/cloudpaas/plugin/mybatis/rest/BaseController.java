@@ -37,14 +37,14 @@ import io.swagger.annotations.ApiParam;
  *
  * @date 2019年8月8日 下午6:40:59
  */
-public abstract class BaseController<Dao extends ABaseBiz,T> {
+public abstract class BaseController<Biz extends ABaseBiz,T> {
 	
 	protected Logger log = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
     protected HttpServletRequest request;
     @Autowired
-    protected Dao baseDao;
+    protected Biz baseDao;
     
     @ApiOperation(value="添加接口",notes="")
 	@RequestMapping(value = "/add.json",method = RequestMethod.POST)

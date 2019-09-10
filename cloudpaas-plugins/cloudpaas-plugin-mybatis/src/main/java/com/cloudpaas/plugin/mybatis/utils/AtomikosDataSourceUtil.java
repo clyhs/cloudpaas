@@ -13,6 +13,7 @@ import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.core.env.Environment;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.alibaba.druid.pool.xa.DruidXADataSource;
 import com.cloudpaas.plugin.mybatis.prop.DataSourceProperty;
 
@@ -38,10 +39,22 @@ public class AtomikosDataSourceUtil {
         return ds;
     }
 	
-	public static DataSource getDataSource(DataSourceProperty dataDourceProperty){
-		Properties prop = build(dataDourceProperty);
+	public static DataSource getDataSource(DataSourceProperty dataDourceProperty) throws Exception{
+		DataSource dataSource = DruidDataSourceFactory.createDataSource(build(dataDourceProperty));
+		return dataSource;
+	}
+	
+	public static DataSource getAtomikosDataSource(DataSourceProperty dataDourceProperty){
+		Properties prop = null;
 		AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
-		ds.setXaDataSourceClassName(dataSourceClassName);
+		//com.ibm.db2.jcc.DB2XADataSource
+		if(dataDourceProperty.getDriverClassName().equals("com.ibm.db2.jcc.DB2Driver")){
+			ds.setXaDataSourceClassName("com.ibm.db2.jcc.DB2XADataSource");
+			prop = buildDB2(dataDourceProperty);
+		}else{
+			prop = build(dataDourceProperty);
+			ds.setXaDataSourceClassName(dataSourceClassName);
+		}
         ds.setUniqueResourceName(dataDourceProperty.getKey());
         ds.setXaProperties(prop);
 		
@@ -82,6 +95,32 @@ public class AtomikosDataSourceUtil {
         prop.put("timeBetweenEvictionRunsMillis", dataDourceProperty.getTimeBetweenEvictionRunsMillis()+"");
         prop.put("minEvictableIdleTimeMillis", dataDourceProperty.getMinEvictableIdleTimeMillis()+"");
         prop.put("filters", dataDourceProperty.getFilters());
+        return prop;
+    }
+	
+	
+	private static Properties buildDB2(DataSourceProperty dataDourceProperty) {
+        Properties prop = new Properties();
+        
+        Integer dataIndex =dataDourceProperty.getUrl().lastIndexOf("/");
+ 	   	String dataname = dataDourceProperty.getUrl().substring(dataIndex+1);
+ 	   	String prefix = dataDourceProperty.getUrl().substring(0, dataIndex);
+ 	   	Integer db2Index = prefix.lastIndexOf("/");
+ 	   	String server = prefix.substring(db2Index+1);
+ 	    String str[] = server.split(":");
+        prop.put("databaseName", dataname);
+        prop.put("serverName", str[0]);
+        prop.put("portNumber", str[1]);
+        prop.put("user", dataDourceProperty.getUsername());
+        prop.put("password", dataDourceProperty.getPassword());
+        prop.put("driverType", "4");
+//        prop.put("minPoolSize", dataDourceProperty.getMinPoolSize()+"");
+//        prop.put("maxPoolSize", dataDourceProperty.getMaxPoolSize()+"");
+//        prop.put("checkValidConnectionSql", dataDourceProperty.getValidationQuery());
+//        prop.put("blockingTimeoutMillis", "10000");
+        
+        //prop.put("driverClassName", dataDourceProperty.getDriverClassName());
+
         return prop;
     }
    
@@ -125,6 +164,24 @@ public class AtomikosDataSourceUtil {
        prop.put("minEvictableIdleTimeMillis", env.getProperty(prefix + "minEvictableIdleTimeMillis"));
        prop.put("filters", env.getProperty(prefix + "filters"));
        return prop;
+   }
+   
+
+   
+   public static void main(String[] args ){
+	   String url = "jdbc:db2://192.168.0.17:50000/cpas03";
+	   Integer dataIndex = url.lastIndexOf("/");
+	   String dataname = url.substring(dataIndex+1);
+	   System.out.println(dataname);
+	   
+	   String prefix = url.substring(0, dataIndex);
+	   System.out.println(prefix);
+	   
+	   Integer db2Index = prefix.lastIndexOf("/");
+	   
+	   String server = prefix.substring(db2Index+1);
+	   
+	   System.out.println(server);
    }
    
    

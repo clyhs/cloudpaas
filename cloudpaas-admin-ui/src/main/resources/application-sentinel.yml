@@ -39,5 +39,5 @@ logging:
   
   
 adminui:
-  type: ${GATETYPE:path}   #header,path
-  api-url: ${GATEIP:http://localhost}:${GATEPORT:8100}/api   #http://127.0.0.1:8100/api(8100集群网关模式,8200单机模式type必须为header)
+  type: ${GATETYPE:header}   #header,path
+  api-url: ${GATEIP:http://localhost}:${GATEPORT:8200}/api   #http://127.0.0.1:8100/api(8100集群网关模式,8200单机模式type必须为header)

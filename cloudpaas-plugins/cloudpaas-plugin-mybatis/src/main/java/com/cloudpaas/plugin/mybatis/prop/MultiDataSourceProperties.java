@@ -25,5 +25,7 @@ import lombok.Data;
 @ConfigurationProperties(prefix="spring.datasource")
 public class MultiDataSourceProperties {
 
+	private String type;
+	
 	private List<DataSourceProperty> druid = new ArrayList<DataSourceProperty>(); 
 }

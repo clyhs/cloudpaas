@@ -113,7 +113,30 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        
+        <dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<version>10.2.0.3</version>
+		</dependency>
 		
+		<dependency>
+			<groupId>com.ibm.db2.jcc</groupId>
+			<artifactId>db2jcc</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.ibm.db2/db2jcc -->
+		<dependency>
+			<groupId>com.ibm.db2.jcc</groupId>
+			<artifactId>db2java</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.ibm.db2/db2jcc_license_cu -->
+		<dependency>
+			<groupId>com.ibm.db2.jcc</groupId>
+			<artifactId>db2jcc_license_cu</artifactId>
+			<version>0.1</version>
+		</dependency>
 
 	</dependencies>
 	
