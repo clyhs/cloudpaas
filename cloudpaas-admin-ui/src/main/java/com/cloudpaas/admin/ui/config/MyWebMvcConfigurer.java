@@ -22,9 +22,9 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
     
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry){
-        //设置系统访问的默认首页
-        registry.addViewController("/").setViewName("redirect:/home/index.html");
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry){
+//        //设置系统访问的默认首页
+//        registry.addViewController("/").setViewName("redirect:/home/index.html");
+//    }
 }

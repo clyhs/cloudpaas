@@ -234,7 +234,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sub
 	text-align: center;
 	line-height: 1.4;
 	max-width: 155px;
-	background: #ec6952;
+	background: #06a08b;
 	-webkit-border-top-right-radius: 0;
 	-webkit-border-bottom-right-radius: 4px;
 	-webkit-border-bottom-left-radius: 4px;
@@ -301,7 +301,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sub
 }
 
 .header .main-nav .nav .nav-item.active a {
-	color: #ec6952;
+	color: #0ef9e5;
 	background: none;
 	font-weight: bold;
 }
@@ -325,7 +325,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sub
 }
 
 .header .main-nav .nav .nav-item a:hover {
-	color: #ec6952;
+	color: #0ef9e5;
 	background: none;
 }
 
@@ -340,7 +340,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sub
 }
 
 .header .main-nav .nav .nav-item.active {
-	color: #ec6952;
+	color: #0ef9e5;
 }
 
 .header .main-nav .nav .nav-item.last {
@@ -352,7 +352,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sub
 }
 
 .header .main-nav .nav.active>a {
-	background: #e74124;
+	background: #0ef9e5;
 	color: #fff;
 	color: rgba(255, 255, 255, 0.8);
 }
@@ -3733,7 +3733,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sub
 		-moz-background-clip: padding;
 		-webkit-background-clip: padding-box;
 		background-clip: padding-box;
-		color: #ec6952;
+		color: #50564a;
 		background: #fff;
 		padding-left: 0;
 		padding-top: 25px;

@@ -68,8 +68,7 @@ public class LoginController {
 
     @RequestMapping("/")
 	public String index(){
-    	log.info("index");
-		return "forward:/home/index.html";
+		return "redirect:/home/index.html";
 	}
 	
 	@RequestMapping("/login.html")
