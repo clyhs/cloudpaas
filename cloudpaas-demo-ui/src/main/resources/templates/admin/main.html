@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<#include "layout/header.html">
+	<link rel="stylesheet" href="${request.contextPath}/static/css/welcome.css" media="all" />
+<style>
+</style>
+</head>
+<body>
+	<div class="layuimini-container">
+		<div class="layuimini-main">
+			<div class="layui-row layui-col-space15">
+				<div class="layui-col-md8">
+					<div class="layui-row layui-col-space15">
+						<!--  
+						<div class="layui-col-md6">
+							<div class="layui-card">
+								<div class="layui-card-header">
+									<i class="fa fa-warning icon"></i>数据统计
+								</div>
+								<div class="layui-card-body">
+									<div class="welcome-module">
+										<div class="layui-row layui-col-space10">
+											<div class="layui-col-xs6">
+												<div class="panel layui-bg-number">
+													<div class="panel-body">
+														<div class="panel-title">
+															<span class="label pull-right layui-bg-blue">实时</span>
+															<h5>用户统计</h5>
+														</div>
+														<div class="panel-content">
+															<h1 class="no-margins">1234</h1>
+															<small>当前分类总记录数</small>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="layui-col-xs6">
+												<div class="panel layui-bg-number">
+													<div class="panel-body">
+														<div class="panel-title">
+															<span class="label pull-right layui-bg-cyan">实时</span>
+															<h5>商品统计</h5>
+														</div>
+														<div class="panel-content">
+															<h1 class="no-margins">1234</h1>
+															<small>当前分类总记录数</small>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="layui-col-xs6">
+												<div class="panel layui-bg-number">
+													<div class="panel-body">
+														<div class="panel-title">
+															<span class="label pull-right layui-bg-orange">实时</span>
+															<h5>浏览统计</h5>
+														</div>
+														<div class="panel-content">
+															<h1 class="no-margins">1234</h1>
+															<small>当前分类总记录数</small>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="layui-col-xs6">
+												<div class="panel layui-bg-number">
+													<div class="panel-body">
+														<div class="panel-title">
+															<span class="label pull-right layui-bg-green">实时</span>
+															<h5>订单统计</h5>
+														</div>
+														<div class="panel-content">
+															<h1 class="no-margins">1234</h1>
+															<small>当前分类总记录数</small>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>-->
+                        <!-- 
+						<div class="layui-col-md6">
+							<div class="layui-card">
+								<div class="layui-card-header">
+									<i class="fa fa-credit-card icon icon-blue"></i>快捷入口
+								</div>
+								<div class="layui-card-body">
+									<div class="welcome-module">
+										<div class="layui-row layui-col-space10 layuimini-qiuck">
+											<div class="layui-col-xs3 layuimini-qiuck-module">
+												<a href="javascript:;" th:data-iframe-tab="@{/menu/index.html?mpi=m-p-i-3}"
+													data-title="菜单管理" data-icon="fa fa-window-maximize"> <i
+													class="fa fa-window-maximize"></i> <cite>菜单管理</cite>
+												</a>
+											</div>
+											
+											<div class="layui-col-xs3 layuimini-qiuck-module">
+												<a href="javascript:;" data-iframe-tab="page/setting.html"
+													data-title="系统设置" data-icon="fa fa-gears"> <i
+													class="fa fa-gears"></i> <cite>系统设置</cite>
+												</a>
+											</div>
+											<div class="layui-col-xs3 layuimini-qiuck-module">
+												<a href="javascript:;" data-iframe-tab="page/table.html"
+													data-title="表格示例" data-icon="fa fa-file-text"> <i
+													class="fa fa-file-text"></i> <cite>表格示例</cite>
+												</a>
+											</div>
+											<div class="layui-col-xs3 layuimini-qiuck-module">
+												<a href="javascript:;" data-iframe-tab="page/icon.html"
+													data-title="图标列表" data-icon="fa fa-dot-circle-o"> <i
+													class="fa fa-dot-circle-o"></i> <cite>图标列表</cite>
+												</a>
+											</div>
+											<div class="layui-col-xs3 layuimini-qiuck-module">
+												<a href="javascript:;" data-iframe-tab="page/form.html"
+													data-title="表单示例" data-icon="fa fa-calendar"> <i
+													class="fa fa-calendar"></i> <cite>表单示例</cite>
+												</a>
+											</div>
+											<div class="layui-col-xs3 layuimini-qiuck-module">
+												<a href="javascript:;" data-iframe-tab="page/404.html"
+													data-title="404页面" data-icon="fa fa-hourglass-end"> <i
+													class="fa fa-hourglass-end"></i> <cite>404页面</cite>
+												</a>
+											</div>
+											<div class="layui-col-xs3 layuimini-qiuck-module">
+												<a href="javascript:;" data-iframe-tab="page/button.html"
+													data-title="按钮示例" data-icon="fa fa-snowflake-o"> <i
+													class="fa fa-snowflake-o"></i> <cite>按钮示例</cite>
+												</a>
+											</div>
+											<div class="layui-col-xs3 layuimini-qiuck-module">
+												<a href="javascript:;" data-iframe-tab="page/layer.html"
+													data-title="弹出层" data-icon="fa fa-shield"> <i
+													class="fa fa-shield"></i> <cite>弹出层</cite>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						-->
+						
+						<div class="layui-col-md12">
+	                        <div class="layui-card">
+	                            <div class="layui-card-header">
+	                            	<i class="fa fa-credit-card icon icon-blue">快捷入口</i>
+	                            </div>
+	                            <div class="layui-card-body">
+	                                <div class="welcome-module">
+	                                	<div class="layui-row layui-col-space10 layuimini-qiuck">
+	                                		<div class="layui-col-xs3 layuimini-qiuck-module">
+												<a href="javascript:;" data-iframe-tab="${request.contextPath}/menu/index.html?mpi=m-p-i-3"
+													data-title="菜单管理" data-icon="fa fa-window-maximize"> <i
+													class="fa fa-window-maximize"></i> <cite>菜单管理</cite>
+												</a>
+											</div>
+											<div class="layui-col-xs3 layuimini-qiuck-module">
+												<a href="javascript:;" data-iframe-tab="${request.contextPath}/menu/index.html?mpi=m-p-i-3"
+													data-title="菜单管理" data-icon="fa fa-window-maximize"> <i
+													class="fa fa-window-maximize"></i> <cite>菜单管理</cite>
+												</a>
+											</div>
+											
+	                                	</div>
+	                                
+	                                </div>
+	                            </div>
+	                        </div>
+                    	</div>
+						
+						
+						<!--  
+						<div class="layui-col-md12">
+	                        <div class="layui-card">
+	                            <div class="layui-card-header"><i class="fa fa-line-chart icon"></i>报表统计</div>
+	                            <div class="layui-card-body">
+	                                <div id="echarts-records" style="width: 100%;min-height:500px"></div>
+	                            </div>
+	                        </div>
+                    	</div>
+                    	-->
+                    	
+                    	
+					</div>
+				</div>
+				
+				
+				<div class="layui-col-md4">
+					<div class="layui-card">
+	                    <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>系统公告</div>
+	                    <div class="layui-card-body layui-text">
+	                        <div class="layuimini-notice">
+	                            <div class="layuimini-notice-title">测试</div>
+	                            <div class="layuimini-notice-extra">2019-08-27 23:06</div>
+	                            <div class="layuimini-notice-content layui-hide">
+	                            	界面足够简洁清爽。<br>
+	                              	  一个接口几行代码而已直接初始化整个框架，无需复杂操作。
+	                            </div>
+	                        </div>
+	                        
+	                        
+	                        
+	                        
+	                        
+	                    </div>
+	                </div>
+				</div>
+				
+			</div>
+		</div>
+		
+
+	</div>
+
+	<!-- javascript -->
+	<script type="text/javascript" src="${request.contextPath}/static/js/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="${request.contextPath}/static/js/config.js"></script>
+
+</body>
+</html>
+
+<script>
+	layui.config({
+		base : $config.context+"/static/js/extends/",
+		version : true
+	}).extend({
+        "adminui": "adminui"
+    });
+    layui.use(['layer', 'adminui'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer;
+
+        /**
+         * 查看公告信息
+         **/
+        $('body').on('click', '.layuimini-notice', function () {
+            var title = $(this).children('.layuimini-notice-title').text(),
+                noticeTime = $(this).children('.layuimini-notice-extra').text(),
+                content = $(this).children('.layuimini-notice-content').html();
+            var html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
+                '<div style="text-align: center;margin-bottom: 20px;font-weight: bold;border-bottom:1px solid #718fb5;padding-bottom: 5px"><h4 class="text-danger">' + title + '</h4></div>\n' +
+                '<div style="font-size: 12px">' + content + '</div>\n' +
+                '</div>\n';
+            parent.layer.open({
+                type: 1,
+                title: '系统公告'+'<span style="float: right;right: 1px;font-size: 12px;color: #b1b3b9;margin-top: 1px">'+noticeTime+'</span>',
+                area: '300px;',
+                shade: 0.8,
+                id: 'layuimini-notice',
+                btn: ['查看', '取消'],
+                btnAlign: 'c',
+                moveType: 1,
+                content:html,
+                success: function (layero) {
+                    var btn = layero.find('.layui-layer-btn');
+                    btn.find('.layui-layer-btn0').attr({
+                        href: '#',
+                        target: '_blank'
+                    });
+                }
+            });
+        });
+
+    });
+</script>
