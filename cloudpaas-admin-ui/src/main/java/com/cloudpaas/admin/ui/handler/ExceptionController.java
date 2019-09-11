@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.cloudpaas.admin.ui.base.ResponseBean;
+import com.cloudpaas.common.result.BaseResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,16 +27,16 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(ShiroException.class)
     @ResponseBody
-    public ResponseBean handle401(ShiroException e) {
-        return new ResponseBean(401, e.getMessage(), null);
+    public BaseResponse handle401(ShiroException e) {
+        return new BaseResponse(401, e.getMessage());
     }
 
     // 捕捉UnauthorizedException
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
     @ResponseBody
-    public ResponseBean handle401() {
-        return new ResponseBean(401, "Unauthorized", null);
+    public BaseResponse handle401() {
+        return new BaseResponse(401, "Unauthorized");
     }
     
 
@@ -46,8 +46,8 @@ public class ExceptionController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ResponseBean globalException(HttpServletRequest request, Throwable ex) {
-        return new ResponseBean(getStatus(request).value(), ex.getMessage(), null);
+    public BaseResponse globalException(HttpServletRequest request, Throwable ex) {
+        return new BaseResponse(getStatus(request).value(), ex.getMessage());
     }
 
     private HttpStatus getStatus(HttpServletRequest request) {

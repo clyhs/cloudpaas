@@ -34,11 +34,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
 
-import com.cloudpaas.admin.ui.base.ResponseBean;
 import com.cloudpaas.admin.ui.utils.CodeUtil;
 
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.User;
+import com.cloudpaas.common.result.BaseResponse;
 import com.cloudpaas.common.utils.ErrorCode;
 import com.cloudpaas.plugin.redis.anno.CacheClear;
 import com.cloudpaas.plugin.redis.anno.CacheWrite;
@@ -78,27 +78,27 @@ public class LoginController {
 	
 	@RequestMapping(value="/login.json",method = RequestMethod.POST)
 	@ResponseBody
-    public ResponseBean login(HttpServletRequest request,String username,String password,String captcha){
+    public BaseResponse login(HttpServletRequest request,String username,String password,String captcha){
 		
 		log.info("----------------"+username+","+captcha+"---------------------");
 		if(!CodeUtil.checkVerifyCode(request)){
-			return new ResponseBean(ErrorCode.LOGINCODEEX.getCode(),"验证码错误",null);
+			return new BaseResponse(ErrorCode.LOGINCODEEX.getCode(),"验证码错误");
 		}
 		try{
 			Subject subject = SecurityUtils.getSubject();
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			subject.login(token);
 		}catch (UnknownAccountException e) {
-			return new ResponseBean(ErrorCode.ACCOUNTEX.getCode(),e.getMessage(),null);
+			return new BaseResponse(ErrorCode.ACCOUNTEX.getCode(),e.getMessage());
 		}catch (LockedAccountException e) {
-			return new ResponseBean(ErrorCode.LOGINLOCKEX.getCode(),"账号已被锁定,请联系管理员",null);
+			return new BaseResponse(ErrorCode.LOGINLOCKEX.getCode(),"账号已被锁定,请联系管理员");
 		}catch (IncorrectCredentialsException e) {
-			return new ResponseBean(ErrorCode.LOGINPASSEX.getCode(),"密码不正确",null);
+			return new BaseResponse(ErrorCode.LOGINPASSEX.getCode(),"密码不正确");
 		}catch (AuthenticationException e) {
-			return new ResponseBean(ErrorCode.AUTHEX.getCode(),"账户验证失败",null);
+			return new BaseResponse(ErrorCode.AUTHEX.getCode(),"账户验证失败");
 		}
 		log.info("登录成功");
-		return new ResponseBean(0,"登录成功",null);
+		return new BaseResponse(0,"登录成功");
 	}
 	
 
