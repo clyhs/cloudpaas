@@ -24,7 +24,7 @@ import com.cloudpaas.common.model.Menu;
 import com.cloudpaas.common.result.PageResponse;
 import com.cloudpaas.common.utils.JSONUtil;
 import com.cloudpaas.common.utils.TreeUtil;
-import com.cloudpaas.plugin.mybatis.rest.BaseController;
+import com.cloudpaas.plugin.mybatis.rest.SimpleRestController;
 import com.google.gson.Gson;
 
 import io.swagger.annotations.Api;
@@ -41,7 +41,7 @@ import io.swagger.annotations.ApiParam;
 @Api(tags="menu api",value = "/menu", description = "菜单操作接口")
 @RestController
 @RequestMapping("menu")
-public class AdminMenuController extends BaseController<AdminMenuBiz,Menu> {
+public class AdminMenuController extends SimpleRestController<AdminMenuBiz,Menu> {
 
 	//@Autowired
 	//private AdminMenuDao adminMenuDao;

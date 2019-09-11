@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiParam;
  *
  * @date 2019年8月8日 下午6:40:59
  */
-public abstract class BaseController<Biz extends ABaseBiz,T> {
+public abstract class SimpleRestController<Biz extends ABaseBiz,T> {
 	
 	protected Logger log = LoggerFactory.getLogger(getClass());
 	

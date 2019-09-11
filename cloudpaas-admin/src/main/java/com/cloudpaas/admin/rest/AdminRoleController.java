@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cloudpaas.admin.biz.AdminRoleBiz;
 import com.cloudpaas.common.model.Role;
-import com.cloudpaas.plugin.mybatis.rest.BaseController;
+import com.cloudpaas.plugin.mybatis.rest.SimpleRestController;
 
 import io.swagger.annotations.Api;
 
@@ -20,6 +20,6 @@ import io.swagger.annotations.Api;
 @Api(tags="role api",value = "/role", description = "角色操作接口")
 @RestController
 @RequestMapping("role")
-public class AdminRoleController extends BaseController<AdminRoleBiz, Role> {
+public class AdminRoleController extends SimpleRestController<AdminRoleBiz, Role> {
 
 }

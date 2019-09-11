@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cloudpaas.pas.model.PasGryj;
-import com.cloudpaas.plugin.mybatis.rest.BaseController;
+import com.cloudpaas.plugin.mybatis.rest.SimpleRestController;
 import com.cloudpaas.service.pas.biz.PasGryjBiz;
 
 import io.swagger.annotations.Api;
@@ -25,7 +25,7 @@ import io.swagger.annotations.Api;
 @Api(tags="gryj api",value = "/gryj", description = "个人业绩操作接口")
 @RestController
 @RequestMapping("gryj")
-public class PasGryjController extends BaseController<PasGryjBiz,PasGryj> {
+public class PasGryjController extends SimpleRestController<PasGryjBiz,PasGryj> {
 	
 
 }

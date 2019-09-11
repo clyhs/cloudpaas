@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cloudpaas.admin.biz.AdminRouterBiz;
 import com.cloudpaas.gateway.model.Router;
-import com.cloudpaas.plugin.mybatis.rest.BaseController;
+import com.cloudpaas.plugin.mybatis.rest.SimpleRestController;
 
 import io.swagger.annotations.Api;
 
@@ -20,6 +20,6 @@ import io.swagger.annotations.Api;
 @Api(tags="router api",value = "/router", description = "路由操作接口")
 @RestController
 @RequestMapping("router")
-public class AdminRouterController extends BaseController<AdminRouterBiz, Router> {
+public class AdminRouterController extends SimpleRestController<AdminRouterBiz, Router> {
 
 }

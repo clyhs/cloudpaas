@@ -3,7 +3,7 @@ import com.cloudpaas.admin.biz.AdminUserBiz;
 import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectResponse;
-import com.cloudpaas.plugin.mybatis.rest.BaseController;
+import com.cloudpaas.plugin.mybatis.rest.SimpleRestController;
 import com.google.common.collect.Lists;
 
 import io.swagger.annotations.Api;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags="user api",value = "/user", description = "用户操作接口")
 @RestController
 @RequestMapping("user")
-public class AdminUserController extends BaseController<AdminUserBiz, User>{
+public class AdminUserController extends SimpleRestController<AdminUserBiz, User>{
 	
 	
     
