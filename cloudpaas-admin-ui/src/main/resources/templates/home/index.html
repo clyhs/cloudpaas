@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
 <head>
-    <title>CLOUD PAAS</title>
+    <title>CLOUD PAAS 云平台</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,22 +43,24 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active nav-item"><a href="${request.contextPath}/home/index.html">首页</a></li>
-                        <li class="nav-item"><a href="features.html">Features</a></li>
-                        <li class="nav-item"><a href="pricing.html">Pricing</a></li>
                         <li class="nav-item dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">Pages <i class="fa fa-angle-down"></i></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">文档<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="download.html">Download Apps</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="blog-single.html">Blog Single</a></li>
-                                <li><a href="blog-category.html">Blog Category</a></li>
-                                <li><a href="blog-archive.html">Blog Archive</a></li>
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="contact.html">Contact</a></li>                    
+                                <li><a href="#">接口文档</a></li>
+                                <li><a href="#">开发手册</a></li>              
+                            </ul>                            
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">下载<i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">前端演示源码</a></li>
+                                <li><a href="#">后端演示源码</a></li>                 
                             </ul>                            
                         </li><!--//dropdown-->                         
-                        <li class="nav-item"><a href="login.html">Log in</a></li>
+                        <li class="nav-item"><a href="${request.contextPath}/login.html">登录</a></li>
+                        <!--  
                         <li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="signup.html">Sign Up Free</a></li>
+                        -->
                     </ul><!--//nav-->
                 </div><!--//navabr-collapse-->
             </nav><!--//main-nav-->                     
@@ -79,8 +81,8 @@
         <div class="container text-center">                
             <h2 class="title">新一代云平台<br />Cloud PaaS</h2>
             <!--  
-            <p class="intro"><br /></p>-->
-            <p><a class="btn btn-cta btn-cta-primary" href="#">login</a></p>   
+            <p class="intro"><br /></p>
+            <p><a class="btn btn-cta btn-cta-primary" href="#">login</a></p>-->
             <!-- 
             <button type="button" class="play-trigger btn-link " data-toggle="modal" data-target="#modal-video" ><i class="fa fa-youtube-play"></i> 观看视频</button>-->
         </div><!--//container-->
@@ -90,24 +92,29 @@
     
     	<section id="why" class="section why">
     		<div class="container">
-    			<h2 class="title text-center">如何使用？</h2>
+    			<h2 class="title text-center">基础平台</h2>
     			<div class="row item">
                     <div class="content col-xs-12 col-md-4">
-                        <h3 class="title">title</h3>
+                        <h3 class="title">基础平台是干什么的？</h3>
                         <div class="desc">
-                            <p>描述：</p>
-                            <p></p>
+                            <p>管理整个集群的基础信息</p>
+                            <p>如：运维，监控，接入鉴权等</p>
                         </div>
                         <div class="quote">
-                            <!--//profile-->
+                            <div class="quote-profile">
+                                <img class="img-responsive img-circle" src="${request.contextPath}/static/home/images/people/people-1.png" width="70" height="70" alt="" />
+                            </div><!--//profile-->
                             <div class="quote-content">
-                                <blockquote><p>...</p></blockquote>
-                                <p class="source">...</p>
-                            </div><!--//quote-content-->                                     
+                                <blockquote><p>
+                                 	<a href="" target="_blank">单机模式需要基础平台吗？</a>不需要，单机部署只需要绩效应用，基础平台的系统管理部分会迁入绩效应用中。 
+                                </p></blockquote>
+                                <p class="source">@tiancom</p>
+                            </div>
+                            <!--//quote-content-->                                     
                         </div><!--//quote-->                        
                     </div><!--//content-->
                     <figure class="figure col-md-offset-1 col-sm-offset-0 col-xs-offset-0 col-xs-12 col-md-7">
-                        <img class="img-responsive" src="${request.contextPath}/static/home/images/figures/figure-1.png" alt="" />
+                        <img class="img-responsive" src="${request.contextPath}/static/home/images/figures/cpaas-1.png" alt="" />
                         <figcaption class="figure-caption">(图-01) </figcaption>
                     </figure>
                 </div>
@@ -143,7 +150,6 @@
                             <h3 class="title">支持</h3>
                             <ul class="list-unstyled">
                                 <li><a href="#"><i class="fa fa-caret-right"></i>帮助</a></li>
-                                <li><a href="#"><i class="fa fa-caret-right"></i>文档</a></li>
                                 <li><a href="#"><i class="fa fa-caret-right"></i>团队</a></li>
                             </ul>
                         </div><!--//footer-col-inner-->            
