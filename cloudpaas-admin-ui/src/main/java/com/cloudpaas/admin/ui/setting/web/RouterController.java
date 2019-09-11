@@ -33,6 +33,8 @@ import com.google.common.collect.Maps;
 @Controller
 @RequestMapping("router")
 public class RouterController extends UISimpleController<RouterBiz, Router> {
+
+
 	@Autowired
 	private GatewayRouterBiz gatewayRouterBiz;
 	
@@ -55,7 +57,7 @@ public class RouterController extends UISimpleController<RouterBiz, Router> {
 		if(null!=user){
 			params.put("db", user.getCorp().getCorpdbcode());
 		}
-		ObjectResponse<Router> result= baseBiz.add(entity,singleUrl()+ addUrl,params);
+		ObjectResponse<Router> result= getBaseBiz().add(entity,singleUrl()+ addUrl,params);
 		gatewayRouterBiz.add(entity);
 		return result;
 	}
@@ -66,7 +68,7 @@ public class RouterController extends UISimpleController<RouterBiz, Router> {
 		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
 		Router rp = new Router();
 		rp.setId(id);
-		Router router =baseBiz.get(rp, ApiConstants.API_ROUTER_SELECTONE_URL,params);
+		Router router =getBaseBiz().get(rp, ApiConstants.API_ROUTER_SELECTONE_URL,params);
 		modelMap.put("router", router);
 		return "admin/setting/routerEdit";
 	}
@@ -76,7 +78,7 @@ public class RouterController extends UISimpleController<RouterBiz, Router> {
 	public ObjectResponse<Router> update(@RequestBody Router entity){
 		Map<String, Object> params = Maps.newHashMap();
 		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
-		ObjectResponse<Router> result= baseBiz.update(entity, entity.getId(), 
+		ObjectResponse<Router> result= getBaseBiz().update(entity, entity.getId(), 
 				ApiConstants.API_ROUTER_SELECTONE_URL,params);
 		
 		gatewayRouterBiz.update(entity);
@@ -92,7 +94,7 @@ public class RouterController extends UISimpleController<RouterBiz, Router> {
 		if(null!=user){
 			params.put("db", user.getCorp().getCorpdbcode());
 		}
-		ObjectResponse<Router> result= baseBiz.remove(id, singleUrl(),params);
+		ObjectResponse<Router> result= getBaseBiz().remove(id, singleUrl(),params);
 
 		gatewayRouterBiz.delete(routerId);
 		return result;

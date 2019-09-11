@@ -23,6 +23,7 @@ import com.cloudpaas.pas.model.PasGryj;
 @RequestMapping("gryj")
 public class GryjController extends UISimpleController<GryjBiz,PasGryj>{
 	
+
 	@RequestMapping("/index.html")
 	public String index(){
 		return "admin/pas/gryj";

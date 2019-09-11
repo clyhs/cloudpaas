@@ -64,7 +64,7 @@ public class RoleController extends UISimpleController<RoleBiz,Role>{
 		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
 		Role rp = new Role();
 		rp.setId(id);
-		Role role =baseBiz.get(rp, ApiConstants.API_ROLE_SELECTONE_URL,params);
+		Role role =getBaseBiz().get(rp, ApiConstants.API_ROLE_SELECTONE_URL,params);
 		modelMap.put("role", role);
 		return "admin/system/roleEdit";
 	}
@@ -75,7 +75,7 @@ public class RoleController extends UISimpleController<RoleBiz,Role>{
 	public ObjectResponse<Role> update(@RequestBody Role entity){
 		Map<String, Object> params = Maps.newHashMap();
 		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
-		ObjectResponse<Role> result= baseBiz.update(entity, entity.getId(), 
+		ObjectResponse<Role> result= getBaseBiz().update(entity, entity.getId(), 
 				ApiConstants.API_ROLE_SINGLE_URL,params);
 		return result;
 	}

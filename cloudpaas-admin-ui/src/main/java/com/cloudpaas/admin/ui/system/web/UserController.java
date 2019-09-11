@@ -49,7 +49,7 @@ public class UserController extends UISimpleController<UserBiz,User>{
 	public String edit(@RequestParam Integer id,ModelMap modelMap){
 		Map<String, Object> params = Maps.newHashMap();
 		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
-		User entity = baseBiz.get(id, ApiConstants.API_USER_SINGLE_URL,params);
+		User entity = getBaseBiz().get(id, ApiConstants.API_USER_SINGLE_URL,params);
 		modelMap.put("user", entity);
 		return "admin/system/userEdit";
 	}
@@ -66,7 +66,7 @@ public class UserController extends UISimpleController<UserBiz,User>{
 		user.setSalt(salt);
 		String password = ShiroPassUtil.shiroEncryp2timeAndMd5(user.getPassword(), salt);
 		user.setPassword(password);
-		baseBiz.add(user, ApiConstants.API_USER_ADD_URL,params);
+		getBaseBiz().add(user, ApiConstants.API_USER_ADD_URL,params);
 		
 		return result;
 	}
@@ -77,7 +77,7 @@ public class UserController extends UISimpleController<UserBiz,User>{
 	public ObjectResponse<User> update(@RequestBody User entity){
 		Map<String, Object> params = Maps.newHashMap();
 		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
-		ObjectResponse<User> result= baseBiz.update(entity, entity.getId(), 
+		ObjectResponse<User> result= getBaseBiz().update(entity, entity.getId(), 
 				ApiConstants.API_USER_SINGLE_URL,params);
 		return result;
 	}

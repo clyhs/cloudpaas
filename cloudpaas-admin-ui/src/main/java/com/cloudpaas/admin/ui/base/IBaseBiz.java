@@ -6,6 +6,8 @@ package com.cloudpaas.admin.ui.base;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpHeaders;
+
 import com.cloudpaas.common.result.ObjectResponse;
 import com.cloudpaas.common.result.PageResponse;
 
@@ -15,6 +17,8 @@ import com.cloudpaas.common.result.PageResponse;
  * @date 2019年8月23日 上午11:27:05
  */
 public interface IBaseBiz<T> {
+	
+	public void setHttpHeaders(Map<String,String> headers);
 
 	public ObjectResponse<T> add(T t,String url,Map<String, Object> params);
 	

@@ -37,4 +37,11 @@ public class BaseController {
 	}
 	
 	
+	protected String getToken(){
+		Session session = SecurityUtils.getSubject().getSession();
+		String token = (String) session.getAttribute(CommonConstants.USER_TOKEN);
+		return token;
+	}
+	
+	
 }

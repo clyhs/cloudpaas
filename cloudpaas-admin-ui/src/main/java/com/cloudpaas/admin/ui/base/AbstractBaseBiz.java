@@ -3,6 +3,9 @@
  */
 package com.cloudpaas.admin.ui.base;
 
+import java.util.Iterator;
+import java.util.Map;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.slf4j.Logger;
@@ -25,7 +28,7 @@ public abstract class AbstractBaseBiz {
 	
 	protected Logger log = LoggerFactory.getLogger(getClass());
 
-	HttpHeaders headers;
+	HttpHeaders headers = new HttpHeaders();
 	
 	@Autowired
 	protected RestTemplate restTemplate;
@@ -33,14 +36,22 @@ public abstract class AbstractBaseBiz {
 	@Autowired
 	protected AdminUIProperites auiProp;
 	
-	protected HttpHeaders getHttpHeaders(){
-		headers = new HttpHeaders();
+	public HttpHeaders getHttpHeaders(){
         headers.add("Content-Type", "application/json;charset=utf-8");
         headers.add("Accept", "application/json");
         headers.add("X-Request-sId", getXRequestSID());
-        headers.add(com.cloudpaas.common.constants.CommonConstants.TOKEN_HEADER_KEY, getToken());
+        //headers.add(CommonConstants.TOKEN_HEADER_KEY, getToken());
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         return headers;
+	}
+	
+	public void setHttpHeaders(Map<String,String> header){
+		Iterator<String> it = header.keySet().iterator();
+		while(it.hasNext()){
+			String key = (String) it.next();
+			String value = header.get(key);
+			headers.add(key, value);
+		}
 	}
 	
 	private String getXRequestSID(){
@@ -57,17 +68,20 @@ public abstract class AbstractBaseBiz {
 		}
 	}
 	
-	protected String getToken(){
-		Session session = SecurityUtils.getSubject().getSession();
-		String token = (String) session.getAttribute(CommonConstants.USER_TOKEN);
-		return token;
-	}
 	
+	/*
 	protected User getUser(){
 		Session session = SecurityUtils.getSubject().getSession();
 		User user = (User) session.getAttribute(CommonConstants.USER_SESSION_ID);
 		return user;
 	}
+	*/
+	/*
+	protected String getToken(){
+		Session session = SecurityUtils.getSubject().getSession();
+		String token = (String) session.getAttribute(CommonConstants.USER_TOKEN);
+		return token;
+	}*/
 	
 	public abstract String getSID();
 

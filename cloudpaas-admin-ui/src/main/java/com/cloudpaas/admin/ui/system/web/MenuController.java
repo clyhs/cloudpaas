@@ -51,7 +51,7 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 	@ResponseBody
 	public List<MenuTreeVo> getMenuTrees(){
 		List<MenuTreeVo> trees = new ArrayList<MenuTreeVo>();
-		trees = baseBiz.getMenuTree();
+		trees = getBaseBiz().getMenuTree();
 		return trees;
 	}
 	
@@ -60,7 +60,7 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 		Map<String, Object> params = Maps.newHashMap();
 		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
 		if(pId != null){
-            Menu menu = baseBiz.get(Integer.valueOf(pId), ApiConstants.API_MENU_SINGLE_URL,params);
+            Menu menu = getBaseBiz().get(Integer.valueOf(pId), ApiConstants.API_MENU_SINGLE_URL,params);
             modelMap.put("parentMenu",menu);
         }
 		return "admin/system/menuAdd";
@@ -70,7 +70,7 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 	public String edit(@RequestParam Integer id,ModelMap modelMap){
 		Map<String, Object> params = Maps.newHashMap();
 		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
-		Menu menu = baseBiz.get(id, ApiConstants.API_MENU_SINGLE_URL,params);
+		Menu menu = getBaseBiz().get(id, ApiConstants.API_MENU_SINGLE_URL,params);
 		modelMap.put("menu", menu);
 		return "admin/system/menuEdit";
 	}
@@ -80,7 +80,7 @@ public class MenuController extends UISimpleController<MenuBiz,Menu>{
 	public ObjectResponse<Menu> update(@RequestBody Menu entity){
 		Map<String, Object> params = Maps.newHashMap();
 		params.put("db", CommonConstants.DEFAULT_DATASOURCE_KEY);
-		ObjectResponse<Menu> result= baseBiz.update(entity, entity.getId(), 
+		ObjectResponse<Menu> result= getBaseBiz().update(entity, entity.getId(), 
 				ApiConstants.API_MENU_SINGLE_URL,params);
 		return result;
 	}

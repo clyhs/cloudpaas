@@ -3,12 +3,16 @@
  */
 package com.cloudpaas.admin.ui.base;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import com.cloudpaas.admin.ui.constants.ApiConstants;
-
+import com.cloudpaas.common.constants.CommonConstants;
 import com.cloudpaas.common.model.Role;
 import com.cloudpaas.common.model.User;
 import com.cloudpaas.common.result.ObjectResponse;
@@ -34,13 +38,19 @@ import com.google.common.collect.Maps;
 public abstract class UISimpleController<Biz extends IBaseBiz<T>,T> extends BaseController {
 
 	@Autowired
-	protected Biz baseBiz;
+	private Biz baseBiz;
 	
 	protected String addUrl = "add.json";
 	protected String pageUrl = "page.json";
 	protected String delBatchUrl = "deleteBatch.json";
 	protected String allUrl = "all.json";
 	protected String selectOneUrl = "selectOne.json";
+
+	protected Biz getBaseBiz(){
+		setTokenHeader();
+		return baseBiz;
+	}
+	
 	
 	/**
 	 * 添加对象
@@ -59,7 +69,8 @@ public abstract class UISimpleController<Biz extends IBaseBiz<T>,T> extends Base
 		if(null!=user){
 			params.put("db", user.getCorp().getCorpdbcode());
 		}
-		ObjectResponse<T> result= baseBiz.add(entity,singleUrl()+ addUrl,params);
+		
+		ObjectResponse<T> result= getBaseBiz().add(entity,singleUrl()+ addUrl,params);
 		return result;
 	}
 	/**
@@ -83,7 +94,8 @@ public abstract class UISimpleController<Biz extends IBaseBiz<T>,T> extends Base
 		if(null!=user){
 			params.put("db", user.getCorp().getCorpdbcode());
 		}
-		PageResponse<T> result= baseBiz.list(params, singleUrl()+pageUrl);
+		
+		PageResponse<T> result= getBaseBiz().list(params, singleUrl()+pageUrl);
 		return result;
 	}
 	
@@ -95,7 +107,8 @@ public abstract class UISimpleController<Biz extends IBaseBiz<T>,T> extends Base
 		if(null!=user){
 			params.put("db", user.getCorp().getCorpdbcode());
 		}
-		PageResponse<T> result= baseBiz.all(singleUrl()+allUrl,params);
+		
+		PageResponse<T> result= getBaseBiz().all(singleUrl()+allUrl,params);
 		return result;
 	}
 	
@@ -108,7 +121,8 @@ public abstract class UISimpleController<Biz extends IBaseBiz<T>,T> extends Base
 		if(null!=user){
 			params.put("db", user.getCorp().getCorpdbcode());
 		}
-		ObjectResponse<T> result= baseBiz.remove(id, singleUrl(),params);
+		
+		ObjectResponse<T> result= getBaseBiz().remove(id, singleUrl(),params);
 		return result;
 	}
 	
@@ -121,10 +135,18 @@ public abstract class UISimpleController<Biz extends IBaseBiz<T>,T> extends Base
 		if(null!=user){
 			params.put("db", user.getCorp().getCorpdbcode());
 		}
-		ObjectResponse<T> result= baseBiz.deleteBatch(lists, singleUrl()+delBatchUrl,params);
+		
+		ObjectResponse<T> result= getBaseBiz().deleteBatch(lists, singleUrl()+delBatchUrl,params);
 		return result;
 	}
 	
 	public abstract String singleUrl();
+	
+	private void setTokenHeader(){
+		Map<String,String> headers = new HashMap<>();
+		headers.put(CommonConstants.TOKEN_HEADER_KEY, getToken());
+		log.info("token:{}",getToken());
+		baseBiz.setHttpHeaders(headers);
+	}
 
 }
